@@ -5,6 +5,6 @@ export const router = createBrowserRouter([
   ...exempleRoutes,
   {
     path: "/",
-    element: <p style={{padding: "20px", fontSize: "32px", fontWeight: "500"}}>Em construção... 🧱</p>,
+    element: <div>Home</div>,
   },
 ]);
