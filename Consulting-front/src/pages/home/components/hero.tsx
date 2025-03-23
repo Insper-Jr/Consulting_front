@@ -85,6 +85,6 @@ const CTAButton = styled.button`
   transition: background 0.3s;
 
   &:hover {
-    opacity: 0.7;
+    opacity: red;
   }
 `;
