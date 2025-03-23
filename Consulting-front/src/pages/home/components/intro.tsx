@@ -19,7 +19,7 @@ const Intro = () => {
           <h2>Insper Jr.</h2>
         </DecoratedTitle>
         <p>
-          Fundada em 2001, a <strong>Insper Jr.</strong> é a <strong>Empresa Júnior do Insper</strong>, uma das faculdades de negócios mais renomadas do Brasil. Formada pelos alunos, a Insper Jr. é uma empresa de consultoria que visa <strong>impactar</strong> a sociedade por meio da superação de <Highlight>desafios</Highlight>.
+          Fundada em 2001, a <strong>Insper Jr.</strong> é a <strong>Empresa Júnior do Insper</strong>, uma das faculdades de negócios mais renomadas do Brasil. Formada pelos alunos, a Insper Jr. é uma empresa de consultoria que visa <strong>impactar</strong> a sociedade por meio da superação de <strong>desafios</strong>.
         </p>
         <p>
           Com mais de <strong>24 anos de mercado</strong> e <strong>500 projetos realizados</strong>, a empresa se destaca pela excelência na entrega de soluções estratégicas e inovadoras para negócios de diversos setores.
@@ -94,11 +94,6 @@ const LeftContent = styled.div`
   strong {
     font-weight: 600;
   }
-`;
-
-const Highlight = styled.span`
-  color: #BB0B24;
-  font-weight: 600;
 `;
 
 const RedButton = styled.button`
