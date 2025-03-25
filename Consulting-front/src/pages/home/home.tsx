@@ -8,6 +8,7 @@ import styled from "styled-components";
 import LogoWR from "../assets/ijr/insperjr-white-red.png";
 import Hero from "./components/Hero";
 import Intro from './components/Intro';
+import SolutionsCarousel from "@/components/solutionsCarousel";
 
 function Home() {
 
@@ -17,6 +18,7 @@ function Home() {
       <Hero />
       <Intro />
       <Clients />
+      <SolutionsCarousel />
     </>
   )
 }
