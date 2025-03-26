@@ -6,11 +6,13 @@ import { Link } from "react-router-dom";
 import { List, X, CaretDown } from "phosphor-react";
 import styled from "styled-components";
 import LogoWR from "../assets/ijr/insperjr-white-red.png";
-import Hero from "./components/Hero";
-import Intro from './components/Intro';
+import Hero from "./components/hero";
+import Intro from './components/intro';
 import WhatToExpect from './components/toExpect';
 import SuccessCase from './components/successCase';
 import Synergy from './components/synergy';
+import Depoimentos from '@/components/depoimentos';
+import Footer from '@/components/footer';
 
 function Marketing() {
 
@@ -22,11 +24,14 @@ function Marketing() {
         <Intro />
         <Clients />
         <WhatToExpect />
+        <Depoimentos />
         <Card>
           <SuccessCase />
         </Card>
+        <Synergy />
+        <Footer />
       </MarketingContainer>
-      <Synergy />
+
     </>
   )
 }

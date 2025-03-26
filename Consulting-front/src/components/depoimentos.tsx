@@ -140,7 +140,7 @@ const SectionContainer = styled.section`
   gap: 2rem;
   background-color: #fff;
   max-width: 1200px;
-  margin: 5rem auto;
+  margin: 4rem auto;
 `;
 
 /* Lado esquerdo (título e textos) */

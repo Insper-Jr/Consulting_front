@@ -9,7 +9,7 @@ import {
   MapPin
 } from "phosphor-react";
 
-import Logo from "../assets/insperjr-white-red.svg";
+import Logo from "@/assets/ijr/insperjr-white-red.png"
 
 const Footer: React.FC = () => {
   return (

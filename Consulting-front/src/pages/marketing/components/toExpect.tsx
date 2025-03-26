@@ -47,7 +47,7 @@ const WhatToExpect = () => {
 export default WhatToExpect;
 
 const Section = styled.section`
-  padding: 4rem 0rem;
+  padding: 1rem 0rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -58,7 +58,7 @@ const Header = styled.div`
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
   width: 100%; // importante para o hr ter base
 
   h2 {
