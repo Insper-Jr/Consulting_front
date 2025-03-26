@@ -35,7 +35,6 @@ const IntroSection = styled.section`
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  margin-bottom: 4rem;
 
   @media (max-width: 900px) {
     padding: 4rem 2rem;

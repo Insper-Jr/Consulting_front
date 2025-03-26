@@ -63,7 +63,7 @@ const Header = styled.div`
 
   h2 {
     font-family: "Montserrat", sans-serif;
-    font-size: 28px;
+    font-size: 36px;
     color: #A10F23;
     white-space: nowrap;
   }
