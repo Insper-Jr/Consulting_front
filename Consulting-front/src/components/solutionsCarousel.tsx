@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import ServiceCard from "./serviceCard";
 import arrow from "../assets/arrow-right.png";
 
-// Dados dos escopos
 const business = [
   {
     title: "Análise Mercadológica",
@@ -59,28 +58,51 @@ const SolutionsCarousel = () => {
   const [page, setPage] = useState(0);
   const [autoSlide, setAutoSlide] = useState(true);
   const navigate = useNavigate();
-
+  const [isHoveringCard, setIsHoveringCard] = useState(false);
+  const [direction, setDirection] = useState<"left" | "right">("right");
+  const [prevScope, setPrevScope] = useState(scope);
+  const [isAnimating, setIsAnimating] = useState(false);
+  
   const scopes = { business, engenharia };
   const currentCards = scopes[scope];
-  const cardsPerPage = scope === "business" ? 4 : 3;
-  const totalPages = Math.ceil(currentCards.length / cardsPerPage);
 
   useEffect(() => {
-    if (!autoSlide) return;
+    if (!autoSlide || isHoveringCard || isAnimating) return;
+  
     const interval = setInterval(() => {
-      setScope((prev) => (prev === "business" ? "engenharia" : "business"));
-      setPage(0);
-    }, 8000);
+      const newScope = scope === "business" ? "engenharia" : "business";
+      setDirection(newScope === "engenharia" ? "left" : "right");
+      setPrevScope(scope);
+      setIsAnimating(true);
+  
+      setTimeout(() => {
+        setScope(newScope);
+        setPage(0);
+        setIsAnimating(false);
+      }, 600);
+    }, 5000);
+  
     return () => clearInterval(interval);
-  }, [autoSlide]);
-
+  }, [autoSlide, isHoveringCard, isAnimating, scope]);
+  
   const handleScopeClick = (selected: "business" | "engenharia") => {
+    if (selected === scope || isAnimating) return;
+  
+    // Para o autoSlide assim que o usuário interagir
+    setAutoSlide(false);
+  
+    const isToLeft = selected === "engenharia";
+    setDirection(isToLeft ? "left" : "right");
+    setPrevScope(scope);
+    setIsAnimating(true);
+  
+    setTimeout(() => {
       setScope(selected);
       setPage(0);
-      setAutoSlide(false);
-      setAnimateSlider(true);
-      setTimeout(() => setAnimateSlider(false), 400);
+      setIsAnimating(false);
+    }, 600); // tempo da animação
   };
+  
 
   return (
     <Wrapper>
@@ -100,12 +122,17 @@ const SolutionsCarousel = () => {
       </Tabs>
 
       <SliderWrapper>
-        <Slider animate={animateSlider} key={scope}>
-            {currentCards
-            .slice(page * cardsPerPage, page * cardsPerPage + cardsPerPage)
-            .map((card) => (
-                <ServiceCard key={card.title} {...card} />
+        {isAnimating && (
+          <Slider animateOut direction={direction}>
+            {scopes[prevScope].map((card) => (
+              <ServiceCard key={`prev-${card.title}`} {...card} onHoverChange={setIsHoveringCard} />
             ))}
+          </Slider>
+        )}
+        <Slider animateIn={isAnimating} direction={direction}>
+          {currentCards.map((card) => (
+            <ServiceCard key={card.title} {...card} onHoverChange={setIsHoveringCard} />
+          ))}
         </Slider>
       </SliderWrapper>
 
@@ -206,17 +233,35 @@ export const Underline = styled.div<{ activeTab: "business" | "engenharia" }>`
 
 export const SliderWrapper = styled.div`
   width: 100%;
-  `;
+  position: relative;
+  height: 320px;
+`;
+
   
-  export const Slider = styled.div<{ animate?: boolean }>`
-  flex-wrap: wrap;
+export const Slider = styled.div<{
+  animateIn?: boolean;
+  animateOut?: boolean;
+  direction?: "left" | "right";
+}>`
+  position: absolute;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 2rem;
-  transform: ${({ animate }) => (animate ? "translateX(-10px)" : "translateX(0)")};
-  opacity: ${({ animate }) => (animate ? 0 : 1)};
-  transition: transform 0.6s ease, opacity 0.6s ease;
+  width: 100%;
+  top: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+
+  transform: ${({ animateIn, animateOut, direction }) => {
+    if (animateOut) return direction === "left" ? "translateX(-100%)" : "translateX(100%)";
+    if (animateIn) return direction === "left" ? "translateX(100%)" : "translateX(-100%)";
+    return "translateX(0)";
+  }};
+
+  opacity: ${({ animateOut }) => (animateOut ? 0 : 1)};
 `;
+
+
 
 export const Dots = styled.div`
   display: flex;
@@ -230,6 +275,7 @@ export const Dot = styled.div<{ active: boolean }>`
   height: 10px;
   background-color: ${({ active }) => (active ? "#A10F23" : "#ccc")};
   border-radius: 50%;
+  margin-top: 1rem;
   cursor: pointer;
 `;
 

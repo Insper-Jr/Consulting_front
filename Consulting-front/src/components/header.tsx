@@ -34,7 +34,7 @@ const Header = () => {
           <NavLink to="/services">Serviços</NavLink>
           {dropdownOpen && (
             <DropdownMenu>
-              <DropdownItem to="/PEM">Plano estratégico de Marketing</DropdownItem>
+              <DropdownItem to="/marketing">Plano estratégico de Marketing</DropdownItem>
               <DropdownItem to="/Mercadologica">Analise Mercadologica</DropdownItem>
               <DropdownItem to="/Operacional">Plano Operacional</DropdownItem>
               <DropdownItem to="/Financeiro">Viabilidade Financeira</DropdownItem>

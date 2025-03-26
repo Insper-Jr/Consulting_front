@@ -30,8 +30,12 @@ const Container = styled.div<{ hovered: boolean }>`
   flex-direction: row;
   border-top: ${({ hovered }) => (hovered ? "2px solid #A10F23" : "2px solid #929090")};
   border-bottom: ${({ hovered }) => (hovered ? "2px solid #A10F23" : "2px solid #929090")};
-  transition: border 0.3s ease;
+  transition: border 0.3s ease, transform 0.3s ease;
   overflow: hidden;
+  
+  &:hover {
+    transform: scale(1.03);
+  }
 
   @media (max-width: 1200px) {
     width: 40%;

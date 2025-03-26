@@ -1,16 +1,11 @@
-import { Component, useState } from 'react'
-import Insper from "../../assets/Insper.png"
 import Header from "../../components/header"
 import Clients from "../../components/clientes"
-import { Link } from "react-router-dom";
-import { List, X, CaretDown } from "phosphor-react";
 import styled from "styled-components";
-import LogoWR from "../assets/ijr/insperjr-white-red.png";
-import Hero from "./components/Hero";
-import Intro from './components/Intro';
+import Hero from "./components/hero";
+import Intro from './components/intro';
 import SolutionsCarousel from "@/components/solutionsCarousel";
-import CardCase from "./components/CaseCard"
-import Cases from "./components/SectionCases"
+import CardCase from "./components/caseCard"
+import Cases from "./components/sectionCases"
 
 function Home() {
   return (

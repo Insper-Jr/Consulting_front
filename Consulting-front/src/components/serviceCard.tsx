@@ -1,24 +1,25 @@
 import styled from "styled-components";
-import { CaretRight } from "phosphor-react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import arrow from "../assets/arrow-right.png";
+import { on } from "events";
 
 interface ServiceCardProps {
   title: string;
   description: string;
   link: string;
+  onHoverChange?: (hovering: boolean) => void;
 }
 
-const ServiceCard = ({ title, description, link }: ServiceCardProps) => {
+const ServiceCard = ({ title, description, link, onHoverChange }: ServiceCardProps) => {
   const navigate = useNavigate();
   const [hovered, setHovered] = useState(false);
 
   return (
     <Card
       onClick={() => navigate(link)}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      onMouseEnter={() => {setHovered(true); onHoverChange?.(true);}}
+      onMouseLeave={() => {setHovered(false); onHoverChange?.(false);}}
     >
       <CardTitle hovered={hovered}>{title}</CardTitle>
       <CardDescription hovered={hovered}>{description}</CardDescription>
