@@ -22,7 +22,3 @@ function Home() {
 }
 
 export default Home
-
-const Teste = styled.div`
-  height: 800px;
-`;
