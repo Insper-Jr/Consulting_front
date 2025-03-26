@@ -10,7 +10,7 @@ import Hero from "./components/Hero";
 import Intro from './components/Intro';
 import SolutionsCarousel from "@/components/solutionsCarousel";
 import CardCase from "./components/CaseCard"
-
+import Cases from "./components/SectionCases"
 
 function Home() {
   return (
@@ -23,6 +23,8 @@ function Home() {
       <Card>
         <CardCase />
       </Card>
+      <Cases />
+
     </HomeContainer>
   )
 }
@@ -42,3 +44,4 @@ const Card = styled.div`
   gap: 2rem;
   padding: 4rem 2rem;
 `;
+

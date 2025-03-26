@@ -141,13 +141,14 @@ export const Header = styled.div`
     font-family: "Montserrat", sans-serif;
     font-size: 36px;
     color: #A10F23;
+    white-space: nowrap;
   }
 `;
 
 export const Line = styled.div`
   height: 2px;
   background-color: black;
-  flex-grow: 1;
+  width: 100%;
 `;
 
 export const Subtitle = styled.p`

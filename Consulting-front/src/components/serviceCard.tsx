@@ -53,7 +53,7 @@ const CardTitle = styled.h3<{ hovered: boolean }>`
   font-family: "Poppins", sans-serif;
   font-size: ${({ hovered }) => (hovered ? "25px" : "30px")};
   color: black;
-  margin-bottom: ${({ hovered }) => (hovered ? "0.5rem" : "auto")};
+  margin-bottom: ${({ hovered }) => (hovered ? "0rem" : "auto")};
   transition: all 0.3s ease;
   transform: ${({ hovered }) => (hovered ? "translateY(-10px)" : "translateY(0)")};
   text-align: left;

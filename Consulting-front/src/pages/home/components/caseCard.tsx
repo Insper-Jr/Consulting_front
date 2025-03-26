@@ -23,39 +23,46 @@ const CaseCard = () => {
 export default CaseCard;
 
 const Container = styled.div<{ hovered: boolean }>`
-  width: 70%;
-  height: 300px;
+  width: 80%;
+  max-width: 1200px;
+  height: 350px;
   display: flex;
   flex-direction: row;
   border-top: ${({ hovered }) => (hovered ? "2px solid #A10F23" : "2px solid #929090")};
   border-bottom: ${({ hovered }) => (hovered ? "2px solid #A10F23" : "2px solid #929090")};
   transition: border 0.3s ease;
+  overflow: hidden;
 
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
+    width: 90%;
+    height: auto;
     flex-direction: column;
+    gap: 1rem;
   }
 `;
 
 const Image = styled.img`
   width: 50%;
-  height: auto;
+  height: 100%;
   object-fit: cover;
 
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     width: 100%;
+    height: 200px;
   }
 `;
 
 const TextContent = styled.div`
   width: 50%;
-  padding: 2rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: left;
 
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     width: 100%;
+    padding: 1rem;
   }
 `;
 
@@ -64,11 +71,20 @@ const Title = styled.h3`
   font-size: 22px;
   font-weight: bold;
   margin-bottom: 1rem;
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
 `;
 
 const Description = styled.p`
   font-family: "Inter", sans-serif;
   font-size: 16px;
   line-height: 1.5;
+  margin-top: 0rem;
   color: #333;
+
+  @media (max-width: 768px) {
+    font-size: 15px;
+  }
 `;
