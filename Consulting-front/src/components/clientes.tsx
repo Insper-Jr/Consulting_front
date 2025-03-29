@@ -55,22 +55,24 @@ export default Carousel;
 const CarouselWrapper = styled.div`
   display: flex;
   align-items: center;
-  padding: 24px 32px;
-  gap: 32px;
+  padding: 2rem 4rem;
+  gap: 3rem;
   max-width: 100%;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
 
-  @media (max-width: 600px) {
-    padding: 16px;
-    gap: 16px;
+  @media (max-width: 900px) {
+    padding: 16px 32px;
+    gap: 24px;
   }
 `;
 
 const TitleWrapper = styled.div`
   display: flex;
   align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
+  gap: 1rem;
+  @media (max-width: 600px) {
+    gap: 8px;
+  }
 `;
 
 const TitleText = styled.div`
@@ -78,7 +80,7 @@ const TitleText = styled.div`
   flex-direction: column;
   font-family: "Montserrat", sans-serif;
   font-weight: 700;
-  font-size: 28px;
+  font-size: 34px;
   color: #6d1622;
   line-height: 1.1;
 
@@ -93,23 +95,30 @@ const TitleText = styled.div`
 
 const RedBar = styled.div`
   width: 4px;
-  height: 60px;
+  height: 80px;
   background-color: #6d1622;
 
   @media (max-width: 600px) {
-    height: 40px;
+    height: 45px;
   }
 `;
 
 const scroll = keyframes`
   0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  100% { transform: translateX(-60%); }
+
 `;
 
 const Slider = styled.div`
   overflow: hidden;
-  flex: 1;
-  max-width: 100%;
+  max-width: 80%;
+
+    @media (max-width: 1200px) {
+    max-width: 70%;
+  }
+  @media (max-width: 600px) {
+    max-width: 60%;
+  }
 `;
 
 const SlideTrack = styled.div`
@@ -119,21 +128,25 @@ const SlideTrack = styled.div`
 `;
 
 const LogoWrapper = styled.div`
-  height: 40px;
-  min-width: 80px;
+  height: 80px;
+  min-width: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 16px;
+  margin-right: 4rem;
 
   img {
-    max-height: 50px;
+    max-height: 60px;
     max-width: 100%;
     object-fit: contain;
+  }
+      @media (max-width: 600px) {
+    height: 60px;
+    min-width: 120px;
+    margin-right: 32px;
     
-    @media (max-width: 600px) {
-    height: 30px;
+    img {
+      max-height: 25px;
+    }
   }
-  }
-
 `;
