@@ -54,20 +54,28 @@ const HeroContent = styled.div`
 
 const Title = styled.h1`
   font-family: 'Montserrat', sans-serif;
-  font-size: 40px;
+  font-size: 24px;  /* Tamanho base para telas pequenas */
   font-weight: bold;
 
   @media (min-width: 768px) {
+    font-size: 36px;
+  }
+
+  @media (min-width: 1024px) {
     font-size: 40px;
   }
 `;
 
 const Subtitle = styled.p`
   font-family: 'Poppins', sans-serif;
-  font-size: 28px;
+  font-size: 20px;  /* Tamanho base para telas pequenas */
   margin-top: 1rem;
 
   @media (min-width: 768px) {
+    font-size: 28px;
+  }
+
+  @media (min-width: 1024px) {
     font-size: 36px;
   }
 `;
@@ -78,11 +86,15 @@ const CTAButton = styled.button`
   background-color: white;
   color: black;
   font-family: 'Inter', sans-serif;
-  font-size: 20px;
+  font-size: 12px;  /* Tamanho base para telas pequenas */
   border: none;
   border-radius: 10px;
   cursor: pointer;
   transition: background 0.3s;
+
+  @media (min-width: 768px) {
+    font-size: 20px;
+  }
 
   &:hover {
     background-color: red;

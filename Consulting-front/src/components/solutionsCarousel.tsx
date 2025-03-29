@@ -170,6 +170,14 @@ export const Header = styled.div`
     color: #A10F23;
     white-space: nowrap;
   }
+      @media (max-width: 600px) {
+  h2 {
+    font-family: "Montserrat", sans-serif;
+    font-size: 26px;
+    color: #A10F23;
+    white-space: nowrap;
+  }
+  }
 `;
 
 export const Line = styled.div`
@@ -183,6 +191,9 @@ export const Subtitle = styled.p`
   font-size: 18px;
   max-width: 800px;
   margin: 0 auto 2rem auto;
+  @media (max-width: 600px) {
+    font-size: 15px;
+}
 `;
 
 export const Tabs = styled.div`
@@ -213,6 +224,9 @@ export const Tab = styled.button<{ active: boolean }>`
     background-color: ${({ active }) => (active ? "#A10F23" : "transparent")};
     transition: background-color 0.3s ease;
   }
+    @media (max-width: 600px) {
+  font-size: 16px;
+  padding: 1px;}
 `;
 
 
@@ -233,11 +247,19 @@ export const Underline = styled.div<{ activeTab: "business" | "engenharia" }>`
 
 export const SliderWrapper = styled.div`
   width: 100%;
+  max-width: 1200px; /* limite opcional para desktop */
+  margin: 0 auto;
   position: relative;
   height: 320px;
+  overflow-x: auto; /* permite scroll horizontal se necessário */
+
+  @media (max-width: 600px) {
+    width: 90%;
+    height: auto; /* altura automática para acomodar duas linhas */
+    margin: 0 auto;
+  }
 `;
 
-  
 export const Slider = styled.div<{
   animateIn?: boolean;
   animateOut?: boolean;
@@ -246,19 +268,31 @@ export const Slider = styled.div<{
   position: absolute;
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 2rem;
+  flex-wrap: nowrap; /* todos os cards em uma única linha */
+  gap: 32px; /* 32px equivale a 2rem */
   width: 100%;
   top: 0;
   transition: transform 0.4s ease, opacity 0.4s ease;
-
+  
   transform: ${({ animateIn, animateOut, direction }) => {
-    if (animateOut) return direction === "left" ? "translateX(-100%)" : "translateX(100%)";
-    if (animateIn) return direction === "left" ? "translateX(100%)" : "translateX(-100%)";
+    if (animateOut)
+      return direction === "left" ? "translateX(-100%)" : "translateX(100%)";
+    if (animateIn)
+      return direction === "left" ? "translateX(100%)" : "translateX(-100%)";
     return "translateX(0)";
   }};
-
+  
   opacity: ${({ animateOut }) => (animateOut ? 0 : 1)};
+  
+  @media (max-width: 600px) {
+    position: static;         /* Remove a posição absoluta */
+    flex-wrap: wrap;          /* Permite quebra dos cards em múltiplas linhas */
+    gap: 16px;                /* Espaçamento reduzido entre os cards */
+    width: 100%;
+    top: auto;
+    transform: none;          /* Desativa as transformações de slide */
+    opacity: 1;
+  }
 `;
 
 
@@ -277,6 +311,10 @@ export const Dot = styled.div<{ active: boolean }>`
   border-radius: 50%;
   margin-top: 1rem;
   cursor: pointer;
+  @media (max-width: 600px) {
+    width: 8px;
+    height: 8px;
+    }
 `;
 
 export const OverviewButton = styled.button`
@@ -303,6 +341,13 @@ export const OverviewButton = styled.button`
 
     img {
       transform: translateX(5px);
+    }
+  }
+  @media (max-width: 600px) {
+    font-size: 14px;
+    img {
+        width: 24px;
+        height: 24px;
     }
   }
 `;

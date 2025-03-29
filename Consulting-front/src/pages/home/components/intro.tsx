@@ -101,7 +101,7 @@ const RedButton = styled.button`
   color: white;
   border: none;
   border-radius: 10px;
-  padding: 0.8rem 1.5rem;
+  padding: 12px 24px; /* Equivalente a 0.8rem e 1.5rem */
   font-family: "Inter", sans-serif;
   font-size: 16px;
   cursor: pointer;
@@ -109,7 +109,14 @@ const RedButton = styled.button`
   &:hover {
     background-color: #A10F23;
   }
+
+  @media (max-width: 600px) {
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 8px;
+  }
 `;
+
 
 const DecoratedTitle = styled.div`
   display: flex;
@@ -157,7 +164,7 @@ const StatsBar = styled.div`
   display: flex;
   justify-content: space-between;
   background: #BB0B24;
-  padding: 1rem;
+  padding: 16px; /* 1rem convertido para 16px */
   border-radius: 10px;
   color: white;
   position: absolute;
@@ -167,7 +174,14 @@ const StatsBar = styled.div`
   width: 90%;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   flex-wrap: wrap;
+
+  @media (max-width: 600px) {
+    padding: 12px;    /* Reduz o padding em telas pequenas */
+    bottom: -16px;    /* Ajusta o posicionamento vertical */
+    width: 85%;       /* Aumenta a largura para aproveitar melhor o espaço */
+  }
 `;
+
 
 const Stat = styled.div`
   display: flex;

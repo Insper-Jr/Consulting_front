@@ -38,7 +38,14 @@ const GrupoCases = styled.div`
   flex-direction: row;
   gap: 2rem;
   justify-content: center;
-`;   
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+`;
+
 
 export const Header = styled.div`
   display: flex;
@@ -53,6 +60,14 @@ export const Header = styled.div`
     color: #A10F23;
     white-space: nowrap;
   }
+          @media (max-width: 600px) {
+  h2 {
+    font-family: "Montserrat", sans-serif;
+    font-size: 26px;
+    color: #A10F23;
+    white-space: nowrap;
+  }
+  }
 `;
 
 export const Line = styled.div`
@@ -66,4 +81,7 @@ export const Subtitle = styled.p`
   font-size: 18px;
   max-width: 800px;
   margin: 0 auto 2rem auto;
+    @media (max-width: 600px) {
+    font-size: 15px;
+}
 `;

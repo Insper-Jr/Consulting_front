@@ -55,22 +55,22 @@ export default Carousel;
 const CarouselWrapper = styled.div`
   display: flex;
   align-items: center;
-  padding: 2rem 4rem;
-  gap: 3rem;
+  padding: 24px 32px;
+  gap: 32px;
   max-width: 100%;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 
-  @media (max-width: 900px) {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 2rem;
+  @media (max-width: 600px) {
+    padding: 16px;
+    gap: 16px;
   }
 `;
 
 const TitleWrapper = styled.div`
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 8px;
+  flex-shrink: 0;
 `;
 
 const TitleText = styled.div`
@@ -78,7 +78,7 @@ const TitleText = styled.div`
   flex-direction: column;
   font-family: "Montserrat", sans-serif;
   font-weight: 700;
-  font-size: 34px;
+  font-size: 28px;
   color: #6d1622;
   line-height: 1.1;
 
@@ -87,17 +87,17 @@ const TitleText = styled.div`
   }
 
   @media (max-width: 600px) {
-    font-size: 34px;
+    font-size: 18px;
   }
 `;
 
 const RedBar = styled.div`
   width: 4px;
-  height: 80px;
+  height: 60px;
   background-color: #6d1622;
 
   @media (max-width: 600px) {
-    height: 60px;
+    height: 40px;
   }
 `;
 
@@ -108,15 +108,8 @@ const scroll = keyframes`
 
 const Slider = styled.div`
   overflow: hidden;
-  max-width: 80%;
-
-  @media (max-width: 1200px) {
-    max-width: 700px;
-  }
-
-  @media (max-width: 900px) {
-    max-width: 100%;
-  }
+  flex: 1;
+  max-width: 100%;
 `;
 
 const SlideTrack = styled.div`
@@ -126,16 +119,21 @@ const SlideTrack = styled.div`
 `;
 
 const LogoWrapper = styled.div`
-  height: 80px;
-  min-width: 150px;
+  height: 40px;
+  min-width: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 4rem;
+  margin-right: 16px;
 
   img {
-    max-height: 60px;
+    max-height: 50px;
     max-width: 100%;
     object-fit: contain;
+    
+    @media (max-width: 600px) {
+    height: 30px;
   }
+  }
+
 `;

@@ -38,7 +38,7 @@ const Container = styled.div<{ hovered: boolean }>`
   }
 
   @media (max-width: 1200px) {
-    width: 40%;
+    width: 80%;
     height: auto;
     flex-direction: column;
     gap: 1rem;
@@ -65,7 +65,7 @@ const TextContent = styled.div`
   text-align: left;
 
   @media (max-width: 1200px) {
-    width: 100%;
+    width: 95%;
     padding: 1rem;
   }
 `;
