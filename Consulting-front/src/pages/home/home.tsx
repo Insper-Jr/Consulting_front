@@ -1,28 +1,42 @@
-import { useState } from 'react'
-import Insper from "../../assets/Insper.png"
 import Header from "../../components/header"
 import Clients from "../../components/clientes"
-import { Link } from "react-router-dom";
-import { List, X, CaretDown } from "phosphor-react";
 import styled from "styled-components";
-import LogoWR from "../assets/ijr/insperjr-white-red.png";
-import Hero from "./components/Hero";
-import Intro from './components/Intro';
+import Hero from "./components/hero";
+import Intro from './components/intro';
+import SolutionsCarousel from "@/components/solutionsCarousel";
+import CardCase from "./components/caseCard"
+import Cases from "./components/sectionCases"
 
 function Home() {
-
   return (
-    <>
+    <HomeContainer>
       <Header />
       <Hero />
       <Intro />
       <Clients />
-    </>
+      <SolutionsCarousel />
+      <Card>
+        <CardCase />
+      </Card>
+      <Cases />
+
+    </HomeContainer>
   )
 }
 
 export default Home
 
-const Teste = styled.div`
-  height: 800px;
+const HomeContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`; 
+
+const Card = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  padding: 4rem 2rem;
 `;
+

@@ -61,9 +61,8 @@ const CarouselWrapper = styled.div`
   flex-wrap: wrap;
 
   @media (max-width: 900px) {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 2rem;
+    padding: 16px 32px;
+    gap: 24px;
   }
 `;
 
@@ -71,6 +70,9 @@ const TitleWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
+  @media (max-width: 600px) {
+    gap: 8px;
+  }
 `;
 
 const TitleText = styled.div`
@@ -87,7 +89,7 @@ const TitleText = styled.div`
   }
 
   @media (max-width: 600px) {
-    font-size: 34px;
+    font-size: 18px;
   }
 `;
 
@@ -97,25 +99,25 @@ const RedBar = styled.div`
   background-color: #6d1622;
 
   @media (max-width: 600px) {
-    height: 60px;
+    height: 45px;
   }
 `;
 
 const scroll = keyframes`
   0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  100% { transform: translateX(-60%); }
+
 `;
 
 const Slider = styled.div`
   overflow: hidden;
   max-width: 80%;
 
-  @media (max-width: 1200px) {
-    max-width: 700px;
+    @media (max-width: 1200px) {
+    max-width: 70%;
   }
-
-  @media (max-width: 900px) {
-    max-width: 100%;
+  @media (max-width: 600px) {
+    max-width: 60%;
   }
 `;
 
@@ -137,5 +139,14 @@ const LogoWrapper = styled.div`
     max-height: 60px;
     max-width: 100%;
     object-fit: contain;
+  }
+      @media (max-width: 600px) {
+    height: 60px;
+    min-width: 120px;
+    margin-right: 32px;
+    
+    img {
+      max-height: 25px;
+    }
   }
 `;
