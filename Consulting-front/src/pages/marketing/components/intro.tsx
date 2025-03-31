@@ -36,8 +36,9 @@ const IntroSection = styled.section`
   align-items: center;
   justify-content: space-around;
 
-  @media (max-width: 900px) {
-    padding: 4rem 2rem;
+  @media (max-width: 600px) {
+    width:100%;
+    padding-left:40px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -61,6 +62,10 @@ const Title = styled.h2`
   font-family: "Montserrat", sans-serif;
   font-size: 36px;
   margin-bottom: 1rem;
+      @media(max-width:600px){
+    font-size:30px;
+    }
+
 `;
 
 const Paragraph = styled.p`
@@ -73,6 +78,13 @@ const Paragraph = styled.p`
   strong {
     font-weight: bold;
   }
+    @media(max-widh:1300px){
+    font-size:20px;
+    }
+    @media(max-width:600px){
+     width: 80%;
+       text-align: justify;
+    font-size:15px;}
 `;
 
 const ImagesBox = styled.div`
@@ -81,6 +93,10 @@ const ImagesBox = styled.div`
   height: 100%;
   max-width: 550px;
   aspect-ratio: 1 / 1;
+      @media(max-width:1300px){
+      width: 550px;
+    }
+
 `;
 
 const ImageBack = styled.img`
@@ -88,6 +104,7 @@ const ImageBack = styled.img`
   width: 80%;
   border-radius: 10px;
   z-index: 1;
+
 `;
 
 const ImageFront = styled.img`

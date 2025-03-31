@@ -35,9 +35,8 @@ const Synergy = () => {
 };
 
 export default Synergy;
-
 const Section = styled.section`
-  padding: 4rem 0rem;
+  padding: 64px 0px;
   text-align: center;
 `;
 
@@ -45,12 +44,10 @@ const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
+  gap: 16px;
+  margin-bottom: 16px;
+  /* Removemos o flex-direction: column para manter os itens na mesma linha */
+  flex-wrap: nowrap; /* Garante que os itens não quebrem a linha */
 `;
 
 const Title = styled.h2`
@@ -58,7 +55,11 @@ const Title = styled.h2`
   font-size: 36px;
   color: #A10F23;
   white-space: nowrap;
-  padding-left: 2rem;
+  padding-left: 32px;
+
+  @media (max-width: 768px) {
+    font-size: 15px;
+  }
 `;
 
 const Line = styled.hr`
@@ -67,20 +68,23 @@ const Line = styled.hr`
   background-color: black;
   border: none;
   margin: 0;
-  width: 100%;
+  width: auto;
 `;
 
 const Subtitle = styled.p`
   font-family: "Inter", sans-serif;
   font-size: 20px;
-  margin: 1.5rem auto 2rem auto;
+  margin: 24px auto 32px auto;
   max-width: 800px;
+  @media(max-width:768px){
+  font-size:15px;
+  }
 `;
 
 const CardsWrapper = styled.div`
   display: flex;
   justify-content: center;
-  gap: 2rem;
+  gap: 32px;
   flex-wrap: wrap;
-  margin-top: 2rem;
+  margin-top: 32px;
 `;

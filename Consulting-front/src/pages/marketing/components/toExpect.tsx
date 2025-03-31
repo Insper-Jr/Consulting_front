@@ -67,6 +67,11 @@ const Header = styled.div`
     color: #A10F23;
     white-space: nowrap;
   }
+     @media(max-width:600px){
+     h2{
+     font-size:30px;
+     }
+  
 `;
 
 

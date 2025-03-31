@@ -62,6 +62,8 @@ const CardTitle = styled.h3`
   margin-bottom: 0.5rem;
   text-align: left;
   width: 80%;
+  @media(max-width:600px){
+  font-size:20px;}
 `;
 
 const CardDescription = styled.p`
@@ -70,6 +72,9 @@ const CardDescription = styled.p`
   text-align: left;
   line-height: 1.5;
   color: #333;
+  @media(max-width:600px){
+  font-size:15px;
+  }
 `;
 
 const Arrow = styled.img`
@@ -81,4 +86,8 @@ const Arrow = styled.img`
   ${Card}:hover & {
     transform: translateX(8px);
   }
+    @media(max-width:600px){
+    width:30px;
+    height:20px;
+     margin-left: 0}
 `;
