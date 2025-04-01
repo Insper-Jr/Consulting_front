@@ -119,6 +119,7 @@ const FooterContainer = styled.footer`
   @media (max-width: 1200px) {
     font-size: 1rem;
     padding: 0.8rem 1.5rem;
+    max-width: 100%;
   }
 
   @media (max-width: 600px) {

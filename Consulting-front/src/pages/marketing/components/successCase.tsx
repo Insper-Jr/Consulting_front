@@ -7,7 +7,7 @@ const SuccessCase = () => {
 
   return (
     <Wrapper>
-    <Intro>Case de Sucesso</Intro>
+    <Intro>CASE DE SUCESSO</Intro>
     <Container hovered={hovered} onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
       <Image src={caes} alt="Consultoria estratégica" />
       <TextContent>
@@ -96,6 +96,7 @@ const Title = styled.h3`
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 1rem;
+  color:#A10F23;
 
   @media (max-width: 800px) {
     font-size: 20px;
