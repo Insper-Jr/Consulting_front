@@ -178,7 +178,8 @@ const StatsBar = styled.div`
   @media (max-width: 600px) {
     padding: 12px;    /* Reduz o padding em telas pequenas */
     bottom: -16px;    /* Ajusta o posicionamento vertical */
-    width: 85%;       /* Aumenta a largura para aproveitar melhor o espaço */
+    width: 80%;  
+    height:50px;     /* Aumenta a largura para aproveitar melhor o espaço */
   }
 `;
 
@@ -195,10 +196,16 @@ const Value = styled.div`
   font-size: 20px;
   font-weight: bold;
   font-family: "Montserrat", sans-serif;
+  @media(max-width:600px){
+  font-size:14px;
+  }
 `;
 
 const Label = styled.div`
   font-size: 14px;
   font-family: "Inter", sans-serif;
   text-align: center;
+    @media(max-width:600px){
+  font-size:10px;
+  }
 `;

@@ -130,6 +130,7 @@ const TestimonialsSection: React.FC = () => {
 };
 
 export default TestimonialsSection;
+/* ================== Styled Components ================== */
 
 /* ================== Styled Components ================== */
 
@@ -145,46 +146,104 @@ const SectionContainer = styled.section`
 
 /* Lado esquerdo (título e textos) */
 const LeftSide = styled.div`
-  flex: 1;
-  min-width: 300px;
+  flex: 2;
+  max-width: 700px;
+  margin-left: 80px;
+  padding: 0;
+
+  @media (max-width: 1200px) {
+    width: 600px;
+    margin-left: 40px;
+  }
+
+  @media (max-width: 600px) {
+    width: 100%;
+    margin: 0;
+  }
 `;
 
 /* Lado direito (carrossel) */
 const RightSide = styled.div`
   flex: 1;
-  min-width: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 1200px) {
+    max-width: 400px;
+  }
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 /* Título com fonte Montserrat */
 const Title = styled.h2`
   font-family: "Montserrat", sans-serif;
-  font-size: 35px;
+  font-size: 36px;
   font-weight: 700;
   color: #a10f23;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
+
+  @media (max-width: 1200px) {
+    font-size: 32px;
+  }
+
+  @media (max-width: 600px) {
+    font-size: 28px;
+    text-align: center;
+  }
 `;
 
 /* Descrição com fonte Inter, justificado e indentado */
 const Description = styled.p`
   font-family: "Inter", sans-serif;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 400;
   line-height: 1.4;
   color: #000;
   text-align: justify;
-  text-indent: 2em;
-  margin-bottom: 0.5rem;
+  text-indent: 32px;
+  margin-top: 5px;
+
+  @media (max-width: 1200px) {
+    font-size: 16px;
+    text-indent: 20px;
+  }
+
+  @media (max-width: 600px) {
+    font-size: 16px;
+    text-indent: 16px;
+    text-align: center;
+  }
 `;
 
 /* Container do card do carrossel */
 const CarouselContainer = styled.div`
   position: relative;
-  width: 440px; /* Ajuste para aumentar ou diminuir o card */
-  height: 260px; /* Ajuste para aumentar ou diminuir o card */
+  width: 500px;
+  height: 300px;
   margin-top: 30px;
+
+  @media (max-width: 1200px) {
+    width: 400px;
+    height: 300px;
+    margin-top: 20px;
+  }
+
+  @media (max-width: 600px) {
+    width: 300px;
+    height: 250px;
+    margin-top: 20px;
+  }
+`;
+
+/* Container do card (TestimonialCard) */
+const CardContainer = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
 `;
 
 /* Retângulo de fundo (#707070) */
@@ -194,7 +253,7 @@ const BackgroundRect = styled.div`
   background-color: #707070;
 `;
 
-/* Retângulo frontal (#3B3B3B), com padding horizontal aumentado para espaçamento */
+/* Retângulo frontal (#3B3B3B) */
 const ForegroundRect = styled.div`
   position: absolute;
   top: -8px;
@@ -203,10 +262,18 @@ const ForegroundRect = styled.div`
   height: 100%;
   background-color: #3b3b3b;
   z-index: 1;
-  padding: 1rem 2rem; /* 1rem top/bottom e 2rem esquerda/direita */
+  padding: 16px 32px;
   box-sizing: border-box;
   color: #fff;
   font-family: "Poppins", sans-serif;
+
+  @media (max-width: 1200px) {
+    padding: 12px 24px;
+  }
+
+  @media (max-width: 600px) {
+    padding: 8px 16px;
+  }
 `;
 
 /* Ícone de aspas */
@@ -214,6 +281,11 @@ const QuotesIcon = styled.div`
   position: absolute;
   top: 8px;
   left: 8px;
+
+  @media (max-width: 600px) {
+    top: 0px;
+    left: 5px;
+  }
 `;
 
 /* Nome em Poppins bold */
@@ -221,7 +293,18 @@ const CardName = styled.h3`
   font-family: "Poppins", sans-serif;
   font-weight: 700;
   font-size: 18px;
-  margin: 1.5rem 0 0.25rem 0;
+  margin: 24px 0 4px 0;
+
+  @media (max-width: 1200px) {
+    font-size: 16px;
+    margin: 21px 0 3px 0;
+  }
+
+  @media (max-width: 600px) {
+    font-size: 16px;
+    margin: 16px 0 3px 0;
+    text-align: center;
+  }
 `;
 
 /* Cargo em Poppins itálico */
@@ -231,17 +314,37 @@ const CardRole = styled.p`
   font-size: 14px;
   margin: 0;
   opacity: 0.9;
+
+  @media (max-width: 1200px) {
+    font-size: 13px;
+  }
+
+  @media (max-width: 600px) {
+    font-size: 12px;
+    text-align: center;
+  }
 `;
 
-/* Texto do depoimento, justificado e com indentação */
+/* Texto do depoimento */
 const CardText = styled.p`
   font-family: "Poppins", sans-serif;
   font-weight: 400;
   font-size: 14px;
-  margin-top: 0.75rem;
+  margin-top: 12px;
   line-height: 1.3;
   text-align: justify;
-  text-indent: 2em;
+  text-indent: 32px;
+
+  @media (max-width: 1200px) {
+    font-size: 13px;
+    text-indent: 24px;
+  }
+
+  @media (max-width: 600px) {
+    font-size: 12px;
+    text-indent: 16px;
+    text-align: center;
+  }
 `;
 
 /* Container para a logo da empresa e linha vermelha */
@@ -253,11 +356,29 @@ const CompanyLogosContainer = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 4px;
+
+  @media (max-width: 1200px) {
+    bottom: 15px;
+    left: 15px;
+  }
+
+  @media (max-width: 600px) {
+    bottom: 10px;
+    left: 10px;
+  }
 `;
 
 /* Imagem da logo da empresa */
 const CompanyLogo = styled.img`
   height: 45px;
+
+  @media (max-width: 1200px) {
+    height: 40px;
+  }
+
+  @media (max-width: 600px) {
+    height: 35px;
+  }
 `;
 
 /* Linha vermelha */
@@ -265,6 +386,14 @@ const RedLine = styled.div`
   width: 80px;
   height: 1.5px;
   background-color: #a10f23;
+
+  @media (max-width: 1200px) {
+    width: 70px;
+  }
+
+  @media (max-width: 600px) {
+    width: 60px;
+  }
 `;
 
 /* Container das setas */
@@ -273,31 +402,43 @@ const Arrows = styled.div`
   bottom: -10px;
   right: -10px;
   display: flex;
-  gap: 0.5rem;
+  gap: 8px;
   z-index: 2;
+
+  @media (max-width: 1200px) {
+    bottom: -8px;
+    right: -8px;
+  }
+
+  @media (max-width: 600px) {
+    bottom: -5px;
+    right: -5px;
+  }
 `;
 
-/* Botão das setas com sombra; setas desabilitadas ficam com vermelho mais escuro (#5C0E15) */
+/* Botão das setas */
 const ArrowButton = styled.button<{ disabled?: boolean }>`
   background-color: ${({ disabled }) => (disabled ? "#5C0E15" : "#a10f23")};
   border: none;
   color: #fff;
-  padding: 0.4rem 0.6rem;
+  padding: 8px 12px;
   border-radius: 0;
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
+
   &:hover {
     background-color: ${({ disabled }) => (disabled ? "#5C0E15" : "#87061b")};
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   }
-`;
 
-/* Container do card com os dois retângulos sobrepostos */
-const CardContainer = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100%;
+  @media (max-width: 1200px) {
+    padding: 6px 9px;
+  }
+
+  @media (max-width: 600px) {
+    padding: 5px 8px;
+  }
 `;

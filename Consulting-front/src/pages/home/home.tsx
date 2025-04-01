@@ -6,6 +6,10 @@ import Intro from './components/intro';
 import SolutionsCarousel from "@/components/solutionsCarousel";
 import CardCase from "./components/caseCard"
 import Cases from "./components/sectionCases"
+import TestimonialsSection from "@/components/depoimentos";
+import Footer from "@/components/footer";
+import FAQ from "./components/Faq";
+import Hero_Break from "@/components/transformeBreak";
 
 function Home() {
   return (
@@ -19,7 +23,10 @@ function Home() {
         <CardCase />
       </Card>
       <Cases />
-
+      <TestimonialsSection />
+      <FAQ />
+      <Hero_Break/>
+      <Footer/>
     </HomeContainer>
   )
 }
@@ -30,6 +37,7 @@ const HomeContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width:100%;
 `; 
 
 const Card = styled.div`
