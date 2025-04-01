@@ -118,7 +118,7 @@ const NavLink = styled(Link)`
 `;
 
 const ContactButton = styled(Link)`
-  background: red;
+  background: #BB0B24;
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 10px;

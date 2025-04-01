@@ -97,6 +97,6 @@ const CTAButton = styled.button`
   }
 
   &:hover {
-    background-color: red;
+    background-color: #BB0B24;
   }
 `;

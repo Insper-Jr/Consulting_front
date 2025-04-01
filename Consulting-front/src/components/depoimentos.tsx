@@ -138,22 +138,27 @@ export default TestimonialsSection;
 const SectionContainer = styled.section`
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem;
+  gap:50px;
   background-color: #fff;
-  max-width: 1200px;
-  margin: 4rem auto;
+  width: 100%;
+  margin-top:80px;
 `;
 
 /* Lado esquerdo (título e textos) */
 const LeftSide = styled.div`
   flex: 2;
-  max-width: 700px;
   margin-left: 80px;
   padding: 0;
+  max-width:800px;
 
+
+  @media (max-width: 1300px) {
+    max-width: 600px;
+    margin-left: 100px;
+  }
   @media (max-width: 1200px) {
-    width: 600px;
-    margin-left: 40px;
+    max-width: 500px;
+    margin-left: 50px;
   }
 
   @media (max-width: 600px) {
@@ -169,8 +174,8 @@ const RightSide = styled.div`
   align-items: center;
   justify-content: center;
 
-  @media (max-width: 1200px) {
-    max-width: 400px;
+  @media (max-width: 1300px) {
+    width: 400px;
   }
 
   @media (max-width: 600px) {
@@ -207,7 +212,7 @@ const Description = styled.p`
   text-indent: 32px;
   margin-top: 5px;
 
-  @media (max-width: 1200px) {
+  @media (max-width: 1300px) {
     font-size: 16px;
     text-indent: 20px;
   }
@@ -226,7 +231,7 @@ const CarouselContainer = styled.div`
   height: 300px;
   margin-top: 30px;
 
-  @media (max-width: 1200px) {
+  @media (max-width: 1300px) {
     width: 400px;
     height: 300px;
     margin-top: 20px;

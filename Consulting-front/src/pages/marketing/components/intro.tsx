@@ -35,10 +35,10 @@ const IntroSection = styled.section`
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
+  max-width:100%;
 
   @media (max-width: 600px) {
-    width:100%;
-    padding-left:40px;
+    padding-left:80px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -82,7 +82,7 @@ const Paragraph = styled.p`
     font-size:20px;
     }
     @media(max-width:600px){
-     width: 80%;
+     width: 100%;
        text-align: justify;
     font-size:15px;}
 `;
@@ -96,6 +96,8 @@ const ImagesBox = styled.div`
       @media(max-width:1300px){
       width: 550px;
     }
+    @media(max-width:600px){
+    width:300px;}
 
 `;
 

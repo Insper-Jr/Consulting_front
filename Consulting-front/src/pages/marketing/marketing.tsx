@@ -51,4 +51,5 @@ const Card = styled.div`
   justify-content: center;
   gap: 2rem;
   padding: 4rem 2rem;
+  margin-top:50px;
 `;
