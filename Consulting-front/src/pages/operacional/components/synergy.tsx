@@ -19,15 +19,15 @@ const Synergy = () => {
         <SynergyCard
           image={imgMarket}
           title="Analise de Mercado"
-          description="Aproveite o planejamento financeiro para alinhar seus investimentos às tendências e oportunidades do mercado. Com uma análise mercadológica precisa, você direciona recursos de forma estratégica, maximizando retornos e minimizando riscos."
+          description="Aproveite o plano operacional para entender a jornada do cliente e analisar o que seus concorrentes estão fazendo de certo. Com insights claros, alinhe suas operações às demandas do mercado e ganhe vantagem competitiva."
           link="/mercadologica"
         />
 
         <SynergyCard
           image={imgFinancial}
-          title="Analise de Dados"
-          description="Utilize dados para tomar decisões financeiras mais embasadas. A análise de dados ajuda a identificar padrões, prever cenários e ajustar estratégias, garantindo um planejamento financeiro sólido e adaptável."
-          link="/dados"
+          title="Viabilidade Financeira "
+          description="Enquanto traça sua operação, faça uma análise de custos e receitas para garantir que cada recurso seja investido de forma estratégica. Um planejamento financeiro sólido é essencial para operações eficientes e sustentáveis."
+          link="/financial"
         />
 
       </CardsWrapper>
