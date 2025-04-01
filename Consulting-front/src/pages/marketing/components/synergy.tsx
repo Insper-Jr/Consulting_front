@@ -38,6 +38,7 @@ export default Synergy;
 const Section = styled.section`
   padding: 64px 0px;
   text-align: center;
+  width:100%;
 `;
 
 const Header = styled.div`
@@ -68,7 +69,7 @@ const Line = styled.hr`
   background-color: black;
   border: none;
   margin: 0;
-  width: auto;
+  width: 30px;
 `;
 
 const Subtitle = styled.p`

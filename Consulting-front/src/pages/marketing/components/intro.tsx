@@ -89,9 +89,8 @@ const Paragraph = styled.p`
 
 const ImagesBox = styled.div`
   position: relative;
-  min-width: 300px;
   height: 100%;
-  max-width: 550px;
+   width: 600px;
   aspect-ratio: 1 / 1;
       @media(max-width:1300px){
       width: 550px;

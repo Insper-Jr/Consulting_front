@@ -66,7 +66,7 @@ const Content = styled.div`
 
 const Title = styled.h1`
   font-family: "Montserrat", sans-serif;
-  font-size: 36px;
+  font-size: 40px;
   font-weight: 700;
   margin-bottom: 16px; /* 16px equivalentes a 1rem */
 

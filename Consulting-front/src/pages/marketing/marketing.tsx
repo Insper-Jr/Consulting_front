@@ -43,6 +43,7 @@ const MarketingContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  max-width:100%;
 `; 
 
 const Card = styled.div`
