@@ -138,23 +138,10 @@ export default TestimonialsSection;
 const SectionContainer = styled.section`
   display: flex;
   flex-wrap: wrap;
-  gap: 50px;
-  height: 400px;
-  margin-top: 80px;
-
-  @media (max-width: 1200px) {
-    gap: 40px;
-    margin: 60px 80px;
-    height: auto;
-  }
-
-  @media (max-width: 600px) {
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
-    margin: 50px 20px;
-    height: auto;
-  }
+  gap: 2rem;
+  background-color: #fff;
+  max-width: 1200px;
+  margin: 4rem auto;
 `;
 
 /* Lado esquerdo (título e textos) */
