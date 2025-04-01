@@ -9,7 +9,7 @@ import {
   MapPin
 } from "phosphor-react";
 
-import Logo from "../assets/insperjr-white-red.svg";
+import Logo from "../assets/ijr/insperjr-white-red.png";
 
 const Footer: React.FC = () => {
   return (
@@ -98,11 +98,11 @@ const Footer: React.FC = () => {
 export default Footer;
 
 /* ========== Styled Components ========== */
-
 const FooterContainer = styled.footer`
+  margin-top: -20px;
   background: #000;
   color: #fff;
-  width: 100%;
+  max-width: 100%;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
 
@@ -113,6 +113,16 @@ const FooterContainer = styled.footer`
   justify-content: space-between;
   padding: 1rem 2rem;
   flex-wrap: wrap;
+
+  @media (max-width: 1200px) {
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+  }
+
+  @media (max-width: 600px) {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
 `;
 
 /* Coluna da esquerda */
@@ -123,6 +133,14 @@ const ColumnLeft = styled.div`
   text-align: left;
   max-width: 250px;
   margin: 0;
+
+  @media (max-width: 1200px) {
+    max-width: 220px;
+  }
+
+  @media (max-width: 600px) {
+    max-width: 200px;
+  }
 `;
 
 /* Demais colunas (centralizadas) */
@@ -134,17 +152,43 @@ const ColumnCenter = styled.div`
   max-width: 250px;
   margin: 1rem 0;
   gap: 2rem;
+
+  @media (max-width: 1200px) {
+    max-width: 220px;
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 600px) {
+    max-width: 200px;
+    gap: 1rem;
+  }
 `;
 
 /* Wrapper do logo (se quiser manter a imagem sem corte) */
 const LogoWrapper = styled.div`
   width: 200px; 
   height: auto; 
+
+  @media (max-width: 1200px) {
+    width: 180px;
+  }
+
+  @media (max-width: 600px) {
+    width: 150px;
+  }
 `;
 
 const LogoImg = styled.img`
   width: 250px; 
   height: auto;
+
+  @media (max-width: 1200px) {
+    width: 220px;
+  }
+
+  @media (max-width: 600px) {
+    width: 180px;
+  }
 `;
 
 /* Centraliza o texto do slogan */
@@ -153,6 +197,15 @@ const Slogan = styled.p`
   font-weight: 400;
   text-align: center;
   width: 100%;
+  font-size: 1rem;
+
+  @media (max-width: 1200px) {
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 600px) {
+    font-size: 0.8rem;
+  }
 `;
 
 /* Linha branca de separação */
@@ -167,6 +220,15 @@ const Line = styled.div`
 const Title = styled.h3`
   margin-bottom: 0.5rem;
   font-weight: 700;
+  font-size: 1.5rem;
+
+  @media (max-width: 1200px) {
+    font-size: 1.3rem;
+  }
+
+  @media (max-width: 600px) {
+    font-size: 1.1rem;
+  }
 `;
 
 /* Links internos */
@@ -176,6 +238,14 @@ const FooterLink = styled(Link)`
 
   &:hover {
     color: #a10f23;
+  }
+
+  @media (max-width: 1200px) {
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 600px) {
+    font-size: 0.9rem;
   }
 `;
 
@@ -189,6 +259,14 @@ const ExternalLink = styled.a`
   &:hover {
     color: #a10f23;
   }
+
+  @media (max-width: 1200px) {
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 600px) {
+    font-size: 0.9rem;
+  }
 `;
 
 /* Ícones de redes sociais (coluna 1) */
@@ -197,13 +275,30 @@ const SocialIcons = styled.div`
   width: 100%;
   justify-content: center; 
   gap: 1rem;
+
+  @media (max-width: 1200px) {
+    gap: 0.8rem;
+  }
+
+  @media (max-width: 600px) {
+    gap: 0.6rem;
+  }
 `;
 
 /* Cada ícone individual */
 const SocialIcon = styled.a`
   color: #fff;
+  font-size: 1.2rem;
 
   &:hover {
     color: #a10f23;
+  }
+
+  @media (max-width: 1200px) {
+    font-size: 1rem;
+  }
+
+  @media (max-width: 600px) {
+    font-size: 0.9rem;
   }
 `;
