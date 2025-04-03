@@ -9,7 +9,7 @@ const business = [
     title: "Análise Mercadológica",
     description:
       "Realizamos pesquisas detalhadas sobre o cenário econômico, analisamos tendências de mercado, além de conduzir estudos aprofundados sobre a concorrência. Nosso objetivo é fornecer insights que auxiliem na tomada de decisões.",
-    link: "/mercadologica",
+    link: "/market",
   },
   {
     title: "Estratégia de Marketing",
@@ -21,13 +21,13 @@ const business = [
     title: "Planejamento Financeiro",
     description:
       "Analisamos e estruturamos suas finanças para garantir maior controle, previsibilidade e crescimento sustentável. Com isso, sua empresa toma decisões mais seguras, maximiza a rentabilidade e se prepara para oportunidades de expansão.",
-    link: "/financeiro",
+    link: "/financial",
   },
   {
     title: "Plano Operacional",
     description:
       "Mapeamos processos e analisamos a estrutura interna da empresa para eliminar gargalos, reduzir ineficiências e aumentar a produtividade, garantindo operações ágeis, menor custo e mais previsibilidade de resultados.",
-    link: "/operacional",
+    link: "/operational",
   },
 ];
 
@@ -247,13 +247,11 @@ export const Underline = styled.div<{ activeTab: "business" | "engenharia" }>`
 
 export const SliderWrapper = styled.div`
   width: 100%;
-  max-width: 1200px; /* limite opcional para desktop */
   margin: 0 auto;
   position: relative;
   height: 320px;
-  overflow-x: auto; /* permite scroll horizontal se necessário */
 
-  @media (max-width: 600px) {
+  @media (max-width: 1200px) {
     width: 90%;
     height: auto; /* altura automática para acomodar duas linhas */
     margin: 0 auto;
@@ -268,8 +266,8 @@ export const Slider = styled.div<{
   position: absolute;
   display: flex;
   justify-content: center;
-  flex-wrap: nowrap; /* todos os cards em uma única linha */
-  gap: 32px; /* 32px equivale a 2rem */
+  flex-wrap: nowrap; 
+  gap: 20px; 
   width: 100%;
   top: 0;
   transition: transform 0.4s ease, opacity 0.4s ease;
@@ -284,7 +282,7 @@ export const Slider = styled.div<{
   
   opacity: ${({ animateOut }) => (animateOut ? 0 : 1)};
   
-  @media (max-width: 600px) {
+  @media (max-width: 1200px) {
     position: static;         /* Remove a posição absoluta */
     flex-wrap: wrap;          /* Permite quebra dos cards em múltiplas linhas */
     gap: 16px;                /* Espaçamento reduzido entre os cards */

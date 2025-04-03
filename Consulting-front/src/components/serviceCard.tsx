@@ -33,10 +33,10 @@ export default ServiceCard;
 
 const Card = styled.div`
   width: 250px;
-  height: 280px;
+  height: 300px;
   background-color: white;
   border-radius: 10px;
-  padding: 24px; /* 1.5rem convertido para 24px */
+  padding: 20px;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.08);
   cursor: pointer;
   transition: all 0.3s ease;
@@ -50,7 +50,7 @@ const Card = styled.div`
 
   @media (max-width: 600px) {
     width: 200px;
-    height: 150px;
+    height: 250px;
     padding: 16px;
   }
 `;
@@ -65,7 +65,10 @@ const CardTitle = styled.h3<{ hovered: boolean }>`
   text-align: left;
 
   @media (max-width: 600px) {
-    font-size: ${({ hovered }) => (hovered ? "15px" : "17px")};
+    font-size: 20px;
+    transform: translateY(-10px);
+    margin-bottom: 0px;
+
   }
 `;
 
@@ -80,6 +83,8 @@ const CardDescription = styled.p<{ hovered: boolean }>`
   text-align: left;
 
   @media (max-width: 600px) {
+    opacity: 1;
+    height: 100%;
     font-size: 13px;
   }
 `;
@@ -92,7 +97,7 @@ const LearnMore = styled.div<{ hovered: boolean }>`
   display: flex;
   align-items: center;
   margin-top: auto;
-  gap: ${({ hovered }) => (hovered ? "11px" : "0px")}; /* 0.7rem ≈ 11px */
+  gap: ${({ hovered }) => (hovered ? "11px" : "0px")};
   transition: gap 0.3s ease;
 
   img {
