@@ -35,7 +35,7 @@ const Header = () => {
           {dropdownOpen && (
             <DropdownMenu>
               <DropdownItem to="/marketing">Plano estratégico de Marketing</DropdownItem>
-              <DropdownItem to="/Mercadologica">Analise Mercadologica</DropdownItem>
+              <DropdownItem to="/market">Analise Mercadologica</DropdownItem>
               <DropdownItem to="/Operacional">Plano Operacional</DropdownItem>
               <DropdownItem to="/Financeiro">Viabilidade Financeira</DropdownItem>
               <DropdownItem to="/DevWeb">Desenvolvimento Web</DropdownItem>
@@ -61,7 +61,7 @@ const Header = () => {
         {mobileDropdownOpen && (
           <MobileDropdownMenu>
             <DropdownItem to="/PEM">Plano Estratégico de Marketing</DropdownItem>
-            <DropdownItem to="/Mercadologica">Análise Mercadológica</DropdownItem>
+            <DropdownItem to="/market">Análise Mercadológica</DropdownItem>
             <DropdownItem to="/Operacional">Plano Operacional</DropdownItem>
             <DropdownItem to="/Financeiro">Viabilidade Financeira</DropdownItem>
             <DropdownItem to="/DevWeb">Desenvolvimento Web</DropdownItem>
