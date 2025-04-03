@@ -113,10 +113,18 @@ const CardTitle = styled.h3`
   font-weight: 700;
   font-size: 23px;
   font-family: "Montserrat", sans-serif;
+
+  @media (max-width: 600px) {
+    font-size: 20px;
+  }
 `;
 
 const CardDescription = styled.p`
   font-size: 18px;
   font-family: "Inter", sans-serif;
   line-height: 1.5;
+
+  @media (max-width: 600px) {
+    font-size: 15px;
+  }
 `;
