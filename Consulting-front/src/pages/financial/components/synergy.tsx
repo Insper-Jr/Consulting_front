@@ -92,7 +92,7 @@ const Subtitle = styled.p`
 const CardsWrapper = styled.div`
   display: flex;
   justify-content: center;
-  gap: 32px;
   flex-wrap: wrap;
   margin-top: 32px;
+gap: 80px;
 `;
