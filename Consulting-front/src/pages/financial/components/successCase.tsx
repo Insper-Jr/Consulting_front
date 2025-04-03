@@ -55,6 +55,11 @@ const Container = styled.div<{ hovered: boolean }>`
     transform: scale(1.03);
   }
 
+    @media (max-width: 1200px) {
+    width: 800px;
+    height: 450px;
+    gap: 1rem;
+  }
   @media (max-width: 800px) {
     width: 80%;
     height: auto;

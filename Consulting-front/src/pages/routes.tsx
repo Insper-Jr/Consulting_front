@@ -3,7 +3,7 @@ import Home from "./home/home"
 import Marketing from "./marketing/marketing"
 import Financial from "./financial/financial"
 import Market from "./market/market"
-import Operacional from "./operacional/operacional"
+import Operational from "./operational/operational"
 
 const routes: RouteObject[] = [{
     path: "/",
@@ -22,8 +22,8 @@ const routes: RouteObject[] = [{
     element: <Market />,
 },
 {
-    path: "/operacional",
-    element: <Operacional />,
+    path: "/operational",
+    element: <Operational />,
 }
 ]
 export default routes

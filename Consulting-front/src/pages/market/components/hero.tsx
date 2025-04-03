@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import backgroundImage from "@/assets/backgrounds/financial-background.png";
+import backgroundImage from "@/assets/backgrounds/market-background.png";
 
 const Hero = () => {
   return (
@@ -44,7 +44,7 @@ const HeroSection = styled.section`
   /* Para telas menores que 600px */
   @media (max-width: 600px) {
    max-width: 100%;
-    padding: 24px 16px;
+    padding: 40px 16px;
     height: 700px;
     flex-direction: column;
   }

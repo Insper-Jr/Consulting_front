@@ -35,9 +35,9 @@ const Header = () => {
           {dropdownOpen && (
             <DropdownMenu>
               <DropdownItem to="/marketing">Plano estratégico de Marketing</DropdownItem>
-              <DropdownItem to="/Mercadologica">Analise Mercadologica</DropdownItem>
-              <DropdownItem to="/Operacional">Plano Operacional</DropdownItem>
-              <DropdownItem to="/Financeiro">Viabilidade Financeira</DropdownItem>
+              <DropdownItem to="/market">Analise Mercadologica</DropdownItem>
+              <DropdownItem to="/operational">Plano Operacional</DropdownItem>
+              <DropdownItem to="/financial">Viabilidade Financeira</DropdownItem>
               <DropdownItem to="/DevWeb">Desenvolvimento Web</DropdownItem>
               <DropdownItem to="/MVP">Desenvolvimento de Produtos</DropdownItem>
               <DropdownItem to="/Dados">Analise de dados</DropdownItem>
@@ -60,10 +60,10 @@ const Header = () => {
         </StyledButton>
         {mobileDropdownOpen && (
           <MobileDropdownMenu>
-            <DropdownItem to="/PEM">Plano Estratégico de Marketing</DropdownItem>
-            <DropdownItem to="/Mercadologica">Análise Mercadológica</DropdownItem>
-            <DropdownItem to="/Operacional">Plano Operacional</DropdownItem>
-            <DropdownItem to="/Financeiro">Viabilidade Financeira</DropdownItem>
+            <DropdownItem to="/marketing">Plano Estratégico de Marketing</DropdownItem>
+            <DropdownItem to="/market">Análise Mercadológica</DropdownItem>
+            <DropdownItem to="/operational">Plano Operacional</DropdownItem>
+            <DropdownItem to="/financial">Viabilidade Financeira</DropdownItem>
             <DropdownItem to="/DevWeb">Desenvolvimento Web</DropdownItem>
             <DropdownItem to="/MVP">Desenvolvimento de Produtos</DropdownItem>
             <DropdownItem to="/Dados">Análise de Dados</DropdownItem>

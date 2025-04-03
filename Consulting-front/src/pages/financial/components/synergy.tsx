@@ -21,7 +21,7 @@ const Synergy = () => {
             image={imgOperacional}
             title="Plano Operacional"
             description="Integre custos e receitas ao seu plano operacional para garantir eficiência e controle financeiro. Com um planejamento financeiro bem estruturado, você otimiza processos e assegura que cada recurso seja utilizado de forma inteligente."
-            link="/operacional"
+            link="/operational"
           />
         <SynergyCard
           image={imgData}
@@ -34,7 +34,7 @@ const Synergy = () => {
           image={imgMarket}
           title="Analise de Mercado"
           description="Aproveite o planejamento financeiro para alinhar seus investimentos às tendências e oportunidades do mercado. Com uma análise mercadológica precisa, você direciona recursos de forma estratégica, maximizando retornos e minimizando riscos."
-          link="/mercadologica"
+          link="/market"
         />
       </CardsWrapper>
     </Section>

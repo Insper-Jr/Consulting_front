@@ -63,15 +63,15 @@ const Footer: React.FC = () => {
             weight="bold"
             style={{ marginRight: "8px", color: "inherit" }}
           />
-          (11) 9 9999-9999
+          (11) 9 4475-1602
         </ExternalLink>
-        <ExternalLink href="mailto:insperjr@gmail.com">
+        <ExternalLink href="mailto:henriquepereira@insperjr.com">
           <EnvelopeSimple
             size={30}
             weight="bold"
             style={{ marginRight: "8px", color: "inherit" }}
           />
-          insperjr@gmail.com
+          henriquepereira@insperjr.com
         </ExternalLink>
       </ColumnCenter>
 
