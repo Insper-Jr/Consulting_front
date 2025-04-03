@@ -20,7 +20,7 @@ const Synergy = () => {
           image={imgMarket}
           title="Analise de Mercado"
           description="Aproveite o plano operacional para entender a jornada do cliente e analisar o que seus concorrentes estão fazendo de certo. Com insights claros, alinhe suas operações às demandas do mercado e ganhe vantagem competitiva."
-          link="/mercadologica"
+          link="/market"
         />
 
         <SynergyCard
