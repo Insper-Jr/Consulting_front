@@ -36,8 +36,8 @@ const Header = () => {
             <DropdownMenu>
               <DropdownItem to="/marketing">Plano estratégico de Marketing</DropdownItem>
               <DropdownItem to="/market">Analise Mercadologica</DropdownItem>
-              <DropdownItem to="/Operacional">Plano Operacional</DropdownItem>
-              <DropdownItem to="/Financeiro">Viabilidade Financeira</DropdownItem>
+              <DropdownItem to="/operational">Plano Operacional</DropdownItem>
+              <DropdownItem to="/financial">Viabilidade Financeira</DropdownItem>
               <DropdownItem to="/DevWeb">Desenvolvimento Web</DropdownItem>
               <DropdownItem to="/MVP">Desenvolvimento de Produtos</DropdownItem>
               <DropdownItem to="/Dados">Analise de dados</DropdownItem>
@@ -62,8 +62,8 @@ const Header = () => {
           <MobileDropdownMenu>
             <DropdownItem to="/PEM">Plano Estratégico de Marketing</DropdownItem>
             <DropdownItem to="/market">Análise Mercadológica</DropdownItem>
-            <DropdownItem to="/Operacional">Plano Operacional</DropdownItem>
-            <DropdownItem to="/Financeiro">Viabilidade Financeira</DropdownItem>
+            <DropdownItem to="/operational">Plano Operacional</DropdownItem>
+            <DropdownItem to="/financial">Viabilidade Financeira</DropdownItem>
             <DropdownItem to="/DevWeb">Desenvolvimento Web</DropdownItem>
             <DropdownItem to="/MVP">Desenvolvimento de Produtos</DropdownItem>
             <DropdownItem to="/Dados">Análise de Dados</DropdownItem>
