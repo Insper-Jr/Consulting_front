@@ -14,7 +14,7 @@ import Synergy from './components/synergy';
 import Depoimentos from '@/components/depoimentos';
 import Footer from '@/components/footer';
 
-function Operacional() {
+function Operational() {
 
   return (
     <>
@@ -36,7 +36,7 @@ function Operacional() {
   )
 }
 
-export default Operacional
+export default Operational
 
 
 const OperacionalContainer = styled.div`
