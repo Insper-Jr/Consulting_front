@@ -27,7 +27,7 @@ const Synergy = () => {
           image={imgMarket}
           title="Analise de Mercado"
           description="Entenda seu mercado, concorrência e público-alvo com insights precisos para alinhar estratégias às demandas reais e posicionar sua marca de forma competitiva."
-          link="/mercadologica"
+          link="/market"
         />
       </CardsWrapper>
     </Section>
