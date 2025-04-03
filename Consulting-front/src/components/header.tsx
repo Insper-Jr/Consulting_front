@@ -60,7 +60,7 @@ const Header = () => {
         </StyledButton>
         {mobileDropdownOpen && (
           <MobileDropdownMenu>
-            <DropdownItem to="/PEM">Plano Estratégico de Marketing</DropdownItem>
+            <DropdownItem to="/marketing">Plano Estratégico de Marketing</DropdownItem>
             <DropdownItem to="/market">Análise Mercadológica</DropdownItem>
             <DropdownItem to="/operational">Plano Operacional</DropdownItem>
             <DropdownItem to="/financial">Viabilidade Financeira</DropdownItem>
