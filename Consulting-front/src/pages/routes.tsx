@@ -4,6 +4,7 @@ import Marketing from "./marketing/marketing"
 import Financial from "./financial/financial"
 import Market from "./market/market"
 import Operational from "./operational/operational"
+import DevWeb from "./devweb/devweb"
 import Data from "./dataAnalysis/dataAnalysis"
 import Products from "./products/products"
 
@@ -27,6 +28,10 @@ const routes: RouteObject[] = [{
 {
     path: "/operational",
     element: <Operational />,
+},
+{
+    path: "/devweb",
+    element: <DevWeb />,
 },
 {
     path: "/data",
