@@ -36,7 +36,7 @@ const engenharia = [
     title: "Análise de Dados",
     description:
       "Coletamos, tratamos e analisamos dados estratégicos da sua operação, gerando insights valiosos. Com análises precisas, sua empresa toma decisões mais assertivas, reduz riscos e identifica novas oportunidades.",
-    link: "/dados",
+    link: "/data",
   },
   {
     title: "Desenvolvimento de Produto",

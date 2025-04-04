@@ -38,9 +38,9 @@ const Header = () => {
               <DropdownItem to="/market">Analise Mercadologica</DropdownItem>
               <DropdownItem to="/operational">Plano Operacional</DropdownItem>
               <DropdownItem to="/financial">Viabilidade Financeira</DropdownItem>
-              <DropdownItem to="/DevWeb">Desenvolvimento Web</DropdownItem>
-              <DropdownItem to="/MVP">Desenvolvimento de Produtos</DropdownItem>
-              <DropdownItem to="/Dados">Analise de dados</DropdownItem>
+              <DropdownItem to="/devweb">Desenvolvimento Web</DropdownItem>
+              <DropdownItem to="/mvp">Desenvolvimento de Produtos</DropdownItem>
+              <DropdownItem to="/data">Analise de dados</DropdownItem>
             </DropdownMenu>
           )}
         </DropdownContainer>
@@ -64,9 +64,9 @@ const Header = () => {
             <DropdownItem to="/market">Análise Mercadológica</DropdownItem>
             <DropdownItem to="/operational">Plano Operacional</DropdownItem>
             <DropdownItem to="/financial">Viabilidade Financeira</DropdownItem>
-            <DropdownItem to="/DevWeb">Desenvolvimento Web</DropdownItem>
-            <DropdownItem to="/MVP">Desenvolvimento de Produtos</DropdownItem>
-            <DropdownItem to="/Dados">Análise de Dados</DropdownItem>
+            <DropdownItem to="/devweb">Desenvolvimento Web</DropdownItem>
+            <DropdownItem to="/mvp">Desenvolvimento de Produtos</DropdownItem>
+            <DropdownItem to="/data">Análise de Dados</DropdownItem>
           </MobileDropdownMenu>
         )}
         <ContactButton to="/contact" onClick={() => setMenuOpen(false)}>Fale Conosco</ContactButton>
