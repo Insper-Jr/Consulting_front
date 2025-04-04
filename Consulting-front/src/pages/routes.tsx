@@ -4,6 +4,7 @@ import Marketing from "./marketing/marketing"
 import Financial from "./financial/financial"
 import Market from "./market/market"
 import Operational from "./operational/operational"
+import Data from "./dataAnalysis/dataAnalysis"
 
 const routes: RouteObject[] = [{
     path: "/",
@@ -24,6 +25,10 @@ const routes: RouteObject[] = [{
 {
     path: "/operational",
     element: <Operational />,
+},
+{
+    path: "/data",
+    element: <Data />,
 }
 ]
 export default routes
