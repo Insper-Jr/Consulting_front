@@ -5,6 +5,9 @@ import Financial from "./financial/financial"
 import Market from "./market/market"
 import Operational from "./operational/operational"
 import DevWeb from "./devweb/devweb"
+import Data from "./dataAnalysis/dataAnalysis"
+import Products from "./products/products"
+
 
 const routes: RouteObject[] = [{
     path: "/",
@@ -30,5 +33,13 @@ const routes: RouteObject[] = [{
     path: "/devweb",
     element: <DevWeb />,
 },
+{
+    path: "/data",
+    element: <Data />,
+},
+{
+  path: "/products",
+  element: <Products />,
+}
 ]
 export default routes
