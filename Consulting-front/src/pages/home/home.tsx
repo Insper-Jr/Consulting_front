@@ -10,10 +10,12 @@ import TestimonialsSection from "@/components/depoimentos";
 import Footer from "@/components/footer";
 import FAQ from "./components/Faq";
 import Hero_Break from "@/components/transformeBreak";
+import WppButton from "@/components/wppButton";
 
 function Home() {
   return (
     <HomeContainer>
+      <WppButton/>
       <Header />
       <Hero />
       <Intro />
