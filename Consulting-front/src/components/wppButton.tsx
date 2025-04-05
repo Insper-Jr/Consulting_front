@@ -75,8 +75,8 @@ const Wrapper = styled.div`
   align-items: flex-end;
 
   @media (max-width: 600px) {
-    bottom: 100px;
-    right: 10px;
+    bottom: 250px;
+    right: 5px;
   }
 `;
 
@@ -84,7 +84,6 @@ const FloatingButton = styled.button`
   background-color: transparent;
   border: none;
   cursor: pointer;
-  position: relative;
 
   img {
     width: 60px;
