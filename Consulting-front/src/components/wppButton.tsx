@@ -1,6 +1,7 @@
 // src/components/WhatsAppWidget.tsx
-import { useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import toast, { Toaster } from "react-hot-toast";
 import whatsIcon from "../assets/whatsappIcon.png";
 import bg from "../assets/backgrounds/wpp-background.png";
 
@@ -8,12 +9,19 @@ const WhatsAppWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", phone: "" });
 
-  const handleSubmit = () => {
-    const { name, email, phone } = formData;
-    const message = `Olá! Meu nome é ${name}, meu email é ${email} e meu telefone é ${phone}. Gostaria de saber mais sobre as soluções da Insper Jr.!`;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-    const encoded = encodeURIComponent(message);
-    window.open(`https://api.whatsapp.com/send?phone=5511944751602&text=${encoded}`, "_blank");
+  const handleStartChat = () => {
+    if (!formData.name || !formData.email || !formData.phone) {
+      toast.error("Por favor, preencha todos os campos obrigatórios.");
+      return;
+    }
+    const message = `Olá, me chamo ${formData.name}, meu e-mail é ${formData.email} e meu telefone é ${formData.phone}. Gostaria de saber mais sobre as soluções da Insper Jr.`;
+    
+    const whatsappURL = `https://api.whatsapp.com/send?phone=5511944751602&text=${encodeURIComponent(message)}`;
+    window.open(whatsappURL, "_blank");
   };
 
   return (
@@ -26,21 +34,24 @@ const WhatsAppWidget = () => {
               Preencha seus dados abaixo e um de nossos especialistas entrará em contato para sugerir as melhores soluções!
             </Greeting>
             <Input
+              name="name"
               placeholder="Nome *"
               value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              onChange={handleChange}
             />
             <Input
+              name="email"
               placeholder="E-mail *"
               value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              onChange={handleChange}
             />
             <Input
+              name="phone"
               placeholder="Telefone *"
               value={formData.phone}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+              onChange={handleChange}
             />
-            <SendButton onClick={handleSubmit}>Iniciar conversa</SendButton>
+            <SendButton onClick={handleStartChat}>Iniciar conversa</SendButton>
           </FormBody>
         </FormContainer>
       )}
@@ -59,6 +70,14 @@ const Wrapper = styled.div`
   bottom: 20px;
   right: 20px;
   z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  @media (max-width: 600px) {
+    bottom: 100px;
+    right: 10px;
+  }
 `;
 
 const FloatingButton = styled.button`
@@ -69,20 +88,6 @@ const FloatingButton = styled.button`
 
   img {
     width: 60px;
-  }
-
-  span {
-    position: absolute;
-    top: 60px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #d4fdd1;
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-weight: bold;
-    font-family: "Inter", sans-serif;
-    color: #134c13;
-    white-space: nowrap;
   }
 `;
 
@@ -97,7 +102,7 @@ const FormContainer = styled.div`
 `;
 
 const FormBody = styled.div`
-  padding: 1rem;
+  padding: 6rem 1rem 1rem 1rem;
   display: flex;
   flex-direction: column;
 `;
