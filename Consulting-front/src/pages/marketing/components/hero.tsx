@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import backgroundImage from "@/assets/backgrounds/pem-background.png";
+import DiagnosticForm from "../../../components/forms"; // ajuste o caminho conforme a estrutura do seu projeto
 
 const Hero = () => {
   return (
@@ -14,9 +15,7 @@ const Hero = () => {
           Quer saber como <strong>podemos ajudar seu negócio?</strong> Peça um <strong>diagnóstico gratuito</strong> e descubra a melhor solução para sua empresa!
         </CallToAction>
       </Content>
-      <Forms>
-        <Title>Formulário</Title>
-      </Forms>
+      <DiagnosticForm />
     </HeroSection>
   );
 };
@@ -35,7 +34,7 @@ const HeroSection = styled.section`
   justify-content: space-around;
   position: relative;
 
-  /* Para telas entre 600px e 1200px */
+  /* Para telas entre 600px e 1300px */
   @media (min-width: 600px) and (max-width: 1300px) {
     padding-top: 40px;
     height: 800px;
@@ -43,8 +42,8 @@ const HeroSection = styled.section`
 
   /* Para telas menores que 600px */
   @media (max-width: 600px) {
-    padding: 40px 16px;
-    height: 700px;
+    padding: 40px;
+    height: 1000px;
     flex-direction: column;
   }
 `;
@@ -53,7 +52,7 @@ const Content = styled.div`
   max-width: 600px;
   color: white;
 
-  /* Para telas entre 600px e 1200px */
+  /* Para telas entre 600px e 1300px */
   @media (min-width: 600px) and (max-width: 1300px) {
     max-width: 300px;
   }
@@ -61,6 +60,7 @@ const Content = styled.div`
   /* Para telas menores que 600px */
   @media (max-width: 600px) {
     max-width: 320px;
+    height:300px;
   }
 `;
 
@@ -68,9 +68,9 @@ const Title = styled.h1`
   font-family: "Montserrat", sans-serif;
   font-size: 40px;
   font-weight: 700;
-  margin-bottom: 16px; /* 16px equivalentes a 1rem */
+  margin-bottom: 16px;
 
-  /* Para telas entre 600px e 1200px */
+  /* Para telas entre 600px e 1300px */
   @media (min-width: 600px) and (max-width: 1300px) {
     font-size: 30px;
   }
@@ -85,9 +85,9 @@ const Description = styled.p`
   font-family: "Inter", sans-serif;
   font-size: 24px;
   line-height: 1.6;
-  margin-bottom: 24px; /* 24px equivalentes a 1.5rem */
+  margin-bottom: 24px;
 
-  /* Para telas entre 600px e 1200px */
+  /* Para telas entre 600px e 1300px */
   @media (min-width: 600px) and (max-width: 1300px) {
     font-size: 18px;
     margin-bottom: 20px;
@@ -95,7 +95,7 @@ const Description = styled.p`
 
   /* Para telas menores que 600px */
   @media (max-width: 600px) {
-    font-size: 15px;
+    font-size: 18px;
     margin-bottom: 16px;
   }
 `;
@@ -109,7 +109,7 @@ const CallToAction = styled.p`
     color: white;
   }
 
-  /* Para telas entre 600px e 1200px */
+  /* Para telas entre 600px e 1300px */
   @media (min-width: 600px) and (max-width: 1300px) {
     font-size: 18px;
   }
@@ -117,24 +117,5 @@ const CallToAction = styled.p`
   /* Para telas menores que 600px */
   @media (max-width: 600px) {
     font-size: 15px;
-  }
-`;
-
-const Forms = styled.div`
-  background-color: white;
-  height: 400px;
-  width: 400px;
-  border-radius: 10px;
-
-  /* Para telas entre 600px e 1200px */
-  @media (min-width: 600px) and (max-width: 1300px) {
-    height: 350px;
-    width: 350px;
-  }
-
-  /* Para telas menores que 600px */
-  @media (max-width: 600px) {
-    height: 300px;
-    width: 300px;
   }
 `;
