@@ -1,5 +1,134 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
+import toast, { Toaster } from "react-hot-toast";
+
+// Componente final
+const DiagnosticForm = () => {
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    mobile_phone: "",
+    company_name: "",
+    cf_description: ""
+  })
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setForm({...form, [e.target.name]: e.target.value})
+  }
+
+  const validateForm = () => {
+    const {name, email, mobile_phone, company_name, cf_description} = form
+
+    if (!name || !email || !mobile_phone || !company_name || !cf_description) {
+      toast.error("Por favor, preencha todos os campos obrigatórios.")
+      return false
+    }
+
+    if (!email.includes("@") || !email.includes(".")){
+      toast.error("Digite um e-mail válido")
+      return false
+    }
+
+    if (mobile_phone.replace(/\D/g, "").length < 8) {
+      toast.error("Digite um mobile_phone válido.")
+      return false
+    }
+
+    return true
+  }
+  
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!validateForm()) return
+
+    try {
+      const response = await fetch("http://localhost:8000/api/rdstation", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          },
+        body: JSON.stringify(form),
+      });
+
+      
+      const data = await response.json();
+      console.log("Resposta do servidor:", data);
+
+      if (!response.ok) throw new Error("Erro no envio");
+
+      toast.success("Formulário enviado com sucesso!");
+      setForm({name: "", email: "", mobile_phone: "", company_name: "", cf_description: ""}) 
+    } catch (error) {
+      
+      console.error("Erro na requisição:", error);
+      toast.error("Erro ao enviar o formulário. Tente novamente mais tarde.");
+    }
+  };
+
+  return (
+    <FormContainer>
+      <FormTitle>Diagnóstico Gratuito</FormTitle>
+      <StyledForm onSubmit={handleSubmit}>
+        <FieldWrapper>
+          <FieldTitle>name completo</FieldTitle>
+          <FieldInput type="text" 
+          name="name"
+          placeholder="Digite seu name" 
+          value={form.name}
+          onChange={handleChange}
+          required/>
+        </FieldWrapper>
+
+        <FieldWrapper>
+          <FieldTitle>Email</FieldTitle>
+          <FieldInput type="email"
+            name="email"
+            placeholder="Digite seu email"
+            value={form.email}
+            onChange={handleChange}
+            required/>
+        </FieldWrapper>
+
+        <FieldWrapper>
+          <FieldTitle>mobile_phone</FieldTitle>
+          <FieldInput type="tel" 
+          name="mobile_phone"
+          placeholder="Digite seu número de mobile_phone" 
+          value={form.mobile_phone} 
+          onChange={handleChange}
+          required />
+        </FieldWrapper>
+
+        <FieldWrapper>
+          <FieldTitle>name da empresa </FieldTitle>
+          <FieldInput type="text" 
+          name="company_name"
+          placeholder="Digite o name da sua empresa (se não possuir digite nenhuma)" 
+          value={form.company_name} 
+          onChange={handleChange}
+          required
+          />
+        </FieldWrapper>
+
+        <FieldWrapperTextArea className="textarea-container">
+          <FieldTitle>Como podemos te ajudar</FieldTitle>
+          <FieldTextArea 
+          name="cf_description"
+          placeholder="Uma breve descrição de como poderíamos te ajudar" 
+          value={form.cf_description} 
+          onChange={handleChange}
+          required />
+        </FieldWrapperTextArea>
+
+        <SubmitButton type="submit">Enviar</SubmitButton>
+      </StyledForm>
+    </FormContainer>
+  );
+};
+
+export default DiagnosticForm;
 
 // Contêiner geral do formulário
 const FormContainer = styled.div`
@@ -149,47 +278,3 @@ const SubmitButton = styled.button`
         padding: 5px 10px; /* Menor tamanho */
     }
 `;
-
-// Componente final
-const DiagnosticForm = () => {
-  const handleSubmit = (e: { preventDefault: () => void; }) => {
-    e.preventDefault();
-    // Lógica de envio do formulário
-  };
-
-  return (
-    <FormContainer>
-      <FormTitle>Diagnóstico Gratuito</FormTitle>
-      <StyledForm onSubmit={handleSubmit}>
-        <FieldWrapper>
-          <FieldTitle>Nome completo</FieldTitle>
-          <FieldInput type="text" placeholder="Digite seu nome" required />
-        </FieldWrapper>
-
-        <FieldWrapper>
-          <FieldTitle>Email</FieldTitle>
-          <FieldInput type="email" placeholder="Digite seu email" required />
-        </FieldWrapper>
-
-        <FieldWrapper>
-          <FieldTitle>Telefone</FieldTitle>
-          <FieldInput type="tel" placeholder="Digite seu telefone" required />
-        </FieldWrapper>
-
-        <FieldWrapper>
-          <FieldTitle>Nome da empresa</FieldTitle>
-          <FieldInput type="text" placeholder="Digite o nome da sua empresa" />
-        </FieldWrapper>
-
-        <FieldWrapperTextArea className="textarea-container">
-          <FieldTitle>Como podemos te ajudar</FieldTitle>
-          <FieldTextArea placeholder="Uma breve descrição de como poderíamos te ajudar" required />
-        </FieldWrapperTextArea>
-
-        <SubmitButton type="submit">Enviar</SubmitButton>
-      </StyledForm>
-    </FormContainer>
-  );
-};
-
-export default DiagnosticForm;
