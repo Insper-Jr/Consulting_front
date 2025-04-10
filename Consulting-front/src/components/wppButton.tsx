@@ -33,7 +33,7 @@ const WhatsAppWidget = () => {
           <FormBody>
             <Greeting>
               Olá! Interessado em alavancar seu negócio? <br />
-              Preencha seus dados abaixo e um de nossos especialistas entrará em contato para sugerir as melhores soluções!
+              Mande sua mensagem abaixo e um de nossos especialistas entrará em contato para sugerir as melhores soluções!
             </Greeting>
             <Input
               name="name"
