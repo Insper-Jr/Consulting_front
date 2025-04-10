@@ -1,27 +1,29 @@
 // src/components/WhatsAppWidget.tsx
 import React, { useState } from "react";
 import styled from "styled-components";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import whatsIcon from "../assets/whatsappIcon.png";
 import bg from "../assets/backgrounds/wpp-background.png";
 
 const WhatsAppWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [formData, setFormData] = useState({ name: "", email: "", phone: "" });
+  const [formData, setFormData] = useState({ name: "", message: ""});
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleStartChat = () => {
-    if (!formData.name || !formData.email || !formData.phone) {
+    if (!formData.name || !formData.message) {
       toast.error("Por favor, preencha todos os campos obrigatórios.");
       return;
     }
-    const message = `Olá, me chamo ${formData.name}, meu e-mail é ${formData.email} e meu telefone é ${formData.phone}. Gostaria de saber mais sobre as soluções da Insper Jr.`;
+    const message = `Olá, me chamo ${formData.name}, Gostaria de saber se vocês podem me ajudar com: ${formData.message}`;
     
     const whatsappURL = `https://api.whatsapp.com/send?phone=5511944751602&text=${encodeURIComponent(message)}`;
     window.open(whatsappURL, "_blank");
+    setIsOpen(!isOpen);
+    setFormData({ name: "", message: "" });
   };
 
   return (
@@ -39,16 +41,11 @@ const WhatsAppWidget = () => {
               value={formData.name}
               onChange={handleChange}
             />
-            <Input
-              name="email"
-              placeholder="E-mail *"
-              value={formData.email}
-              onChange={handleChange}
-            />
-            <Input
-              name="phone"
-              placeholder="Telefone *"
-              value={formData.phone}
+            <InputMessage
+              name="message"
+              placeholder="Como podemos ajudar? *"
+              maxLength={100}
+              value={formData.message}
               onChange={handleChange}
             />
             <SendButton onClick={handleStartChat}>Iniciar conversa</SendButton>
@@ -56,7 +53,7 @@ const WhatsAppWidget = () => {
         </FormContainer>
       )}
 
-      <FloatingButton onClick={() => setIsOpen(!isOpen)}>
+      <FloatingButton onClick={() => {setIsOpen(!isOpen); setFormData({ name: "", message: "" })}}>
         <img src={whatsIcon} alt="WhatsApp" />
       </FloatingButton>
     </Wrapper>
@@ -86,7 +83,7 @@ const FloatingButton = styled.button`
   cursor: pointer;
 
   img {
-    width: 60px;
+    width: 80px;
   }
 `;
 
@@ -122,6 +119,17 @@ const Input = styled.input`
   border-radius: 6px;
   margin-bottom: 10px;
   font-family: "Inter", sans-serif;
+`;
+
+const InputMessage = styled.textarea`
+  background-color: #d4fdd1;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  font-family: "Inter", sans-serif;
+  height: 60px;
+  resize: none;
 `;
 
 const SendButton = styled.button`
