@@ -43,7 +43,7 @@ const DiagnosticForm = () => {
     if (!validateForm()) return
 
     try {
-      const response = await fetch("http://localhost:8000/api/rdstation", {
+      const response = await fetch("https://consulting-back.onrender.com/api/rdstation", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
