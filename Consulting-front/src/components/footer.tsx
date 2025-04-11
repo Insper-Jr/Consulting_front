@@ -101,6 +101,7 @@ export default Footer;
 
 /* ========== Styled Components ========== */
 const FooterContainer = styled.footer`
+  z-index: 999;
   margin-top: -20px;
   background: #000;
   color: #fff;

@@ -1,7 +1,6 @@
-import React from "react";
 import styled from "styled-components";
-// Importe sua imagem de fundo:
 import backgroundImage from "../assets/fale_conosco/fundo-contato.png";
+import { Link } from "react-router-dom";
 
 const HeroComponent = () => {
   return (
@@ -14,8 +13,8 @@ const HeroComponent = () => {
           </LeftText>
         </LeftContainer>
         <RightContainer>
-          <StyledButton>Conheça nossos serviços</StyledButton>
-          <StyledButton>Faça um diagnósitco gratuito</StyledButton>
+          <StyledButton to="/marketing">Conheça nossos serviços</StyledButton>
+          <StyledButton to="/contact" >Faça um diagnósitco gratuito</StyledButton>
         </RightContainer>
     </BackgroundContainer>
   );
@@ -71,8 +70,7 @@ const RightContainer = styled.div`
   justify-content: center;
 `;
 
-const StyledButton = styled.button`
-    width: 200px
+const StyledButton = styled(Link)`
   font-family: "Poppins", sans-serif;
   font-size: 30px;
   padding: 16px 50px;
@@ -82,6 +80,7 @@ const StyledButton = styled.button`
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  text-decoration: none;
 
   &:hover {
     background-color: #87061b;

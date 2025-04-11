@@ -7,6 +7,7 @@ import Operational from "./operational/operational"
 import DevWeb from "./devweb/devweb"
 import Data from "./dataAnalysis/dataAnalysis"
 import Products from "./products/products"
+import Contact from "./contact/contact"
 
 
 const routes: RouteObject[] = [{
@@ -40,6 +41,10 @@ const routes: RouteObject[] = [{
 {
   path: "/products",
   element: <Products />,
+},
+{
+    path: "/contact",
+    element: <Contact />,
 }
 ]
 export default routes
