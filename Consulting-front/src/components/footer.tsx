@@ -47,7 +47,7 @@ const Footer: React.FC = () => {
         <Title>Navegação</Title>
         <FooterLink to="/">Início</FooterLink>
         <FooterLink to="/about">Sobre nós</FooterLink>
-        <FooterLink to="/services">Serviços</FooterLink>
+        <FooterLink to="/overview">Serviços</FooterLink>
       </ColumnCenter>
 
       {/* Coluna 3 (Contato) */}

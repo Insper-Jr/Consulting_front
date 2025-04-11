@@ -142,7 +142,7 @@ const SolutionsCarousel = () => {
       </Dots>
 
 
-      <OverviewButton onClick={() => navigate("/servicos")}>
+      <OverviewButton onClick={() => navigate("/overview")}>
         Conheça todos Nossos Serviços <img src={arrow} alt="seta" />
       </OverviewButton>
     </Wrapper>
