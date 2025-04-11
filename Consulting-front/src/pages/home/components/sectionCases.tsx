@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import Caes from "./CaseCaes"
-import Experiencia from "./CaseExperiencia"
+import Caes from './caseCaes';
+import Experiencia from './caseExperiencia';
 import styled from "styled-components";
 
 
