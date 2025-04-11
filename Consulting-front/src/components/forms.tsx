@@ -39,6 +39,9 @@ const DiagnosticForm = () => {
   
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!form.company_name) {
+      form.company_name = "Não informado"
+    }
 
     if (!validateForm()) return
 
@@ -75,7 +78,7 @@ const DiagnosticForm = () => {
           <FieldTitle>name completo</FieldTitle>
           <FieldInput type="text" 
           name="name"
-          placeholder="Digite seu name" 
+          placeholder="Digite seu nome" 
           value={form.name}
           onChange={handleChange}
           required/>
@@ -105,10 +108,9 @@ const DiagnosticForm = () => {
           <FieldTitle>name da empresa </FieldTitle>
           <FieldInput type="text" 
           name="company_name"
-          placeholder="Digite o name da sua empresa (se não possuir digite nenhuma)" 
+          placeholder="Digite o name da sua empresa"
           value={form.company_name} 
           onChange={handleChange}
-          required
           />
         </FieldWrapper>
 
