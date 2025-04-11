@@ -36,19 +36,23 @@ const logos = [
   const PartnersCarousel = () => {
     return (
         <CarouselWrapper>
-          <Title>
+          <TitleWrapper>
             <Line />
-            Nossos <span>parceiros</span> que impulsionam nossas soluções:
-          </Title>
-          <Carousel>
-            <Track>
-              {logos.map((logo, index) => (
-                <Logo key={index}>
-                  <img src={logo} alt={`Parceiro ${index}`} />
-                </Logo>
+            <TitleRow>
+              <Title>
+                Nossos <span>parceiros</span> que impulsionam nossas soluções:
+              </Title>
+            </TitleRow>
+          </TitleWrapper>
+          <Slider>
+            <SlideTrack>
+              {[...logos, ...logos].map((logo, index) => (
+                <LogoWrapper key={index}>
+                  <img src={logo} alt={`Cliente ${index}`} />
+                </LogoWrapper>
               ))}
-            </Track>
-          </Carousel>
+            </SlideTrack>
+          </Slider>
         </CarouselWrapper>
       );
     };
@@ -59,63 +63,105 @@ const logos = [
   padding: 3rem 0rem;
   background: white;
   overflow: hidden;
-`;
-
-
-const Title = styled.h2`
-font-family: "Montserrat", sans-serif;
-font-size: 36px;
-font-weight: 600;
-text-align: center;
-margin-bottom: 3rem;
-display: flex;
-flex-direction: row;
-justify-content: flex-start;
-align-items: center;
-gap: 1rem;
-
-span {
-    color: #A10F23;
-    }
-    
-    @media (max-width: 600px) {
-        font-size: 18px;
-        }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
         
+const TitleWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const TitleRow = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  text-align: center;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
+`;
+
 const Line = styled.div`
-    width: 300px;
-    border: 2px solid #A10F23;
-`
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 250px;
+  border: 2px solid #A10F23;
+
+  @media (max-width: 600px) {
+    display: none;
+  }
+`;
+
+const Title = styled.h2`
+  font-family: "Montserrat", sans-serif;
+  font-size: 36px;
+  font-weight: 600;
+  margin-left: 250px;
+
+  span {
+    color: #A10F23;
+  }
+
+  @media (max-width: 600px) {
+    margin-left: 0px;
+    font-size: 20px;
+  }
+`;
+
 const scroll = keyframes`
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 `;
 
-const Carousel = styled.div`
+
+const Slider = styled.div`
   overflow: hidden;
-  width: 80%;
+  max-width: 80%;
+
+    @media (max-width: 1200px) {
+    max-width: 70%;
+  }
+  @media (max-width: 600px) {
+    max-width: 100%;
+  }
 `;
 
-const Track = styled.div`
+const SlideTrack = styled.div`
   display: flex;
-  gap: 3rem;
-  animation: ${scroll} 30s linear infinite;
-  width: max-content;
+  width: 200%;
+  animation: ${scroll} 10s linear infinite;
 `;
 
-const Logo = styled.div`
-  flex: 0 0 auto;
+const LogoWrapper = styled.div`
+  height: 80px;
+  min-width: 150px;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  margin-right: 4rem;
 
   img {
-    height: 50px;
-    width: auto;
-
-    @media (max-width: 600px) {
-      height: 35px;
+    max-height: 60px;
+    max-width: 100%;
+    object-fit: contain;
+  }
+      @media (max-width: 600px) {
+    height: 60px;
+    min-width: 120px;
+    margin-right: 32px;
+    
+    img {
+      max-height: 25px;
     }
   }
 `;
