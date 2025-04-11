@@ -1,10 +1,25 @@
 import styled from "styled-components";
 import Insper from "../../../assets/Insper.png"; // ajuste o caminho conforme necessário
+import Form from "@/components/formsHome";
+import { useState } from "react";
 
 const Hero = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleClick = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <HeroSection>
       <Overlay />
+      {isOpen && (
+        <FormWrapper onClick={handleClick}>
+          <FormBox onClick={(e) => e.stopPropagation()}>
+            <Form onClose={handleClick} />
+          </FormBox>
+        </FormWrapper>
+      )}
       <HeroContent>
         <Title>
           Consultoria especializada em soluções inovadoras e personalizadas para decisões estratégicas
@@ -12,7 +27,7 @@ const Hero = () => {
         <Subtitle>
           Transformando realidades com soluções inovadoras
         </Subtitle>
-        <CTAButton>
+        <CTAButton onClick={handleClick}>
           Clique aqui e faça um diagnóstico gratuito
         </CTAButton>
       </HeroContent>
@@ -21,6 +36,30 @@ const Hero = () => {
 };
 
 export default Hero;
+
+const FormWrapper = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: 450px) {
+    height: 80vh;
+  }
+`;
+
+const FormBox = styled.div`
+  position: fixed;
+  top: 90px;
+  height: auto;
+  z-index: 1000;
+`;
 
 const HeroSection = styled.section`
   position: relative;
