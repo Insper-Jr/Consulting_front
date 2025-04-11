@@ -39,7 +39,7 @@ const Header = () => {
               <DropdownItem to="/operational">Plano Operacional</DropdownItem>
               <DropdownItem to="/financial">Viabilidade Financeira</DropdownItem>
               <DropdownItem to="/devweb">Desenvolvimento Web</DropdownItem>
-              <DropdownItem to="/mvp">Desenvolvimento de Produtos</DropdownItem>
+              <DropdownItem to="/products">Desenvolvimento de Produtos</DropdownItem>
               <DropdownItem to="/data">Analise de dados</DropdownItem>
             </DropdownMenu>
           )}
@@ -65,7 +65,7 @@ const Header = () => {
             <DropdownItem to="/operational">Plano Operacional</DropdownItem>
             <DropdownItem to="/financial">Viabilidade Financeira</DropdownItem>
             <DropdownItem to="/devweb">Desenvolvimento Web</DropdownItem>
-            <DropdownItem to="/mvp">Desenvolvimento de Produtos</DropdownItem>
+            <DropdownItem to="/products">Desenvolvimento de Produtos</DropdownItem>
             <DropdownItem to="/data">Análise de Dados</DropdownItem>
           </MobileDropdownMenu>
         )}

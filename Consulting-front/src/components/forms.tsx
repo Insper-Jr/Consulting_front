@@ -75,7 +75,7 @@ const DiagnosticForm = () => {
       <FormTitle>Diagnóstico Gratuito</FormTitle>
       <StyledForm onSubmit={handleSubmit}>
         <FieldWrapper>
-          <FieldTitle>name completo</FieldTitle>
+          <FieldTitle>Nome Completo</FieldTitle>
           <FieldInput type="text" 
           name="name"
           placeholder="Digite seu nome" 
@@ -95,20 +95,20 @@ const DiagnosticForm = () => {
         </FieldWrapper>
 
         <FieldWrapper>
-          <FieldTitle>mobile_phone</FieldTitle>
+          <FieldTitle>Celular</FieldTitle>
           <FieldInput type="tel" 
           name="mobile_phone"
-          placeholder="Digite seu número de mobile_phone" 
+          placeholder="Digite seu número de celular" 
           value={form.mobile_phone} 
           onChange={handleChange}
           required />
         </FieldWrapper>
 
         <FieldWrapper>
-          <FieldTitle>name da empresa </FieldTitle>
+          <FieldTitle>Nome da Empresa </FieldTitle>
           <FieldInput type="text" 
           name="company_name"
-          placeholder="Digite o name da sua empresa"
+          placeholder="Digite o nome da sua empresa"
           value={form.company_name} 
           onChange={handleChange}
           />

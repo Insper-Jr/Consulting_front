@@ -42,7 +42,7 @@ const engenharia = [
     title: "Desenvolvimento de Produto",
     description:
       "Apoiamos sua empresa no desenvolvimento de novos produtos, alinhando-os às exigências do projeto e do mercado. Assim, você acelera a inovação, reduz riscos e entrega soluções mais assertivas aos clientes.",
-    link: "/mvp",
+    link: "/products",
   },
   {
     title: "Desenvolvimento Web",
