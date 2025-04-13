@@ -1,0 +1,154 @@
+import styled from "styled-components";
+import whatIsJuniorImg from "../../../assets/whatIsJunior.png"; // Ajuste o caminho conforme sua estrutura de pastas
+import flecha from "../../../assets/flecha.png";
+import LineWithCircles from "./LineWithCircles";
+
+const WhatIsJunior = () => {
+  return (
+    <IntroSection>
+      <RightContent>
+        <ImageContainer>
+          <img src={whatIsJuniorImg} alt="Ilustração sobre Empresa Júnior" />
+        </ImageContainer>
+      </RightContent>
+      <LeftContent>
+        <DecoratedTitle>
+          <h2>O que é uma Empresa Júnior?</h2>
+          <LineWithCircles />
+        </DecoratedTitle>
+        
+        <p>
+          <strong>Empresas juniores</strong> são organizações formadas e geridas
+          por estudantes de ensino superior, que aplicam na prática seus
+          conhecimentos acadêmicos por meio de projetos de consultoria. O objetivo
+          principal é desenvolver habilidades técnicas e comportamentais dos
+          membros, proporcionando uma experiência profissional real.
+        </p>
+        
+        <p>
+          Na <strong>Insper Jr.</strong>, os clientes têm acesso a um time altamente
+          capacitado, inserido em um dos principais ecossistemas de negócios e
+          inovação do país, o Insper.
+        </p>
+        
+        <p>
+          Atrelado a isso e sendo uma empresa júnior, oferecemos{" "}
+          <strong>soluções estratégicas de alta qualidade a um custo competitivo</strong>,
+          além de uma <strong>visão jovem e disruptiva</strong>, trazendo novas
+          perspectivas para solucionar desafios.
+        </p>
+      </LeftContent>
+    </IntroSection>
+  );
+};
+
+export default WhatIsJunior;
+
+// =============== STYLED COMPONENTS ===============
+
+const IntroSection = styled.section`
+  display: flex;
+  gap: 2rem;
+  padding: 4rem 2rem;
+  align-items: flex-start;
+
+  /* Responsividade: em telas menores, empilha os conteúdos */
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+  }
+`;
+
+const LeftContent = styled.div`
+  flex: 2;
+  min-width: 300px;
+  max-width: 900px;
+  margin-left: 10px;
+
+  p {
+    font-family: "Poppins", sans-serif;
+    font-size: 25px;
+    margin-bottom: 1.2rem;
+    margin-left: 15px;
+    letter-spacing: 1px;
+  }
+
+  strong {
+    font-weight: 600;
+  }
+
+  /* Responsividade: ajusta margens, largura e ordem em telas menores */
+  @media (max-width: 768px) {
+    margin-left: 0;
+    max-width: 100%;
+    text-align: center;
+    order: 1;
+
+    p {
+      margin-left: 0;
+      font-size: 15px;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    p {
+      margin-left: 0;
+      font-size: 15px;
+    }
+  }
+`;
+
+const DecoratedTitle = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+
+  h2 {
+    font-family: "Montserrat", sans-serif;
+    font-size: 36px;
+    color: #A10F23;
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    h2 {
+      font-size: 22px;
+    }
+  }
+
+  @media (min-width: 950px max-width: 1200px) {
+    h2 {
+      margin-left: 0;
+      font-size: 27px;
+    }
+  }
+`;
+
+const RightContent = styled.div`
+  flex: 1;
+  min-width: 300px;
+  max-width: 550px;
+  padding-top: 50px;
+  margin-left: 25px;
+
+  /* Responsividade: centraliza o conteúdo, ajusta o padding e a ordem */
+  @media (max-width: 768px) {
+    padding-top: 20px;
+    max-width: 100%;
+    text-align: center;
+    order: 2;
+  }
+`;
+
+const ImageContainer = styled.div`
+  position: relative;
+
+  img {
+    width: 85%;
+    height: auto;
+    max-height: 500px;
+    border-radius: 5px;
+  }
+`;
