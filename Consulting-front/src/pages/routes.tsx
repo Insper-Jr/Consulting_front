@@ -47,7 +47,7 @@ const routes: RouteObject[] = [{
     element: <Contact />,
 },
 {
-    path: "/services",
+    path: "/overview",
     element: <Overview />,
 }
 ]
