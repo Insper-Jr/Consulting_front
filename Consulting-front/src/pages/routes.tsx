@@ -8,7 +8,7 @@ import DevWeb from "./devweb/devweb"
 import Data from "./dataAnalysis/dataAnalysis"
 import Products from "./products/products"
 import Contact from "./contact/contact"
-
+import Overview from "./overview/overview"
 
 const routes: RouteObject[] = [{
     path: "/",
@@ -45,6 +45,10 @@ const routes: RouteObject[] = [{
 {
     path: "/contact",
     element: <Contact />,
+},
+{
+    path: "/overview",
+    element: <Overview />,
 }
 ]
 export default routes
