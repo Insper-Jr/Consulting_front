@@ -1,9 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-const LineWithCircles = () => {
+// Agora o componente recebe `className` e o passa para o LineContainer
+interface LineWithCirclesProps {
+  className?: string;
+}
+
+const LineWithCircles: React.FC<LineWithCirclesProps> = ({ className }) => {
   return (
-    <LineContainer>
+    <LineContainer className={className}>
       <Circle />
       <Line />
       <Circle />
@@ -25,7 +30,7 @@ const Circle = styled.div`
   height: 16px;
   border-radius: 50%;
   background-color: #A10F23; /* Cor do círculo */
-  margin:0;
+  margin: 0;
 `;
 
 const Line = styled.div`
@@ -33,10 +38,6 @@ const Line = styled.div`
   height: 2px; /* Espessura da linha */
   background-color: #A10F23; /* Cor da linha */
   margin: 0; /* Espaçamento horizontal entre os círculos e a linha */
-  width: 550px;
-  @media(max-width:1200px){
-    width: 400px;
-  }
-    @media(max-width:800px){
-    width:300px;}
+  width: 100%;
+
 `;

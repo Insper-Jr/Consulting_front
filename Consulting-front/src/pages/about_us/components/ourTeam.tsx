@@ -1,6 +1,19 @@
 import styled from "styled-components";
 import introImg from "../../../assets/ourteam.png";
 import flecha from "../../../assets/flecha.png";
+import LineWithCircles from "./LineWithCircles";
+
+// Cria uma versão estilizada do LineWithCircles
+const StyledLineWithCircles = styled(LineWithCircles)`
+  /* Exemplo de estilos: ajuste os valores conforme necessário */
+  width: 240px;
+@media (max-width: 1200px) {
+    width: 180px;
+  }
+  @media (max-width: 800px) {
+    width: 140px;
+  }
+`;
 
 const ourTeam = () => {
   return (
@@ -8,7 +21,7 @@ const ourTeam = () => {
       <LeftContent>
         <DecoratedTitle>
           <h2>Nosso Time</h2>
-          <img src={flecha} alt="Flecha decorativa" />
+          <StyledLineWithCircles/>
         </DecoratedTitle>
         <p>
           Nosso time é composto por <strong>60 membros</strong> de sete
@@ -101,37 +114,28 @@ const DecoratedTitle = styled.div`
   align-items: flex-start;
   margin-bottom: 1.5rem;
 
-  /* Flecha */
-  img {
-    width: 26%;
-    height: auto;
-  }
 
   /* Título */
   h2 {
     font-family: "Montserrat", sans-serif;
-    font-size: 36px;
+    font-size: 40px;
     color: #A10F23;
     margin: 0;
   }
 
-  /* Responsividade para o título e a imagem */
   @media (max-width: 600px) {
     h2 {
       font-size: 22px;
     }
-    img {
-      width: 45%;
-      height: auto;
-    }
-  }
-
-  @media (max-width: 1200px) {
-    h2 {
       margin-left: 0;
-      font-size: 27px;
-    }
+      padfing-left:0;
   }
+@media (min-width: 600px) and (max-width: 1200px) {
+  h2 {
+    margin-left: 0;
+    font-size: 30px;
+  }
+}
 `;
 
 const RightContent = styled.div`

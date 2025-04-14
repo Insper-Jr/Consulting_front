@@ -1,14 +1,26 @@
 import styled from "styled-components";
 import introImg from "../../../assets/whoweare.png";
 import flecha from "../../../assets/flecha.png";
+import LineWithCircles from "./LineWithCircles";
 
+// Cria uma versão estilizada do LineWithCircles
+const StyledLineWithCircles = styled(LineWithCircles)`
+  /* Exemplo de estilos: ajuste os valores conforme necessário */
+  width: 300px;
+@media (max-width: 1200px) {
+    width: 230px;
+  }
+  @media (max-width: 800px) {
+    width: 170px;
+  }
+`;
 const Intro = () => {
   return (
     <IntroSection>
       <LeftContent>
         <DecoratedTitle>
           <h2>Quem Somos?</h2>
-          <img src={flecha} alt="Flecha decorativa" />
+          <StyledLineWithCircles/>
         </DecoratedTitle>
         <p>
           A <strong>Insper Jr.</strong> é uma empresa júnior de consultoria sem
@@ -92,11 +104,6 @@ const DecoratedTitle = styled.div`
   align-items: flex-start;
   margin-bottom: 1.5rem;
 
-  img {
-    width: 33%;
-    height: auto;
-  }
-
   h2 {
     font-family: "Montserrat", sans-serif;
     font-size: 40px;
@@ -108,18 +115,13 @@ const DecoratedTitle = styled.div`
     h2 {
       font-size: 22px;
     }
-    img {
-    width: 45%;
-    height: auto;
-    margin-left:10px;
   }
+@media (min-width: 600px) and (max-width: 1200px) {
+  h2 {
+    margin-left: 0;
+    font-size: 30px;
   }
-    @media (max-width: 1200px) {
-    h2 {
-      margin-left: 0;
-      font-size: 27px;
-    }
-  }
+}
 `;
 
 const RightContent = styled.div`

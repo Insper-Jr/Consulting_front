@@ -3,6 +3,17 @@ import whatIsJuniorImg from "../../../assets/whatIsJunior.png"; // Ajuste o cami
 import flecha from "../../../assets/flecha.png";
 import LineWithCircles from "./LineWithCircles";
 
+// Cria uma versão estilizada do LineWithCircles
+const StyledLineWithCircles = styled(LineWithCircles)`
+  width: 640px;
+@media (max-width: 1200px) {
+    width:480px;
+  }
+  @media (max-width: 800px) {
+    width: 350px;
+  }
+`;
+
 const WhatIsJunior = () => {
   return (
     <IntroSection>
@@ -14,7 +25,7 @@ const WhatIsJunior = () => {
       <LeftContent>
         <DecoratedTitle>
           <h2>O que é uma Empresa Júnior?</h2>
-          <LineWithCircles />
+          <StyledLineWithCircles />
         </DecoratedTitle>
         
         <p>
@@ -56,7 +67,8 @@ const IntroSection = styled.section`
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: center;
-    padding: 2rem 1rem;
+    padding-top: 2rem;
+    margin-left:0;
   }
 `;
 
@@ -64,7 +76,6 @@ const LeftContent = styled.div`
   flex: 2;
   min-width: 300px;
   max-width: 900px;
-  margin-left: 10px;
 
   p {
     font-family: "Poppins", sans-serif;
@@ -107,23 +118,24 @@ const DecoratedTitle = styled.div`
 
   h2 {
     font-family: "Montserrat", sans-serif;
-    font-size: 36px;
+    font-size: 40px;
     color: #A10F23;
     margin: 0;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 600px) {
     h2 {
       font-size: 22px;
     }
-  }
-
-  @media (min-width: 950px max-width: 1200px) {
-    h2 {
       margin-left: 0;
-      font-size: 27px;
-    }
+      padfing-left:0;
   }
+@media (min-width: 600px) and (max-width: 1200px) {
+  h2 {
+    margin-left: 0;
+    font-size: 30px;
+  }
+}
 `;
 
 const RightContent = styled.div`

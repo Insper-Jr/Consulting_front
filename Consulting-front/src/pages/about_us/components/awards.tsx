@@ -37,6 +37,9 @@ const AwardsContainer = styled.section`
     align-items: center;
     gap: 2rem;
   }
+  @media (max-width: 1300px) {
+    gap: 5rem; /* Espaçamento horizontal entre os itens */
+  }
 `;
 
 const AwardItem = styled.div`
@@ -45,7 +48,19 @@ const AwardItem = styled.div`
   align-items: center; /* Centraliza a imagem e o texto no eixo horizontal */
   text-align: center;  /* Centraliza o texto */
   img{
-    width: 300px; /* Ajuste o tamanho da imagem conforme necessário */}
+    width: 300px; /* Ajuste o tamanho da imagem conforme necessário */
+    }
+    @media (max-width: 1300px) {
+    img{
+      width: 200px; /* Ajuste o tamanho da imagem conforme necessário */
+      }
+  }
+  @media (max-width: 600px) {
+    img{
+      width: 180px; /* Ajuste o tamanho da imagem conforme necessário */
+      }
+  }
+
 `;
 
 const Text = styled.p`
@@ -54,4 +69,11 @@ const Text = styled.p`
   margin-top: 1rem;
   font-weight: 800;
   width: 450px; /* Largura máxima do texto */
+  @media (max-width: 1300px) {
+    font-size: 20px;
+  }
+  @media (max-width: 600px) {
+    font-size: 15px;
+      width: 300px; /* Largura máxima do texto */
+  }
 `;
