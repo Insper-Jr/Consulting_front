@@ -117,14 +117,14 @@ const Slider = styled.div`
     max-width: 70%;
   }
   @media (max-width: 600px) {
-    max-width: 60%;
+    max-width: 100%;
   }
 `;
 
 const SlideTrack = styled.div`
   display: flex;
   width: 200%;
-  animation: ${scroll} 30s linear infinite;
+  animation: ${scroll} 10s linear infinite;
 `;
 
 const LogoWrapper = styled.div`
