@@ -10,6 +10,8 @@ import Awards from "./components/awards";
 import CapacitationComponent from "./components/capacitation";
 import OurCulture from "./components/culture";
 import VisitCarousel from "./components/visits";
+import Footer from "@/components/footer";
+import HeroComponent from "@/components/transformeBreak";
 
 function About_Us() {
   return (
@@ -25,6 +27,8 @@ function About_Us() {
       <CapacitationComponent/>
       <OurCulture/>
       <VisitCarousel/>
+      <HeroComponent/>
+        <Footer/>
     </HomeContainer>
   )
 }

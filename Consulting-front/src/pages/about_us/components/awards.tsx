@@ -48,7 +48,7 @@ const AwardItem = styled.div`
   align-items: center; /* Centraliza a imagem e o texto no eixo horizontal */
   text-align: center;  /* Centraliza o texto */
   img{
-    width: 300px; /* Ajuste o tamanho da imagem conforme necessário */
+    width: 400px; /* Ajuste o tamanho da imagem conforme necessário */
     }
     @media (max-width: 1300px) {
     img{
@@ -65,10 +65,10 @@ const AwardItem = styled.div`
 
 const Text = styled.p`
   font-family: "Montserrat", sans-serif;
-  font-size: 24px;
+  font-size: 36px;
   margin-top: 1rem;
   font-weight: 800;
-  width: 450px; /* Largura máxima do texto */
+  width: 500px; /* Largura máxima do texto */
   @media (max-width: 1300px) {
     font-size: 20px;
   }

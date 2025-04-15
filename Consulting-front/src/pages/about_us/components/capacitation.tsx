@@ -79,7 +79,7 @@ const LeftSection = styled.div`
 
 // Título "Capacitação".
 const Title = styled.h1`
-  font-size: 80px;
+  font-size: 60px;
   font-family: "Poppins", sans-serif;
   font-weight: 700;
   margin-bottom: 1rem;
@@ -96,7 +96,7 @@ const Title = styled.h1`
 
 // Linha vermelha abaixo do título.
 const RedLine = styled.div`
-  width: 500px;   /* Ajuste o tamanho conforme o design desejado */
+  width: 350px;   /* Ajuste o tamanho conforme o design desejado */
   height: 2px;    /* Espessura da linha */
   background-color: #FF0000;
   margin-bottom: 1rem;  /* Espaçamento abaixo da linha */
