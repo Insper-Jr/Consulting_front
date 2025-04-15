@@ -49,7 +49,7 @@ const routes: RouteObject[] = [{
     element: <Contact />,
 },
 {
-    path: "/about-us",
+    path: "/about",
     element: <About_Us />,
 },
 {

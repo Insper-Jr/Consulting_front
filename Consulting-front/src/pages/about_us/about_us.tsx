@@ -7,6 +7,9 @@ import WhatsJunior from "./components/whatsjunior"
 import OurTeam from "./components/ourTeam";
 import InsperStats from "./components/stats";
 import Awards from "./components/awards";
+import CapacitationComponent from "./components/capacitation";
+import OurCulture from "./components/culture";
+import VisitCarousel from "./components/visits";
 
 function About_Us() {
   return (
@@ -19,6 +22,9 @@ function About_Us() {
       <OurTeam/>
       <InsperStats/>
       <Awards/>
+      <CapacitationComponent/>
+      <OurCulture/>
+      <VisitCarousel/>
     </HomeContainer>
   )
 }
