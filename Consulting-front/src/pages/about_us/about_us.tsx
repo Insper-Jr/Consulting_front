@@ -12,6 +12,7 @@ import OurCulture from "./components/culture";
 import VisitCarousel from "./components/visits";
 import Footer from "@/components/footer";
 import HeroComponent from "@/components/transformeBreak";
+import Movement from "./components/juniorMovment";
 
 function About_Us() {
   return (
@@ -27,6 +28,7 @@ function About_Us() {
       <CapacitationComponent/>
       <OurCulture/>
       <VisitCarousel/>
+      <Movement/>
       <HeroComponent/>
         <Footer/>
     </HomeContainer>

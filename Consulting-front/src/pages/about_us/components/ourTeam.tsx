@@ -58,7 +58,7 @@ export default ourTeam;
 const IntroSection = styled.section`
   display: flex;
   gap: 2rem;
-  padding: 4rem 2rem;
+  padding: 2rem 2rem;
   align-items: flex-start;
 
   /* Responsividade: em telas menores, empilha os conteúdos */
@@ -77,7 +77,7 @@ const LeftContent = styled.div`
 
   p {
     font-family: "Poppins", sans-serif;
-    font-size: 25px;
+    font-size: 20px;
     margin-bottom: 1.2rem;
     margin-left: 15px;
     letter-spacing: 1px;
@@ -118,7 +118,7 @@ const DecoratedTitle = styled.div`
   /* Título */
   h2 {
     font-family: "Montserrat", sans-serif;
-    font-size: 40px;
+    font-size: 36px;
     color: #A10F23;
     margin: 0;
   }
@@ -141,7 +141,7 @@ const DecoratedTitle = styled.div`
 const RightContent = styled.div`
   flex: 1;
   min-width: 300px;
-  max-width: 550px;
+  max-width: 500px;
   padding-top: 50px;
   margin-left: 25px;
 
