@@ -9,7 +9,7 @@ const Awards = () => {
     <AwardsContainer>
       <AwardItem>
         <img src={falconiLogo} alt="Falconi" />
-        <Text>Premio Falconi em gestão de empresas</Text>
+        <Text>Prêmio Falconi em gestão de empresas</Text>
       </AwardItem>
 
       <AwardItem>
@@ -48,7 +48,7 @@ const AwardItem = styled.div`
   align-items: center; /* Centraliza a imagem e o texto no eixo horizontal */
   text-align: center;  /* Centraliza o texto */
   img{
-    width: 400px; /* Ajuste o tamanho da imagem conforme necessário */
+    width: 250px; /* Ajuste o tamanho da imagem conforme necessário */
     }
     @media (max-width: 1300px) {
     img{
@@ -65,12 +65,13 @@ const AwardItem = styled.div`
 
 const Text = styled.p`
   font-family: "Montserrat", sans-serif;
-  font-size: 36px;
+  font-size: 20px;
   margin-top: 1rem;
   font-weight: 800;
   width: 500px; /* Largura máxima do texto */
   @media (max-width: 1300px) {
     font-size: 20px;
+    width: 400px; /* Largura máxima do texto */
   }
   @media (max-width: 600px) {
     font-size: 15px;

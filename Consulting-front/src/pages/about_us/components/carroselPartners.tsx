@@ -64,7 +64,7 @@ function PartnerCarousel() {
     <CarouselContainer>
       {/* Botão para slide anterior usando o ícone estilizado */}
 
-        <StyledCaretLeft size={80} weight="light" onClick={handlePrev} />
+        <StyledCaretLeft size={60} weight="light" onClick={handlePrev} />
 
       {/* Área do slide atual */}
       <SlideWrapper>
@@ -74,7 +74,7 @@ function PartnerCarousel() {
       </SlideWrapper>
 
       {/* Botão para próximo slide usando o ícone estilizado */}
-        <StyledCaretRight size={80} weight="light" onClick={handleNext}/>
+        <StyledCaretRight size={60} weight="light" onClick={handleNext}/>
 
     </CarouselContainer>
   );
@@ -141,12 +141,15 @@ const SlideWrapper = styled.div`
     @media (max-width: 1200px) {
      gap: 3rem; /* Espaço entre os logos */
         }
+         @media (max-width: 600px) {
+     gap: 1rem; /* Espaço entre os logos */
+        }
 `;
 
 // Cada logo exibido no slide
 const Logo = styled.img`
-  width: 300px;
-  height: 100px;
+  width: 150px;
+  height: 80px;
   object-fit: contain;
   @media (min-width:1200px) and (max-width: 1300px) {
     width: 200px;
@@ -155,6 +158,7 @@ const Logo = styled.img`
     width: 150px;
         }
         @media (max-width: 600px) {
-    width: 100px;
+    width: 50px;
+      height: 50px;
         }
 `;

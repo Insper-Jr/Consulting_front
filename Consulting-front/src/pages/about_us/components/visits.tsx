@@ -116,14 +116,16 @@ const SlideWrapper = styled.div`
 
 // Cada foto exibida no slide
 const Photo = styled.img`
-  width: 1000px;    /* Ajuste conforme necessário */
-  height: 500px; 
+  width: 800px;    /* Ajuste conforme necessário */
+  height: 400px; 
   object-fit: cover; /* ou 'contain' dependendo do efeito desejado */
 
   @media (max-width: 1200px) {
-    width: 400px;
+    width: 800px;
+    height: 400px; 
   }
   @media (max-width: 600px) {
-    width: 300px;
+    width: 250px;
+      height: 150px; 
   }
 `;

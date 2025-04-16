@@ -7,22 +7,22 @@ import styled from "styled-components";
  */
 const culturaItems = [
   {
-    title: "Parceria",
+    title: "Parceria:",
     description:
       "Estar disponível para ajudar, estar engajado e compartilhando conhecimento com o grupo, além de demonstrar quando precisa de ajuda",
   },
   {
-    title: "Geração de Valor",
+    title: "Geração de Valor:",
     description:
       "Mudar realidades, buscar trazer e explorar novos insumos, estar One Step Ahead",
   },
   {
-    title: "Superação",
+    title: "Superação:",
     description:
       "Buscar sair da zona de conforto, crescer, lidar de maneira construtiva com as dificuldades e assumir novas responsabilidades",
   },
   {
-    title: "Proatividade",
+    title: "Proatividade:",
     description:
       "Correr atrás, ser presente, se motivar diante de desafios e ter iniciativa",
   },
@@ -72,7 +72,7 @@ const CulturaTitleWrapper = styled.div`
 
   h2 {
     font-family: "Montserrat", sans-serif;
-    font-size: 40px;
+    font-size: 36px;
     color: #a10f23;
     white-space: nowrap;
   }
@@ -96,7 +96,7 @@ const CulturaContainer = styled.div`
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap; /* permite quebra de linha se necessário */
-  gap: 5rem;
+  gap: 6rem;
   width: 80%;
   margin: 0 auto; /* centraliza o container */
 
@@ -117,7 +117,7 @@ const CulturaCard = styled.div`
 // Título dentro de cada cartão
 const CulturaCardTitle = styled.h3`
   font-family: "Montserrat", sans-serif;
-  font-size: 24px;
+  font-size: 22px;
   color: #000;
   margin-bottom: 0.5rem;
 

@@ -35,14 +35,15 @@ export default CapacitationComponent;
 const Container = styled.div`
   display: flex;
   width: 100%;
-  height: 700px; /* Ajuste a altura conforme necessário */
+  height: 600px; /* Ajuste a altura conforme necessário */
   background: url(${img}) center center no-repeat;
   background-size: cover;
   position: relative; /* Necessário para posicionar o overlay absoluto */
+  margin-top:50px;
   
   @media (max-width: 600px) {
     flex-direction: column;  /* Coloca as seções em coluna em telas pequenas */
-    height: 700px;  /* Ajusta a altura para conteúdo */
+    height: 600px;  /* Ajusta a altura para conteúdo */
     padding-bottom: 2rem;
   }
 `;
@@ -79,8 +80,8 @@ const LeftSection = styled.div`
 
 // Título "Capacitação".
 const Title = styled.h1`
-  font-size: 60px;
-  font-family: "Poppins", sans-serif;
+  font-size: 50px;
+  font-family: "Montserrat", sans-serif;
   font-weight: 700;
   margin-bottom: 1rem;
   color: white;
@@ -112,8 +113,8 @@ const RedLine = styled.div`
 
 // Texto descritivo.
 const Description = styled.p`
-  font-size: 25px;
-  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  font-family: "Montserrat", sans-serif;
   line-height: 1.5;
   max-width: 800px;
   margin-top: 50px;
@@ -138,14 +139,14 @@ const Description = styled.p`
 
 // Retângulo branco à direita.
 const WhiteRectangle = styled.div`
-  width: 700px;
-  height: 500px;
+  width: 600px;
+  height: 420px;
   background-color: #fff;
   padding: 2rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   position: relative;
   z-index: 2;
-  margin-top: 200px;
+  margin-top: 180px;
   
   @media (min-width:1200px) and (max-width: 1300px){
     width: 500px;
@@ -159,7 +160,7 @@ const WhiteRectangle = styled.div`
   
   @media (max-width: 600px){
     width: 70%;
-    height: 400px;
+    height: 200px;
     margin-top: 100px;
 
   }

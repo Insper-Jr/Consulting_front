@@ -111,7 +111,7 @@ const TitleWrapper = styled.div`
 
   h2 {
     font-family: "Montserrat", sans-serif;
-    font-size: 40px;
+    font-size: 36px;
     color: #A10F23;
     white-space: nowrap;
   }
@@ -174,7 +174,7 @@ const StatValue = styled.span`
 
 const StatLabel = styled.span`
   font-family: "Montserrat", sans-serif;
-  font-size: 30px;
+  font-size: 20px;
   color: #000;
   margin-top: 4px;
   
