@@ -54,7 +54,7 @@ const Footer: React.FC = () => {
       <ColumnCenter>
         <Title>Contato</Title>
         <ExternalLink
-          href="https://wa.me/5511999999999"
+          href="https://wa.me/5511944751602"
           target="_blank"
           rel="noopener noreferrer"
         >
