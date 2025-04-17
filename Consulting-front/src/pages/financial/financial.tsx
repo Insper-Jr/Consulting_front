@@ -1,11 +1,7 @@
-import { useState } from 'react'
-import Insper from "../../assets/Insper.png"
+import WppButton from "@/components/wppButton";
 import Header from "../../components/header"
 import Clients from "../../components/clientes"
-import { Link } from "react-router-dom";
-import { List, X, CaretDown } from "phosphor-react";
 import styled from "styled-components";
-import LogoWR from "../assets/ijr/insperjr-white-red.png";
 import Hero from "./components/hero";
 import Intro from './components/intro';
 import WhatToExpect from './components/toExpect';
@@ -19,6 +15,7 @@ function Financial() {
   return (
     <>
       <FinancialContainer>
+        <WppButton/>
         <Header />
         <Hero /> 
         <Intro /> 
