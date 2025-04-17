@@ -64,6 +64,9 @@ const Container = styled.div<{ hovered: boolean }>`
     flex-direction: column;
     gap: 1rem;
   }
+  @media (max-width: 500px) {
+      border-right: 0px solid #A10F23;
+  }
 `;
 
 const Image = styled.img`
