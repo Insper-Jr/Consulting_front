@@ -104,7 +104,7 @@ const SolutionsCarousel = () => {
   };
   
   useEffect(() => {
-    const shouldAutoSlide = window.innerWidth > 600;
+    const shouldAutoSlide = window.innerWidth > 800;
     setAutoSlide(shouldAutoSlide);
   }, []);
 
