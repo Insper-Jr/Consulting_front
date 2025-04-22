@@ -49,7 +49,7 @@ const faqs = [
     question: "Como funciona o processo de desenvolvimento de um projeto?",
     answer: (
         <>
-           Após o <strong>primeiro contato</strong>via formulário, telefone ou e-mail, agendamos uma <strong>reunião inicial</strong> para entender suas necessidades e desafios. Caso haja interesse em um de nossos projetos, elaboramos uma <strong>proposta personalizada</strong> detalhando escopo, metodologia e prazos. Com a aprovação, um <strong>time especializado é alocado</strong> para desenvolver a solução, garantindo um projeto estruturado, eficiente e alinhado aos seus objetivos.
+           Após o <strong>primeiro contato</strong> via formulário, telefone ou e-mail, agendamos uma <strong>reunião inicial</strong> para entender suas necessidades e desafios. Caso haja interesse em um de nossos projetos, elaboramos uma <strong>proposta personalizada</strong> detalhando escopo, metodologia e prazos. Com a aprovação, um <strong>time especializado é alocado</strong> para desenvolver a solução, garantindo um projeto estruturado, eficiente e alinhado aos seus objetivos.
         </>
       ),
   },
