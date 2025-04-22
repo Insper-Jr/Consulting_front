@@ -43,6 +43,16 @@ const testimonialsData: Testimonial[] = [
     role: " Ex-CEO e Fundador",
     text: "Depois de anos empreendendo, decidi vender meu negócio, mas não sabia como definir um valor justo nem como apresentar isso para o mercado. A Insper Jr. foi essencial nesse processo. O valuation trouxe uma visão clara e bem embasada do valor da empresa, considerando tanto os números quanto o potencial do negócio. Além disso, o pitch criado pela equipe me deu confiança para conversar com investidores e conduzir as negociações com muito mais segurança. O trabalho foi técnico, profissional e realmente fez a diferença no desfecho da venda.",
   },
+  {
+    name: "Luiza Menezes",
+    role: "Diretora de Operações",
+    text: "Queríamos expandir nossa operação, mas precisávamos ganhar eficiência e melhorar nossa margem. A Insper Jr. entrou de cabeça e trouxe um diagnóstico completo, com sugestões práticas que conseguimos aplicar rapidamente. A planejamento operacional identificou gargalos importantes e estruturou todos os processos da nova expansão, enquanto o plano financeiro reorganizou nossa estrutura de custos de forma clara e eficiente. Saímos do projeto com mais controle, mais rentabilidade e uma visão muito mais estratégica do nosso negócio.",
+  },
+  {
+    name: "Felipe Rocha",
+    role: "Co-Fundador e CEO",
+    text: "Estávamos nos preparando para captar investimento, mas sabíamos que precisávamos profissionalizar nossa apresentação e embasar melhor nosso plano de crescimento. A Insper Jr. nos ajudou justamente com isso. A análise mercadológica mostrou o potencial do setor com dados atualizados e consolidou nossa visão de longo prazo e o plano financeiro deu robustez às nossas projeções. O material final não só impressionou os investidores, como também nos deu mais clareza interna. Foi um marco na nossa trajetória.",
+  },
   // Adicione quantos depoimentos desejar...
 ];
 
@@ -112,7 +122,7 @@ const LeftSide = styled.div`
 
   @media (max-width: 600px) {
     width: 100%;
-    margin: 0;
+    margin: 10px;
   }
 `;
 

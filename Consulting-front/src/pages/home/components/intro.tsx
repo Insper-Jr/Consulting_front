@@ -133,7 +133,7 @@ const DecoratedTitle = styled.div`
   h2 {
     font-family: "Montserrat", sans-serif;
     font-size: 40px;
-    color: #6D1622;
+    color: #A10F23;
   }
 
   @media (max-width: 600px) {

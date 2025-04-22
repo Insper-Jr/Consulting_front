@@ -103,6 +103,10 @@ const SolutionsCarousel = () => {
     }, 600); // tempo da animação
   };
   
+  useEffect(() => {
+    const shouldAutoSlide = window.innerWidth > 800;
+    setAutoSlide(shouldAutoSlide);
+  }, []);
 
   return (
     <Wrapper>
