@@ -21,7 +21,7 @@ const Header = () => {
 
   return (
     <HeaderContainer isScrolled={isScrolled}>
-      <Logo>
+      <Logo as={Link} to="/">
         <img src={LogoWR} alt="Insper Jr."/>
       </Logo>
       <Nav>
