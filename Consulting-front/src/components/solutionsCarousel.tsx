@@ -145,10 +145,6 @@ const SolutionsCarousel = () => {
         <Dot active={scope === "engenharia"} onClick={() => handleScopeClick("engenharia")} />
       </Dots>
 
-
-      <OverviewButton onClick={() => navigate("/overview")}>
-        Conheça todos Nossos Serviços <img src={arrow} alt="seta" />
-      </OverviewButton>
     </Wrapper>
   );
 };
