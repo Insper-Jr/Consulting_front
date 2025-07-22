@@ -18,7 +18,7 @@ const Footer: React.FC = () => {
     <FooterContainer>
       {/* Coluna 1 (logo e slogan) */}
       <ColumnLeft>
-        <LogoWrapper>
+        <LogoWrapper as={Link} to="/">
           <LogoImg src={Logo} alt="Insper Jr." />
         </LogoWrapper>
         <Slogan>Transformando realidades com soluções inovadoras!</Slogan>
