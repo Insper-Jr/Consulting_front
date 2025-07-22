@@ -13,7 +13,7 @@ const HeroComponent = () => {
           </LeftText>
         </LeftContainer>
         <RightContainer>
-          <StyledButton to="/contact" >Faça um diagnósitco gratuito</StyledButton>
+          <StyledButton to="/contact" >Faça um diagnóstico gratuito</StyledButton>
         </RightContainer>
     </BackgroundContainer>
   );
