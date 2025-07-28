@@ -1,27 +1,75 @@
 import styled from "styled-components";
 import { MagnifyingGlass,PencilSimple, Target  } from "phosphor-react";
 
-const WhatToExpect = () => {
-  const cards = [
-    {
-      icon: <MagnifyingGlass size={28} color="white" weight="bold" />,
-      title: "Análise de Riscos",
-      description:
-        "Identifique possíveis desafios financeiros, crie estratégias de mitigação de riscos e garanta a saúde financeira no longo prazo.",
-    },
-    {
-      icon: <PencilSimple size={28} color="white" weight="bold" />,
-      title: "Orçamento e Controle",
-      description:
-        "Elaboração de um plano detalhado de receitas e despesas, garantindo um uso eficiente dos recursos e evitando desperdícios financeiros ou administrativos.",
-    },
-    {
-      icon: <Target size={28} color="white" weight="bold" />,
-      title: "Definição de Metas Financeiras",
-      description:
-        "Estabeleça objetivos claros, como aumento da receita, redução de custos e melhoria da rentabilidade, alinhados à estratégia da empresa.",
-    },
+interface WhatToExpectProps {
+  selectedTab: number;
+}
+
+const WhatToExpect = ({ selectedTab }: WhatToExpectProps) => {
+  const cardData = [
+    [
+      {
+        icon: <MagnifyingGlass size={28} color="white" weight="bold" />,
+        title: "Contratos sob Medida e com Segurança Jurídica",
+        description:
+          "Elaboração e revisão de contratos que asseguram direitos, obrigações e mitigam riscos jurídicos.",
+      },
+      {
+        icon: <PencilSimple size={28} color="white" weight="bold" />,
+        title: "Adequação às Especificidades de Cada Projeto",
+        description:
+          "Adequação dos instrumentos às necessidades específicas de cada operação e setor.",
+      },
+      {
+        icon: <Target size={28} color="white" weight="bold" />,
+        title: "Instrumentos Estratégicos para o Negócio",
+        description:
+          "Abrangência de documentos estratégicos como Acordo de Sócios, Termo de Voluntariado, Vesting, entre outros.",
+      },
+    ],
+    [
+      {
+        icon: <PencilSimple size={28} color="white" weight="bold" />,
+        title: "Avaliação para Benefícios Tributários",
+        description:
+          "Estudo de viabilidade para imunidades e isenções tributárias com base nas atividades e natureza jurídica da organização.",
+      },
+      {
+        icon: <Target size={28} color="white" weight="bold" />,
+        title: "Comparação de Regimes e Otimização Fiscal",
+        description:
+          "Análise comparativa dos regimes tributários para redução lícita da carga tributária.",
+      },
+      {
+        icon: <MagnifyingGlass size={28} color="white" weight="bold" />,
+        title: "Planejamento Sustentável e em Conformidade",
+        description:
+          "Estruturação de planejamento que garanta conformidade, economia fiscal e sustentabilidade financeira.",
+      },
+    ],
+    [
+      {
+        icon: <PencilSimple size={28} color="white" weight="bold" />,
+        title: "Avaliação para Benefícios Tributários",
+        description:
+          "Estudo de viabilidade para imunidades e isenções tributárias com base nas atividades e natureza jurídica da organização.",
+      },
+      {
+        icon: <Target size={28} color="white" weight="bold" />,
+        title: "Comparação de Regimes e Otimização Fiscal",
+        description:
+          "Análise comparativa dos regimes tributários para redução lícita da carga tributária.",
+      },
+      {
+        icon: <MagnifyingGlass size={28} color="white" weight="bold" />,
+        title: "Planejamento Sustentável e em Conformidade",
+        description:
+          "Estruturação de planejamento que garanta conformidade, economia fiscal e sustentabilidade financeira.",
+      },
+    ],
   ];
+
+  const cards = cardData[selectedTab];
 
   return (
     <Section>
