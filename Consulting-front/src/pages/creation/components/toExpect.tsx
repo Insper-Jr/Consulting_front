@@ -1,27 +1,75 @@
 import styled from "styled-components";
 import { MagnifyingGlass,PencilSimple, Target  } from "phosphor-react";
 
-const WhatToExpect = () => {
-  const cards = [
-    {
-      icon: <MagnifyingGlass size={28} color="white" weight="bold" />,
-      title: "Análise de Riscos",
-      description:
-        "Identifique possíveis desafios financeiros, crie estratégias de mitigação de riscos e garanta a saúde financeira no longo prazo.",
-    },
-    {
-      icon: <PencilSimple size={28} color="white" weight="bold" />,
-      title: "Orçamento e Controle",
-      description:
-        "Elaboração de um plano detalhado de receitas e despesas, garantindo um uso eficiente dos recursos e evitando desperdícios financeiros ou administrativos.",
-    },
-    {
-      icon: <Target size={28} color="white" weight="bold" />,
-      title: "Definição de Metas Financeiras",
-      description:
-        "Estabeleça objetivos claros, como aumento da receita, redução de custos e melhoria da rentabilidade, alinhados à estratégia da empresa.",
-    },
+interface WhatToExpectProps {
+  selectedTab: number;
+}
+
+const WhatToExpect = ({ selectedTab }: WhatToExpectProps) => {
+  const cardData = [
+    [
+      {
+        icon: <MagnifyingGlass size={28} color="white" weight="bold" />,
+        title: "Análise Estratégica da Estrutura Societária",
+        description:
+          "Mapeamento das estruturas societárias possíveis e recomendação da mais adequada ao perfil dos sócios e modelo de negócios.",
+      },
+      {
+        icon: <PencilSimple size={28} color="white" weight="bold" />,
+        title: "Prevenção de Conflitos e Fortalecimento da Governança",
+        description:
+          "Avaliação de riscos, governança e organização da participação societária com foco na prevenção de conflitos.",
+      },
+      {
+        icon: <Target size={28} color="white" weight="bold" />,
+        title: "Base Jurídica Sólida para Crescimento",
+        description:
+          "Criação de uma base jurídica sólida e estratégica para o crescimento do empreendimento.",
+      },
+    ],
+    [
+      {
+        icon: <PencilSimple size={28} color="white" weight="bold" />,
+        title: "Escolha da Natureza Jurídica e Preparação Documental",
+        description:
+          "Definição da natureza jurídica e preenchimento de documentos conforme exigências da Receita Federal.",
+      },
+      {
+        icon: <Target size={28} color="white" weight="bold" />,
+        title: "Registro e Acompanhamento até o CNPJ",
+        description:
+          "Protocolo e acompanhamento do processo de registro até a obtenção do CNPJ.",
+      },
+      {
+        icon: <MagnifyingGlass size={28} color="white" weight="bold" />,
+        title: "Formalização com Segurança e Eficiência",
+        description:
+          "Garantia de regularidade, celeridade e segurança jurídica na formalização da entidade.",
+      },
+    ],
+    [
+      {
+        icon: <MagnifyingGlass size={28} color="white" weight="bold" />,
+        title: "Elaboração Personalizada dos Documentos Fundamentais",
+        description:
+          "Elaboração personalizada dos documentos constitutivos conforme a missão, estrutura e área de atuação da organização.",
+      },
+      {
+        icon: <PencilSimple size={28} color="white" weight="bold" />,
+        title: "Redação Clara e Jurídica Segura",
+        description:
+          "Redação clara e juridicamente segura, com atenção à legislação vigente e melhores práticas.",
+      },
+      {
+        icon: <Target size={28} color="white" weight="bold" />,
+        title: "Apoio à Governança e Alinhamento Institucional",
+        description:
+          "Alinhamento institucional e suporte à governança desde o início da operação.",
+      },
+    ],
   ];
+
+  const cards = cardData[selectedTab];
 
   return (
     <Section>

@@ -10,8 +10,10 @@ import Synergy from './components/synergy';
 import Depoimentos from '@/components/depoimentos';
 import Footer from '@/components/footer';
 import EscoposTabs from "./components/escoposTabs";
+import { useState } from "react";
 
 function Creation() {
+  const [selectedTab, setSelectedTab] = useState(0);
 
   return (
     <>
@@ -19,9 +21,9 @@ function Creation() {
         <WppButton/>
         <Header />
         <Hero /> 
-        <EscoposTabs />
+        <EscoposTabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
         <Clients />
-        <WhatToExpect />
+        <WhatToExpect selectedTab={selectedTab} />
          <Depoimentos /> 
          <Card>
           <SuccessCase />

@@ -29,19 +29,23 @@ const options = [
   },
 ];
 
-export const EscoposTabs = () => {
-  const [selected, setSelected] = useState(0);
+interface EscoposTabsProps {
+  selectedTab: number;
+  setSelectedTab: (index: number) => void;
+}
+
+export const EscoposTabs = ({ selectedTab, setSelectedTab }: EscoposTabsProps) => {
   const [prevSelected, setPrevSelected] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [direction, setDirection] = useState<"left" | "right">("right");
 
   const handleTabChange = (index: number) => {
-    if (index === selected || isAnimating) return;
-    setDirection(index > selected ? "left" : "right");
-    setPrevSelected(selected);
+    if (index === selectedTab || isAnimating) return;
+    setDirection(index > selectedTab ? "left" : "right");
+    setPrevSelected(selectedTab);
     setIsAnimating(true);
     setTimeout(() => {
-      setSelected(index);
+      setSelectedTab(index);
       setIsAnimating(false);
     }, 400);
   };
@@ -52,7 +56,7 @@ export const EscoposTabs = () => {
         {options.map((opt, idx) => (
           <TabButton
             key={idx}
-            active={selected === idx}
+            active={selectedTab === idx}
             onClick={() => handleTabChange(idx)}
           >
             {opt.title}
@@ -78,8 +82,8 @@ export const EscoposTabs = () => {
 
         <ContentSlider animateIn={isAnimating} direction={direction}>
           <TextBox>
-            <Title>{options[selected].title}</Title>
-            {options[selected].content.map((p, i) => (
+            <Title>{options[selectedTab].title}</Title>
+            {options[selectedTab].content.map((p, i) => (
               <Paragraph key={i} dangerouslySetInnerHTML={{ __html: p }} />
             ))}
           </TextBox>
@@ -92,7 +96,7 @@ export const EscoposTabs = () => {
 
       <Dots>
         {options.map((_, i) => (
-          <Dot key={i} active={i === selected} onClick={() => handleTabChange(i)} />
+          <Dot key={i} active={i === selectedTab} onClick={() => handleTabChange(i)} />
         ))}
       </Dots>
     </TabContainer>
