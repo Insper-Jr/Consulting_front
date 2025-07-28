@@ -7,25 +7,24 @@ const options = [
   {
     title: "Planejamento Societário",
     content: [
-      "A Emissão de CNPJ é fundamental para formalizar sua empresa junto à Receita Federal. Com isso, você pode emitir notas fiscais, abrir conta bancária empresarial e regularizar suas operações.",
-      "Nossa equipe trabalha <strong>com análise de custos, projeções financeiras e gestão orçamentária</strong>, aplicando metodologias ágeis para estruturar um planejamento financeiro sólido e sustentável.",
-      "<strong>Quer formalizar sua empresa de forma rápida e eficiente?</strong> Entre em contato conosco e tenha seu CNPJ emitido sem complicações!"
+      "Evidencia as possíveis <strong>estruturas societárias para o negócio</strong>, considerando suas características, objetivos e perspectivas de crescimento.",
+      "A partir da análise do perfil dos sócios, do modelo de operação, dos riscos envolvidos e das particularidades do setor, estudamos os tipos societários mais adequados e a forma ideal de organizar a participação societária.",
+      "Com isso, a <strong>empresa inicia suas atividades com uma base sólida</strong>, organizada e preparada para crescer, minimizando riscos e prevenindo conflitos futuros."
     ]
   },
   {
     title: "Emissão de CNPJ",
     content: [
-      "A Emissão de CNPJ é fundamental para formalizar sua empresa junto à Receita Federal. Com isso, você pode emitir notas fiscais, abrir conta bancária empresarial e regularizar suas operações.",
-      "Nossa equipe trabalha <strong>com análise de custos, projeções financeiras e gestão orçamentária</strong>, aplicando metodologias ágeis para estruturar um planejamento financeiro sólido e sustentável.",
-      "<strong>Quer formalizar sua empresa de forma rápida e eficiente?</strong> Entre em contato conosco e tenha seu CNPJ emitido sem complicações!"
+      "Tem por objetivo à <strong>obtenção do número de CNPJ</strong> da entidade perante a Receita Federal, garantindo sua existência jurídica plena.",
+      "Envolve a definição da natureza jurídica mais adequada, a organização e o preenchimento da documentação necessária e o acompanhamento do processo até a efetivação do registro.",
+      "O serviço busca assegurar <strong>celeridade, regularidade e conformidade</strong> com os procedimentos administrativos exigidos."
     ]
   },
   {
     title: "Documentos Constitutivos",
     content: [
-      "Os Documentos Constitutivos definem a estrutura legal da empresa. Incluem o contrato social, dados dos sócios, atividades econômicas e regras internas da organização.",
-      "Atuamos desde a elaboração do contrato social até a definição das cláusulas essenciais, focando na segurança jurídica, na clareza das responsabilidades e na adequação às necessidades específicas do negócio.",
-      "<strong>Precisa estruturar juridicamente sua empresa?</strong> Conte com nossa expertise para criar documentos constitutivos sólidos e personalizados!"
+      "Consiste na elaboração dos principais documentos jurídicos necessários para a <strong>constituição formal da organização</strong>, como o Estatuto Social, o Regimento Interno e o Termo de Voluntariado.",
+      "A redação é personalizada de acordo com a natureza e as especificidades do projeto, visando <strong>assegurar clareza organizacional, segurança jurídica e adequação às exigências legais vigentes.</strong>",
     ]
   },
 ];

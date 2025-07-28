@@ -6,15 +6,19 @@ import { CaretLeft, CaretRight } from "phosphor-react";
 import img1 from '../../../assets/visits/bain.png';
 import img2 from '../../../assets/visits/ubs.png';
 import img3 from '../../../assets/visits/visita-insper.png';
+import img4 from '../../../assets/visits/ubs2.png';
 
 // Exemplo de slides: cada sub-array pode conter uma ou mais imagens.
 // Aqui, cada "slide" contém somente 1 imagem, mas você pode agrupar mais se quiser.
 const slides = [
   [
+    { src: img4, alt: 'Visita UBS 2' },
+  ],
+  [
     { src: img1, alt: 'Visita Bain 1' },
   ],
   [
-    { src: img2, alt: 'Visita Bain 2' },
+    { src: img2, alt: 'Visita UBS' },
   ],
   [
     { src: img3, alt: 'Visita Insper' },

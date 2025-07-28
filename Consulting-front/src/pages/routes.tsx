@@ -12,6 +12,7 @@ import About_Us from "./about_us/about_us"
 import Creation from "./creation/creation"
 
 import Overview from "./overview/overview"
+import Strategy from "./strategy/strategy"
 
 const routes: RouteObject[] = [{
     path: "/",
@@ -60,6 +61,10 @@ const routes: RouteObject[] = [{
 {
     path: "/creation",
     element: <Creation />,
+},
+{
+    path: "/strategy",
+    element: <Strategy />,
 }
 ]
 export default routes

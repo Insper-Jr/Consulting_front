@@ -12,10 +12,10 @@ const SuccessCase = () => {
       <Image src={solar} alt="Consultoria estratégica" />
       <TextContent>
         <Title>
-          SOLAR I
+        PÉ DIREITO I
         </Title>
         <Description>
-        O projeto teve como foco principal auxiliar na estruturação financeira de uma startup que unia os mercados de cosméticos e esportes, com produtos de autocuidado voltados para atletas e entusiastas. O financeiro foi um dos pilares mais robustos do projeto, destacando-se pela utilização de ferramentas estatísticas avançadas para simular prazos de pagamento e projetar o decaimento do WACC por meio de uma função logarítmica simulada em R. A planilha financeira desenvolvida foi altamente detalhada e automatizada. Além disso, foram criadas premissas financeiras sólidas e alinhadas às expectativas do cliente, garantindo que as projeções fossem realistas e aplicáveis ao contexto do negócio. Essa abordagem permitiu uma visão clara e embasada da viabilidade financeira da startup, contribuindo para a tomada de decisões estratégicas e a atração de potenciais investidores.
+        O projeto tinha como objetivo reforçar a segurança jurídica e padronizar documentos essenciais para as operações de uma organização do terceiro setor. Foram entregues três instrumentos estratégicos: um Contrato de Parceria claro e objetivo, que facilita a formalização de novos acordos; um Termo de Voluntariado revisado conforme o Marco Legal, trazendo mais segurança às relações institucionais; e um Termo de Uso de Imagem adequado à LGPD, garantindo transparência na comunicação. Uma entrega completa para quem busca crescer com solidez e conformidade.
         </Description>
       </TextContent>
     </Container>

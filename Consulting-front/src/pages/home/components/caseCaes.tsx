@@ -13,7 +13,7 @@ const Caes = () => {
           CAES I
         </Title>
         <Description>
-          O projeto foi um Business Plan completo para um microempreendedor que queria estruturar a ideia do seu negócio do zero: um hotel de luxo para cachorros pequenos. O projeto contou com diversos detalhamentos comportamentais de diferentes raças de cachorro, análise de mercado, análise de concorrência, plano de marketing e planilhas financeiras estremamente organizadas e detalhadas.
+          O projeto foi um Business Plan completo para um microempreendedor que queria estruturar a ideia do seu negócio do zero: um hotel de luxo para cachorros pequenos. O projeto contou com diversos detalhamentos comportamentais de diferentes raças de cachorro, análise de mercado, análise de concorrência, plano de marketing e planilhas financeiras extremamente organizadas e detalhadas.
         </Description>
       </TextContent>
     </Container>
