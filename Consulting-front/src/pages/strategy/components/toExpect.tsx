@@ -10,63 +10,44 @@ const WhatToExpect = ({ selectedTab }: WhatToExpectProps) => {
     [
       {
         icon: <MagnifyingGlass size={28} color="white" weight="bold" />,
-        title: "Contratos sob Medida e com Segurança Jurídica",
+        title: "Formalize relações com segurança e clareza",
         description:
-          "Elaboração e revisão de contratos que asseguram direitos, obrigações e mitigam riscos jurídicos.",
+          "Elaboramos e revisamos contratos que definem direitos, deveres e previnem conflitos em todas as fases do seu negócio.",
       },
       {
         icon: <PencilSimple size={28} color="white" weight="bold" />,
-        title: "Adequação às Especificidades de Cada Projeto",
+        title: "Alinhe documentos aos seus objetivos estratégicos",
         description:
-          "Adequação dos instrumentos às necessidades específicas de cada operação e setor.",
+          "Criamos instrumentos sob medida como: Contrato de Prestação de Serviços, Acordo de Sócios, Vesting, Termo de Voluntariado entre outros; ajustando-os à sua realidade.",
       },
       {
         icon: <Target size={28} color="white" weight="bold" />,
-        title: "Instrumentos Estratégicos para o Negócio",
+        title: "Garanta validade e conformidade legal",
         description:
-          "Abrangência de documentos estratégicos como Acordo de Sócios, Termo de Voluntariado, Vesting, entre outros.",
+          "As minutas seguem a legislação vigente e refletem boas práticas de governança, contribuindo para decisões seguras e escaláveis.",
       },
     ],
     [
       {
         icon: <PencilSimple size={28} color="white" weight="bold" />,
-        title: "Avaliação para Benefícios Tributários",
+        title: "Reduza custos com inteligência fiscal",
         description:
-          "Estudo de viabilidade para imunidades e isenções tributárias com base nas atividades e natureza jurídica da organização.",
+          "Estudamos os regimes tributários disponíveis e identificamos a estrutura mais econômica e segura para sua operação.",
       },
       {
         icon: <Target size={28} color="white" weight="bold" />,
-        title: "Comparação de Regimes e Otimização Fiscal",
+        title: "Aproveite benefícios legais com segurança",
         description:
-          "Análise comparativa dos regimes tributários para redução lícita da carga tributária.",
+          "Analisamos a possibilidade de imunidades e isenções previstas em lei, de acordo com a natureza da sua atividade.",
       },
       {
         icon: <MagnifyingGlass size={28} color="white" weight="bold" />,
-        title: "Planejamento Sustentável e em Conformidade",
+        title: "Ganhe previsibilidade e sustentabilidade",
         description:
-          "Estruturação de planejamento que garanta conformidade, economia fiscal e sustentabilidade financeira.",
+          "Estruturamos seu planejamento fiscal com foco em regularidade jurídica, controle financeiro e crescimento saudável.",
       },
     ],
-    [
-      {
-        icon: <PencilSimple size={28} color="white" weight="bold" />,
-        title: "Avaliação para Benefícios Tributários",
-        description:
-          "Estudo de viabilidade para imunidades e isenções tributárias com base nas atividades e natureza jurídica da organização.",
-      },
-      {
-        icon: <Target size={28} color="white" weight="bold" />,
-        title: "Comparação de Regimes e Otimização Fiscal",
-        description:
-          "Análise comparativa dos regimes tributários para redução lícita da carga tributária.",
-      },
-      {
-        icon: <MagnifyingGlass size={28} color="white" weight="bold" />,
-        title: "Planejamento Sustentável e em Conformidade",
-        description:
-          "Estruturação de planejamento que garanta conformidade, economia fiscal e sustentabilidade financeira.",
-      },
-    ],
+  
   ];
 
   const cards = cardData[selectedTab];

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import backgroundImage from "@/assets/backgrounds/financial-background.png";
+import backgroundImage from "@/assets/creation/creation-background.png";
 import DiagnosticForm from "@/components/forms";
 
 
@@ -9,10 +9,10 @@ const Hero = () => {
       <Content>
         <Title>Criação e Estruturação</Title>
         <Description>
-        Da projeção à automatização, estruturamos planejamentos financeiros estratégicos com foco em viabilidade, sustentabilidade e crescimento. Analisamos receitas, custos e investimentos para criar um plano financeiro sólido e alinhado aos objetivos do negócio. 
+        Da definição societária à formalização jurídica, oferecemos todo o suporte necessário para o nascimento estruturado e seguro do seu projeto. Iniciamos com o planejamento societário, recomendando a estrutura mais adequada de acordo com o perfil dos sócios e o modelo de negócio. Em seguida, conduzimos o processo de emissão do CNPJ, cuidando da definição da natureza jurídica e do registro junto à Receita Federal.
         </Description>
         <CallToAction>
-          Quer saber como <strong>podemos ajudar seu negócio?</strong> Peça um <strong>diagnóstico gratuito</strong> e descubra a melhor solução para sua empresa!
+          Quer tirar seu projeto do papel com <strong>segurança e agilidade? Solicite um diagnóstico gratuito</strong> e descubra como podemos estruturar sua empresa desde o início!
         </CallToAction>
       </Content>
       <DiagnosticForm/>

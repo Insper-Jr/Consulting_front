@@ -1,30 +1,41 @@
 import styled from "styled-components";
-import img1 from "@/assets/financial-img1.png";
-import img2 from "@/assets/financial-img2.png";
+import img1 from "@/assets/creation/society-img1.png";
+import img2 from "@/assets/creation/society-img2.png";
+import img3 from "@/assets/creation/cnpj-img1.png";
+import img4 from "@/assets/creation/cnpj-img2.png";
+import img5 from "@/assets/creation/document-img1.png";
+import img6 from "@/assets/creation/document-img2.png";
 import { useEffect, useState } from "react";
 
 const options = [
   {
     title: "Planejamento Societário",
+    imageBack: img1,
+    imageFront: img2,
     content: [
-      "Evidencia as possíveis <strong>estruturas societárias para o negócio</strong>, considerando suas características, objetivos e perspectivas de crescimento.",
-      "A partir da análise do perfil dos sócios, do modelo de operação, dos riscos envolvidos e das particularidades do setor, estudamos os tipos societários mais adequados e a forma ideal de organizar a participação societária.",
-      "Com isso, a <strong>empresa inicia suas atividades com uma base sólida</strong>, organizada e preparada para crescer, minimizando riscos e prevenindo conflitos futuros."
+      "<strong>A estrutura societária é o alicerce jurídico da sua empresa</strong>. Por isso, é essencial escolher o formato que melhor se adequa ao perfil dos sócios, ao modelo de negócio e aos objetivos de crescimento.",
+      "Analisamos os riscos, responsabilidades e particularidades do setor para <strong>propor a estrutura mais eficiente e segura</strong>. Com isso, prevenimos conflitos futuros e construímos uma base sólida para o desenvolvimento da organização.",
+      "Quer começar seu negócio com a estrutura certa? <strong>Peça um diagnóstico gratuito e construa uma empresa preparada para crescer com segurança!</strong>"
     ]
   },
   {
     title: "Emissão de CNPJ",
+    imageBack: img3,
+    imageFront: img4,
     content: [
-      "Tem por objetivo à <strong>obtenção do número de CNPJ</strong> da entidade perante a Receita Federal, garantindo sua existência jurídica plena.",
-      "Envolve a definição da natureza jurídica mais adequada, a organização e o preenchimento da documentação necessária e o acompanhamento do processo até a efetivação do registro.",
-      "O serviço busca assegurar <strong>celeridade, regularidade e conformidade</strong> com os procedimentos administrativos exigidos."
+      "Formalizar sua empresa é um passo essencial para <strong>operar legalmente e acessar benefícios fiscais e bancários.</strong>",
+      "Atuamos na definição da natureza jurídica ideal, na organização dos documentos e no acompanhamento completo do processo junto à Receita Federal. <strong>Com agilidade e atenção aos detalhes, garantimos que sua empresa obtenha o CNPJ de forma segura e regular.</strong>",
+      "Precisa formalizar sua empresa com eficiência? <strong>Solicite um diagnóstico gratuito e conte com a gente para emitir seu CNPJ com tranquilidade!</strong>"
     ]
   },
   {
     title: "Documentos Constitutivos",
+    imageBack: img5,
+    imageFront: img6,
     content: [
-      "Consiste na elaboração dos principais documentos jurídicos necessários para a <strong>constituição formal da organização</strong>, como o Estatuto Social, o Regimento Interno e o Termo de Voluntariado.",
-      "A redação é personalizada de acordo com a natureza e as especificidades do projeto, visando <strong>assegurar clareza organizacional, segurança jurídica e adequação às exigências legais vigentes.</strong>",
+      "<strong>A constituição formal de uma organização depende de documentos bem redigidos</strong>, que reflitam sua missão, estrutura e operação.",
+      "Elaboramos Estatuto Social, Regimento Interno e Termo de Voluntariado de forma personalizada, assegurando clareza organizacional, segurança jurídica e total conformidade com a legislação vigente. <strong>Nossa entrega garante uma fundação sólida para sua atuação.</strong>",
+      "Quer garantir documentos jurídicos claros e bem estruturados? <strong>Peça um diagnóstico gratuito e tenha segurança desde o primeiro passo!</strong>",
     ]
   },
 ];
@@ -74,8 +85,8 @@ export const EscoposTabs = ({ selectedTab, setSelectedTab }: EscoposTabsProps) =
               ))}
             </TextBox>
             <ImagesBox>
-              <ImageBack src={img1} alt="Imagem de fundo" />
-              <ImageFront src={img2} alt="Imagem sobreposta" />
+              <ImageBack src={options[prevSelected].imageBack} alt="Imagem de fundo" />
+              <ImageFront src={options[prevSelected].imageFront} alt="Imagem sobreposta" />
             </ImagesBox>
           </ContentSlider>
         )}
@@ -88,8 +99,8 @@ export const EscoposTabs = ({ selectedTab, setSelectedTab }: EscoposTabsProps) =
             ))}
           </TextBox>
           <ImagesBox>
-            <ImageBack src={img1} alt="Imagem de fundo" />
-            <ImageFront src={img2} alt="Imagem sobreposta" />
+            <ImageBack src={options[selectedTab].imageBack} alt="Imagem de fundo" />
+            <ImageFront src={options[selectedTab].imageFront} alt="Imagem sobreposta" />
           </ImagesBox>
         </ContentSlider>
       </ContentWrapper>

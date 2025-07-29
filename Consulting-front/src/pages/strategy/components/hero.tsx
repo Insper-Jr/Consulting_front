@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import backgroundImage from "@/assets/backgrounds/financial-background.png";
+import backgroundImage from "@/assets/strategy/strategy-backgroung.png";
 import DiagnosticForm from "@/components/forms";
 
 
@@ -12,7 +12,7 @@ const Hero = () => {
         O escopo de Operação e Estratégia oferece suporte jurídico para consolidar e expandir as atividades do seu negócio. Atuamos na elaboração e revisão de contratos, estruturação de parcerias e definição de políticas internas, sempre com foco em fortalecer a governança e mitigar riscos. Também assessoramos em temas estratégicos, como planejamento tributário, vesting e modelos de incentivo que alinhem os interesses de sócios, colaboradores e parceiros.
         </Description>
         <CallToAction>
-          Quer saber como <strong>podemos ajudar seu negócio?</strong> Peça um <strong>diagnóstico gratuito</strong> e descubra a melhor solução para sua empresa!
+          Quer fortalecer a base jurídica do seu negócio e tomar decisões estratégicas com mais segurança? Peça um diagnóstico gratuito e veja como podemos ajudar sua empresa a crescer com solidez.
         </CallToAction>
       </Content>
       <DiagnosticForm/>

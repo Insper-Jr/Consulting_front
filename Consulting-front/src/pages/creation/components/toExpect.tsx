@@ -10,61 +10,61 @@ const WhatToExpect = ({ selectedTab }: WhatToExpectProps) => {
     [
       {
         icon: <MagnifyingGlass size={28} color="white" weight="bold" />,
-        title: "Análise Estratégica da Estrutura Societária",
+        title: "Defina o melhor modelo societário",
         description:
-          "Mapeamento das estruturas societárias possíveis e recomendação da mais adequada ao perfil dos sócios e modelo de negócios.",
+          "Analisamos o perfil dos sócios, operação e riscos para recomendar a estrutura mais adequada ao seu negócio.",
       },
       {
         icon: <PencilSimple size={28} color="white" weight="bold" />,
-        title: "Prevenção de Conflitos e Fortalecimento da Governança",
+        title: "Garanta uma base sólida desde o início",
         description:
-          "Avaliação de riscos, governança e organização da participação societária com foco na prevenção de conflitos.",
+          "Organizamos a participação societária com foco em crescimento, segurança jurídica e prevenção de conflitos.",
       },
       {
         icon: <Target size={28} color="white" weight="bold" />,
-        title: "Base Jurídica Sólida para Crescimento",
+        title: "Evite problemas futuros",
         description:
-          "Criação de uma base jurídica sólida e estratégica para o crescimento do empreendimento.",
+          "Com escolhas estratégicas desde a fundação, sua empresa ganha eficiência, estabilidade e governança.",
       },
     ],
     [
       {
         icon: <PencilSimple size={28} color="white" weight="bold" />,
-        title: "Escolha da Natureza Jurídica e Preparação Documental",
+        title: "Defina, registre e formalize com segurança",
         description:
-          "Definição da natureza jurídica e preenchimento de documentos conforme exigências da Receita Federal.",
+          "Estruturamos a natureza jurídica e conduzimos todo o processo de emissão do CNPJ, da documentação ao registro final.",
       },
       {
         icon: <Target size={28} color="white" weight="bold" />,
-        title: "Registro e Acompanhamento até o CNPJ",
+        title: "Escolha a natureza jurídica ideal",
         description:
-          "Protocolo e acompanhamento do processo de registro até a obtenção do CNPJ.",
+          "Analisamos o tipo societário mais adequado ao seu caso para assegurar alinhamento com os objetivos do negócio.",
       },
       {
         icon: <MagnifyingGlass size={28} color="white" weight="bold" />,
-        title: "Formalização com Segurança e Eficiência",
+        title: "Garanta conformidade e agilidade",
         description:
-          "Garantia de regularidade, celeridade e segurança jurídica na formalização da entidade.",
+          "Preparamos e acompanhamos a documentação necessária, assegurando regularidade e rapidez no registro.",
       },
     ],
     [
       {
         icon: <MagnifyingGlass size={28} color="white" weight="bold" />,
-        title: "Elaboração Personalizada dos Documentos Fundamentais",
+        title: "Elabore documentos sob medida para sua organização",
         description:
-          "Elaboração personalizada dos documentos constitutivos conforme a missão, estrutura e área de atuação da organização.",
+          "Redigimos Estatuto Social, Regimento Interno e Termo de Voluntariado com base nas necessidades e especificidades do seu projeto.",
       },
       {
         icon: <PencilSimple size={28} color="white" weight="bold" />,
-        title: "Redação Clara e Jurídica Segura",
+        title: "Garanta clareza e segurança jurídica",
         description:
-          "Redação clara e juridicamente segura, com atenção à legislação vigente e melhores práticas.",
+          "Estruturamos textos claros e coerentes, que refletem a realidade da organização e previnem conflitos futuros.",
       },
       {
         icon: <Target size={28} color="white" weight="bold" />,
-        title: "Apoio à Governança e Alinhamento Institucional",
+        title: "Esteja em conformidade com a legislação",
         description:
-          "Alinhamento institucional e suporte à governança desde o início da operação.",
+          "As minutas seguem rigorosamente as normas legais vigentes, assegurando validade e regularidade desde o início.",
       },
     ],
   ];

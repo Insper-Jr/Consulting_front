@@ -1,31 +1,30 @@
 import styled from "styled-components";
-import img1 from "@/assets/financial-img1.png";
-import img2 from "@/assets/financial-img2.png";
+import img1 from "@/assets/strategy/contract-img1.png";
+import img2 from "@/assets/strategy/contract-img2.png";
+import img3 from "@/assets/strategy/tax-img1.png";
+import img4 from "@/assets/strategy/tax-img2.png";
 import { useEffect, useState } from "react";
 
 const options = [
   {
     title: "Contratos",
+    imageBack: img1,
+    imageFront: img2,
     content: [
-      "A celebração de contratos bem estruturados é essencial para <strong>garantir segurança jurídica, clareza nas responsabilidades e previsibilidade nas relações.</strong>",
-      "Em qualquer fase de um projeto — desde sua operação cotidiana até processos de expansão — os contratos cumprem a função de formalizar acordos, definir direitos e deveres das partes envolvidas, e prevenir litígios futuros.",
-      "<strong>Atuamos na elaboração, revisão e adequação contratual</strong> conforme as particularidades de cada cliente, alinhando os documentos à legislação vigente e aos objetivos estratégicos da organização."
+      "Contratos bem elaborados são fundamentais para <strong>estabelecer acordos seguros e evitar riscos legais.</strong>",
+      "Atuamos na criação, revisão e adequação de diversos tipos de contratos, sempre alinhando os documentos aos objetivos do negócio e à legislação vigente.",
+      "<strong>Acordo de Sócios, Contrato de Prestação de Serviços, Termo de Voluntariado, Ata de Assembleia e outros</strong> são alguns exemplos que compõem nossas entregas.",
+      "Quer garantir clareza e proteção nas suas relações jurídicas? <strong>Solicite um diagnóstico gratuito e estruture contratos com segurança e eficiência!</strong>"
     ]
   },
   {
-    title: "Imunidades e Isenções Tributárias",
+    title: "Planejamento Tributário / Imunidades e Isenções",
+    imageBack: img3,
+    imageFront: img4,
     content: [
-      "Tem por objetivo à <strong>obtenção do número de CNPJ</strong> da entidade perante a Receita Federal, garantindo sua existência jurídica plena.",
-      "Envolve a definição da natureza jurídica mais adequada, a organização e o preenchimento da documentação necessária e o acompanhamento do processo até a efetivação do registro.",
-      "O serviço busca assegurar <strong>celeridade, regularidade e conformidade</strong> com os procedimentos administrativos exigidos."
-    ]
-  },
-  {
-    title: "Planejamento Tributário",
-    content: [
-      "Tem como objetivo <strong>estudar as formas mais eficientes e seguras de cumprimento das obrigações fiscais da empresa</strong>, considerando a atividade e o porte da sociedade.",
-      "Através da análise dos regimes tributários disponíveis, buscamos as opções que possam reduzir a carga tributária de forma lícita e estratégica. Além disso, é feita análise da possibilidade de aplicação de imunidades e isenções tributárias, quando previstas em lei.",
-      "Com isso, <strong>o serviço assegura maior previsibilidade financeira, regularidade tributária e jurídica </strong>para o desenvolvimento sustentável do negócio."
+      "A gestão tributária estratégica <strong>permite reduzir custos e evitar riscos legais.</strong>",
+      "Estudamos os regimes fiscais disponíveis e avaliamos a aplicação de imunidades e isenções para construir um plano tributário adequado ao porte e à atividade da sua empresa. <strong>Nossa entrega assegura previsibilidade financeira, regularidade fiscal e sustentabilidade jurídica para o negócio.</strong>",
+      "Quer tomar decisões fiscais mais inteligentes e seguras? <strong>Peça um diagnóstico gratuito e otimize a carga tributária da sua empresa com apoio especializado!</strong>"
     ]
   },
 ];
@@ -75,8 +74,8 @@ export const EscoposTabs = ({ selectedTab, setSelectedTab }: EscoposTabsProps) =
               ))}
             </TextBox>
             <ImagesBox>
-              <ImageBack src={img1} alt="Imagem de fundo" />
-              <ImageFront src={img2} alt="Imagem sobreposta" />
+              <ImageBack src={options[prevSelected].imageBack} alt="Imagem de fundo" />
+              <ImageFront src={options[prevSelected].imageFront} alt="Imagem sobreposta" />
             </ImagesBox>
           </ContentSlider>
         )}
@@ -89,8 +88,8 @@ export const EscoposTabs = ({ selectedTab, setSelectedTab }: EscoposTabsProps) =
             ))}
           </TextBox>
           <ImagesBox>
-            <ImageBack src={img1} alt="Imagem de fundo" />
-            <ImageFront src={img2} alt="Imagem sobreposta" />
+            <ImageBack src={options[selectedTab].imageBack} alt="Imagem de fundo" />
+            <ImageFront src={options[selectedTab].imageFront} alt="Imagem sobreposta" />
           </ImagesBox>
         </ContentSlider>
       </ContentWrapper>

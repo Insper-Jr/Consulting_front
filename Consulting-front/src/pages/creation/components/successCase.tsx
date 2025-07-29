@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import solar from "../../../assets/cases/solar.png";
+import pedireito from "../../../assets/creation/pe-direito.png";
 import { useState } from "react";
 
 const SuccessCase = () => {
@@ -9,7 +9,7 @@ const SuccessCase = () => {
     <Wrapper>
     <Intro>CASE DE SUCESSO</Intro>
     <Container hovered={hovered} onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
-      <Image src={solar} alt="Consultoria estratégica" />
+      <Image src={pedireito} alt="Consultoria estratégica" />
       <TextContent>
         <Title>
         PÉ DIREITO I
