@@ -108,8 +108,6 @@ const FooterContainer = styled.footer`
   background: #000;
   color: #fff;
   max-width: 100%;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
 
   font-size: 1.1rem;
   font-family: "Inter", sans-serif;

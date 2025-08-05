@@ -33,9 +33,14 @@ const BackgroundContainer = styled.div`
   background-position: center;
   display: flex;
   justify-content: center;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    height: auto;
+    min-height: 600px;
+    margin-top: 30px;
+  }
 `;
-
-
 
 const LeftContainer = styled.div`
   flex: 1;
@@ -47,8 +52,11 @@ const LeftContainer = styled.div`
   align-items: center;
   justify-content:center;
 
-  
-
+  @media (max-width: 768px) {
+    margin-right: 0;
+    margin-bottom: 20px;
+    padding: 30px 20px;
+  }
 `;
 
 const LeftText = styled.h1`
@@ -56,8 +64,14 @@ const LeftText = styled.h1`
   font-size: 50px;
   color: #fff;
   margin: 0;
-      @media (max-width: 600px) {
-    font-size:25px
+  text-align: center;
+
+  @media (max-width: 768px) {
+    font-size: 32px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 25px;
   }
 `;
 
@@ -68,6 +82,16 @@ const RightContainer = styled.div`
   gap: 150px;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 768px) {
+    gap: 40px;
+    padding: 30px 20px;
+  }
+
+  @media (max-width: 480px) {
+    gap: 30px;
+    padding: 20px;
+  }
 `;
 
 const StyledButton = styled(Link)`
@@ -81,12 +105,35 @@ const StyledButton = styled(Link)`
   cursor: pointer;
   transition: background-color 0.3s ease;
   text-decoration: none;
+  text-align: center;
+  display: inline-block;
+  min-width: 200px;
 
   &:hover {
     background-color: #87061b;
   }
-    @media(max-width:600px){
-    font-size:10px;
-     padding: 10px 10px;
-    }
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+    padding: 14px 30px;
+    min-width: 250px;
+  }
+
+  @media (max-width: 600px) {
+    font-size: 16px;
+    padding: 12px 24px;
+    min-width: 220px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 14px;
+    padding: 10px 20px;
+    min-width: 200px;
+  }
+
+  @media (max-width: 350px) {
+    font-size: 12px;
+    padding: 8px 16px;
+    min-width: 180px;
+  }
 `;
