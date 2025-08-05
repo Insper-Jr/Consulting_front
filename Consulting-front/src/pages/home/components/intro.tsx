@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import introImg from "../../../assets/intro.png";
 import flecha from "../../../assets/flecha.png";
@@ -10,6 +11,7 @@ const Intro = () => {
     { label: "Membros", value: 60 },
     { label: "Índice NPS", value: 90 },
   ];
+  const navigate = useNavigate();
 
   return (
     <IntroSection>
@@ -24,7 +26,7 @@ const Intro = () => {
         <p>
           Com mais de <strong>24 anos de mercado</strong> e <strong>500 projetos realizados</strong>, a empresa se destaca pela excelência na entrega de soluções estratégicas e inovadoras para negócios de diversos setores.
         </p>
-        <RedButton>Saiba mais</RedButton>
+        <RedButton onClick={() => navigate("/about")}>Saiba mais</RedButton>
       </LeftContent>
 
       <RightContent>
