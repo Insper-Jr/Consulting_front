@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { List, X, CaretDown } from "phosphor-react";
 import styled from "styled-components";
 import LogoWR from "../assets/ijr/insperjr-white-red.png";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -65,15 +66,15 @@ const Header = () => {
               <DropdownSection>
                 <DropdownTitle>Direito</DropdownTitle>
                 <DropdownSubTitle>Criação e Estruturação</DropdownSubTitle>
-                <DropdownItem to="/legal">Planejamento Societário</DropdownItem>
-                <DropdownItem to="/contracts">Emissão de CNPJ</DropdownItem>
-                <DropdownItem to="/compliance">Documentos Constitutivos</DropdownItem>
+                <DropdownItem to="/creation?tab=0">Planejamento Societário</DropdownItem>
+                <DropdownItem to="/creation?tab=1">Emissão de CNPJ</DropdownItem>
+                <DropdownItem to="/creation?tab=2">Documentos Constitutivos</DropdownItem>
                 <DropdownSubTitle>Operação e Estratégia</DropdownSubTitle>
-                <DropdownItem to="/legal-operations">Contratos</DropdownItem>
-                <DropdownItem to="/legal-strategy">Imunidades e Isenções Tributárias</DropdownItem>
-                <DropdownItem to="/legal-compliance">Planejamento Tributário</DropdownItem>
+                <DropdownItem to="/strategy?tab=0">Contratos</DropdownItem>
+                <DropdownItem to="/strategy?tab=1">Planejamento Tributário / Imunidades e Isenções Tributárias</DropdownItem>
                 <DropdownSubTitle>Proteção e Regularização</DropdownSubTitle>
-                <DropdownItem to="/legal-protection">Propriedade Intelectual</DropdownItem>
+                <DropdownItem to="/protection?tab=0">Propriedade Intelectual / Direitos Autorais</DropdownItem>
+                <DropdownItem to="/protection?tab=1">LGPD</DropdownItem>
               </DropdownSection>
             </DropdownMenu>
           )}
@@ -89,42 +90,57 @@ const Header = () => {
       )}
 
       <MobileNav isOpen={menuOpen}>
-        <CloseButton onClick={() => setMenuOpen(false)}>
-          <X size={32} color="white" />
-        </CloseButton>
+        <MobileNavContent>
+          <CloseButton onClick={() => setMenuOpen(false)}>
+            <X size={32} color="white" />
+          </CloseButton>
 
-        <NavLink to="/" onClick={() => setMenuOpen(false)}>Início</NavLink>
-        <NavLink to="/about" onClick={() => setMenuOpen(false)}>Sobre Nós</NavLink>
-        <NavLink to="/overview" onClick={() => setMenuOpen(false)}>Serviços</NavLink>
+          <NavLink to="/" onClick={() => setMenuOpen(false)}>Início</NavLink>
+          <NavLink to="/about" onClick={() => setMenuOpen(false)}>Sobre Nós</NavLink>
+          <NavLink to="/overview" onClick={() => setMenuOpen(false)}>Serviços</NavLink>
 
-        <DropdownSection>
-          <DropdownTitle>Business</DropdownTitle>
-          <DropdownItem to="/marketing" onClick={() => setMenuOpen(false)}>Plano Estratégico de Marketing</DropdownItem>
-          <DropdownItem to="/market" onClick={() => setMenuOpen(false)}>Análise Mercadológica</DropdownItem>
-          <DropdownItem to="/operational" onClick={() => setMenuOpen(false)}>Plano Operacional</DropdownItem>
-          <DropdownItem to="/financial" onClick={() => setMenuOpen(false)}>Viabilidade Financeira</DropdownItem>
-        </DropdownSection>
-        <DropdownSection>
-          <DropdownTitle>Engenharia & Tecnologia</DropdownTitle>
-          <DropdownItem to="/data" onClick={() => setMenuOpen(false)}>Análise de Dados</DropdownItem>
-          <DropdownItem to="/products" onClick={() => setMenuOpen(false)}>Desenvolvimento de Produtos</DropdownItem>
-          <DropdownItem to="/devweb" onClick={() => setMenuOpen(false)}>Desenvolvimento Web</DropdownItem>
-        </DropdownSection>
-        <DropdownSection>
-          <DropdownTitle>Direito</DropdownTitle>
-          <DropdownSubTitle>Criação e Estruturação</DropdownSubTitle>
-          <DropdownItem to="/legal" onClick={() => setMenuOpen(false)}>Planejamento Societário</DropdownItem>
-          <DropdownItem to="/contracts" onClick={() => setMenuOpen(false)}>Emissão de CNPJ</DropdownItem>
-          <DropdownItem to="/compliance" onClick={() => setMenuOpen(false)}>Documentos Constitutivos</DropdownItem>
-          <DropdownSubTitle>Operação e Estratégia</DropdownSubTitle>
-          <DropdownItem to="/legal-operations" onClick={() => setMenuOpen(false)}>Contratos</DropdownItem>
-          <DropdownItem to="/legal-strategy" onClick={() => setMenuOpen(false)}>Imunidades e Isenções Tributárias</DropdownItem>
-          <DropdownItem to="/legal-compliance" onClick={() => setMenuOpen(false)}>Planejamento Tributário</DropdownItem>
-          <DropdownSubTitle>Proteção e Regularização</DropdownSubTitle>
-          <DropdownItem to="/legal-protection" onClick={() => setMenuOpen(false)}>Propriedade Intelectual</DropdownItem>
-        </DropdownSection>
+          <DropdownSection>
+            <DropdownTitle>Business</DropdownTitle>
+            <DropdownItem to="/marketing" onClick={() => setMenuOpen(false)}>Plano Estratégico de Marketing</DropdownItem>
+            <DropdownItem to="/market" onClick={() => setMenuOpen(false)}>Análise Mercadológica</DropdownItem>
+            <DropdownItem to="/operational" onClick={() => setMenuOpen(false)}>Plano Operacional</DropdownItem>
+            <DropdownItem to="/financial" onClick={() => setMenuOpen(false)}>Viabilidade Financeira</DropdownItem>
+          </DropdownSection>
+          
+          <DropdownSection>
+            <DropdownTitle>Engenharia & Tecnologia</DropdownTitle>
+            <DropdownItem to="/data" onClick={() => setMenuOpen(false)}>Análise de Dados</DropdownItem>
+            <DropdownItem to="/products" onClick={() => setMenuOpen(false)}>Desenvolvimento de Produtos</DropdownItem>
+            <DropdownItem to="/devweb" onClick={() => setMenuOpen(false)}>Desenvolvimento Web</DropdownItem>
+          </DropdownSection>
+          
+          <DropdownSection>
+            <DropdownTitle>Direito</DropdownTitle>
+            <DropdownSubTitle>Criação e Estruturação</DropdownSubTitle>
+            <DropdownItem to="/creation?tab=0" onClick={() => setMenuOpen(false)}>Planejamento Societário</DropdownItem>
+            <DropdownItem to="/creation?tab=1" onClick={() => setMenuOpen(false)}>Emissão de CNPJ</DropdownItem>
+            <DropdownItem to="/creation?tab=2" onClick={() => setMenuOpen(false)}>Documentos Constitutivos</DropdownItem>
+            <DropdownSubTitle>Operação e Estratégia</DropdownSubTitle>
+            <DropdownItem to="/strategy?tab=0" onClick={() => setMenuOpen(false)}>Contratos</DropdownItem>
+            <DropdownItem to="/strategy?tab=1" onClick={() => setMenuOpen(false)}>Planejamento Tributário / Imunidades e Isenções Tributárias</DropdownItem>
+            <DropdownSubTitle>Proteção e Regularização</DropdownSubTitle>
+            <DropdownItem to="/protection?tab=0" onClick={() => setMenuOpen(false)}>Propriedade Intelectual / Direitos Autorais</DropdownItem>
+            <DropdownItem to="/protection?tab=1" onClick={() => setMenuOpen(false)}>LGPD</DropdownItem>
+          </DropdownSection>
 
-        <ContactButton to="/contact" onClick={() => setMenuOpen(false)}>Fale Conosco</ContactButton>
+          {/* Espaçador flexível */}
+          
+          <ContactButton 
+            to="/contact" 
+            onClick={() => setMenuOpen(false)}
+            style={{ marginTop: 'auto', flexShrink: 0 }}
+          >
+            Fale Conosco
+          </ContactButton>
+          
+          {/* Espaço extra no final */}
+          <div style={{ height: '2rem', flexShrink: 0 }}></div>
+        </MobileNavContent>
       </MobileNav>
     </HeaderContainer>
   );
@@ -180,7 +196,7 @@ const ContactButton = styled(Link)`
   &:hover { opacity: 0.8; }
 `;
 
-const DropdownContainer = styled.div``;  /* removido position: relative */
+const DropdownContainer = styled.div``;
 
 const DropdownTrigger = styled(Link)`
   color: #fff; 
@@ -229,8 +245,8 @@ const DropdownItem = styled(Link)`
   font-size: 14px;
   padding-left: 10px;
   &:hover { 
-  opacity: 0.8;
-   }
+    opacity: 0.8;
+  }
 `;
 
 const MobileMenu = styled.div`
@@ -238,22 +254,59 @@ const MobileMenu = styled.div`
   cursor: pointer; 
   margin-right: 2rem;
   @media (max-width: 800px) { 
-  display: block; 
+    display: block; 
   }
 `;
 
 const MobileNav = styled.div<{ isOpen: boolean }>`
   position: fixed; 
-  top: 0; right: ${({ isOpen }) => (isOpen ? "0" : "-100%")};
-  width: 250px; 
-  height: 100vh; 
+  top: 0; 
+  right: ${({ isOpen }) => (isOpen ? "0" : "-100%")};
+  width: 280px; 
+  height: 100vh;
+  height: 100dvh;
   background: #871223;
-  padding: 2rem; 
+  transition: right 0.3s ease; 
+  z-index: 1200;
+  display: flex;
+  flex-direction: column;
+  
+  @media (max-width: 320px) {
+    width: 100vw;
+  }
+`;
+
+const MobileNavContent = styled.div`
+  flex: 1;
+  padding: 5rem 1.5rem 1rem;
   display: flex; 
   flex-direction: column; 
   gap: 1rem;
-  transition: right 0.3s ease; 
-  overflow-y: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  
+  /* Força o último item a ter espaço */
+  padding-bottom: 3rem !important;
+  
+  /* Webkit scrollbar styling */
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 3px;
+  }
+  
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.6);
+  }
 `;
 
 const CloseButton = styled.button`
@@ -263,4 +316,5 @@ const CloseButton = styled.button`
   background: none; 
   border: none; 
   cursor: pointer;
+  z-index: 1;
 `;

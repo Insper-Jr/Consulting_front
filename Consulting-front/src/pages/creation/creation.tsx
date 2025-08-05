@@ -10,10 +10,16 @@ import Synergy from './components/synergy';
 import Depoimentos from '@/components/depoimentos';
 import Footer from '@/components/footer';
 import EscoposTabs from "./components/escoposTabs";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from 'react-router-dom';
 
 function Creation() {
   const [selectedTab, setSelectedTab] = useState(0);
+  const [searchParams] = useSearchParams();
+    const tabFromURL = parseInt(searchParams.get("tab") ?? "0") || 0;
+    useEffect(() => {
+      setSelectedTab(tabFromURL); // seta o tab com base no parâmetro da URL
+    }, [tabFromURL]);
 
   return (
     <>
@@ -28,7 +34,6 @@ function Creation() {
          <Card>
           <SuccessCase />
         </Card> 
-         <Synergy /> 
          <Footer />
       </CreationContainer>
 

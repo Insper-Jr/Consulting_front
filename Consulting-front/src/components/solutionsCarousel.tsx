@@ -63,7 +63,7 @@ const direito = [
     title: "Operação e Estratégia",
     description:
       "Consolida e expanda seu negócio com segurança. Atuamos na elaboração de contratos, políticas internas e estratégias jurídicas para governança, gestão de riscos e alinhamento entre sócios e parceiros.",
-      link: "/operation",
+      link: "/strategy",
   },
   {
     title: "Proteção e Regularização",
