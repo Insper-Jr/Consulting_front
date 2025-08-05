@@ -56,19 +56,19 @@ const direito = [
   {
     title: "Criação e Estruturação",
     description:
-      "A etapa de Criação e Estruturação compreende todos os documentos e ações necessárias para o nascimento formal e a organização inicial da empresa ou projeto. Aqui são definidas as bases jurídicas que darão sustentação ao funcionamento futuro da sociedade",
+      "Formalize seu projeto com segurança. Estruturamos contratos, estatutos e documentos essenciais para o nascimento jurídico da sua organização, com base sólida e alinhada ao seu propósito.",
     link: "/creation",
   },
   {
     title: "Operação e Estratégia",
     description:
-      "O escopo de Operação e Estratégia oferece suporte jurídico para consolidar e expandir as atividades do seu negócio. Atuamos na elaboração e revisão de contratos, estruturação de parcerias e definição de políticas internas, sempre com foco em fortalecer a governança e mitigar riscos.",
+      "Consolida e expanda seu negócio com segurança. Atuamos na elaboração de contratos, políticas internas e estratégias jurídicas para governança, gestão de riscos e alinhamento entre sócios e parceiros.",
       link: "/operation",
   },
   {
     title: "Proteção e Regularização",
     description:
-      "A fase de Proteção e Regularização envolve medidas voltadas à segurança jurídica, à proteção de ativos intangíveis e à conformidade legal do seu negócio.",
+      "Proteja seu negócio com segurança jurídica. Cuidamos do registro de marca, patente, software e adequação à LGPD, garantindo conformidade legal e proteção dos seus ativos intangíveis.",
     link: "/protection",
   }
 
