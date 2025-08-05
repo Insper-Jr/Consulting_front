@@ -9,7 +9,7 @@ const Hero = () => {
       <Content>
         <Title>Proteção e Regularização</Title>
         <Description>
-        O escopo de Operação e Estratégia oferece suporte jurídico para consolidar e expandir as atividades do seu negócio. Atuamos na elaboração e revisão de contratos, estruturação de parcerias e definição de políticas internas, sempre com foco em fortalecer a governança e mitigar riscos. Também assessoramos em temas estratégicos, como planejamento tributário, vesting e modelos de incentivo que alinhem os interesses de sócios, colaboradores e parceiros.
+        Protegemos juridicamente ativos intangíveis como textos, vídeos e imagens, por meio do registro de direitos autorais e da garantia dos direitos do autor. Também atuamos na adequação à LGPD, mapeando fluxos de dados, identificando riscos e estruturando políticas de conformidade.
         </Description>
         <CallToAction>
           Quer proteger seus ativos e garantir conformidade com a legislação? Solicite um diagnóstico gratuito e descubra como podemos apoiar juridicamente o crescimento do seu negócio.

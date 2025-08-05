@@ -9,7 +9,7 @@ const Hero = () => {
       <Content>
         <Title>Operação e Estratégia</Title>
         <Description>
-        O escopo de Operação e Estratégia oferece suporte jurídico para consolidar e expandir as atividades do seu negócio. Atuamos na elaboração e revisão de contratos, estruturação de parcerias e definição de políticas internas, sempre com foco em fortalecer a governança e mitigar riscos. Também assessoramos em temas estratégicos, como planejamento tributário, vesting e modelos de incentivo que alinhem os interesses de sócios, colaboradores e parceiros.
+        Oferecemos suporte jurídico para estruturar, consolidar e expandir seu negócio com segurança. Atuamos com contratos, políticas internas e planejamento tributário, avaliando regimes fiscais, isenções e imunidades. Garantimos base jurídica sólida e apoio estratégico.
         </Description>
         <CallToAction>
           Quer fortalecer a base jurídica do seu negócio e tomar decisões estratégicas com mais segurança? Peça um diagnóstico gratuito e veja como podemos ajudar sua empresa a crescer com solidez.
