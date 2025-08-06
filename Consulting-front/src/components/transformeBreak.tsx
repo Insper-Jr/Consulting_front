@@ -14,7 +14,7 @@ const HeroComponent = () => {
         </LeftContainer>
         <RightContainer>
           <StyledButton to="/overview">Conheça nossos serviços</StyledButton>
-          <StyledButton to="/contact" >Faça um diagnósitco gratuito</StyledButton>
+          <StyledButton to="/contact" >Faça um diagnóstico gratuito</StyledButton>
         </RightContainer>
     </BackgroundContainer>
   );

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Insper from "../../../assets/fale_conosco/fundo-contato.png"; // ajuste o caminho conforme necessário
+import Insper from "../../../assets/management/management.png"; // ajuste o caminho conforme necessário
 import Form from "@/components/formsHome";
 import { useState } from "react";
 

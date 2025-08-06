@@ -9,8 +9,11 @@ import Data from "./dataAnalysis/dataAnalysis"
 import Products from "./products/products"
 import Contact from "./contact/contact"
 import About_Us from "./about_us/about_us"
+import Creation from "./creation/creation"
 
 import Overview from "./overview/overview"
+import Strategy from "./strategy/strategy"
+import Protection from "./protection/protection"
 
 const routes: RouteObject[] = [{
     path: "/",
@@ -53,8 +56,20 @@ const routes: RouteObject[] = [{
     element: <About_Us />,
 },
 {
-path: "/overview",
-element: <Overview />,
+    path: "/overview",
+    element: <Overview />,
+},
+{
+    path: "/creation",
+    element: <Creation />,
+},
+{
+    path: "/strategy",
+    element: <Strategy />,
+},
+{
+    path: "/protection",
+    element: <Protection />,
 }
 ]
 export default routes

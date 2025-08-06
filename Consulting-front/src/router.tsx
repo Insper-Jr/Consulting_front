@@ -1,6 +1,7 @@
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import exempleRoutes from "./pages/routes";
 import ScrollToTop from "./components/scrollToTop";
+import NotFoundPage from "./pages/notfound/NotFoundPage";
 
 const Layout = () => (
   <>
@@ -17,7 +18,7 @@ export const router = createBrowserRouter([
       ...exempleRoutes,
       {
         path: "*",
-        element: <p style={{ padding: "20px", fontSize: "32px", fontWeight: "500" }}>Em construção... 🧱</p>,
+        element: <NotFoundPage />,
       },
     ],
   },

@@ -52,9 +52,34 @@ const engenharia = [
   },
 ];
 
+const direito = [
+  {
+    title: "Criação e Estruturação",
+    description:
+      "Formalize seu projeto com segurança. Estruturamos contratos, estatutos e documentos essenciais para o nascimento jurídico da sua organização, com base sólida e alinhada ao seu propósito.",
+    link: "/creation",
+  },
+  {
+    title: "Operação e Estratégia",
+    description:
+      "Consolide e expanda seu negócio com segurança. Atuamos na elaboração de contratos, políticas internas e estratégias jurídicas para governança, gestão de riscos e alinhamento entre sócios e parceiros.",
+      link: "/strategy",
+  },
+  {
+    title: "Proteção e Regularização",
+    description:
+      "Proteja seu negócio com segurança jurídica. Cuidamos do registro de marca, patente, software e adequação à LGPD, garantindo conformidade legal e proteção dos seus ativos intangíveis.",
+    link: "/protection",
+  }
+
+]
+
+const scopeOrder = ["business", "engenharia", "direito"] as const;
+type Scope = typeof scopeOrder[number];
+
 const SolutionsCarousel = () => {
   const [animateSlider, setAnimateSlider] = useState(false);
-  const [scope, setScope] = useState<"business" | "engenharia">("business");
+  const [scope, setScope] = useState<Scope>("business");
   const [page, setPage] = useState(0);
   const [autoSlide, setAutoSlide] = useState(true);
   const navigate = useNavigate();
@@ -63,44 +88,45 @@ const SolutionsCarousel = () => {
   const [prevScope, setPrevScope] = useState(scope);
   const [isAnimating, setIsAnimating] = useState(false);
   
-  const scopes = { business, engenharia };
+  const scopes: Record<Scope, typeof business> = { business, engenharia, direito };
   const currentCards = scopes[scope];
 
   useEffect(() => {
     if (!autoSlide || isHoveringCard || isAnimating) return;
-  
     const interval = setInterval(() => {
-      const newScope = scope === "business" ? "engenharia" : "business";
-      setDirection(newScope === "engenharia" ? "left" : "right");
+      const currentIndex = scopeOrder.indexOf(scope);
+      const nextIndex = (currentIndex + 1) % scopeOrder.length;
+      const newScope = scopeOrder[nextIndex];
+      // direção: se estiver avançando no array, desliza pra esquerda
+      const isToLeft = nextIndex > currentIndex;
+      setDirection(isToLeft ? "left" : "right");
       setPrevScope(scope);
       setIsAnimating(true);
-  
+
       setTimeout(() => {
         setScope(newScope);
         setPage(0);
         setIsAnimating(false);
       }, 600);
     }, 5000);
-  
     return () => clearInterval(interval);
   }, [autoSlide, isHoveringCard, isAnimating, scope]);
-  
-  const handleScopeClick = (selected: "business" | "engenharia") => {
+
+  const handleScopeClick = (selected: Scope) => {
     if (selected === scope || isAnimating) return;
-  
-    // Para o autoSlide assim que o usuário interagir
-    setAutoSlide(false);
-  
-    const isToLeft = selected === "engenharia";
+    setAutoSlide(false); // interrup auto-slide ao clicar
+    const currentIndex = scopeOrder.indexOf(scope);
+    const targetIndex = scopeOrder.indexOf(selected);
+    const isToLeft = targetIndex > currentIndex;
     setDirection(isToLeft ? "left" : "right");
     setPrevScope(scope);
     setIsAnimating(true);
-  
+
     setTimeout(() => {
       setScope(selected);
       setPage(0);
       setIsAnimating(false);
-    }, 600); // tempo da animação
+    }, 600);
   };
   
   useEffect(() => {
@@ -121,8 +147,15 @@ const SolutionsCarousel = () => {
       </Subtitle>
 
       <Tabs>
-        <Tab active={scope === "business"} onClick={() => handleScopeClick("business")}>Business</Tab>
-        <Tab active={scope === "engenharia"} onClick={() => handleScopeClick("engenharia")}>Engenharia</Tab>
+        {scopeOrder.map((sc) => (
+          <Tab
+            key={sc}
+            active={scope === sc}
+            onClick={() => handleScopeClick(sc)}
+          >
+            {sc.charAt(0).toUpperCase() + sc.slice(1)}
+          </Tab>
+        ))}
       </Tabs>
 
       <SliderWrapper>
@@ -141,8 +174,9 @@ const SolutionsCarousel = () => {
       </SliderWrapper>
 
       <Dots>
-        <Dot active={scope === "business"} onClick={() => handleScopeClick("business")} />
-        <Dot active={scope === "engenharia"} onClick={() => handleScopeClick("engenharia")} />
+        {scopeOrder.map((sc) => (
+          <Dot key={sc} active={scope === sc} onClick={() => handleScopeClick(sc)} />
+        ))}
       </Dots>
 
 
