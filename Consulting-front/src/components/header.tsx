@@ -9,6 +9,9 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [headerHovered, setHeaderHovered] = useState(false);
+  const [dropdownHovered, setDropdownHovered] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const closeTimeoutRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
@@ -17,122 +20,218 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const openDropdown = () => {
+  const openDropdown = (category: string) => {
     if (closeTimeoutRef.current !== undefined) {
       window.clearTimeout(closeTimeoutRef.current);
     }
-    setDropdownOpen(true);
+    setActiveDropdown(category);
   };
 
   const closeDropdown = () => {
     closeTimeoutRef.current = window.setTimeout(() => {
-      setDropdownOpen(false);
+      setActiveDropdown(null);
     }, 200);
   };
 
   return (
-    <HeaderContainer isScrolled={isScrolled}>
-      <Logo as={Link} to="/">
-        <img src={LogoWR} alt="Insper Jr."/>
-      </Logo>
+    <>
+      <HeaderContainer 
+        isScrolled={isScrolled || headerHovered || dropdownHovered}
+        onMouseEnter={() => setHeaderHovered(true)}
+        onMouseLeave={() => setHeaderHovered(false)}
+      >
+        <Logo as={Link} to="/">
+          <img src={LogoWR} alt="Insper Jr."/>
+        </Logo>
 
-      <Nav>
-        <NavLink to="/">Início</NavLink>
-        <NavLink to="/about">Sobre Nós</NavLink>
-
-        <DropdownContainer
-          onMouseEnter={openDropdown}
+        <CenterNav
           onMouseLeave={closeDropdown}
         >
-          <DropdownTrigger to="/overview">
-            Serviços <CaretDown size={12} style={{ marginLeft: 4 }} />
-          </DropdownTrigger>
+          <CenterButton
+            onMouseEnter={() => openDropdown('business')}
+          >
+            Business
+          </CenterButton>
+          <CenterButton
+            onMouseEnter={() => openDropdown('engenharia')}
+          >
+            Engenharia & Tecnologia
+          </CenterButton>
+          <CenterButton
+            onMouseEnter={() => openDropdown('direito')}
+          >
+            Direito
+          </CenterButton>
+        </CenterNav>
 
-          {dropdownOpen && (
-            <DropdownMenu>
-              <DropdownSection>
-                <DropdownTitle>Business</DropdownTitle>
-                <DropdownItem to="/marketing">Plano Estratégico de Marketing</DropdownItem>
-                <DropdownItem to="/market">Análise Mercadológica</DropdownItem>
-                <DropdownItem to="/operational">Plano Operacional</DropdownItem>
-                <DropdownItem to="/financial">Viabilidade Financeira</DropdownItem>
-              </DropdownSection>
-              <DropdownSection>
-                <DropdownTitle>Engenharia & Tecnologia</DropdownTitle>
-                <DropdownItem to="/data">Análise de Dados</DropdownItem>
-                <DropdownItem to="/products">Desenvolvimento de Produtos</DropdownItem>
-                <DropdownItem to="/devweb">Desenvolvimento Web</DropdownItem>
-              </DropdownSection>
-              <DropdownSection>
-                <DropdownTitle>Direito</DropdownTitle>
-                <DropdownSubTitle>Criação e Estruturação</DropdownSubTitle>
-                <DropdownItem to="/creation?tab=0">Planejamento Societário</DropdownItem>
-                <DropdownItem to="/creation?tab=1">Emissão de CNPJ</DropdownItem>
-                <DropdownItem to="/creation?tab=2">Documentos Constitutivos</DropdownItem>
-                <DropdownSubTitle>Operação e Estratégia</DropdownSubTitle>
-                <DropdownItem to="/strategy?tab=0">Contratos</DropdownItem>
-                <DropdownItem to="/strategy?tab=1">Planejamento Tributário / Imunidades e Isenções Tributárias</DropdownItem>
-                <DropdownSubTitle>Proteção e Regularização</DropdownSubTitle>
-                <DropdownItem to="/protection?tab=0">Propriedade Intelectual / Direitos Autorais</DropdownItem>
-                <DropdownItem to="/protection?tab=1">LGPD</DropdownItem>
-              </DropdownSection>
-            </DropdownMenu>
+        <Nav>
+          <NavLink to="/about">Sobre Nós</NavLink>
+          <ContactButton to="/contact">Fale Conosco</ContactButton>
+        </Nav>
+
+        {!menuOpen && (
+          <MobileMenu onClick={() => setMenuOpen(true)}>
+            <List size={32} color="white" />
+          </MobileMenu>
+        )}
+      </HeaderContainer>
+
+      {/* Full-width dropdown tabs */}
+      {activeDropdown && (
+        <DropdownTab
+          onMouseEnter={() => {
+            if (closeTimeoutRef.current) {
+              clearTimeout(closeTimeoutRef.current);
+              closeTimeoutRef.current = undefined;
+            }
+            setDropdownHovered(true);
+          }}
+          onMouseLeave={() => {
+            setDropdownHovered(false);
+            closeDropdown();
+          }}
+        >
+          {activeDropdown === 'business' && (
+            <DropdownContent>
+              <ServiceLink to="/marketing">Plano Estratégico de Marketing</ServiceLink>
+              <ServiceLink to="/market">Análise Mercadológica</ServiceLink>
+              <ServiceLink to="/operational">Plano Operacional</ServiceLink>
+              <ServiceLink to="/financial">Viabilidade Financeira</ServiceLink>
+            </DropdownContent>
           )}
-        </DropdownContainer>
 
-        <ContactButton to="/contact">Fale Conosco</ContactButton>
-      </Nav>
+          {activeDropdown === 'engenharia' && (
+            <DropdownContent>
+              <ServiceLink to="/data">Análise de Dados</ServiceLink>
+              <ServiceLink to="/products">Desenvolvimento de Produtos</ServiceLink>
+              <ServiceLink to="/devweb">Desenvolvimento Web</ServiceLink>
+            </DropdownContent>
+          )}
 
-      {!menuOpen && (
-        <MobileMenu onClick={() => setMenuOpen(true)}>
-          <List size={32} color="white" />
-        </MobileMenu>
+          {activeDropdown === 'direito' && (
+            <DireitoDropdownContent>
+              <DireitoCategory>
+                <CategoryTitle>Criação e Estruturação</CategoryTitle>
+                <ServiceLink to="/creation?tab=0">Planejamento Societário</ServiceLink>
+                <ServiceLink to="/creation?tab=1">Emissão de CNPJ</ServiceLink>
+                <ServiceLink to="/creation?tab=2">Documentos Constitutivos</ServiceLink>
+              </DireitoCategory>
+              <DireitoCategory>
+                <CategoryTitle>Operação e Estratégia</CategoryTitle>
+                <ServiceLink to="/strategy?tab=0">Contratos</ServiceLink>
+                <ServiceLink to="/strategy?tab=1">Planejamento Tributário / Imunidades e Isenções Tributárias</ServiceLink>
+              </DireitoCategory>
+              <DireitoCategory>
+                <CategoryTitle>Proteção e Regularização</CategoryTitle>
+                <ServiceLink to="/protection?tab=0">Propriedade Intelectual / Direitos Autorais</ServiceLink>
+                <ServiceLink to="/protection?tab=1">LGPD</ServiceLink>
+              </DireitoCategory>
+            </DireitoDropdownContent>
+          )}
+        </DropdownTab>
       )}
 
       <MobileNav isOpen={menuOpen}>
         <MobileNavContent>
-          <CloseButton onClick={() => setMenuOpen(false)}>
+          <CloseButton onClick={() => {
+            setMenuOpen(false);
+            setHeaderHovered(false);
+          }}>
             <X size={32} color="white" />
           </CloseButton>
 
-          <NavLink to="/" onClick={() => setMenuOpen(false)}>Início</NavLink>
-          <NavLink to="/about" onClick={() => setMenuOpen(false)}>Sobre Nós</NavLink>
-          <NavLink to="/overview" onClick={() => setMenuOpen(false)}>Serviços</NavLink>
+          <NavLink to="/" onClick={() => {
+            setMenuOpen(false);
+            setHeaderHovered(false);
+          }}>Início</NavLink>
+          <NavLink to="/about" onClick={() => {
+            setMenuOpen(false);
+            setHeaderHovered(false);
+          }}>Sobre Nós</NavLink>
+          <NavLink to="/overview" onClick={() => {
+            setMenuOpen(false);
+            setHeaderHovered(false);
+          }}>Serviços</NavLink>
 
           <DropdownSection>
             <DropdownTitle>Business</DropdownTitle>
-            <DropdownItem to="/marketing" onClick={() => setMenuOpen(false)}>Plano Estratégico de Marketing</DropdownItem>
-            <DropdownItem to="/market" onClick={() => setMenuOpen(false)}>Análise Mercadológica</DropdownItem>
-            <DropdownItem to="/operational" onClick={() => setMenuOpen(false)}>Plano Operacional</DropdownItem>
-            <DropdownItem to="/financial" onClick={() => setMenuOpen(false)}>Viabilidade Financeira</DropdownItem>
+            <DropdownItem to="/marketing" onClick={() => {
+              setMenuOpen(false);
+              setHeaderHovered(false);
+            }}>Plano Estratégico de Marketing</DropdownItem>
+            <DropdownItem to="/market" onClick={() => {
+              setMenuOpen(false);
+              setHeaderHovered(false);
+            }}>Análise Mercadológica</DropdownItem>
+            <DropdownItem to="/operational" onClick={() => {
+              setMenuOpen(false);
+              setHeaderHovered(false);
+            }}>Plano Operacional</DropdownItem>
+            <DropdownItem to="/financial" onClick={() => {
+              setMenuOpen(false);
+              setHeaderHovered(false);
+            }}>Viabilidade Financeira</DropdownItem>
           </DropdownSection>
           
           <DropdownSection>
             <DropdownTitle>Engenharia & Tecnologia</DropdownTitle>
-            <DropdownItem to="/data" onClick={() => setMenuOpen(false)}>Análise de Dados</DropdownItem>
-            <DropdownItem to="/products" onClick={() => setMenuOpen(false)}>Desenvolvimento de Produtos</DropdownItem>
-            <DropdownItem to="/devweb" onClick={() => setMenuOpen(false)}>Desenvolvimento Web</DropdownItem>
+            <DropdownItem to="/data" onClick={() => {
+              setMenuOpen(false);
+              setHeaderHovered(false);
+            }}>Análise de Dados</DropdownItem>
+            <DropdownItem to="/products" onClick={() => {
+              setMenuOpen(false);
+              setHeaderHovered(false);
+            }}>Desenvolvimento de Produtos</DropdownItem>
+            <DropdownItem to="/devweb" onClick={() => {
+              setMenuOpen(false);
+              setHeaderHovered(false);
+            }}>Desenvolvimento Web</DropdownItem>
           </DropdownSection>
           
           <DropdownSection>
             <DropdownTitle>Direito</DropdownTitle>
             <DropdownSubTitle>Criação e Estruturação</DropdownSubTitle>
-            <DropdownItem to="/creation?tab=0" onClick={() => setMenuOpen(false)}>Planejamento Societário</DropdownItem>
-            <DropdownItem to="/creation?tab=1" onClick={() => setMenuOpen(false)}>Emissão de CNPJ</DropdownItem>
-            <DropdownItem to="/creation?tab=2" onClick={() => setMenuOpen(false)}>Documentos Constitutivos</DropdownItem>
+            <DropdownItem to="/creation?tab=0" onClick={() => {
+              setMenuOpen(false);
+              setHeaderHovered(false);
+            }}>Planejamento Societário</DropdownItem>
+            <DropdownItem to="/creation?tab=1" onClick={() => {
+              setMenuOpen(false);
+              setHeaderHovered(false);
+            }}>Emissão de CNPJ</DropdownItem>
+            <DropdownItem to="/creation?tab=2" onClick={() => {
+              setMenuOpen(false);
+              setHeaderHovered(false);
+            }}>Documentos Constitutivos</DropdownItem>
             <DropdownSubTitle>Operação e Estratégia</DropdownSubTitle>
-            <DropdownItem to="/strategy?tab=0" onClick={() => setMenuOpen(false)}>Contratos</DropdownItem>
-            <DropdownItem to="/strategy?tab=1" onClick={() => setMenuOpen(false)}>Planejamento Tributário / Imunidades e Isenções Tributárias</DropdownItem>
+            <DropdownItem to="/strategy?tab=0" onClick={() => {
+              setMenuOpen(false);
+              setHeaderHovered(false);
+            }}>Contratos</DropdownItem>
+            <DropdownItem to="/strategy?tab=1" onClick={() => {
+              setMenuOpen(false);
+              setHeaderHovered(false);
+            }}>Planejamento Tributário / Imunidades e Isenções Tributárias</DropdownItem>
             <DropdownSubTitle>Proteção e Regularização</DropdownSubTitle>
-            <DropdownItem to="/protection?tab=0" onClick={() => setMenuOpen(false)}>Propriedade Intelectual / Direitos Autorais</DropdownItem>
-            <DropdownItem to="/protection?tab=1" onClick={() => setMenuOpen(false)}>LGPD</DropdownItem>
+            <DropdownItem to="/protection?tab=0" onClick={() => {
+              setMenuOpen(false);
+              setHeaderHovered(false);
+            }}>Propriedade Intelectual / Direitos Autorais</DropdownItem>
+            <DropdownItem to="/protection?tab=1" onClick={() => {
+              setMenuOpen(false);
+              setHeaderHovered(false);
+            }}>LGPD</DropdownItem>
           </DropdownSection>
 
           {/* Espaçador flexível */}
           
           <ContactButton 
             to="/contact" 
-            onClick={() => setMenuOpen(false)}
+            onClick={() => {
+              setMenuOpen(false);
+              setHeaderHovered(false);
+            }}
             style={{ marginTop: 'auto', flexShrink: 0 }}
           >
             Fale Conosco
@@ -142,7 +241,7 @@ const Header = () => {
           <div style={{ height: '2rem', flexShrink: 0 }}></div>
         </MobileNavContent>
       </MobileNav>
-    </HeaderContainer>
+    </>
   );
 };
 
@@ -173,6 +272,31 @@ const Logo = styled.div`
   img { height: 3rem; }
 `;
 
+const CenterNav = styled.nav`
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  @media (max-width: 800px) { display: none; }
+`;
+
+const CenterButton = styled.div`
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+`;
+
 const Nav = styled.nav`
   display: flex; 
   gap: 2rem; 
@@ -180,14 +304,89 @@ const Nav = styled.nav`
   @media (max-width: 800px) { display: none; }
 `;
 
+/* Full-width dropdown tab styles */
+const DropdownTab = styled.div`
+  position: fixed;
+  top: 5rem;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  background: #000;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 999;
+  padding: 2rem 0;
+`;
+
+const DropdownContent = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  
+  @media (max-width: 800px) {
+    flex-direction: column;
+    gap: 1rem;
+  }
+`;
+
+const DireitoDropdownContent = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  
+  @media (max-width: 800px) {
+    flex-direction: column;
+    gap: 2rem;
+  }
+`;
+
+const DireitoCategory = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+`;
+
+const CategoryTitle = styled.h3`
+  font-family: "Montserrat", sans-serif;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #BB0B24;
+  padding-bottom: 0.5rem;
+`;
+
+const ServiceLink = styled(Link)`
+  color: #fff;
+  text-decoration: none;
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+  text-align: center;
+  
+  &:hover {
+    opacity: 0.7;
+    color: #BB0B24;
+  }
+`;
+
 const NavLink = styled(Link)`
   color: #fff; 
+  font-family: "Montserrat", sans-serif;
   text-decoration: none;
   &:hover { opacity: 0.7; }
 `;
 
 const ContactButton = styled(Link)`
   background: #BB0B24; 
+  font-family: "Montserrat", sans-serif;
   color: #fff;
   padding: 0.5rem 1rem; 
   border-radius: 8px;
@@ -240,6 +439,7 @@ const DropdownSubTitle = styled.h2`
 
 const DropdownItem = styled(Link)`
   color: #fff; 
+  font-family: "Montserrat", sans-serif;
   text-decoration: none;
   padding: 0.5rem 0;
   font-size: 14px;
