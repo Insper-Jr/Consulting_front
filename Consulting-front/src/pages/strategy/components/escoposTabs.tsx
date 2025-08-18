@@ -18,7 +18,7 @@ const options = [
     ]
   },
   {
-    title: "Planejamento Tributário / Imunidades e Isenções",
+    title: "Planejamento Tributário",
     imageBack: img3,
     imageFront: img4,
     content: [

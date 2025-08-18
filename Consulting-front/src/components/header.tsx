@@ -119,11 +119,11 @@ const Header = () => {
               <DireitoCategory>
                 <CategoryTitle>Operação e Estratégia</CategoryTitle>
                 <ServiceLink to="/strategy?tab=0">Contratos</ServiceLink>
-                <ServiceLink to="/strategy?tab=1">Planejamento Tributário / Imunidades e Isenções Tributárias</ServiceLink>
+                <ServiceLink to="/strategy?tab=1">Planejamento Tributário</ServiceLink>
               </DireitoCategory>
               <DireitoCategory>
                 <CategoryTitle>Proteção e Regularização</CategoryTitle>
-                <ServiceLink to="/protection?tab=0">Propriedade Intelectual / Direitos Autorais</ServiceLink>
+                <ServiceLink to="/protection?tab=0">Propriedade Intelectual</ServiceLink>
                 <ServiceLink to="/protection?tab=1">LGPD</ServiceLink>
               </DireitoCategory>
             </DireitoDropdownContent>
@@ -212,12 +212,12 @@ const Header = () => {
             <DropdownItem to="/strategy?tab=1" onClick={() => {
               setMenuOpen(false);
               setHeaderHovered(false);
-            }}>Planejamento Tributário / Imunidades e Isenções Tributárias</DropdownItem>
+            }}>Planejamento Tributário</DropdownItem>
             <DropdownSubTitle>Proteção e Regularização</DropdownSubTitle>
             <DropdownItem to="/protection?tab=0" onClick={() => {
               setMenuOpen(false);
               setHeaderHovered(false);
-            }}>Propriedade Intelectual / Direitos Autorais</DropdownItem>
+            }}>Propriedade Intelectual</DropdownItem>
             <DropdownItem to="/protection?tab=1" onClick={() => {
               setMenuOpen(false);
               setHeaderHovered(false);

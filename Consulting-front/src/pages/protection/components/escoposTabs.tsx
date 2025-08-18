@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 
 const options = [
   {
-    title: "Propriedade Intelectual / Direitos Autorais",
+    title: "Propriedade Intelectual",
     imageBack: img1,
     imageFront: img2,
     content: [
