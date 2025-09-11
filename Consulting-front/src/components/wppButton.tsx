@@ -5,6 +5,12 @@ import toast from "react-hot-toast";
 import whatsIcon from "../assets/whatsappIcon.png";
 import bg from "../assets/backgrounds/wpp-background.png";
 
+declare global {
+  interface Window {
+    dataLayer?: any[];
+  }
+}
+
 const WhatsAppWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({ name: "", message: ""});
@@ -18,6 +24,14 @@ const WhatsAppWidget = () => {
       toast.error("Por favor, preencha todos os campos obrigatórios.");
       return;
     }
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "whatsapp_click",
+      category: "engagement",
+      action: "click",
+      label: "whatsapp_button"
+    });
+
     const message = `Olá, me chamo ${formData.name}.\n Gostaria de saber se vocês podem me ajudar com: ${formData.message}`;
     
     const whatsappURL = `https://api.whatsapp.com/send?phone=5511944751602&text=${encodeURIComponent(message)}`;
