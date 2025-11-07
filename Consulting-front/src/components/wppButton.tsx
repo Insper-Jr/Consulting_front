@@ -34,7 +34,7 @@ const WhatsAppWidget = () => {
 
     const message = `Olá, me chamo ${formData.name}.\n Gostaria de saber se vocês podem me ajudar com: ${formData.message}`;
     
-    const whatsappURL = `https://api.whatsapp.com/send?phone=5511944751602&text=${encodeURIComponent(message)}`;
+    const whatsappURL = `https://api.whatsapp.com/send?phone=5511998983364&text=${encodeURIComponent(message)}`;
     window.open(whatsappURL, "_blank");
     setIsOpen(!isOpen);
     setFormData({ name: "", message: "" });

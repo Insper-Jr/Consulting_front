@@ -46,7 +46,7 @@ const DiagnosticForm = ({onClose} : {onClose: () => void}) => {
     if (!validateForm()) return
 
     try {
-      const response = await fetch("https://consulting-back.onrender.com/api/rdstation", {
+      const response = await fetch("https://consulting-back.onrender.com/api/lead", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

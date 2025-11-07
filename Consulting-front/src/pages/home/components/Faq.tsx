@@ -41,7 +41,7 @@ const faqs = [
     question: "Como posso contratar um serviço?",
     answer: (
         <>
-           Basta preencher o <strong>formulário de diagnóstico gratuito</strong> no início da página para que nossa equipe entre em contato com você. Caso prefira, também estamos disponíveis pelo <strong>WhatsApp: (11) 9 4475-1602</strong>ou pelo <strong>E-mail: henriquepereira@insperjr.com</strong>.
+           Basta preencher o <strong>formulário de diagnóstico gratuito</strong> no início da página para que nossa equipe entre em contato com você. Caso prefira, também estamos disponíveis pelo <strong>WhatsApp: (11) 9 9898-3364</strong>ou pelo <strong>E-mail: pedrodp@insperjr.com</strong>.
         </>
       ),
   },
