@@ -56,7 +56,7 @@ const Footer: React.FC = () => {
       <ColumnCenter>
         <Title>Contato</Title>
         <ExternalLink
-          href="https://wa.me/5511944751602"
+          href="https://wa.me/5511998983364"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -65,15 +65,15 @@ const Footer: React.FC = () => {
             weight="bold"
             style={{ marginRight: "8px", color: "inherit" }}
           />
-          (11) 9 4475-1602
+          (11) 9 9898-3364
         </ExternalLink>
-        <ExternalLink href="mailto:henriquepereira@insperjr.com">
+        <ExternalLink href="mailto:pedrodp@insperjr.com">
           <EnvelopeSimple
             size={30}
             weight="bold"
             style={{ marginRight: "8px", color: "inherit" }}
           />
-          henriquepereira@insperjr.com
+          pedrodp@insperjr.com
         </ExternalLink>
       </ColumnCenter>
 
