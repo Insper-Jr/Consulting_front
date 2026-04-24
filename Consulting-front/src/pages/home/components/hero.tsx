@@ -1,6 +1,12 @@
 import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import styled, { keyframes, css } from "styled-components";
+import TechImg from "../../../assets/hero/tech.jpg";
+import BussinesImg from "../../../assets/hero/business.png";
+import LawImg from "../../../assets/hero/law.jpg";
+import { useTranslation } from "react-i18next";
+// import ProcessImg from "../../../assets/hero/process.png";
+
 
 // ─── Imagens de fundo ─────────────────────────────────────────────────────────
 // Substitua pelos imports reais quando tiver os assets:
@@ -19,54 +25,60 @@ interface Slide {
   subtitle: string;
   ctaLabel: string;
   ctaTo: string;
-  // image?: string;       // descomente quando tiver os assets
-  gradient: string;        // placeholder — remova quando usar imagem real
+  image?: string;      
+  gradient: string;        
+  overlayOpacity?: number;
 }
 
-const SLIDES: Slide[] = [
-  {
-    id: "business",
-    label: "Business",
-    title: "Estratégia que transforma negócios.",
-    subtitle: "Diagnóstico, planejamento e execução para empresas que querem crescer com solidez.",
-    ctaLabel: "Conheça nossas soluções",
-    ctaTo: "/overview",
-    gradient: "linear-gradient(135deg, #080F0F 0%, #230606 55%, #691212 100%)",
-  },
-  {
-    id: "tech",
-    label: "Engenharia & Tech",
-    title: "Tecnologia aplicada a resultados reais.",
-    subtitle: "Dados, produtos digitais e desenvolvimento web com foco em impacto para o seu negócio.",
-    ctaLabel: "Conheça nossas soluções",
-    ctaTo: "/overview",
-    gradient: "linear-gradient(135deg, #050A0A 0%, #0d1520 55%, #152035 100%)",
-  },
-  {
-    id: "direito",
-    label: "Direito",
-    title: "Segurança jurídica para crescer com confiança.",
-    subtitle: "Estruturação societária, contratos e proteção intelectual para a sua empresa.",
-    ctaLabel: "Conheça nossas soluções",
-    ctaTo: "/overview",
-    gradient: "linear-gradient(135deg, #230606 0%, #691212 55%, #C02121 100%)",
-  },
-  {
-    id: "processos",
-    label: "Processos",
-    title: "Eficiência que libera o potencial da sua equipe.",
-    subtitle: "Mapeamento, redesenho e otimização de processos para empresas em crescimento.",
-    ctaLabel: "Conheça nossas soluções",
-    ctaTo: "/overview",
-    gradient: "linear-gradient(135deg, #080F0F 0%, #0e0e0e 55%, #181818 100%)",
-  },
-];
 
 // ─── Componente ───────────────────────────────────────────────────────────────
 const Hero = () => {
+  const { t } = useTranslation();
   const [current, setCurrent] = useState(0);
   const [animKey, setAnimKey] = useState(0);
-
+  const SLIDES: Slide[] = [
+    {
+      id: "business",
+      label: t("hero.business.label"),
+      title: t("hero.business.title"),
+      subtitle: t("hero.business.subtitle"),
+      ctaLabel: t("hero.business.cta"),
+      ctaTo: "/overview",
+      gradient: "linear-gradient(135deg, #080F0F 0%, #230606 55%, #691212 100%)",
+      image: BussinesImg,
+      overlayOpacity: 0.9,
+    },
+    {
+      id: "tech",
+      label: t("hero.tech.label"),
+      title: t("hero.tech.title"),
+      subtitle: t("hero.tech.subtitle"),
+      ctaLabel: t("hero.tech.cta"),
+      ctaTo: "/overview",
+      gradient: "linear-gradient(135deg, #050A0A 0%, #0d1520 55%, #152035 100%)",
+      image: TechImg,
+    },
+    {
+      id: "direito",
+      label: t("hero.law.label"),
+      title: t("hero.law.title"),
+      subtitle: t("hero.law.subtitle"),
+      ctaLabel: t("hero.law.cta"),
+      ctaTo: "/overview",
+      gradient: "linear-gradient(135deg, #230606 0%, #691212 55%, #C02121 100%)",
+      image: LawImg,
+      overlayOpacity: 0.9,
+    },
+    {
+      id: "processos",
+      label: t("hero.processes.label"),
+      title: t("hero.processes.title"),
+      subtitle: t("hero.processes.subtitle"),
+      ctaLabel: t("hero.processes.cta"),
+      ctaTo: "/overview",
+      gradient: "linear-gradient(135deg, #080F0F 0%, #0e0e0e 55%, #181818 100%)",
+    },
+];
   const goToSlide = useCallback((index: number) => {
     setCurrent(index);
     setAnimKey((k) => k + 1);
@@ -87,6 +99,7 @@ const Hero = () => {
         <SlideBackground
           key={s.id}
           gradient={s.gradient}
+          image={s.image}
           isActive={i === current}
         />
       ))}
@@ -148,10 +161,10 @@ const HeroSection = styled.section`
   align-items: flex-end;
 `;
 
-const SlideBackground = styled.div<{ gradient: string; isActive: boolean }>`
+const SlideBackground = styled.div<{ gradient: string; image?: string; isActive: boolean }>`
   position: absolute;
   inset: 0;
-  background: ${({ gradient }) => gradient};
+  background: ${({ image, gradient }) => image ? `url(${image})` : gradient};
   background-size: cover;
   background-position: center;
   opacity: ${({ isActive }) => (isActive ? 1 : 0)};
@@ -164,9 +177,9 @@ const HeroOverlay = styled.div`
   inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.25) 0%,
-    rgba(0, 0, 0, 0.15) 40%,
-    rgba(0, 0, 0, 0.7) 100%
+    rgba(0, 0, 0, 0.45) 0%,
+    rgba(0, 0, 0, 0.35) 40%,
+    rgba(0, 0, 0, 0.82) 100%
   );
   z-index: 1;
 `;

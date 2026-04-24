@@ -1,6 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import BrasilJunior from "../../../../assets/awards/brasil_junior.png";
+import Falconi      from "../../../../assets/awards/falconi.png";
+import Fejesp       from "../../../../assets/awards/fejesp.png";
+import Enej       from "../../../../assets/awards/enej.png";
+import { useTranslation } from "react-i18next";
 
 // ─── Count-up hook ────────────────────────────────────────────────────────────
 function useCountUp(target: number, duration = 2400) {
@@ -27,13 +32,7 @@ function useCountUp(target: number, duration = 2400) {
   return { count, ref };
 }
 
-// ─── Stats data ───────────────────────────────────────────────────────────────
-const STATS = [
-  { value: 500, suffix: "+", label: "Projetos Realizados" },
-  { value: 25,  suffix: "+", label: "Anos de Mercado"     },
-  { value: 60,  suffix: "+", label: "Membros"              },
-  { value: 90,  suffix: "+", label: "Índice NPS"           },
-];
+
 
 // ─── Stat card ────────────────────────────────────────────────────────────────
 const StatItem = ({ value, suffix, label }: { value: number; suffix: string; label: string }) => {
@@ -384,43 +383,60 @@ const BrazilMap = () => {
 };
 
 // ─── Componente principal ─────────────────────────────────────────────────────
-const IntroSection = () => (
+const IntroSection = () => {
+  const { t } = useTranslation();
+  const STATS = [
+    { value: 550, suffix: "+", label: t("intro.stats.projects") },
+    { value: 25,  suffix: "+", label: t("intro.stats.years")    },
+    { value: 60,  suffix: "+", label: t("intro.stats.members")  },
+    { value: 90,  suffix: "+", label: t("intro.stats.nps")      },
+  ];
+    return(
   <Section>
     <TextBlock>
-      <Eyebrow>Quem somos</Eyebrow>
-      <SectionTitle>A Insper Jr.</SectionTitle>
+      <Eyebrow>{t("intro.eyebrow")}</Eyebrow>
+      <SectionTitle>{t("intro.title")}</SectionTitle>
       <Divider />
-      <Body>
-        Somos a empresa júnior do Insper — uma das instituições de ensino
-        mais reconhecidas do Brasil. Desde 2000, conectamos empresas reais a
-        soluções de alto impacto nas áreas de Business, Engenharia &amp;
-        Tecnologia e Direito, com rigor acadêmico e olhar prático de quem
-        está imerso no mercado.
-      </Body>
-      <SubNote>Presente em todo o Brasil, com clientes de Norte a Sul.</SubNote>
-      <SaibaMaisLink to="/about">Saiba mais <Arrow>→</Arrow></SaibaMaisLink>
+      <Body>{t("intro.body")}</Body>
+      <SubNote>{t("intro.mapLabel")}</SubNote>
+      <SaibaMaisLink to="/about">{t("intro.cta")} <Arrow>→</Arrow></SaibaMaisLink>
     </TextBlock>
 
     <BottomRow>
       <MapCol>
         <BrazilMap />
       </MapCol>
-      <StatsCol>
+      <RightCol>
         <StatsGrid>
           {STATS.map(s => <StatItem key={s.label} {...s} />)}
         </StatsGrid>
-      </StatsCol>
+      
+
+        <AwardsRow>
+           <AwardsLabel>{t("intro.awards")}</AwardsLabel>
+          <AwardsList>
+            <AwardImg src={BrasilJunior} alt="Brasil Júnior" />
+            <AwardImg src={Falconi} alt="Falconi" />
+            <AwardImg src={Fejesp} alt="FEJESP" />
+            <AwardImg src={Enej} alt='Encontro Nacional de Empresas Juniores' size="5.5rem" />
+          </AwardsList>
+        </AwardsRow>
+      </RightCol>
     </BottomRow>
   </Section>
-);
+  );
+}
 
 export default IntroSection;
 
 // ── Styled Components ─────────────────────────────────────────────────────────
 const Section = styled.section`
-  background: #FAF4F0; padding: 6rem 4rem;
-  display: flex; flex-direction: column; gap: 3.5rem; overflow: hidden;
-  @media (max-width: 768px) { padding: 4rem 1.5rem; gap: 2.5rem; }
+  background: #FAF4F0;
+  padding: 6rem 0 6rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+  overflow: hidden;
 `;
 const TextBlock = styled.div`
   max-width: 700px;
@@ -431,6 +447,7 @@ const TextBlock = styled.div`
   gap: 1.1rem;
   align-items: center;
   text-align: center;
+  padding: 0 4rem;  /* padding só no texto */
 `;
 const Eyebrow = styled.span`
   color: #C02121; font-family: "Montserrat", sans-serif;
@@ -455,20 +472,29 @@ const SaibaMaisLink = styled(Link)`
   &:hover { gap: 0.75rem; ${Arrow} { transform: translateX(3px); } }
 `;
 const BottomRow = styled.div`
-  display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
-  align-items: center; max-width: 1200px; margin: 0 auto; width: 100%;
-  @media (max-width: 900px) { grid-template-columns: 1fr; gap: 2rem; }
+  display: grid;
+  grid-template-columns: 55% 45%;
+  align-items: center;
+  width: 100%;
 `;
-const MapCol = styled.div`display: flex; flex-direction: column; gap: 0.75rem;`;
-const MapContainer = styled.div`width: 100%; aspect-ratio: 1/1; max-width: 480px; margin: 0 auto;`;
-const MapCaption = styled.p`
-  color: #999; font-family: "Montserrat", sans-serif; font-size: 0.7rem;
-  font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
-  text-align: center; margin: 0;
+const MapCol = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-left: -250px;  /* vaza para a esquerda */
+  margin-top: -8rem;
 `;
-const StatsCol = styled.div`display: flex; align-items: center; justify-content: center;`;
+const MapContainer = styled.div`
+  width: 100%;
+  aspect-ratio: 1/1;
+  max-width: 850px;
+`;
+
 const StatsGrid = styled.div`
-  display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  width: 100%;
 `;
 
 const StatCard = styled.div`
@@ -478,6 +504,9 @@ const StatCard = styled.div`
   padding: 2rem 1.5rem;
   display: flex; flex-direction: column; gap: 0.5rem;
   box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+  align-items: flex-start;  /* troca por: */
+  align-items: center;
+  text-align: center;
   transition: box-shadow 0.25s, transform 0.25s;
   &:hover {
     box-shadow: 0 8px 36px rgba(192,33,33,0.3);
@@ -507,5 +536,52 @@ const SubNote = styled.span`
   font-family: "Montserrat", sans-serif;
   font-size: 0.8rem;
   font-weight: 500;
+  gap: 3rem;
   letter-spacing: 0.03em;
+`;
+
+const AwardsRow = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+  border-top: 1px solid rgba(8, 15, 15, 0.08);
+  padding-top: 2.5rem;
+`;
+const AwardsLabel = styled.span`
+  color: #999;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+`;
+
+const AwardsList = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+`;
+
+const AwardImg = styled.img<{ size?: string }>`
+  height: ${({ size }) => size || "3rem"};
+  object-fit: contain;
+  opacity: 0.65;
+  filter: grayscale(100%);
+  transition: opacity 0.25s, filter 0.25s;
+
+  &:hover {
+    opacity: 1;
+    filter: grayscale(0%);
+  }
+`;
+
+const RightCol = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 0 3rem 0 0;
+  margin-left: -2rem;
 `;
