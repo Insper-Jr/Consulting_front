@@ -1,141 +1,317 @@
-import styled from "styled-components";
-import Insper from "../../../assets/Insper.png"; // ajuste o caminho conforme necessário
-import Form from "@/components/formsHome";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
+import { Link } from "react-router-dom";
+import styled, { keyframes, css } from "styled-components";
 
+// ─── Imagens de fundo ─────────────────────────────────────────────────────────
+// Substitua pelos imports reais quando tiver os assets:
+// import BusinessImg  from "../../../assets/hero/business.jpg";
+// import TechImg      from "../../../assets/hero/tech.jpg";
+// import DireitoImg   from "../../../assets/hero/direito.jpg";
+// import ProcessosImg from "../../../assets/hero/processos.jpg";
+
+// ─── Configuração dos slides ──────────────────────────────────────────────────
+const SLIDE_DURATION = 6000; // ms por slide
+
+interface Slide {
+  id: string;
+  label: string;
+  title: string;
+  subtitle: string;
+  ctaLabel: string;
+  ctaTo: string;
+  // image?: string;       // descomente quando tiver os assets
+  gradient: string;        // placeholder — remova quando usar imagem real
+}
+
+const SLIDES: Slide[] = [
+  {
+    id: "business",
+    label: "Business",
+    title: "Estratégia que transforma negócios.",
+    subtitle: "Diagnóstico, planejamento e execução para empresas que querem crescer com solidez.",
+    ctaLabel: "Conheça nossas soluções",
+    ctaTo: "/overview",
+    gradient: "linear-gradient(135deg, #080F0F 0%, #230606 55%, #691212 100%)",
+  },
+  {
+    id: "tech",
+    label: "Engenharia & Tech",
+    title: "Tecnologia aplicada a resultados reais.",
+    subtitle: "Dados, produtos digitais e desenvolvimento web com foco em impacto para o seu negócio.",
+    ctaLabel: "Conheça nossas soluções",
+    ctaTo: "/overview",
+    gradient: "linear-gradient(135deg, #050A0A 0%, #0d1520 55%, #152035 100%)",
+  },
+  {
+    id: "direito",
+    label: "Direito",
+    title: "Segurança jurídica para crescer com confiança.",
+    subtitle: "Estruturação societária, contratos e proteção intelectual para a sua empresa.",
+    ctaLabel: "Conheça nossas soluções",
+    ctaTo: "/overview",
+    gradient: "linear-gradient(135deg, #230606 0%, #691212 55%, #C02121 100%)",
+  },
+  {
+    id: "processos",
+    label: "Processos",
+    title: "Eficiência que libera o potencial da sua equipe.",
+    subtitle: "Mapeamento, redesenho e otimização de processos para empresas em crescimento.",
+    ctaLabel: "Conheça nossas soluções",
+    ctaTo: "/overview",
+    gradient: "linear-gradient(135deg, #080F0F 0%, #0e0e0e 55%, #181818 100%)",
+  },
+];
+
+// ─── Componente ───────────────────────────────────────────────────────────────
 const Hero = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [current, setCurrent] = useState(0);
+  const [animKey, setAnimKey] = useState(0);
 
-  const handleClick = () => {
-    setIsOpen(!isOpen);
-  };
+  const goToSlide = useCallback((index: number) => {
+    setCurrent(index);
+    setAnimKey((k) => k + 1);
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      goToSlide((current + 1) % SLIDES.length);
+    }, SLIDE_DURATION);
+    return () => clearTimeout(timer);
+  }, [current, goToSlide]);
+
+  const slide = SLIDES[current];
 
   return (
     <HeroSection>
-      <Overlay />
-      {isOpen && (
-        <FormWrapper onClick={handleClick}>
-          <FormBox onClick={(e) => e.stopPropagation()}>
-            <Form onClose={handleClick} />
-          </FormBox>
-        </FormWrapper>
-      )}
+      {SLIDES.map((s, i) => (
+        <SlideBackground
+          key={s.id}
+          gradient={s.gradient}
+          isActive={i === current}
+        />
+      ))}
+
+      <HeroOverlay />
+
       <HeroContent>
-        <Title>
-          Consultoria especializada em soluções inovadoras e personalizadas para decisões estratégicas
-        </Title>
-        <Subtitle>
-          Transformando realidades com soluções inovadoras
-        </Subtitle>
-        <CTAButton onClick={handleClick}>
-          Clique aqui e faça um diagnóstico gratuito
-        </CTAButton>
+        <ContentInner key={slide.id}>
+          <HeroEyebrow>{slide.label}</HeroEyebrow>
+          <HeroTitle>{slide.title}</HeroTitle>
+          <HeroSubtitle>{slide.subtitle}</HeroSubtitle>
+          <HeroCTA to={slide.ctaTo}>{slide.ctaLabel} →</HeroCTA>
+        </ContentInner>
       </HeroContent>
+
+      {/* Indicadores inferiores — estilo Bain */}
+      <SlideIndicators>
+        {SLIDES.map((s, i) => (
+          <SlideIndicator key={s.id} onClick={() => goToSlide(i)}>
+            <ProgressTrack>
+              <ProgressFill
+                key={`${i}-${animKey}`}
+                isActive={i === current}
+                isPast={i < current}
+                duration={SLIDE_DURATION}
+              />
+            </ProgressTrack>
+            <SlideLabel isActive={i === current}>{s.label}</SlideLabel>
+          </SlideIndicator>
+        ))}
+      </SlideIndicators>
     </HeroSection>
   );
 };
 
 export default Hero;
 
-const FormWrapper = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1001;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+// ─────────────────────────────────────────────────────────────────────────────
+// Styled Components
+// ─────────────────────────────────────────────────────────────────────────────
 
-  @media (max-width: 450px) {
-    height: 80vh;
-  }
+const fadeInUp = keyframes`
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
 `;
 
-const FormBox = styled.div`
-  position: fixed;
-  top: 90px;
-  height: auto;
-  z-index: 1000;
+const fillBar = keyframes`
+  from { width: 0%; }
+  to   { width: 100%; }
 `;
 
 const HeroSection = styled.section`
   position: relative;
   width: 100%;
   height: 100vh;
-  background-image: url(${Insper});
-  background-size: cover;
-  background-position: center;
+  min-height: 600px;
+  overflow: hidden;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-end;
 `;
 
-const Overlay = styled.div`
+const SlideBackground = styled.div<{ gradient: string; isActive: boolean }>`
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  inset: 0;
+  background: ${({ gradient }) => gradient};
+  background-size: cover;
+  background-position: center;
+  opacity: ${({ isActive }) => (isActive ? 1 : 0)};
+  transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity;
+`;
+
+const HeroOverlay = styled.div`
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.25) 0%,
+    rgba(0, 0, 0, 0.15) 40%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+  z-index: 1;
 `;
 
 const HeroContent = styled.div`
   position: relative;
-  z-index: 1;
-  text-align: center;
-  color: white;
-  max-width: 70%;
-  padding: 2rem;
-`;
+  z-index: 2;
+  width: 100%;
+  padding: 0 4rem 8rem;
+  max-width: 1200px;
+  margin: 0 auto;
 
-const Title = styled.h1`
-  font-family: 'Montserrat', sans-serif;
-  font-size: 24px;  /* Tamanho base para telas pequenas */
-  font-weight: bold;
-
-  @media (min-width: 768px) {
-    font-size: 36px;
-  }
-
-  @media (min-width: 1024px) {
-    font-size: 40px;
+  @media (max-width: 768px) {
+    padding: 0 1.5rem 9rem;
   }
 `;
 
-const Subtitle = styled.p`
-  font-family: 'Poppins', sans-serif;
-  font-size: 20px;  /* Tamanho base para telas pequenas */
-  margin-top: 1rem;
-
-  @media (min-width: 768px) {
-    font-size: 28px;
-  }
-
-  @media (min-width: 1024px) {
-    font-size: 36px;
-  }
+const ContentInner = styled.div`
+  max-width: 680px;
 `;
 
-const CTAButton = styled.button`
-  margin-top: 2rem;
-  padding: 0.8rem 1.5rem;
-  background-color: white;
-  color: black;
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;  /* Tamanho base para telas pequenas */
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background 0.3s;
+const HeroEyebrow = styled.span`
+  display: inline-block;
+  color: #C02121;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  animation: ${fadeInUp} 0.55s ease both;
+  animation-delay: 0.05s;
+`;
 
-  @media (min-width: 768px) {
-    font-size: 20px;
-  }
+const HeroTitle = styled.h1`
+  color: #fff;
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.25rem;
+  animation: ${fadeInUp} 0.55s ease both;
+  animation-delay: 0.15s;
+`;
+
+const HeroSubtitle = styled.p`
+  color: rgba(255, 255, 255, 0.75);
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp(0.9rem, 1.6vw, 1.1rem);
+  font-weight: 400;
+  line-height: 1.65;
+  max-width: 540px;
+  margin-bottom: 2rem;
+  animation: ${fadeInUp} 0.55s ease both;
+  animation-delay: 0.25s;
+`;
+
+const HeroCTA = styled(Link)`
+  display: inline-block;
+  color: #fff;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  padding: 0.8rem 1.8rem;
+  border: 2px solid #fff;
+  border-radius: 4px;
+  transition: background 0.25s, color 0.25s;
+  animation: ${fadeInUp} 0.55s ease both;
+  animation-delay: 0.35s;
 
   &:hover {
-    background-color: #BB0B24;
+    background: #fff;
+    color: #080F0F;
+  }
+`;
+
+// ── Indicadores ──
+const SlideIndicators = styled.div`
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  gap: 2.5rem;
+  align-items: flex-start;
+
+  @media (max-width: 600px) {
+    gap: 1.25rem;
+    bottom: 1.5rem;
+  }
+`;
+
+const SlideIndicator = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 90px;
+`;
+
+const ProgressTrack = styled.div`
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+`;
+
+const ProgressFill = styled.div<{
+  isActive: boolean;
+  isPast: boolean;
+  duration: number;
+}>`
+  height: 100%;
+  background: #C02121;
+  border-radius: 2px;
+
+  ${({ isActive, isPast, duration }) =>
+    isActive
+      ? css`animation: ${fillBar} ${duration}ms linear forwards;`
+      : isPast
+      ? css`width: 100%;`
+      : css`width: 0%;`}
+`;
+
+const SlideLabel = styled.span<{ isActive: boolean }>`
+  color: ${({ isActive }) => (isActive ? "#fff" : "rgba(255, 255, 255, 0.45)")};
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.72rem;
+  font-weight: ${({ isActive }) => (isActive ? "700" : "400")};
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.3s;
+  white-space: nowrap;
+  text-align: center;
+
+  @media (max-width: 600px) {
+    font-size: 0.62rem;
   }
 `;
