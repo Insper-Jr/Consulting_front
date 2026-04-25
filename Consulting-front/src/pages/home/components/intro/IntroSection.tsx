@@ -165,7 +165,7 @@ const BrazilMap = () => {
     (svg as SVGElement).style.width = "100%";
     (svg as SVGElement).style.height = "100%";
     (svg as SVGElement).style.display = "block";
-    (svg as SVGElement).style.overflow = "visible";
+    (svg as SVGElement).style.overflow = "hidden";
     container.appendChild(svg);
 
     // Defs
@@ -447,7 +447,8 @@ const TextBlock = styled.div`
   gap: 1.1rem;
   align-items: center;
   text-align: center;
-  padding: 0 4rem;  /* padding só no texto */
+  padding: 0 4rem;  
+  z-index: 2;
 `;
 const Eyebrow = styled.span`
   color: #C02121; font-family: "Montserrat", sans-serif;
@@ -481,13 +482,14 @@ const MapCol = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  margin-left: -250px;  /* vaza para a esquerda */
+  margin-left: -250px; 
   margin-top: -8rem;
 `;
 const MapContainer = styled.div`
   width: 100%;
   aspect-ratio: 1/1;
-  max-width: 850px;
+  max-width: 800px;
+  overflow: hidden;
 `;
 
 const StatsGrid = styled.div`
@@ -504,7 +506,7 @@ const StatCard = styled.div`
   padding: 2rem 1.5rem;
   display: flex; flex-direction: column; gap: 0.5rem;
   box-shadow: 0 4px 24px rgba(0,0,0,0.25);
-  align-items: flex-start;  /* troca por: */
+  align-items: flex-start; 
   align-items: center;
   text-align: center;
   transition: box-shadow 0.25s, transform 0.25s;
@@ -582,6 +584,6 @@ const RightCol = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  padding: 0 3rem 0 0;
-  margin-left: -2rem;
+  padding: 0 7rem 0 2rem;
+  margin-left: -6rem;
 `;
