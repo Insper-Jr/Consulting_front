@@ -11,6 +11,7 @@ import Footer from "@/components/footer";
 import FAQ from "./components/Faq";
 import Hero_Break from "@/components/transformeBreak";
 import WppButton from "@/components/wppButton";
+import BottomInteractive from "./components/interactiveSelector";
 
 function Home() {
   return (
@@ -27,6 +28,7 @@ function Home() {
       <Cases />
       <TestimonialsSection />
       <FAQ />
+      <BottomInteractive />
       <Hero_Break/>
       <Footer/>
     </HomeContainer>

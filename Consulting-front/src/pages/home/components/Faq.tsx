@@ -88,13 +88,26 @@ const FAQ: React.FC = () => {
                 <QuestionText>{item.question}</QuestionText>
                 <ArrowIcon isOpen={isOpen} src={img} alt="arrow icon" />
               </QuestionHeader>
-              {/* Sempre renderiza o Answer e o Divider e passa isOpen */}
               <Answer isOpen={isOpen}>{item.answer}</Answer>
               <Divider isOpen={isOpen} />
             </QuestionItem>
           );
         })}
       </QuestionsContainer>
+
+       <WaveDivider>
+        <svg
+          viewBox="0 0 1440 90"
+          preserveAspectRatio="none"
+          xmlns="http://www.w3.org/2000/svg"
+          style={{ display: "block", width: "100%" }}
+        >
+          <path
+            d="M0,90 L1000,90 C1100,90 1150,40 1250,40 L1440,40 L1440,90 Z"
+            fill="#FAF2EA"
+          />
+        </svg>
+      </WaveDivider>
     </FAQContainer>
   );
 };
@@ -228,4 +241,12 @@ const Divider = styled.hr<{ isOpen: boolean }>`
   margin: 0;
   margin-top: ${({ isOpen }) => (isOpen ? "8px" : "0px")};
   transition: margin-top 0.8s ease;
+`;
+
+const WaveDivider = styled.div`
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  margin-top: 60px;
+  
 `;
