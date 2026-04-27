@@ -62,7 +62,7 @@ const Header = () => {
     if (langCloseTimer.current) clearTimeout(langCloseTimer.current);
   };
 
-  const isSolid = isScrolled || headerHovered || sidebarOpen || !!activeDropdown;
+const isSolid = isScrolled || activeDropdown === "solucoes";
 
   return (
     <>
@@ -94,10 +94,9 @@ const Header = () => {
       </Sidebar>
 
       {/* ── Header + Dropdown Zone ── */}
-      <HeaderZone onMouseLeave={() => { setHeaderHovered(false); scheduleNavClose(); }}>
+      <HeaderZone onMouseLeave={scheduleNavClose}>
         <HeaderWrap
           isSolid={isSolid}
-          onMouseEnter={() => { setHeaderHovered(true); cancelNavClose(); }}
         >
           {/* Esquerda */}
           <HeaderLeft>
@@ -113,9 +112,21 @@ const Header = () => {
           <CenterNav>
             {NAV_ITEMS.map((item) =>
               item.key === "solucoes" ? (
-                <NavBtn key={item.label} onMouseEnter={() => openNav("solucoes")}>
-                  {item.label}
-                </NavBtn>
+              <NavBtn onMouseEnter={() => openNav("solucoes")}>
+                {item.label}
+                <Arrow isOpen={activeDropdown === "solucoes"}>
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      d="M6 9l6 6 6-6"
+                      stroke="white"
+                      strokeWidth="2"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </Arrow>
+              </NavBtn>
               ) : (
                 <NavBtnLink key={item.label} to={item.to!} onMouseEnter={() => openNav(null)}>
                   {item.label}
@@ -323,7 +334,13 @@ const navItemBase = css`
   &:hover { color: #fff; background: rgba(255, 255, 255, 0.07); }
 `;
 
-const NavBtn = styled.div`${navItemBase}`;
+const NavBtn = styled.div`
+  ${navItemBase}
+  display: inline-flex;
+  align-items: center;
+  gap: 6px; /* espaço entre texto e seta */
+`;
+
 const NavBtnLink = styled(Link)`${navItemBase}`;
 
 const HeaderRight = styled.div`
@@ -453,4 +470,34 @@ const DropLink = styled(Link)`
   font-size: 0.85rem; font-weight: 400; padding: 0.3rem 0;
   transition: color 0.2s, padding-left 0.2s;
   &:hover { color: #fff; padding-left: 0.4rem; }
+`;
+
+const Arrow = styled.span<{ isOpen: boolean }>`
+  margin-left: 8px;
+
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+
+  background: ${({ isOpen }) =>
+    isOpen ? "#C02121" : "rgba(192, 33, 33, 0.15)"};
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+  transition: background 0.25s ease;
+
+  svg {
+    width: 15px;
+    height: 15px;
+
+    display: block; 
+
+    transform: ${({ isOpen }) =>
+      isOpen ? "rotate(180deg)" : "rotate(0deg)"};
+
+    transition: transform 0.25s ease;
+  }
 `;
