@@ -1,6 +1,5 @@
 import React from "react";
 
-
 export interface LogoIJRProps extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "color"> {
   /** Altura do logo em px. Default: 56. */
   height?: number;
@@ -62,10 +61,6 @@ export const LogoIJR: React.FC<LogoIJRProps> = ({
 
 export default LogoIJR;
 
-/* ------------------------------------------------------------------ */
-/* Scoped CSS. Injected once per render — React deduplicates identical
-   <style> blocks so this is fine even with multiple instances. */
-/* ------------------------------------------------------------------ */
 
 const LOGO_CSS = `
 .ijr-logo {
@@ -112,8 +107,16 @@ const LOGO_CSS = `
   -webkit-mask-position: center;
           mask-position: center;
 }
+/* "Insper" — revelado da esquerda pra direita por um clip-path animado.
+   Começa cortado em 100% à direita (invisível) e abre até ${((1 - JR_START) * 100).toFixed(2)}%
+   (que é onde o "Jr." começa). */
 .ijr-logo__word::before {
   background: currentColor;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path calc(var(--ijr-dur) * 0.6) var(--ijr-ease);
+}
+.ijr-logo:hover .ijr-logo__word::before,
+.ijr-logo:focus-visible .ijr-logo__word::before {
   clip-path: inset(0 ${((1 - JR_START) * 100).toFixed(2)}% 0 0);
 }
 .ijr-logo__word::after {
@@ -136,12 +139,12 @@ const LOGO_CSS = `
 .ijr-logo:hover .ijr-logo__mono,
 .ijr-logo:focus-visible .ijr-logo__mono { opacity: 0; }
 
-.ijr-logo__word {
-  opacity: 0;
-  transition: opacity calc(var(--ijr-dur) * 0.4) var(--ijr-ease) calc(var(--ijr-dur) * 0.55);
-}
-.ijr-logo:hover .ijr-logo__word,
-.ijr-logo:focus-visible .ijr-logo__word { opacity: 1; }
+/* O wordmark final (camada colorida) fica sempre presente — só o clip-path
+   do "Insper" controla a revelação. O "Jr." vermelho (::after) entra no fim
+   trocando o mono branco. */
+.ijr-logo__word { opacity: 1; }
+/* Mono branco "Jr." continua visível até o final — quando opacity cai pra 0
+   o ::after vermelho fica visível. Antes disso, ele cobre o ::after. */
 
 @media (prefers-reduced-motion: reduce) {
   .ijr-logo,
