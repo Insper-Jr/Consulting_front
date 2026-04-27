@@ -2,18 +2,12 @@ import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import styled, { keyframes, css } from "styled-components";
 import TechImg from "../../../assets/hero/tech.jpg";
-import BussinesImg from "../../../assets/hero/business.png";
+import BussinesImg from "../../../assets/hero/business2.png";
 import LawImg from "../../../assets/hero/law.jpg";
 import { useTranslation } from "react-i18next";
 // import ProcessImg from "../../../assets/hero/process.png";
 
 
-// ─── Imagens de fundo ─────────────────────────────────────────────────────────
-// Substitua pelos imports reais quando tiver os assets:
-// import BusinessImg  from "../../../assets/hero/business.jpg";
-// import TechImg      from "../../../assets/hero/tech.jpg";
-// import DireitoImg   from "../../../assets/hero/direito.jpg";
-// import ProcessosImg from "../../../assets/hero/processos.jpg";
 
 // ─── Configuração dos slides ──────────────────────────────────────────────────
 const SLIDE_DURATION = 6000; // ms por slide
@@ -46,7 +40,7 @@ const Hero = () => {
       ctaTo: "/overview",
       gradient: "linear-gradient(135deg, #080F0F 0%, #230606 55%, #691212 100%)",
       image: BussinesImg,
-      overlayOpacity: 0.9,
+      overlayOpacity: 0.4,
     },
     {
       id: "tech",
@@ -67,7 +61,7 @@ const Hero = () => {
       ctaTo: "/overview",
       gradient: "linear-gradient(135deg, #230606 0%, #691212 55%, #C02121 100%)",
       image: LawImg,
-      overlayOpacity: 0.9,
+      overlayOpacity: 0.3,
     },
     {
       id: "processos",
@@ -101,6 +95,7 @@ const Hero = () => {
           gradient={s.gradient}
           image={s.image}
           isActive={i === current}
+          overlayOpacity={s.overlayOpacity}
         />
       ))}
 
@@ -137,9 +132,7 @@ const Hero = () => {
 
 export default Hero;
 
-// ─────────────────────────────────────────────────────────────────────────────
 // Styled Components
-// ─────────────────────────────────────────────────────────────────────────────
 
 const fadeInUp = keyframes`
   from { opacity: 0; transform: translateY(24px); }
@@ -161,7 +154,7 @@ const HeroSection = styled.section`
   align-items: flex-end;
 `;
 
-const SlideBackground = styled.div<{ gradient: string; image?: string; isActive: boolean }>`
+const SlideBackground = styled.div<{ gradient: string; image?: string; isActive: boolean; overlayOpacity?: number }>`
   position: absolute;
   inset: 0;
   background: ${({ image, gradient }) => image ? `url(${image})` : gradient};
@@ -170,6 +163,13 @@ const SlideBackground = styled.div<{ gradient: string; image?: string; isActive:
   opacity: ${({ isActive }) => (isActive ? 1 : 0)};
   transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: opacity;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, ${({ overlayOpacity }) => overlayOpacity ?? 0});
+  }
 `;
 
 const HeroOverlay = styled.div`
