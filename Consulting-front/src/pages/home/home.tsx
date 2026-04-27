@@ -11,6 +11,8 @@ import Footer from "@/components/footer";
 import FAQ from "./components/Faq";
 import Hero_Break from "@/components/transformeBreak";
 import WppButton from "@/components/wppButton";
+import PartnersRows from "./components/partnersRows";
+import ClientsSay from "./components/clientsSay";
 
 function Home() {
   return (
@@ -19,7 +21,8 @@ function Home() {
       <Header />
       <Hero />
       <Intro />
-      <Clients />
+      <PartnersRows />
+      <ClientsSay />
       <SolutionsCarousel />
       <Card>
         <CardCase />
