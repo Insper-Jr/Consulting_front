@@ -11,7 +11,9 @@ import Footer from "@/components/footer";
 import FAQ from "./components/Faq";
 import Hero_Break from "@/components/transformeBreak";
 import WppButton from "@/components/wppButton";
-import BottomInteractive from "./components/interactiveSelector";
+import InteractiveSelector from "./components/interactiveSelector";
+import SectionMap from "./components/sectionMap";
+import ContactSection from "./components/sectionContact";
 
 function Home() {
   return (
@@ -28,7 +30,9 @@ function Home() {
       <Cases />
       <TestimonialsSection />
       <FAQ />
-      <BottomInteractive />
+      <InteractiveSelector />
+      <SectionMap />
+      <ContactSection />
       <Hero_Break/>
       <Footer/>
     </HomeContainer>

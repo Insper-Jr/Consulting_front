@@ -6,7 +6,7 @@ interface Selections { industry: string; capability: string; }
 
 const BG   = "#FAF2EA";
 const RED  = "#691212";
-const SANS = `"Helvetica Neue", Helvetica, sans-serif`;
+const FONT = `'Inter', Helvetica, sans-serif`;
 const EASE = "0.7s cubic-bezier(0.4, 0, 0.2, 1)";
 
 const CONTENT: Record<string, string> = {
@@ -25,7 +25,6 @@ const CAPABILITIES    = ["Estratégia e Consultoria", "Tecnologia", "Design", "D
 const INDUSTRIES      = ["Finanças", "Saúde", "Varejo", "Energia", "Manufatura"];
 const PLACEHOLDER_IMG = "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&q=80";
 
-
 const Wrapper        = styled.div`position: relative; width: 100%;`;
 const ParticleCanvas = styled.canvas`position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0;`;
 const ContentBlock   = styled.div`display: flex; flex-direction: column; gap: 24px; align-items: center; text-align: center; width: 100%;`;
@@ -33,7 +32,6 @@ const SelectRow      = styled.div`display: flex; gap: 16px; align-items: center;
 const DropdownWrapper = styled.div`position: relative; min-width: 200px;`;
 const DropdownMenu   = styled.div`position: absolute; top: calc(100% + 8px); left: 0; right: 0; background: #fff; border: 1.5px solid #1a1a18; border-radius: 16px; overflow: hidden; z-index: 100; box-shadow: 0 8px 24px rgba(0,0,0,0.08);`;
 const ImageBox       = styled.div`border-radius: 6px; overflow: hidden; position: relative; box-shadow: 0 0 0 1px rgba(176,48,48,0.1), 0 12px 40px rgba(0,0,0,0.08);`;
-const InfoText       = styled.p`font-family: ${SANS}; font-size: 0.9rem; color: #6b6760; line-height: 1.65; margin: 0;`;
 
 const Section = styled.div`
   width: 100%; background: ${BG}; padding: 120px 0 40px;
@@ -50,13 +48,12 @@ const Inner = styled.div<{ $active: boolean }>`
   position: relative; z-index: 1;
 `;
 const Title = styled.h2`
-  font-family: "Georgia", "Times New Roman", serif;
-  font-size: clamp(2rem, 4vw, 3rem); font-weight: 400;
+  font-family: ${FONT}; font-size: 32px; font-weight: 700;
   color: #1a1a18; letter-spacing: -0.02em; line-height: 1.2; margin: 0;
 `;
 const Description = styled.p`
-  font-family: ${SANS}; font-size: 1rem;
-  color: #6b6760; line-height: 1.7; margin: 0; max-width: 400px;
+  font-family: ${FONT}; font-size: 16px; font-weight: 400;
+  color: #6b6760; line-height: 1.5; margin: 0; max-width: 400px;
 `;
 const RightPanel = styled.div<{ $active: boolean }>`
   width: ${({ $active }) => ($active ? "100%" : "0%")};
@@ -76,27 +73,26 @@ const DropdownTrigger = styled.button<{ $open: boolean; $selected: boolean }>`
   border: 1px solid ${({ $open, $selected }) => ($open || $selected ? RED : "#d4c9c0")};
   background: ${({ $selected }) => ($selected ? RED : "transparent")};
   color: ${({ $selected }) => ($selected ? "#F5E6DC" : "#6b6760")};
-  font-family: ${SANS}; font-size: 0.82rem; letter-spacing: 0.08em;
-  text-transform: uppercase; cursor: pointer; transition: all 0.2s ease;
+  font-family: ${FONT}; font-size: 16px; font-weight: 700;
+  cursor: pointer; transition: all 0.2s ease;
   &:focus { outline: none; }
   &:hover { border-color: ${RED}; color: ${({ $selected }) => ($selected ? "#F5E6DC" : RED)}; }
 `;
 const DropdownItem = styled.div<{ $active: boolean }>`
-  padding: 12px 20px; font-family: ${SANS}; font-size: 0.9rem;
+  padding: 12px 20px; font-family: ${FONT}; font-size: 16px; font-weight: 400;
   color: ${({ $active }) => ($active ? RED : "#1a1a18")};
-  font-weight: ${({ $active }) => ($active ? "500" : "400")};
+  font-weight: ${({ $active }) => ($active ? "700" : "400")};
   cursor: pointer; transition: background 0.15s ease;
   background: ${({ $active }) => ($active ? BG : "transparent")};
   &:hover { background: ${BG}; color: ${RED}; }
 `;
+const InfoText = styled.p`font-family: ${FONT}; font-size: 16px; font-weight: 400; color: #6b6760; line-height: 1.5; margin: 0;`;
 const InfoLink = styled.a`
-  font-family: ${SANS}; font-size: 0.82rem; letter-spacing: 0.06em;
-  text-transform: uppercase; color: ${RED}; text-decoration: none;
-  transition: opacity 0.2s ease;
+  font-family: ${FONT}; font-size: 16px; font-weight: 700;
+  color: ${RED}; text-decoration: none; transition: opacity 0.2s ease;
   &:hover { opacity: 0.7; }
   &::after { content: " →"; }
 `;
-
 
 interface DropdownProps { placeholder: string; options: string[]; value: string; onChange: (val: string) => void; }
 
@@ -131,8 +127,7 @@ const Dropdown: React.FC<DropdownProps> = ({ placeholder, options, value, onChan
   );
 };
 
-
-const BottomInteractive: React.FC = () => {
+const InteractiveSelector: React.FC = () => {
   const [selections, setSelections] = useState<Selections>({ industry: "", capability: "" });
   const activeKey = selections.capability || selections.industry;
   const isActive  = activeKey !== "";
@@ -180,4 +175,4 @@ const BottomInteractive: React.FC = () => {
   );
 };
 
-export default BottomInteractive;
+export default InteractiveSelector;
