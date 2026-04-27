@@ -7,7 +7,7 @@ import SolutionsCarousel from "@/components/solutionsCarousel";
 import CardCase from "./components/caseCard"
 import Cases from "./components/sectionCases"
 import TestimonialsSection from "@/components/depoimentos";
-import Footer from "@/components/footer";
+import Footer from "@/components/footerNovo";
 import FAQ from "./components/Faq";
 import Hero_Break from "@/components/transformeBreak";
 import WppButton from "@/components/wppButton";
@@ -33,7 +33,7 @@ function Home() {
       <InteractiveSelector />
       <SectionMap />
       <ContactSection />
-      <Hero_Break/>
+      {/* <Hero_Break/> */}
       <Footer/>
     </HomeContainer>
   )
