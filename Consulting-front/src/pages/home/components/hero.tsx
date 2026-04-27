@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import styled, { keyframes, css } from "styled-components";
 import TechImg from "../../../assets/hero/tech.jpg";
 import BussinesImg from "../../../assets/hero/business2.png";
-import LawImg from "../../../assets/hero/law.jpg";
+import LawImg from "../../../assets/hero/law2.png";
 import { useTranslation } from "react-i18next";
-// import ProcessImg from "../../../assets/hero/process.png";
+import ProcessImg from "../../../assets/hero/law.jpg";
 
 
 
@@ -61,7 +61,7 @@ const Hero = () => {
       ctaTo: "/overview",
       gradient: "linear-gradient(135deg, #230606 0%, #691212 55%, #C02121 100%)",
       image: LawImg,
-      overlayOpacity: 0.3,
+      overlayOpacity: 0.4,
     },
     {
       id: "processos",
@@ -71,6 +71,8 @@ const Hero = () => {
       ctaLabel: t("hero.processes.cta"),
       ctaTo: "/overview",
       gradient: "linear-gradient(135deg, #080F0F 0%, #0e0e0e 55%, #181818 100%)",
+      image: ProcessImg,
+      overlayOpacity: 0.3,
     },
 ];
   const goToSlide = useCallback((index: number) => {
