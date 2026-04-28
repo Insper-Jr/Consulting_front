@@ -7,12 +7,13 @@ import SolutionsCarousel from "@/components/solutionsCarousel";
 import CardCase from "./components/caseCard"
 import Cases from "./components/sectionCases"
 import TestimonialsSection from "@/components/depoimentos";
-import Footer from "@/components/footer";
+import Footer from "@/components/footerNovo";
 import FAQ from "./components/Faq";
 import Hero_Break from "@/components/transformeBreak";
 import WppButton from "@/components/wppButton";
-import PartnersRows from "./components/partnersRows";
-import ClientsSay from "./components/clientsSay";
+import InteractiveSelector from "./components/interactiveSelector";
+import SectionMap from "./components/sectionMap";
+import ContactSection from "./components/sectionContact";
 
 function Home() {
   return (
@@ -30,7 +31,10 @@ function Home() {
       <Cases />
       <TestimonialsSection />
       <FAQ />
-      <Hero_Break/>
+      <InteractiveSelector />
+      <SectionMap />
+      <ContactSection />
+      {/* <Hero_Break/> */}
       <Footer/>
     </HomeContainer>
   )

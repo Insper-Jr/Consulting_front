@@ -1,9 +1,9 @@
 import Header from "../../components/header"
 import styled from "styled-components";
-import Footer from "@/components/footer";
+import Footer from "@/components/footerNovo";
 import WppButton from "@/components/wppButton";
 import Hero from "./components/hero";
-
+  
 function Contact() {
   return (
     <HomeContainer>
