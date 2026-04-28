@@ -16,7 +16,7 @@ const Section = styled.section`
   font-family: ${FONT}; padding: 4rem 0;
 `;
 
-const Header = styled.div`text-align: center; margin-bottom: 2rem;`;
+const Header = styled.div`text-align: center; margin-bottom: 1.5rem;`;
 
 const Eyebrow = styled.p`
   font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
@@ -28,17 +28,9 @@ const Title = styled.h2`
   color: ${c.black}; margin: 0;
 `;
 
-const Nav = styled.div`display: flex; border-top: 1px solid ${c.border};`;
-
-const Tab = styled.span`
-  padding: 0.85rem 1.5rem; font-size: 16px; font-weight: 700;
-  color: ${c.black}; background: ${c.linen};
-  border-top: 2px solid ${c.red}; margin-top: -1px;
-`;
-
 const Wrap = styled.div`
   display: flex; height: 420px; overflow: hidden;
-  border-radius: 0 0 4px 4px; box-shadow: 0 8px 40px rgba(8,15,15,0.12);
+  border-radius: 4px; box-shadow: 0 8px 40px rgba(8,15,15,0.12);
 `;
 
 const Panel = styled.div`
@@ -94,10 +86,6 @@ export default function OfficeMap() {
           <Eyebrow>Onde estamos</Eyebrow>
           <Title>Nosso escritório</Title>
         </Header>
-
-        <Nav>
-          <Tab>São Paulo</Tab>
-        </Nav>
 
         <Wrap>
           <Panel>

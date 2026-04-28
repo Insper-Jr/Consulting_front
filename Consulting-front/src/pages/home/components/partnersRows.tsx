@@ -47,15 +47,11 @@ const fila3 = all.slice(11);
 const PartnersRows = () => {
   return (
     <Section>
-      <TitleWrapper>
-        <RedBar />
-        <TitleGroup>
-          <Title>
-            Nossos <span>Parceiros</span>
-          </Title>
-          <Subtitle>Empresas</Subtitle>
-        </TitleGroup>
-      </TitleWrapper>
+      <TitleBlock>
+        <Label>PARCEIROS</Label>
+        <Title>Nossos Parceiros</Title>
+        <RedLine />
+      </TitleBlock>
 
       <Row>
         <Track speed="55s" reverse>
@@ -103,55 +99,45 @@ const Section = styled.section`
   overflow: hidden;
 `;
 
-const TitleWrapper = styled.div`
+const TitleBlock = styled.div`
   display: flex;
-  align-items: center;
-  gap: 1rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
   padding-left: 2rem;
 
   @media (max-width: 600px) {
     padding-left: 1rem;
-    gap: 0.75rem;
   }
 `;
 
-const RedBar = styled.div`
-  width: 4px;
-  height: 56px;
-  background-color: #691212;
-`;
-
-const TitleGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-  line-height: 1.1;
+const Label = styled.span`
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #691212;
+  text-transform: uppercase;
 `;
 
 const Title = styled.h2`
   font-family: "Inter", sans-serif;
-  font-size: 32px;
-  font-weight: 700;
-  color: #080F0F;
+  font-size: 36px;
+  font-weight: 800;
+  color: #080f0f;
   margin: 0;
-
-  span {
-    color: #691212;
-  }
+  line-height: 1.1;
 
   @media (max-width: 600px) {
-    font-size: 24px;
+    font-size: 32px;
   }
 `;
 
-const Subtitle = styled.span`
-  font-family: "Inter", sans-serif;
-  font-size: 20px;
-  font-weight: 400;
-  color: #080F0F;
-
-  @media (max-width: 600px) {
-    font-size: 16px;
-  }
+const RedLine = styled.div`
+  width: 48px;
+  height: 4px;
+  background: #691212;
+  border-radius: 2px;
 `;
 
 const scroll = keyframes`
