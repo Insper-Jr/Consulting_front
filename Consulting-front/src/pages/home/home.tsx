@@ -2,7 +2,7 @@ import Header from "../../components/header"
 import Clients from "../../components/clientes"
 import styled from "styled-components";
 import Hero from "./components/hero";
-import Intro from './components/intro';
+import Intro from './components/intro/IntroSection';
 import SolutionsCarousel from "@/components/solutionsCarousel";
 import CardCase from "./components/caseCard"
 import Cases from "./components/sectionCases"
@@ -22,7 +22,8 @@ function Home() {
       <Header />
       <Hero />
       <Intro />
-      <Clients />
+      <PartnersRows />
+      <ClientsSay />
       <SolutionsCarousel />
       <Card>
         <CardCase />
