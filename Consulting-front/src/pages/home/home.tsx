@@ -15,7 +15,6 @@ import InteractiveSelector from "./components/interactiveSelector";
 import SectionMap from "./components/sectionMap";
 import ContactSection from "./components/sectionContact";
 import PartnersRows from "./components/partnersRows";
-import ClientsSay from "./components/clientsSay";
 
 function Home() {
   return (
@@ -25,7 +24,6 @@ function Home() {
       <Hero />
       <Intro />
       <PartnersRows />
-      <ClientsSay />
       <InteractiveSelector />
       <SectionMap />
       <ContactSection />
