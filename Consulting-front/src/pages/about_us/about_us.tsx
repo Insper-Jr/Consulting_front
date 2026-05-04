@@ -1,54 +1,44 @@
-import Header from "../../components/header"
 import styled from "styled-components";
-import Hero from "./components/hero";
-import WppButton from "@/components/wppButton";
-import WhoWeAre from "./components/whoWeAre";
-import WhatsJunior from "./components/whatsjunior"
-import OurTeam from "./components/ourTeam";
-import InsperStats from "./components/stats";
-import Awards from "./components/awards";
-import CapacitationComponent from "./components/capacitation";
-import OurCulture from "./components/culture";
-import VisitCarousel from "./components/visits";
-import Footer from "@/components/footer";
-import HeroComponent from "@/components/transformeBreak";
-import Movement from "./components/juniorMovment";
+import Header              from "../../components/header";
+import WppButton           from "@/components/wppButton";
+import Footer              from "@/components/footerNovo";
+import AboutHero           from "./components/AboutHero/AboutHero";
+import AboutContent        from "./components/AboutContent/AboutContent";
+import AboutHistory        from "./components/AboutHistory";
+import AboutJuniorMovement from "./components/AboutJuniorMovement";
+import AboutTeam           from "./components/AboutTeam";
+import AboutPartners       from "./components/AboutPartners";
+import AboutCredibility    from "./components/AboutCredibility";
+import OurCulture          from "./components/culture";
+import AboutRecognitions   from "./components/AboutRecognitions";
+import AboutCTA            from "./components/AboutCTA";
+import ContactSection from "../home/components/sectionContact";
 
 function About_Us() {
   return (
-    <HomeContainer>
-      <WppButton/>
+    <PageContainer>
+      <WppButton />
       <Header />
-      <Hero />
-      <WhoWeAre />
-      <WhatsJunior/>
-      <OurTeam/>
-      <InsperStats/>
-      <Awards/>
-      <CapacitationComponent/>
-      <OurCulture/>
-      <VisitCarousel/>
-      <Movement/>
-      <HeroComponent/>
-        <Footer/>
-    </HomeContainer>
-  )
+      <AboutHero />
+      <AboutContent />
+      <AboutHistory />
+      <AboutJuniorMovement />
+      <AboutTeam />
+      <AboutPartners />
+      <OurCulture />
+      <AboutCredibility />
+      <AboutRecognitions />
+      <AboutCTA />
+      <ContactSection />
+      <Footer />
+    </PageContainer>
+  );
 }
 
-export default About_Us
+export default About_Us;
 
-const HomeContainer = styled.div`
+const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  width:100%;
-`; 
-
-const Card = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2rem;
-  padding: 4rem 2rem;
+  width: 100%;
 `;
-

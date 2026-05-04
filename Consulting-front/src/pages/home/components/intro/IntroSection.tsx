@@ -1,13 +1,38 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
+import styled, { keyframes, css } from "styled-components";
+import React from "react";
 import BrasilJunior from "../../../../assets/awards/brasil_junior.png";
 import Falconi      from "../../../../assets/awards/falconi.png";
 import Fejesp       from "../../../../assets/awards/fejesp.png";
-import Enej       from "../../../../assets/awards/enej.png";
+import Enej         from "../../../../assets/awards/enej.png";
 import { useTranslation } from "react-i18next";
 
-// ─── Count-up hook ────────────────────────────────────────────────────────────
+const FONT_TITLE = `'Montserrat', Helvetica, sans-serif`;
+const FONT_BODY  = `'Inter', Helvetica, sans-serif`;
+const SPRING     = "cubic-bezier(0.16,1,0.3,1)";
+
+const fadeUp = keyframes`
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+`;
+
+function useInView(ref: React.RefObject<HTMLDivElement | null>, threshold = 0.15) {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { threshold }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [ref, threshold]);
+  return visible;
+}
+
+// Count-up hook
 function useCountUp(target: number, duration = 2400) {
   const [count, setCount]     = useState(0);
   const [started, setStarted] = useState(false);
@@ -32,9 +57,7 @@ function useCountUp(target: number, duration = 2400) {
   return { count, ref };
 }
 
-
-
-// ─── Stat card ────────────────────────────────────────────────────────────────
+// Stat card
 const StatItem = ({ value, suffix, label }: { value: number; suffix: string; label: string }) => {
   const { count, ref } = useCountUp(value);
   return (
@@ -45,15 +68,14 @@ const StatItem = ({ value, suffix, label }: { value: number; suffix: string; lab
   );
 };
 
-// ─── Brazil map (vanilla JS animation inside useEffect) ───────────────────────
+// Brazil map — mantido idêntico ao original
 const BrazilMap = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => { 
+  useEffect(() => {
     const container = containerRef.current;
     if (!container || container.querySelector("svg")) return;
 
-    // ── Palette (Insper Jr brand on off-white bg) ──
     const P = {
       mapDot:     "rgba(140, 30, 30, 0.80)",
       sparkCore:  "#C02121",
@@ -66,12 +88,10 @@ const BrazilMap = () => {
       label:      "#691212",
     };
 
-    // ── Brazil polygon (Natural Earth, 0-1000 space) ──
     const POLY: [number, number][] = [[522.3,960],[537.1,946.8],[547.2,924.8],[562.5,913.9],[582.3,895.3],[607.3,854.6],[623,841.8],[628.2,830.7],[632.3,807.3],[628.7,794.3],[631.8,777.2],[650.9,754],[677.5,735.7],[702.7,729],[718.4,718.5],[753.7,709.7],[778.2,709.7],[783.6,695.8],[801.9,685.9],[805.7,661.8],[828.4,631.6],[832.5,600.6],[839.4,591.5],[841.9,576.2],[848.2,540.6],[846.6,497],[852.9,480.1],[858.5,479.6],[875.2,459.4],[889.4,433.3],[921.1,401],[932.5,386],[941.5,347.5],[940,325.7],[930.1,304.2],[922,296.8],[902.9,295.8],[885.5,289.1],[856.7,263.2],[823.5,243.9],[789.9,244.9],[746.1,232.6],[720,239.8],[723.6,227],[712.6,213.3],[675.2,199.2],[646.9,190.9],[630,206.2],[629.1,183],[589.3,179.3],[582.3,172.3],[599.2,153.1],[598.7,137.1],[586.6,133.4],[574,92.8],[568.4,80.1],[560.7,81],[547.5,102.3],[540.5,119.3],[531.9,128.1],[518.2,123.4],[506.1,128.5],[496.4,123.9],[483.4,119],[473,121.3],[451,130.6],[437.2,88.9],[423.3,64.1],[406,42.1],[378.3,40],[370.7,48.6],[368.4,72.7],[359.6,63.4],[351.3,72.2],[326.4,81],[309.9,84.5],[285.6,84.3],[269,81.2],[264.7,83.3],[274.8,89.4],[273.9,104.9],[277.1,119.5],[281.4,132.9],[248.3,159.1],[230.8,160.7],[213.9,151.2],[204,130.1],[189.1,137.6],[176.1,137.8],[165.8,154.5],[157.7,190.2],[161.3,203.4],[150.7,277.1],[130.4,275.9],[127.3,279.4],[108.8,283.8],[83.2,299.8],[75.8,318.5],[78,331.1],[64.5,347.5],[58.5,351.7],[67.9,372.5],[80.5,386.7],[90.6,398],[98.9,410.3],[119,411],[137.4,397.3],[135.8,432.6],[158.8,431.2],[175.4,433.3],[192.1,425.6],[211.9,416.3],[223.6,407.5],[253,403.6],[250.5,421],[253.5,430],[251.7,445.5],[276,466.2],[301.2,470.1],[310.2,478.7],[325.2,483.3],[334.7,490],[348.8,489.8],[361.9,496.8],[367.3,516.9],[361,527.1],[369.5,554.2],[412.7,555.2],[409.4,568.6],[411.8,577.6],[424.2,584.1],[429.4,598.5],[419.2,627],[421.5,640.2],[414.3,645.1],[421,657.8],[419.5,689.3],[443.3,693.7],[452.5,689.3],[467.6,695.6],[471.9,702.5],[473.9,723.6],[476.6,732.7],[484.9,733.6],[493.5,729.9],[501.6,734.1],[498.4,760.5],[493.9,773.9],[497.1,814],[482,823.5],[456.6,846],[426.4,877.7],[441.1,875.2],[472.1,892.3],[495.3,907.4],[516,946.8],[522.3,960]];
 
-    // ── Cities ──
     const SP = { name: "São Paulo", x: 673.8, y: 723.2, hub: true };
-    const CITIES: Record<string, { name: string; x: number; y: number; hub?: boolean }> = {
+    const CITIES: Record<string, { name: string; x: number; y: number }> = {
       rio:         { name: "Rio de Janeiro", x: 751.6, y: 708.3 },
       brasilia:    { name: "Brasília",       x: 645.7, y: 543.4 },
       salvador:    { name: "Salvador",       x: 856.5, y: 478.0 },
@@ -98,7 +118,6 @@ const BrazilMap = () => {
       { key: "manaus",      start: 6.8,  travel: 2.0 },
     ];
 
-    // ── SVG helpers ──
     const NS = "http://www.w3.org/2000/svg";
     const mk = (tag: string, attrs: Record<string, string | number> = {}) => {
       const n = document.createElementNS(NS, tag);
@@ -109,7 +128,6 @@ const BrazilMap = () => {
     const easeOutCubic = (t: number) => { const u = t - 1; return u*u*u + 1; };
     const easeOutBack  = (t: number) => { const c = 1.70158, c3 = c+1, u = t-1; return 1 + c3*u*u*u + c*u*u; };
 
-    // Point-in-polygon
     const pip = (x: number, y: number) => {
       let inside = false;
       for (let i = 0, j = POLY.length - 1; i < POLY.length; j = i++) {
@@ -120,7 +138,6 @@ const BrazilMap = () => {
       return inside;
     };
 
-    // Dots
     const buildDots = (sp: number) => {
       let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
       for (const [x, y] of POLY) { if (x < minX) minX = x; if (x > maxX) maxX = x; if (y < minY) minY = y; if (y > maxY) maxY = y; }
@@ -135,7 +152,6 @@ const BrazilMap = () => {
       return out;
     };
 
-    // Bezier helpers
     type Pt = { x: number; y: number };
     const ctrlPt = (a: Pt, b: Pt): Pt => {
       const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
@@ -160,29 +176,17 @@ const BrazilMap = () => {
       return len;
     };
 
-    // ── Build SVG ──
     const svg = mk("svg", { viewBox: "0 0 1000 1000" });
-    (svg as SVGElement).style.width = "100%";
-    (svg as SVGElement).style.height = "100%";
-    (svg as SVGElement).style.display = "block";
-    (svg as SVGElement).style.overflow = "hidden";
+    (svg as SVGElement).style.cssText = "width:100%;height:100%;display:block;overflow:hidden";
     container.appendChild(svg);
 
-    // Defs
     const defs = mk("defs");
-    defs.innerHTML = `
-      <radialGradient id="spGlow" cx="50%" cy="50%" r="55%">
-        <stop offset="0%" stop-color="rgba(192,33,33,0.05)"/>
-        <stop offset="100%" stop-color="rgba(192,33,33,0)"/>
-      </radialGradient>`;
+    defs.innerHTML = `<radialGradient id="spGlow" cx="50%" cy="50%" r="55%"><stop offset="0%" stop-color="rgba(192,33,33,0.05)"/><stop offset="100%" stop-color="rgba(192,33,33,0)"/></radialGradient>`;
     svg.appendChild(defs);
 
-    // Glow behind SP
     svg.appendChild(mk("circle", { cx: SP.x, cy: SP.y, r: 380, fill: "url(#spGlow)" }));
 
-    // Dots
-    const dotsLayer = mk("g");
-    svg.appendChild(dotsLayer);
+    const dotsLayer = mk("g"); svg.appendChild(dotsLayer);
     const dots = buildDots(13);
     const dotNodes: { el: SVGElement; phase: number }[] = [];
     for (const [dx, dy] of dots) {
@@ -191,46 +195,35 @@ const BrazilMap = () => {
       dotNodes.push({ el: c as SVGElement, phase: (dx + dy) * 0.01 });
     }
 
-    // Layers
-    const connLayer  = mk("g"); svg.appendChild(connLayer);
+    const connLayer = mk("g"); svg.appendChild(connLayer);
     const pulseLayer = mk("g"); svg.appendChild(pulseLayer);
-    const cityLayer  = mk("g"); svg.appendChild(cityLayer);
+    const cityLayer = mk("g"); svg.appendChild(cityLayer);
 
-    // Pre-compute connections
     const spPt: Pt = { x: SP.x, y: SP.y };
     const connections = SCHEDULE.map(s => {
       const to: Pt = CITIES[s.key];
       const ctrl = ctrlPt(spPt, to);
       const len  = bezierLen(spPt, ctrl, to);
       const d    = `M ${spPt.x} ${spPt.y} Q ${ctrl.x} ${ctrl.y} ${to.x} ${to.y}`;
-
       const basePath = mk("path", { d, fill: "none", stroke: P.sparkTrail, "stroke-opacity": 0.14, "stroke-width": 1.2, "stroke-linecap": "round" });
       connLayer.appendChild(basePath);
-
       const trail = mk("path", { d, fill: "none", stroke: P.sparkTrail, "stroke-width": 2.4, "stroke-linecap": "round" });
       (trail as SVGElement).style.filter = `drop-shadow(0 0 5px ${P.sparkDrop})`;
       connLayer.appendChild(trail);
-
       const headGroup = mk("g");
-      const headBlur  = mk("circle", { r: 9, fill: P.sparkTrail, opacity: 0.22 });
+      const headBlur = mk("circle", { r: 9, fill: P.sparkTrail, opacity: 0.22 });
       (headBlur as SVGElement).style.filter = "blur(4px)";
-      const headCore  = mk("circle", { r: 4.5, fill: P.sparkCore, opacity: 0.95 });
+      const headCore = mk("circle", { r: 4.5, fill: P.sparkCore, opacity: 0.95 });
       (headCore as SVGElement).style.filter = `drop-shadow(0 0 8px ${P.sparkDrop})`;
-      const headDot   = mk("circle", { r: 1.8, fill: "#ffffff" });
-      headGroup.appendChild(headBlur);
-      headGroup.appendChild(headCore);
-      headGroup.appendChild(headDot);
+      const headDot = mk("circle", { r: 1.8, fill: "#ffffff" });
+      headGroup.appendChild(headBlur); headGroup.appendChild(headCore); headGroup.appendChild(headDot);
       connLayer.appendChild(headGroup);
-
       const pulseOuter = mk("circle", { cx: to.x, cy: to.y, r: 4, fill: "none", stroke: P.sparkTrail, "stroke-width": 1.6, opacity: 0 });
       const pulseInner = mk("circle", { cx: to.x, cy: to.y, r: 4, fill: "none", stroke: P.sparkTrail, "stroke-width": 1.0, opacity: 0 });
-      pulseLayer.appendChild(pulseOuter);
-      pulseLayer.appendChild(pulseInner);
-
+      pulseLayer.appendChild(pulseOuter); pulseLayer.appendChild(pulseInner);
       return { s, to, ctrl, len, basePath, trail, headGroup, headBlur, headCore, headDot, pulseOuter, pulseInner };
     });
 
-    // City nodes
     const buildCity = (pos: Pt & { name: string }, isHub: boolean) => {
       const g = mk("g");
       const r = isHub ? 7 : 5;
@@ -255,28 +248,23 @@ const BrazilMap = () => {
     const hubNode = buildCity({ ...spPt, name: SP.name }, true);
     cityLayer.appendChild(hubNode.g);
 
-    // ── Animation loop ──
     let startTs: number | null = null;
     let running = true;
     let rafId = 0;
 
     const paint = (time: number) => {
-      // Dot shimmer
       for (const d of dotNodes) {
-        const shimmer = 0.75 + 0.25 * Math.sin(time * 1.2 + d.phase);
-        d.el.setAttribute("opacity", shimmer.toFixed(3));
+        d.el.setAttribute("opacity", (0.75 + 0.25 * Math.sin(time * 1.2 + d.phase)).toFixed(3));
       }
-
-      // Connections
       for (const conn of connections) {
         const localT = (time - conn.s.start) / conn.s.travel;
         const active = localT >= 0 && localT <= 1.6;
         if (!active) {
           conn.basePath.setAttribute("stroke-dasharray", `0 ${conn.len}`);
-          conn.trail.setAttribute("stroke-dasharray",    `0 ${conn.len}`);
+          conn.trail.setAttribute("stroke-dasharray", `0 ${conn.len}`);
           (conn.headGroup as SVGElement).style.opacity = "0";
-          (conn.basePath as SVGElement).style.opacity  = "0";
-          (conn.trail as SVGElement).style.opacity     = "0";
+          (conn.basePath as SVGElement).style.opacity = "0";
+          (conn.trail as SVGElement).style.opacity = "0";
           conn.pulseOuter.setAttribute("opacity", "0");
           conn.pulseInner.setAttribute("opacity", "0");
           continue;
@@ -285,24 +273,20 @@ const BrazilMap = () => {
         const drawn = pC * conn.len;
         const visLen = 120;
         const afterglow = localT > 1 ? clamp(1 - (localT - 1) / 0.6, 0, 1) : 1;
-
         (conn.basePath as SVGElement).style.opacity = String(afterglow);
-        (conn.trail as SVGElement).style.opacity    = String(afterglow);
+        (conn.trail as SVGElement).style.opacity = String(afterglow);
         conn.basePath.setAttribute("stroke-dasharray", `${drawn} ${conn.len}`);
-        conn.trail.setAttribute("stroke-dasharray",   `${visLen} ${conn.len * 2}`);
-        conn.trail.setAttribute("stroke-dashoffset",  String((conn.len - drawn) - (conn.len - visLen)));
-
+        conn.trail.setAttribute("stroke-dasharray", `${visLen} ${conn.len * 2}`);
+        conn.trail.setAttribute("stroke-dashoffset", String((conn.len - drawn) - (conn.len - visLen)));
         if (localT <= 1) {
           (conn.headGroup as SVGElement).style.opacity = String(afterglow);
           const h = bezier(spPt, conn.ctrl, conn.to, pC);
           conn.headBlur.setAttribute("cx", String(h.x)); conn.headBlur.setAttribute("cy", String(h.y));
           conn.headCore.setAttribute("cx", String(h.x)); conn.headCore.setAttribute("cy", String(h.y));
-          conn.headDot.setAttribute( "cx", String(h.x)); conn.headDot.setAttribute( "cy", String(h.y));
+          conn.headDot.setAttribute("cx", String(h.x)); conn.headDot.setAttribute("cy", String(h.y));
         } else {
           (conn.headGroup as SVGElement).style.opacity = "0";
         }
-
-        // Arrival pulse
         const pulseT = (time - (conn.s.start + conn.s.travel)) / 1.2;
         if (pulseT >= 0 && pulseT <= 1) {
           const pe = easeOutCubic(pulseT);
@@ -310,22 +294,19 @@ const BrazilMap = () => {
           conn.pulseOuter.setAttribute("r", String(pr)); conn.pulseOuter.setAttribute("opacity", String(po));
           conn.pulseInner.setAttribute("r", String(pr * 0.55)); conn.pulseInner.setAttribute("opacity", String(po * 0.7));
         } else {
-          conn.pulseOuter.setAttribute("opacity", "0");
-          conn.pulseInner.setAttribute("opacity", "0");
+          conn.pulseOuter.setAttribute("opacity", "0"); conn.pulseInner.setAttribute("opacity", "0");
         }
       }
-
-      // City nodes
       for (const ck in cityNodes) {
         const node = cityNodes[ck];
-        const sch  = SCHEDULE.find(s => s.key === ck);
+        const sch = SCHEDULE.find(s => s.key === ck);
         const litAt = sch ? sch.start + sch.travel : null;
         let brightness = 0.3, ringOp = 0, ringScale = 0;
         if (litAt !== null && time >= litAt) {
           const since = time - litAt;
-          brightness  = 0.3 + 0.7 * easeOutBack(clamp(since / 0.5, 0, 1));
+          brightness = 0.3 + 0.7 * easeOutBack(clamp(since / 0.5, 0, 1));
           const settle = clamp(since / 0.4, 0, 1);
-          ringOp    = (1 - settle) * 0.6;
+          ringOp = (1 - settle) * 0.6;
           ringScale = 1 + settle * 2;
         }
         node.halo.setAttribute("opacity", String(brightness));
@@ -335,8 +316,6 @@ const BrazilMap = () => {
         if (ringOp > 0) { node.ring.setAttribute("r", String(5 * (1 + ringScale))); node.ring.setAttribute("opacity", String(ringOp)); }
         else node.ring.setAttribute("opacity", "0");
       }
-
-      // Hub pulse
       const hp = 0.5 + 0.5 * Math.sin(time * 2.6);
       const hb = 0.85 + 0.15 * hp;
       hubNode.halo.setAttribute("opacity", String(hb));
@@ -355,7 +334,6 @@ const BrazilMap = () => {
     };
     rafId = requestAnimationFrame(frame);
 
-    // Pause when offscreen
     const io = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (e.isIntersecting) { if (!running) { running = true; startTs = null; rafId = requestAnimationFrame(frame); } }
@@ -366,7 +344,7 @@ const BrazilMap = () => {
 
     const onVis = () => {
       if (document.hidden) { running = false; cancelAnimationFrame(rafId); }
-      else { if (!running) { running = true; startTs = null; rafId = requestAnimationFrame(frame); } }
+      else if (!running) { running = true; startTs = null; rafId = requestAnimationFrame(frame); }
     };
     document.addEventListener("visibilitychange", onVis);
 
@@ -382,63 +360,72 @@ const BrazilMap = () => {
   return <MapContainer ref={containerRef} />;
 };
 
-// ─── Componente principal ─────────────────────────────────────────────────────
+// Componente principal
 const IntroSection = () => {
   const { t } = useTranslation();
+
+  const textRef   = useRef<HTMLDivElement>(null);
+  const rightRef  = useRef<HTMLDivElement>(null);
+  const mapRef    = useRef<HTMLDivElement>(null);
+  const textVisible  = useInView(textRef);
+  const rightVisible = useInView(rightRef);
+  const mapVisible   = useInView(mapRef);
+
   const STATS = [
     { value: 550, suffix: "+", label: t("intro.stats.projects") },
     { value: 25,  suffix: "+", label: t("intro.stats.years")    },
     { value: 60,  suffix: "+", label: t("intro.stats.members")  },
     { value: 90,  suffix: "+", label: t("intro.stats.nps")      },
   ];
-    return(
-  <Section>
-    <TextBlock>
-      <Eyebrow>{t("intro.eyebrow")}</Eyebrow>
-      <SectionTitle>{t("intro.title")}</SectionTitle>
-      <Divider />
-      <Body>{t("intro.body")}</Body>
-      <SubNote>{t("intro.mapLabel")}</SubNote>
-      <SaibaMaisLink to="/about">{t("intro.cta")} <Arrow>→</Arrow></SaibaMaisLink>
-    </TextBlock>
 
-    <BottomRow>
-      <MapCol>
-        <BrazilMap />
-      </MapCol>
-      <RightCol>
-        <StatsGrid>
-          {STATS.map(s => <StatItem key={s.label} {...s} />)}
-        </StatsGrid>
-      
+  return (
+    <Section>
+      <TextBlock ref={textRef} $visible={textVisible}>
+        <Eyebrow>{t("intro.eyebrow")}</Eyebrow>
+        <SectionTitle>{t("intro.title")}</SectionTitle>
+        <Divider />
+        <Body>{t("intro.body")}</Body>
+        <SubNote>{t("intro.mapLabel")}</SubNote>
+        <SaibaMaisLink to="/about">{t("intro.cta")} <Arrow>→</Arrow></SaibaMaisLink>
+      </TextBlock>
 
-        <AwardsRow>
-           <AwardsLabel>{t("intro.awards")}</AwardsLabel>
-          <AwardsList>
-            <AwardImg src={BrasilJunior} alt="Brasil Júnior" />
-            <AwardImg src={Falconi} alt="Falconi" />
-            <AwardImg src={Fejesp} alt="FEJESP" />
-            <AwardImg src={Enej} alt='Encontro Nacional de Empresas Juniores' size="5.5rem" />
-          </AwardsList>
-        </AwardsRow>
-      </RightCol>
-    </BottomRow>
-  </Section>
+      <BottomRow>
+        <MapCol ref={mapRef} $visible={mapVisible}>
+          <BrazilMap />
+        </MapCol>
+        <RightCol ref={rightRef} $visible={rightVisible}>
+          <StatsGrid>
+            {STATS.map(s => <StatItem key={s.label} {...s} />)}
+          </StatsGrid>
+          <AwardsRow>
+            <AwardsLabel>{t("intro.awards")}</AwardsLabel>
+            <AwardsList>
+              <AwardImg src={BrasilJunior} alt="Brasil Júnior" />
+              <AwardImg src={Falconi}      alt="Falconi" />
+              <AwardImg src={Fejesp}       alt="FEJESP" />
+              <AwardImg src={Enej}         alt="Encontro Nacional de Empresas Juniores" />
+            </AwardsList>
+          </AwardsRow>
+        </RightCol>
+      </BottomRow>
+    </Section>
   );
-}
+};
 
 export default IntroSection;
 
-// ── Styled Components ─────────────────────────────────────────────────────────
+// Styled Components
+
 const Section = styled.section`
   background: #FAF4F0;
-  padding: 6rem 0 6rem 0;
+  padding: 2.25rem 0 3rem 0;
   display: flex;
   flex-direction: column;
-  gap: 3.5rem;
+  gap: 2rem;
   overflow: hidden;
 `;
-const TextBlock = styled.div`
+
+const TextBlock = styled.div<{ $visible?: boolean }>`
   max-width: 700px;
   margin: 0 auto;
   width: 100%;
@@ -447,66 +434,112 @@ const TextBlock = styled.div`
   gap: 1.1rem;
   align-items: center;
   text-align: center;
-  padding: 0 4rem;  
+  padding: 0 4rem;
   z-index: 2;
+  opacity: 0;
+  ${p => p.$visible && css`animation: ${fadeUp} 0.9s ${SPRING} 0.1s forwards;`}
 `;
+
 const Eyebrow = styled.span`
-  color: #C02121; font-family: "Montserrat", sans-serif;
-  font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: #C02121;
+  font-family: ${FONT_TITLE};
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 `;
+
+/* H2 — Montserrat Bold 32px */
 const SectionTitle = styled.h2`
-  color: #080F0F; font-family: "Montserrat", sans-serif;
-  font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 800;
-  letter-spacing: -0.02em; line-height: 1.1; margin: 0;
+  color: #080F0F;
+  font-family: ${FONT_TITLE};
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0;
 `;
-const Divider = styled.div`width: 3rem; height: 3px; background: #C02121; border-radius: 2px;`;
+
+const Divider = styled.div`
+  width: 3rem;
+  height: 3px;
+  background: #C02121;
+  border-radius: 2px;
+`;
+
+/* Body — Inter Regular 16px */
 const Body = styled.p`
-  color: #444; font-family: "Montserrat", sans-serif;
-  font-size: 1rem; font-weight: 400; line-height: 1.75; margin: 0; max-width: 700px;
+  color: #444;
+  font-family: ${FONT_BODY};
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 700px;
 `;
-const Arrow = styled.span`display: inline-block; transition: transform 0.2s;`;
+
+const Arrow = styled.span`
+  display: inline-block;
+  transition: transform 0.2s;
+`;
+
+/* CTA — Inter Bold 16px */
 const SaibaMaisLink = styled(Link)`
-  display: inline-flex; align-items: center; gap: 0.4rem;
-  color: #C02121; font-family: "Montserrat", sans-serif;
-  font-size: 0.9rem; font-weight: 700; text-decoration: none;
-  transition: gap 0.2s; width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #C02121;
+  font-family: ${FONT_BODY};
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: gap 0.2s;
+  width: fit-content;
   &:hover { gap: 0.75rem; ${Arrow} { transform: translateX(3px); } }
 `;
+
 const BottomRow = styled.div`
   display: grid;
   grid-template-columns: 55% 45%;
   align-items: center;
-  width: 100%;
+  width: 90%;
+  margin: 0 auto;
 `;
-const MapCol = styled.div`
+
+const MapCol = styled.div<{ $visible?: boolean }>`
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  margin-left: -250px; 
-  margin-top: -8rem;
+  margin-left: -250px;
+  margin-top: -16rem;
+  opacity: 0;
+  ${p => p.$visible && css`animation: ${fadeUp} 0.9s ${SPRING} 0.1s forwards;`}
 `;
+
 const MapContainer = styled.div`
   width: 100%;
   aspect-ratio: 1/1;
-  max-width: 800px;
+  max-width: 700px;
   overflow: hidden;
 `;
 
 const StatsGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
-  width: 100%;
+  grid-template-columns: 2fr 2fr;
+  gap: 1rem;
+  width: 85%;
+  margin: 0 auto;
 `;
 
 const StatCard = styled.div`
   background: linear-gradient(135deg, #230606 0%, #691212 100%);
   border: 1px solid rgba(255,255,255,0.06);
   border-radius: 10px;
-  padding: 2rem 1.5rem;
-  display: flex; flex-direction: column; gap: 0.5rem;
+  padding: 0.65rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
   box-shadow: 0 4px 24px rgba(0,0,0,0.25);
-  align-items: flex-start; 
   align-items: center;
   text-align: center;
   transition: box-shadow 0.25s, transform 0.25s;
@@ -516,59 +549,63 @@ const StatCard = styled.div`
   }
 `;
 
+/* Número dos stats — Montserrat Bold (display) */
 const StatValue = styled.span`
   color: #fff;
-  font-family: "Montserrat", sans-serif;
-  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-family: ${FONT_TITLE};
+  font-size: clamp(1.4rem, 2.5vw, 1.6rem);
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1;
 `;
 
+/* Label dos stats — Inter Regular */
 const StatLabel = styled.span`
   color: rgba(255,255,255,0.5);
-  font-family: "Montserrat", sans-serif;
-  font-size: 0.82rem;
-  font-weight: 500;
-  line-height: 1.4;
+  font-family: ${FONT_BODY};
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.3;
 `;
 
 const SubNote = styled.span`
   color: #999;
-  font-family: "Montserrat", sans-serif;
-  font-size: 0.8rem;
-  font-weight: 500;
-  gap: 3rem;
+  font-family: ${FONT_BODY};
+  font-size: 13px;
+  font-weight: 400;
   letter-spacing: 0.03em;
+`;
+
+const AwardsLabel = styled.span`
+  color: #999;
+  font-family: ${FONT_TITLE};
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
 `;
 
 const AwardsRow = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1.8rem;
+  align-items: center;
+  gap: 1rem;
   border-top: 1px solid rgba(8, 15, 15, 0.08);
-  padding-top: 2.5rem;
-`;
-const AwardsLabel = styled.span`
-  color: #999;
-  font-family: "Montserrat", sans-serif;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  text-align: center;
+  padding-top: 1.5rem;
 `;
 
 const AwardsList = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 3rem;
-  flex-wrap: wrap;
+  gap: 1.5rem;
+  flex-wrap: nowrap;
 `;
 
-const AwardImg = styled.img<{ size?: string }>`
-  height: ${({ size }) => size || "3rem"};
+const AwardImg = styled.img`
+  height: 2rem;
+  width: 5rem;
   object-fit: contain;
   opacity: 0.65;
   filter: grayscale(100%);
@@ -580,10 +617,13 @@ const AwardImg = styled.img<{ size?: string }>`
   }
 `;
 
-const RightCol = styled.div`
+const RightCol = styled.div<{ $visible?: boolean }>`
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  padding: 0 7rem 0 2rem;
+  padding: 6rem 2rem 6rem 2rem;
   margin-left: -6rem;
+  margin-top: -5rem;
+  opacity: 0;
+  ${p => p.$visible && css`animation: ${fadeUp} 0.9s ${SPRING} 0.25s forwards;`}
 `;
