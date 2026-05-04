@@ -129,11 +129,11 @@ const Header = () => {
         <HeaderWrap isSolid={isSolid}>
 
           {/* Esquerda — hover abre sidebar */}
-          <HeaderLeft
-            onMouseEnter={openSidebar}
-            onMouseLeave={scheduleSidebarClose}
-          >
-            <HamburgerBtn aria-label="Menu">
+          <HeaderLeft>
+            <HamburgerBtn 
+              onMouseEnter={openSidebar}
+              onMouseLeave={scheduleSidebarClose}
+              aria-label="Menu">
               <HamburgerLine />
               <HamburgerLine />
               <HamburgerLine />
