@@ -22,11 +22,11 @@ function About_Us() {
       <AboutHero />
       <AboutContent />
       <AboutHistory />
-      <AboutJuniorMovement />
+      <OurCulture />
       <AboutTeam />
       <AboutPartners />
-      <OurCulture />
       <AboutCredibility />
+      <AboutJuniorMovement />
       <AboutRecognitions />
       <AboutCTA />
       <ContactSection />

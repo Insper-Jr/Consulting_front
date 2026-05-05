@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect, useCallback } from "react";
 import styled, { keyframes, css } from "styled-components";
 import { useInView } from "@/hooks/useInView";
 import Gestao44 from "../../../assets/gestoes/44a.jpg";
-import Gestao49e50 from "../../../assets/gestoes/49-50.jpg";
+import Gestao49 from "../../../assets/gestoes/49a.jpg";
 
 
 
@@ -42,11 +42,13 @@ type Gestao = {
 };
 
 const GESTOES: Gestao[] = [
-  { id: "g47", label: "43ª e 44ª Gestão", year: "2022", image: Gestao44},
-  { id: "g49", label: "45ª e 46ª Gestão", year: "2023", image: "/images/gestoes/45-46.jpg" },
-  { id: "g51", label: "47ª e 48ª Gestão", year: "2024", image: "/images/gestoes/47-48.jpg" },
-  { id: "g53", label: "49ª e 50ª Gestão", year: "2025", image: Gestao49e50 },
-  { id: "g55", label: "51ª e 52ª Gestão", year: "2026", image: "/images/gestoes/51-52.jpg" },
+  { id: "g49", label: "44ª Gestão", year: "2023.1", image: Gestao44},
+  { id: "g50", label: "45ª Gestão", year: "2023.2", image: "/images/gestoes/45.jpg" },
+  { id: "g51", label: "46ª Gestão", year: "2024.1", image: "/images/gestoes/46.jpg" },
+  { id: "g52", label: "47ª Gestão", year: "2024.2", image: "/images/gestoes/47.jpg" },
+  { id: "g53", label: "48ª Gestão", year: "2025.1", image: "/images/gestoes/48.jpg" },
+  //{ id: "g54", label: "49ª Gestão", year: "2025.2", image: Gestao49 },
+  //{ id: "g55", label: "50ª Gestão", year: "2026.1", image: "/images/gestoes/50a.jpg" },
 ];
 
 type Pilar = {

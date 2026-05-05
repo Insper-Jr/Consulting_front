@@ -19,6 +19,7 @@ const COURSES = [
   "Engenharia da Computação",
   "Engenharia Mecânica",
   "Engenharia Mecatrônica",
+  "Engenharia de Produção",
 ];
 
 const STATS = [
