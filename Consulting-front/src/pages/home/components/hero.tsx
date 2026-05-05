@@ -1,16 +1,16 @@
 import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import styled, { keyframes, css } from "styled-components";
-import TechImg from "../../../assets/hero/tech.jpg";
+import TechImg     from "../../../assets/hero/tech.jpg";
 import BussinesImg from "../../../assets/hero/business2.png";
-import LawImg from "../../../assets/hero/law2.png";
+import LawImg      from "../../../assets/hero/law2.png";
+import ProcessImg  from "../../../assets/hero/law.jpg";
 import { useTranslation } from "react-i18next";
-import ProcessImg from "../../../assets/hero/law.jpg";
 
+const FONT_TITLE = `'Montserrat', Helvetica, sans-serif`;
+const FONT_BODY  = `'Inter', Helvetica, sans-serif`;
 
-
-// ─── Configuração dos slides ──────────────────────────────────────────────────
-const SLIDE_DURATION = 6000; // ms por slide
+const SLIDE_DURATION = 6000;
 
 interface Slide {
   id: string;
@@ -19,17 +19,16 @@ interface Slide {
   subtitle: string;
   ctaLabel: string;
   ctaTo: string;
-  image?: string;      
-  gradient: string;        
+  image?: string;
+  gradient: string;
   overlayOpacity?: number;
 }
 
-
-// ─── Componente ───────────────────────────────────────────────────────────────
 const Hero = () => {
   const { t } = useTranslation();
   const [current, setCurrent] = useState(0);
   const [animKey, setAnimKey] = useState(0);
+
   const SLIDES: Slide[] = [
     {
       id: "business",
@@ -38,7 +37,7 @@ const Hero = () => {
       subtitle: t("hero.business.subtitle"),
       ctaLabel: t("hero.business.cta"),
       ctaTo: "/overview",
-      gradient: "linear-gradient(135deg, #080F0F 0%, #230606 55%, #691212 100%)",
+      gradient: "linear-gradient(135deg, #0e0404 0%, #230606 55%, #691212 100%)",
       image: BussinesImg,
       overlayOpacity: 0.4,
     },
@@ -49,7 +48,7 @@ const Hero = () => {
       subtitle: t("hero.tech.subtitle"),
       ctaLabel: t("hero.tech.cta"),
       ctaTo: "/overview",
-      gradient: "linear-gradient(135deg, #050A0A 0%, #0d1520 55%, #152035 100%)",
+      gradient: "linear-gradient(135deg, #0e0404 0%, #0d1520 55%, #152035 100%)",
       image: TechImg,
     },
     {
@@ -70,11 +69,12 @@ const Hero = () => {
       subtitle: t("hero.processes.subtitle"),
       ctaLabel: t("hero.processes.cta"),
       ctaTo: "/overview",
-      gradient: "linear-gradient(135deg, #080F0F 0%, #0e0e0e 55%, #181818 100%)",
+      gradient: "linear-gradient(135deg, #0e0404 0%, #0e0e0e 55%, #181818 100%)",
       image: ProcessImg,
       overlayOpacity: 0.3,
     },
-];
+  ];
+
   const goToSlide = useCallback((index: number) => {
     setCurrent(index);
     setAnimKey((k) => k + 1);
@@ -112,7 +112,6 @@ const Hero = () => {
         </ContentInner>
       </HeroContent>
 
-      {/* Indicadores inferiores — estilo Bain */}
       <SlideIndicators>
         {SLIDES.map((s, i) => (
           <SlideIndicator key={s.id} onClick={() => goToSlide(i)}>
@@ -133,8 +132,6 @@ const Hero = () => {
 };
 
 export default Hero;
-
-// Styled Components
 
 const fadeInUp = keyframes`
   from { opacity: 0; transform: translateY(24px); }
@@ -170,7 +167,7 @@ const SlideBackground = styled.div<{ gradient: string; image?: string; isActive:
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, ${({ overlayOpacity }) => overlayOpacity ?? 0});
+    background: rgba(14, 4, 4, ${({ overlayOpacity }) => overlayOpacity ?? 0});
   }
 `;
 
@@ -179,9 +176,9 @@ const HeroOverlay = styled.div`
   inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.45) 0%,
-    rgba(0, 0, 0, 0.35) 40%,
-    rgba(0, 0, 0, 0.82) 100%
+    rgba(14, 4, 4, 0.45) 0%,
+    rgba(14, 4, 4, 0.35) 40%,
+    rgba(14, 4, 4, 0.82) 100%
   );
   z-index: 1;
 `;
@@ -206,8 +203,8 @@ const ContentInner = styled.div`
 const HeroEyebrow = styled.span`
   display: inline-block;
   color: #C02121;
-  font-family: "Montserrat", sans-serif;
-  font-size: 0.8rem;
+  font-family: ${FONT_TITLE};
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -216,11 +213,12 @@ const HeroEyebrow = styled.span`
   animation-delay: 0.05s;
 `;
 
+/* H1 — Montserrat Bold 48px */
 const HeroTitle = styled.h1`
   color: #fff;
-  font-family: "Montserrat", sans-serif;
-  font-size: clamp(2rem, 4.5vw, 3.2rem);
-  font-weight: 800;
+  font-family: ${FONT_TITLE};
+  font-size: 48px;
+  font-weight: 700;
   line-height: 1.15;
   letter-spacing: -0.02em;
   margin-bottom: 1.25rem;
@@ -228,23 +226,25 @@ const HeroTitle = styled.h1`
   animation-delay: 0.15s;
 `;
 
+/* Body — Inter Regular 16px */
 const HeroSubtitle = styled.p`
   color: rgba(255, 255, 255, 0.75);
-  font-family: "Montserrat", sans-serif;
-  font-size: clamp(0.9rem, 1.6vw, 1.1rem);
+  font-family: ${FONT_BODY};
+  font-size: 16px;
   font-weight: 400;
-  line-height: 1.65;
+  line-height: 1.5;
   max-width: 540px;
   margin-bottom: 2rem;
   animation: ${fadeInUp} 0.55s ease both;
   animation-delay: 0.25s;
 `;
 
+/* CTA — Inter Bold 16px */
 const HeroCTA = styled(Link)`
   display: inline-block;
   color: #fff;
-  font-family: "Montserrat", sans-serif;
-  font-size: 0.9rem;
+  font-family: ${FONT_BODY};
+  font-size: 16px;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-decoration: none;
@@ -257,11 +257,10 @@ const HeroCTA = styled(Link)`
 
   &:hover {
     background: #fff;
-    color: #080F0F;
+    color: #0e0404;
   }
 `;
 
-// ── Indicadores ──
 const SlideIndicators = styled.div`
   position: absolute;
   bottom: 2.5rem;
@@ -298,11 +297,7 @@ const ProgressTrack = styled.div`
   overflow: hidden;
 `;
 
-const ProgressFill = styled.div<{
-  isActive: boolean;
-  isPast: boolean;
-  duration: number;
-}>`
+const ProgressFill = styled.div<{ isActive: boolean; isPast: boolean; duration: number }>`
   height: 100%;
   background: #C02121;
   border-radius: 2px;
@@ -315,10 +310,11 @@ const ProgressFill = styled.div<{
       : css`width: 0%;`}
 `;
 
+/* Label dos slides — Montserrat */
 const SlideLabel = styled.span<{ isActive: boolean }>`
   color: ${({ isActive }) => (isActive ? "#fff" : "rgba(255, 255, 255, 0.45)")};
-  font-family: "Montserrat", sans-serif;
-  font-size: 0.72rem;
+  font-family: ${FONT_TITLE};
+  font-size: 11px;
   font-weight: ${({ isActive }) => (isActive ? "700" : "400")};
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -327,6 +323,6 @@ const SlideLabel = styled.span<{ isActive: boolean }>`
   text-align: center;
 
   @media (max-width: 600px) {
-    font-size: 0.62rem;
+    font-size: 10px;
   }
 `;

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { X, MagnifyingGlass } from "phosphor-react";
+import { MagnifyingGlass } from "phosphor-react";
 import styled, { css, keyframes } from "styled-components";
 import { useTranslation } from "react-i18next";
 import LogoIJR from "./LogoIJR";
@@ -18,7 +18,6 @@ const Header = () => {
   ] as const;
 
   const [isScrolled,     setIsScrolled]     = useState(false);
-  const [headerHovered,  setHeaderHovered]  = useState(false);
   const [sidebarOpen,    setSidebarOpen]    = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<DropdownKey>(null);
   const [searchOpen,     setSearchOpen]     = useState(false);
@@ -26,8 +25,9 @@ const Header = () => {
 
   const lang = i18n.language === "en" ? "EN" : "PT";
 
-  const navCloseTimer  = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const langCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const navCloseTimer     = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const langCloseTimer    = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const sidebarCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 50);
@@ -35,22 +35,31 @@ const Header = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
-    document.body.style.overflow = sidebarOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [sidebarOpen]);
+  /* Sidebar hover */
+  const openSidebar = () => {
+    if (sidebarCloseTimer.current) clearTimeout(sidebarCloseTimer.current);
+    setSidebarOpen(true);
+  };
+  const scheduleSidebarClose = () => {
+    sidebarCloseTimer.current = setTimeout(() => setSidebarOpen(false), 350); // era 220
+  };
+  const cancelSidebarClose = () => {
+    if (sidebarCloseTimer.current) clearTimeout(sidebarCloseTimer.current);
+  };
 
+  /* Dropdown nav */
   const openNav = (key: DropdownKey) => {
     if (navCloseTimer.current) clearTimeout(navCloseTimer.current);
     setActiveDropdown(key);
   };
   const scheduleNavClose = () => {
-    navCloseTimer.current = setTimeout(() => setActiveDropdown(null), 1200);
+    navCloseTimer.current = setTimeout(() => setActiveDropdown(null), 200);
   };
   const cancelNavClose = () => {
     if (navCloseTimer.current) clearTimeout(navCloseTimer.current);
   };
 
+  /* Lang */
   const openLang = () => {
     if (langCloseTimer.current) clearTimeout(langCloseTimer.current);
     setLangOpen(true);
@@ -62,71 +71,89 @@ const Header = () => {
     if (langCloseTimer.current) clearTimeout(langCloseTimer.current);
   };
 
-const isSolid = isScrolled || activeDropdown === "solucoes";
+  const isSolid = isScrolled || activeDropdown === "solucoes";
 
   return (
     <>
-      {sidebarOpen && <SidebarOverlay onClick={() => setSidebarOpen(false)} />}
+      {sidebarOpen && (
+        <SidebarOverlay onClick={() => setSidebarOpen(false)} />
+      )}
 
       {/* ── Sidebar ── */}
-      <Sidebar isOpen={sidebarOpen}>
-        <SidebarTop>
-          <SidebarCloseBtn onClick={() => setSidebarOpen(false)} aria-label="Fechar menu">
-            <X size={24} weight="bold" />
-          </SidebarCloseBtn>
-        </SidebarTop>
+      <Sidebar
+        isOpen={sidebarOpen}
+        onMouseEnter={cancelSidebarClose}
+        onMouseLeave={scheduleSidebarClose}
+      >
+        {/* Topo com logo */}
+        <SidebarHead>
+          <LogoIJR height={28} color="#fff" />
+        </SidebarHead>
+
+        <SidebarDivider />
+
+        {/* Links */}
         <SidebarLinks>
-          {NAV_ITEMS.map((item) => (
+          {NAV_ITEMS.map((item, i) => (
             <SidebarNavLink
               key={item.label}
               to={item.to ?? (item.key === "solucoes" ? "/overview" : "/")}
               onClick={() => setSidebarOpen(false)}
             >
-              {item.label}
+              <span>{item.label}</span>
+              <SidebarArrow>→</SidebarArrow>
             </SidebarNavLink>
           ))}
         </SidebarLinks>
+
+        <SidebarDivider />
+
+        {/* Rodapé */}
         <SidebarBottom>
+          <SidebarTagline>
+            Consultoria universitária de alto impacto
+          </SidebarTagline>
           <SidebarCTA to="/contact" onClick={() => setSidebarOpen(false)}>
             {t("nav.cta")}
           </SidebarCTA>
         </SidebarBottom>
       </Sidebar>
 
+      <HoverTrigger
+        onMouseEnter={openSidebar}
+        onMouseLeave={scheduleSidebarClose}
+      />
+
       {/* ── Header + Dropdown Zone ── */}
       <HeaderZone onMouseLeave={scheduleNavClose}>
-        <HeaderWrap
-          isSolid={isSolid}
-        >
-          {/* Esquerda */}
+        <HeaderWrap isSolid={isSolid}>
+
+          {/* Esquerda — hover abre sidebar */}
           <HeaderLeft>
-            <HamburgerBtn onClick={() => setSidebarOpen(true)} aria-label="Abrir menu">
+            <HamburgerBtn 
+              onMouseEnter={openSidebar}
+              onMouseLeave={scheduleSidebarClose}
+              aria-label="Menu">
               <HamburgerLine />
               <HamburgerLine />
               <HamburgerLine />
             </HamburgerBtn>
             <LogoIJR height={30} color="#fff" />
+            
           </HeaderLeft>
 
           {/* Centro */}
           <CenterNav>
             {NAV_ITEMS.map((item) =>
               item.key === "solucoes" ? (
-              <NavBtn onMouseEnter={() => openNav("solucoes")}>
-                {item.label}
-                <Arrow isOpen={activeDropdown === "solucoes"}>
-                  <svg viewBox="0 0 24 24">
-                    <path
-                      d="M6 9l6 6 6-6"
-                      stroke="white"
-                      strokeWidth="2"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </Arrow>
-              </NavBtn>
+                <NavBtn key={item.label} onMouseEnter={() => openNav("solucoes")}>
+                  {item.label}
+                  <Arrow isOpen={activeDropdown === "solucoes"}>
+                    <svg viewBox="0 0 24 24">
+                      <path d="M6 9l6 6 6-6" stroke="white" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </Arrow>
+                </NavBtn>
               ) : (
                 <NavBtnLink key={item.label} to={item.to!} onMouseEnter={() => openNav(null)}>
                   {item.label}
@@ -166,7 +193,7 @@ const isSolid = isScrolled || activeDropdown === "solucoes";
           </HeaderRight>
         </HeaderWrap>
 
-        {/* ── Dropdown Nossas Soluções ── */}
+        {/* ── Dropdown Soluções ── */}
         {activeDropdown === "solucoes" && (
           <DropdownPanel onMouseEnter={cancelNavClose} onMouseLeave={scheduleNavClose}>
             <DropdownInner>
@@ -206,11 +233,16 @@ const isSolid = isScrolled || activeDropdown === "solucoes";
 
 export default Header;
 
-// ── Styled Components ─────────────────────────────────────────────────────────
+// ── Styled Components ────────────────────────────────────────────────────────
 
 const fadeIn = keyframes`
   from { opacity: 0; }
   to   { opacity: 1; }
+`;
+
+const slideIn = keyframes`
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
 `;
 
 const HeaderZone = styled.div`
@@ -223,77 +255,127 @@ const HeaderZone = styled.div`
 const SidebarOverlay = styled.div`
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(0, 0, 0, 0.45);
   z-index: 1099;
-  animation: ${fadeIn} 0.25s ease;
+  animation: ${fadeIn} 0.2s ease;
 `;
 
+/* ── Sidebar melhorada ── */
 const Sidebar = styled.aside<{ isOpen: boolean }>`
   position: fixed;
   top: 0; left: 0;
-  width: 320px;
+  width: 300px;
   height: 100dvh;
-  background: #080F0F;
-  border-right: 1px solid rgba(255, 255, 255, 0.07);
+  background: #0e0404;
+  border-right: 1px solid rgba(192, 33, 33, 0.2);
   z-index: 1200;
   display: flex;
   flex-direction: column;
   transform: translateX(${({ isOpen }) => (isOpen ? "0" : "-100%")});
-  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
   @media (max-width: 360px) { width: 100vw; }
 `;
 
-const SidebarTop = styled.div`
-  padding: 1.5rem 1.5rem 1rem;
+const SidebarHead = styled.div`
+  padding: 1.5rem 2rem;
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
 `;
 
-const SidebarCloseBtn = styled.button`
-  background: none; border: none;
-  color: rgba(255, 255, 255, 0.6);
-  cursor: pointer; padding: 0.4rem;
-  border-radius: 4px; transition: color 0.2s; line-height: 0;
-  &:hover { color: #fff; }
+const SidebarDivider = styled.div`
+  height: 1px;
+  background: rgba(255, 255, 255, 0.06);
+  margin: 0 2rem;
 `;
 
 const SidebarLinks = styled.nav`
   flex: 1;
-  display: flex; flex-direction: column;
-  padding: 1rem 2rem; gap: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
 `;
 
 const SidebarNavLink = styled(Link)`
-  color: rgba(255, 255, 255, 0.75);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: rgba(255, 255, 255, 0.65);
   text-decoration: none;
   font-family: "Montserrat", sans-serif;
-  font-size: 1.05rem; font-weight: 500; letter-spacing: 0.02em;
-  padding: 0.75rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  transition: color 0.2s, padding-left 0.2s;
-  &:hover { color: #fff; padding-left: 0.5rem; }
-  &:last-child { border-bottom: none; }
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 0.85rem 2rem;
+  transition: color 0.2s, background 0.2s, padding-left 0.2s;
+
+  &:hover {
+    color: #fff;
+    background: rgba(192, 33, 33, 0.08);
+    padding-left: 2.3rem;
+  }
+
+  /* animação escalonada nos links quando abre */
+  animation: ${slideIn} 0.3s ease both;
 `;
 
-const SidebarBottom = styled.div`padding: 2rem;`;
+const SidebarArrow = styled.span`
+  margin-left: auto;
+  opacity: 0;
+  font-size: 0.8rem;
+  color: #C02121;
+  transition: opacity 0.2s, transform 0.2s;
+
+  ${SidebarNavLink}:hover & {
+    opacity: 1;
+    transform: translateX(4px);
+  }
+`;
+
+const SidebarBottom = styled.div`
+  padding: 1.5rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+`;
+
+const SidebarTagline = styled.p`
+  font-family: "Inter", sans-serif;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.25);
+  line-height: 1.5;
+  margin: 0;
+  letter-spacing: 0.01em;
+`;
 
 const SidebarCTA = styled(Link)`
-  display: block; text-align: center;
-  background: #C02121; color: #fff;
+  display: block;
+  text-align: center;
+  background: #C02121;
+  color: #fff;
   font-family: "Montserrat", sans-serif;
-  font-size: 0.9rem; font-weight: 700;
-  letter-spacing: 0.06em; text-transform: uppercase;
-  text-decoration: none; padding: 0.85rem 1.5rem;
-  border-radius: 4px; transition: background 0.25s;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.85rem 1.5rem;
+  border-radius: 2px;
+  transition: background 0.25s;
+
   &:hover { background: #691212; }
 `;
 
+/* ── Header ── */
 const HeaderWrap = styled.header<{ isSolid: boolean }>`
   position: fixed;
   top: 0; left: 0; right: 0;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 2rem; height: 4.5rem;
-  background: ${({ isSolid }) => isSolid ? "rgba(8, 15, 15, 0.97)" : "transparent"};
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 4.5rem;
+  background: ${({ isSolid }) => isSolid ? "rgba(14, 4, 4, 0.97)" : "transparent"};
   backdrop-filter: ${({ isSolid }) => isSolid ? "blur(8px)" : "none"};
   border-bottom: ${({ isSolid }) => isSolid ? "1px solid rgba(255,255,255,0.06)" : "none"};
   transition: background 0.3s ease, border-color 0.3s ease;
@@ -302,34 +384,60 @@ const HeaderWrap = styled.header<{ isSolid: boolean }>`
 `;
 
 const HeaderLeft = styled.div`
-  display: flex; align-items: center; gap: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  cursor: default;
+  padding: 0.5rem 0.5rem 0.5rem 0;
 `;
 
-const HamburgerBtn = styled.button`
-  background: none; border: none; cursor: pointer;
-  padding: 0.4rem; display: flex; flex-direction: column;
-  gap: 5px; line-height: 0; transition: opacity 0.2s;
-  &:hover { opacity: 0.7; }
+/* Hamburger — agora só visual, sem onClick */
+const HamburgerBtn = styled.div`
+  padding: 0.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  line-height: 0;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+
+  ${HeaderLeft}:hover & { opacity: 1; }
 `;
 
 const HamburgerLine = styled.span`
-  display: block; width: 22px; height: 2px;
-  background: #fff; border-radius: 2px;
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: width 0.2s;
+
+  &:nth-child(2) { width: 16px; }
+  ${HeaderLeft}:hover &:nth-child(2) { width: 22px; }
 `;
 
 const CenterNav = styled.nav`
-  display: flex; align-items: center; gap: 0.25rem;
-  position: absolute; left: 50%; transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+
   @media (max-width: 900px) { display: none; }
 `;
 
 const navItemBase = css`
   color: rgba(255, 255, 255, 0.85);
   font-family: "Montserrat", sans-serif;
-  font-size: 0.875rem; font-weight: 500;
-  letter-spacing: 0.02em; text-decoration: none;
-  padding: 0.5rem 0.85rem; border-radius: 4px;
-  cursor: pointer; transition: color 0.2s, background 0.2s;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  padding: 0.5rem 0.85rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s;
   white-space: nowrap;
   &:hover { color: #fff; background: rgba(255, 255, 255, 0.07); }
 `;
@@ -338,18 +446,23 @@ const NavBtn = styled.div`
   ${navItemBase}
   display: inline-flex;
   align-items: center;
-  gap: 6px; /* espaço entre texto e seta */
+  gap: 6px;
 `;
 
 const NavBtnLink = styled(Link)`${navItemBase}`;
 
 const HeaderRight = styled.div`
-  display: flex; align-items: center; gap: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
   @media (max-width: 900px) { gap: 0.5rem; }
 `;
 
 const SearchWrap = styled.div`
-  display: flex; align-items: center; gap: 0.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
 `;
 
 const SearchIconBtn = styled.button`
@@ -389,7 +502,8 @@ const LangCurrent = styled.div`
 `;
 
 const LangCaret = styled.span<{ isOpen: boolean }>`
-  font-size: 0.7rem; transition: transform 0.2s;
+  font-size: 0.7rem;
+  transition: transform 0.2s;
   transform: ${({ isOpen }) => (isOpen ? "rotate(180deg)" : "rotate(0)")};
 `;
 
@@ -401,7 +515,7 @@ const LangBridge = styled.div<{ isOpen: boolean }>`
 const LangMenu = styled.div<{ isOpen: boolean }>`
   position: absolute; top: calc(100% + 8px); left: 50%;
   transform: translateX(-50%);
-  background: rgba(8, 15, 15, 0.97);
+  background: rgba(14, 4, 4, 0.97);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 4px; overflow: hidden;
   display: ${({ isOpen }) => (isOpen ? "block" : "none")};
@@ -432,7 +546,7 @@ const HeaderCTA = styled(Link)`
 
 const DropdownPanel = styled.div`
   position: fixed; top: 4.5rem; left: 0; right: 0;
-  background: rgba(8, 15, 15, 0.97);
+  background: rgba(14, 4, 4, 0.97);
   backdrop-filter: blur(8px);
   border-top: 1px solid rgba(255, 255, 255, 0.06);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
@@ -473,31 +587,24 @@ const DropLink = styled(Link)`
 `;
 
 const Arrow = styled.span<{ isOpen: boolean }>`
-  margin-left: 8px;
-
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-
-  background: ${({ isOpen }) =>
-    isOpen ? "#C02121" : "rgba(192, 33, 33, 0.15)"};
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-
+  width: 20px; height: 20px; border-radius: 50%;
+  background: ${({ isOpen }) => isOpen ? "#C02121" : "rgba(192, 33, 33, 0.15)"};
+  display: flex; align-items: center; justify-content: center;
   transition: background 0.25s ease;
 
   svg {
-    width: 15px;
-    height: 15px;
-
-    display: block; 
-
-    transform: ${({ isOpen }) =>
-      isOpen ? "rotate(180deg)" : "rotate(0deg)"};
-
+    width: 15px; height: 15px; display: block;
+    transform: ${({ isOpen }) => isOpen ? "rotate(180deg)" : "rotate(0deg)"};
     transition: transform 0.25s ease;
   }
+`;
+
+const HoverTrigger = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 56px;
+  height: 100vh;
+  z-index: 996;
+  pointer-events: auto;
 `;
