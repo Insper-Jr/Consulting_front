@@ -10,6 +10,7 @@ import Products from "./products/products"
 import Contact from "./contact/contact"
 import About_Us from "./about_us/about_us"
 import Creation from "./creation/creation"
+import Join from "./join/join"
 
 import Overview from "./overview/overview"
 import Strategy from "./strategy/strategy"
@@ -70,6 +71,10 @@ const routes: RouteObject[] = [{
 {
     path: "/protection",
     element: <Protection />,
+},
+{
+    path: "/join",
+    element: <Join />,
 }
 ]
 export default routes
