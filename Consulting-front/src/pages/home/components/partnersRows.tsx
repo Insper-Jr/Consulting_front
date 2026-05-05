@@ -457,24 +457,8 @@ const PartnersRows = () => {
               <img src={item.src} alt={`Parceiro fila 2 ${i}`} />
             </LogoWrap>
           ))}
-        </QuotePair>
-
-        <Indicators>
-          {Array.from({ length: PAGES }).map((_, i) => (
-            <Indicator key={i} onClick={() => goToPage(i)}>
-              <ProgressTrack>
-                <ProgressFill
-                  key={`${i}-${pageKey}`}
-                  $isActive={i === activePage}
-                  $isPast={i < activePage}
-                  $duration={TESTIMONIAL_DURATION}
-                />
-              </ProgressTrack>
-            </Indicator>
-          ))}
-        </Indicators>
-      </TestimonialPane>
-      </Layout>
+        </Track>
+      </Row>
     </Section>
   );
 };
