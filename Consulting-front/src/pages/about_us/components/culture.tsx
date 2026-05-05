@@ -169,7 +169,7 @@ const TitleBlock = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0;
-  margin-top: 0;
+  margin-top: -18px;
 `;
 
 const TitleMain = styled.h2`
@@ -278,25 +278,6 @@ const CardImage = styled.img`
   display: block;
 `;
 
-const CardImagePlaceholder = styled.div`
-  width: 100%;
-  height: 100%;
-  background:
-    repeating-linear-gradient(
-      135deg,
-      rgba(250, 242, 234, 0.04) 0 12px,
-      rgba(250, 242, 234, 0.0) 12px 24px
-    ),
-    linear-gradient(180deg, #3a1010 0%, #1f0707 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(250, 242, 234, 0.45);
-  font-family: ${FONT_BODY};
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-`;
 
 const CardOverlay = styled.div`
   position: absolute;
@@ -400,6 +381,7 @@ const RightEyebrow = styled.span`
   color: ${RED};
 `;
 
+
 const RightTitle = styled.h2`
   font-family: ${FONT_TITLE};
   font-size: 32px;
@@ -428,7 +410,7 @@ const Hint = styled.p`
 const VennWrap = styled.div`
   display: grid;
   grid-template-columns: 1.05fr 1fr;
-  gap: 32px;
+  gap: 40px;
   align-items: center;
 
   @media (max-width: 720px) {
@@ -453,7 +435,7 @@ const VennCircle = styled.button<{
   all: unset;
   cursor: pointer;
   position: absolute;
-  width: 58%;
+  width: 43.5%;
   aspect-ratio: 1 / 1;
   left: ${p => p.$cx}%;
   top: ${p => p.$cy}%;
@@ -498,7 +480,7 @@ const VennLabel = styled.span<{ $active: boolean }>`
 const PilarDetail = styled.div<{ $key: string }>`
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 13px;
   padding: 24px 24px 24px 24px;
   border-left: 3px solid ${RED};
   background: rgba(192, 33, 33, 0.04);

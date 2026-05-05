@@ -12,10 +12,10 @@ const FONT_BODY  = `'Inter', Helvetica, sans-serif`;
 const SPRING     = "cubic-bezier(0.16,1,0.3,1)";
 
 const MILESTONES = [
-  { year: "2001", short: "Fundação",       text: "Fundação da Insper Jr. no então IBMEC São Paulo, com os primeiros projetos de consultoria em Business." },
-  { year: "2XXX", short: "Engenharia",     text: "Expansão para a área de Engenharia com a chegada dos cursos de Engenharia ao Insper." },
-  { year: "2XXX", short: "Direito",        text: "Início das operações em Direito, ampliando o escopo para uma consultoria verdadeiramente multidisciplinar." },
-  { year: "2XXX", short: "Reconhecimento", text: "Reconhecimento como empresa de alto impacto pela Brasil Júnior e conquista do Prêmio Falconi de gestão." },
+  { year: "2001", short: "Fundação",       text: "Criação da Ibmec Jr por Tarso Tietê, com o propósito de desenvolver alunos por meio de experiências práticas antes do estágio obrigatório." },
+  { year: "2008", short: "Nomes mudam, valores permanecem",     text: "Com a mudança para Insper, torna-se Insper Júnior Consulting, preservando seus valores, cultura e compromisso com o desenvolvimento dos membros." },
+  { year: "2024", short: "Expansão Multidisciplinar",        text: "Estrutura-se como a EJ mais multidisciplinar do Insper, integrando frentes de Business, Tech e Direito e ampliando sua capacidade de atuação." },
+  { year: "2025", short: "Marco Histórico de Crescimento", text: "Ultrapassa R$ 1 milhão em faturamento, impulsionada por iniciativas estratégicas e consolidando sua posição como referência em consultoria estudantil." },
   { year: "Hoje", short: "+550 projetos",  text: "Mais de 550 projetos entregues para empresas como Ambev, Hospital Albert Einstein, Carrefour, Prefeitura de SP e dezenas de startups em todo o Brasil.", highlight: true },
 ];
 
