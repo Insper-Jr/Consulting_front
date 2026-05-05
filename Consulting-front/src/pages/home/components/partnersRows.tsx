@@ -434,31 +434,137 @@ const PartnersRows = () => {
 
   return (
     <Section>
-      <TitleBlock>
-        <Label>PARCEIROS</Label>
-        <Title>Nossos Parceiros</Title>
-        <RedLine />
-      </TitleBlock>
+      <Layout>
+      <LeftCol>
+        <TitleBlock>
+          <Label>PARCEIROS</Label>
+          <Title>Nossos Parceiros</Title>
+          <RedLine />
+        </TitleBlock>
+        <Stage>
+        <Globe
+          $dragging={isDragging}
+          onMouseDown={onMouseDown}
+          style={{ width: R * 2, height: R * 2 }}
+        >
+          <Shadow style={{ top: `calc(50% + ${R + 10}px)`, width: R * 1.6 }} />
 
-      <Row>
-        <Track speed="55s" reverse>
-          {[...fila1, ...fila1, ...fila1].map((item, i) => (
-            <LogoWrap key={`f1-${i}`} style={{ ["--scale" as string]: item.scale ?? 1 }}>
-              <img src={item.src} alt={`Parceiro fila 1 ${i}`} />
-            </LogoWrap>
-          ))}
-        </Track>
-      </Row>
+          <Wire
+            viewBox={`${-R} ${-R} ${R * 2} ${R * 2}`}
+            width={R * 2}
+            height={R * 2}
+          >
+            <circle
+              cx="0"
+              cy="0"
+              r={R}
+              fill="none"
+              stroke="#0a0a0a"
+              strokeOpacity="0.06"
+              strokeWidth="1"
+            />
+            {parallelLines.map(({ d, opacity, key }) => (
+              <path
+                key={key}
+                d={d}
+                fill="none"
+                stroke="#0a0a0a"
+                strokeOpacity={opacity}
+                strokeWidth="1"
+              />
+            ))}
+            {meridianLines.map(({ d, opacity, key }) => (
+              <path
+                key={key}
+                d={d}
+                fill="none"
+                stroke="#0a0a0a"
+                strokeOpacity={opacity}
+                strokeWidth="1"
+              />
+            ))}
+          </Wire>
 
-      <Row>
-        <Track speed="60s">
-          {[...fila2, ...fila2, ...fila2].map((item, i) => (
-            <LogoWrap key={`f2-${i}`} style={{ ["--scale" as string]: item.scale ?? 1 }}>
-              <img src={item.src} alt={`Parceiro fila 2 ${i}`} />
-            </LogoWrap>
+          {placed.map((it) => {
+            const cur = pointSupporters[it.idx];
+            const nxt = nextPointSupporters ? nextPointSupporters[it.idx] : null;
+            const transitioning = !!nxt && nxt.name !== cur.name;
+            const curOpacity =
+              it.opacity * (transitioning ? 1 - shuffleProgress : 1);
+            const nxtOpacity = transitioning
+              ? it.opacity * shuffleProgress
+              : 0;
+            const curBoost = cur.boost ?? 1;
+            const nxtBoost = nxt?.boost ?? 1;
+            return (
+              <LogoSlot
+                key={it.idx}
+                style={{
+                  transform: `translate(-50%, -50%) translate3d(${it.left}px, ${it.top}px, 0) scale(${it.scale})`,
+                  filter:
+                    it.blur > 0.05 ? `blur(${it.blur.toFixed(2)}px)` : "none",
+                  zIndex: it.zIndex,
+                }}
+              >
+                <LogoImg
+                  src={cur.src}
+                  alt={cur.name}
+                  style={{
+                    opacity: curOpacity,
+                    transform: `translate(-50%, -50%) scale(${curBoost})`,
+                  }}
+                />
+                {transitioning && nxt && (
+                  <LogoImg
+                    src={nxt.src}
+                    alt={nxt.name}
+                    style={{
+                      opacity: nxtOpacity,
+                      transform: `translate(-50%, -50%) scale(${nxtBoost})`,
+                    }}
+                  />
+                )}
+              </LogoSlot>
+            );
+          })}
+        </Globe>
+        </Stage>
+      </LeftCol>
+
+      <TestimonialPane>
+        <TestimonialLabel>DEPOIMENTOS</TestimonialLabel>
+        <TestimonialTitle>O que eles dizem</TestimonialTitle>
+        <TestimonialRedLine />
+
+        <QuotePair key={pageKey}>
+          {currentPair.map((t, i) => (
+            <QuoteCard key={i}>
+              <QuoteMark>"</QuoteMark>
+              <QuoteText>{t.text}</QuoteText>
+              <Person>
+                <PersonName>{t.name}</PersonName>
+                <PersonRole>{t.role}</PersonRole>
+              </Person>
+            </QuoteCard>
           ))}
-        </Track>
-      </Row>
+        </QuotePair>
+
+        <Indicators>
+          {Array.from({ length: PAGES }).map((_, i) => (
+            <Indicator key={i} onClick={() => goToPage(i)}>
+              <ProgressTrack>
+                <ProgressFill
+                  key={`${i}-${pageKey}`}
+                  $isActive={i === activePage}
+                  $isPast={i < activePage}
+                  $duration={TESTIMONIAL_DURATION}
+                />
+              </ProgressTrack>
+            </Indicator>
+          ))}
+        </Indicators>
+      </TestimonialPane>
+      </Layout>
     </Section>
   );
 };
@@ -481,11 +587,6 @@ const TitleBlock = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 0.75rem;
-  padding-left: 2rem;
-
-  @media (max-width: 600px) {
-    padding-left: 1rem;
-  }
 `;
 
 const Label = styled.span`
@@ -495,6 +596,52 @@ const Label = styled.span`
   letter-spacing: 0.12em;
   color: #691212;
   text-transform: uppercase;
+`;
+
+const Title = styled.h2`
+  font-family: "Inter", sans-serif;
+  font-size: 36px;
+  font-weight: 800;
+  color: #080f0f;
+  margin: 0;
+  line-height: 1.1;
+
+  @media (max-width: 600px) {
+    font-size: 32px;
+  }
+`;
+
+const RedLine = styled.div`
+  width: 48px;
+  height: 4px;
+  background: #691212;
+  border-radius: 2px;
+`;
+
+const COL_MIN_HEIGHT = `${R * 2 + 220}px`;
+
+const Layout = styled.div`
+  display: grid;
+  grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+  gap: 3rem;
+  align-items: start;
+  width: 100%;
+
+  @media (max-width: 1100px) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+`;
+
+const LeftCol = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-height: ${COL_MIN_HEIGHT};
+
+  @media (max-width: 1100px) {
+    min-height: 0;
+  }
 `;
 
 const Stage = styled.div`
@@ -537,6 +684,15 @@ const TestimonialPane = styled.div`
 
 const TestimonialLabel = styled.span`
   font-family: "Inter", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #691212;
+  text-transform: uppercase;
+`;
+
+const TestimonialTitle = styled.h3`
+  font-family: "Inter", sans-serif;
   font-size: 36px;
   font-weight: 800;
   color: #080f0f;
@@ -548,11 +704,90 @@ const TestimonialLabel = styled.span`
   }
 `;
 
-const RedLine = styled.div`
+const TestimonialRedLine = styled.div`
   width: 48px;
   height: 4px;
   background: #691212;
   border-radius: 2px;
+  margin-bottom: 1.25rem;
+`;
+
+const QuotePair = styled.div`
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 2rem;
+  margin-left: 1.5rem;
+  flex: 1;
+  animation: ${fadeInUp} 0.55s ease forwards;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    margin-left: 0;
+  }
+`;
+
+const QuoteCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 480px;
+  height: 100%;
+`;
+
+const QuoteMark = styled.span`
+  font-family: Georgia, serif;
+  font-size: 64px;
+  line-height: 1;
+  color: #691212;
+  font-weight: 700;
+  display: block;
+  margin-bottom: -0.75rem;
+`;
+
+const QuoteText = styled.p`
+  font-family: "Inter", sans-serif;
+  font-style: italic;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: #3a3a3a;
+  margin: 0;
+`;
+
+const Person = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin-top: auto;
+  padding-top: 0.75rem;
+`;
+
+const PersonName = styled.p`
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: #080f0f;
+  margin: 0;
+`;
+
+const PersonRole = styled.p`
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  color: #6b6760;
+  margin: 0;
+`;
+
+const Indicators = styled.div`
+  display: flex;
+  gap: 0.6rem;
+  margin-top: auto;
+  padding-top: 1.25rem;
+
+  @media (max-width: 1100px) {
+    margin-top: 1.25rem;
+    padding-top: 0;
+  }
 `;
 
 const Indicator = styled.button`
