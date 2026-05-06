@@ -2,9 +2,11 @@ import React, { useRef, useState, useEffect, useCallback } from "react";
 import styled, { keyframes, css } from "styled-components";
 import { useInView } from "@/hooks/useInView";
 import Gestao44 from "../../../assets/gestoes/44a.jpg";
+import Gestao45 from "../../../assets/gestoes/45a.png";
+import Gestao46 from "../../../assets/gestoes/46a.png";
+import Gestao47 from "../../../assets/gestoes/47a.jpg";
+import Gestao48 from "../../../assets/gestoes/48a.jpg";
 import Gestao49 from "../../../assets/gestoes/49a.jpg";
-
-
 
 const RED      = "#C02121";
 const RED_DEEP = "#7d1414";
@@ -15,8 +17,6 @@ const CREAM    = "#FAF2EA";
 const FONT_TITLE = `'Montserrat', Helvetica, sans-serif`;
 const FONT_BODY  = `'Inter', Helvetica, sans-serif`;
 const SPRING     = "cubic-bezier(0.16,1,0.3,1)";
-
-
 
 const slideLeft = keyframes`
   from { opacity: 0; transform: translateX(-20px); }
@@ -33,7 +33,6 @@ const fadeUp = keyframes`
   to   { opacity: 1; transform: translateY(0); }
 `;
 
-
 type Gestao = {
   id: string;
   label: string;
@@ -42,13 +41,12 @@ type Gestao = {
 };
 
 const GESTOES: Gestao[] = [
-  { id: "g49", label: "44ª Gestão", year: "2023.1", image: Gestao44},
-  { id: "g50", label: "45ª Gestão", year: "2023.2", image: "/images/gestoes/45.jpg" },
-  { id: "g51", label: "46ª Gestão", year: "2024.1", image: "/images/gestoes/46.jpg" },
-  { id: "g52", label: "47ª Gestão", year: "2024.2", image: "/images/gestoes/47.jpg" },
-  { id: "g53", label: "48ª Gestão", year: "2025.1", image: "/images/gestoes/48.jpg" },
-  //{ id: "g54", label: "49ª Gestão", year: "2025.2", image: Gestao49 },
-  //{ id: "g55", label: "50ª Gestão", year: "2026.1", image: "/images/gestoes/50a.jpg" },
+  { id: "g48", label: "44ª Gestão", year: "2023.1", image: Gestao44 },
+  { id: "g49", label: "45ª Gestão", year: "2023.2", image: Gestao45 },
+  { id: "g50", label: "46ª Gestão", year: "2024.1", image: Gestao46 },
+  { id: "g51", label: "47ª Gestão", year: "2024.2", image: Gestao47 },
+  { id: "g52", label: "48ª Gestão", year: "2025.1", image: Gestao48 },
+  { id: "g53", label: "49ª Gestão", year: "2025.2", image: Gestao49 },
 ];
 
 type Pilar = {
@@ -61,42 +59,10 @@ type Pilar = {
 };
 
 const PILARES: Pilar[] = [
-  {
-    id: "superacao",
-    label: "Superação",
-    title: "Superação",
-    description:
-      "Buscar sair da zona de conforto, crescer, lidar de maneira construtiva com as dificuldades e assumir novas responsabilidades.",
-    cx: 50,
-    cy: 28,
-  },
-  {
-    id: "parceria",
-    label: "Parceria",
-    title: "Parceria",
-    description:
-      "Estar disponível para ajudar, estar engajado e compartilhando conhecimento com o grupo, além de demonstrar quando precisa de ajuda.",
-    cx: 28,
-    cy: 50,
-  },
-  {
-    id: "proatividade",
-    label: "Proatividade",
-    title: "Proatividade",
-    description:
-      "Correr atrás, ser presente, se motivar diante de desafios e ter iniciativa para transformar ideias em entregas.",
-    cx: 72,
-    cy: 50,
-  },
-  {
-    id: "geracao",
-    label: "Geração de Valor",
-    title: "Geração de Valor",
-    description:
-      "Mudar realidades, buscar trazer e explorar novos insumos, estar One Step Ahead em tudo que entregamos.",
-    cx: 50,
-    cy: 72,
-  },
+  { id: "superacao",   label: "Superação",        title: "Superação",        description: "Buscar sair da zona de conforto, crescer, lidar de maneira construtiva com as dificuldades e assumir novas responsabilidades.", cx: 50, cy: 28 },
+  { id: "parceria",    label: "Parceria",          title: "Parceria",         description: "Estar disponível para ajudar, estar engajado e compartilhando conhecimento com o grupo, além de demonstrar quando precisa de ajuda.", cx: 28, cy: 50 },
+  { id: "proatividade",label: "Proatividade",      title: "Proatividade",     description: "Correr atrás, ser presente, se motivar diante de desafios e ter iniciativa para transformar ideias em entregas.", cx: 72, cy: 50 },
+  { id: "geracao",     label: "Geração de Valor",  title: "Geração de Valor", description: "Mudar realidades, buscar trazer e explorar novos insumos, estar One Step Ahead em tudo que entregamos.", cx: 50, cy: 72 },
 ];
 
 type Valor = { label: string; description: string };
@@ -108,18 +74,12 @@ const VALORES: Valor[] = [
   { label: "Excelência",      description: "Elevar o padrão em tudo que fazemos dentro de cada contexto." },
 ];
 
-
 const Section = styled.section`
   width: 100%;
   display: grid;
   grid-template-columns: 0.85fr 1fr;
-
-  /* CRITICAL: previne overflow de filhos quebrando o grid */
   & > * { min-width: 0; }
-
-  @media (max-width: 980px) {
-    grid-template-columns: 1fr;
-  }
+  @media (max-width: 980px) { grid-template-columns: 1fr; }
 `;
 
 const Left = styled.div<{ $visible: boolean }>`
@@ -128,13 +88,12 @@ const Left = styled.div<{ $visible: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  gap: 24px;
+  gap: 28px;
   position: relative;
   overflow: hidden;
   min-height: 0;
   min-width: 0;
   opacity: 0;
-
   ${p => p.$visible && css`animation: ${slideLeft} 1s ${SPRING} 0s forwards;`}
 `;
 
@@ -144,12 +103,11 @@ const Right = styled.div<{ $visible: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  gap: 24px;
+  gap: 28px;
   min-width: 0;
   opacity: 0;
   ${p => p.$visible && css`animation: ${slideRight} 1s ${SPRING} 0.15s forwards;`}
 `;
-
 
 const Eyebrow = styled.div`
   display: flex;
@@ -170,8 +128,7 @@ const EyebrowLabel = styled.span`
 const TitleBlock = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0;
-  margin-top: -18px;
+  gap: 28px;
 `;
 
 const TitleMain = styled.h2`
@@ -181,7 +138,7 @@ const TitleMain = styled.h2`
   color: ${CREAM};
   letter-spacing: -0.02em;
   line-height: 1.05;
-  margin: 0 0 14px;
+  margin: 0;
 `;
 
 const TitleMuted = styled.span`
@@ -200,7 +157,6 @@ const TitleAccent = styled.div<{ $visible: boolean }>`
   height: 3px;
   background: ${CREAM};
   transition: width 1s ${SPRING} 0.6s;
-  margin-bottom: 14px;
 `;
 
 const BodyText = styled.p`
@@ -245,11 +201,7 @@ const CarouselTrack = styled.div<{ $angle: number; $radius: number }>`
   transition: transform 0.9s ${SPRING};
 `;
 
-const CarouselCard = styled.button<{
-  $rotate: number;
-  $radius: number;
-  $active: boolean;
-}>`
+const CarouselCard = styled.button<{ $rotate: number; $radius: number; $active: boolean }>`
   all: unset;
   cursor: pointer;
   position: absolute;
@@ -261,16 +213,11 @@ const CarouselCard = styled.button<{
   border-radius: 6px;
   overflow: hidden;
   background: #2a0a0a;
-  box-shadow:
-    0 24px 48px -16px rgba(0, 0, 0, 0.55),
-    0 8px 16px -8px rgba(0, 0, 0, 0.4);
-  outline: 1px solid rgba(250, 242, 234, 0.08);
+  box-shadow: 0 24px 48px -16px rgba(0,0,0,0.55), 0 8px 16px -8px rgba(0,0,0,0.4);
+  outline: 1px solid rgba(250,242,234,0.08);
   transition: outline 0.4s ${SPRING}, filter 0.4s ${SPRING};
   filter: ${p => (p.$active ? "none" : "brightness(0.5) saturate(0.8)")};
-
-  &:focus-visible {
-    outline: 2px solid ${CREAM};
-  }
+  &:focus-visible { outline: 2px solid ${CREAM}; }
 `;
 
 const CardImage = styled.img`
@@ -280,7 +227,6 @@ const CardImage = styled.img`
   display: block;
 `;
 
-
 const CardOverlay = styled.div`
   position: absolute;
   inset: auto 0 0 0;
@@ -288,11 +234,7 @@ const CardOverlay = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  background: linear-gradient(
-    180deg,
-    rgba(10, 4, 4, 0) 0%,
-    rgba(10, 4, 4, 0.85) 100%
-  );
+  background: linear-gradient(180deg, rgba(10,4,4,0) 0%, rgba(10,4,4,0.85) 100%);
 `;
 
 const CardLabel = styled.span`
@@ -349,17 +291,13 @@ const NavArrow = styled.button`
   cursor: pointer;
   width: 36px;
   height: 36px;
-  border: 1px solid rgba(250, 242, 234, 0.3);
+  border: 1px solid rgba(250,242,234,0.3);
   border-radius: 50%;
   display: grid;
   place-items: center;
   color: ${CREAM};
   transition: background 0.3s ${SPRING}, border-color 0.3s ${SPRING};
-
-  &:hover {
-    background: rgba(250, 242, 234, 0.08);
-    border-color: rgba(250, 242, 234, 0.6);
-  }
+  &:hover { background: rgba(250,242,234,0.08); border-color: rgba(250,242,234,0.6); }
 `;
 
 const ArrowGroup = styled.div`
@@ -367,11 +305,10 @@ const ArrowGroup = styled.div`
   gap: 8px;
 `;
 
-
 const RightHeader = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 28px;
 `;
 
 const RightEyebrow = styled.span`
@@ -382,7 +319,6 @@ const RightEyebrow = styled.span`
   text-transform: uppercase;
   color: ${RED};
 `;
-
 
 const RightTitle = styled.h2`
   font-family: ${FONT_TITLE};
@@ -403,21 +339,16 @@ const Hint = styled.p`
   font-family: ${FONT_BODY};
   font-size: 13px;
   color: ${MUTED};
-  margin: 16px 0 0;
+  margin: 0;
   font-style: italic;
 `;
-
-/* Diagrama */
 
 const VennWrap = styled.div`
   display: grid;
   grid-template-columns: 1.05fr 1fr;
   gap: 40px;
   align-items: center;
-
-  @media (max-width: 720px) {
-    grid-template-columns: 1fr;
-  }
+  @media (max-width: 720px) { grid-template-columns: 1fr; }
 `;
 
 const VennStage = styled.div`
@@ -428,12 +359,7 @@ const VennStage = styled.div`
   justify-self: center;
 `;
 
-const VennCircle = styled.button<{
-  $cx: number;
-  $cy: number;
-  $active: boolean;
-  $tone: "red" | "muted";
-}>`
+const VennCircle = styled.button<{ $cx: number; $cy: number; $active: boolean; $tone: "red" | "muted" }>`
   all: unset;
   cursor: pointer;
   position: absolute;
@@ -445,25 +371,15 @@ const VennCircle = styled.button<{
   border-radius: 50%;
   background: ${p =>
     p.$tone === "red"
-      ? p.$active
-        ? "rgba(192,33,33,0.92)"
-        : "rgba(192,33,33,0.78)"
-      : p.$active
-      ? "rgba(180,170,160,0.85)"
-      : "rgba(180,170,160,0.7)"};
+      ? p.$active ? "rgba(192,33,33,0.92)" : "rgba(192,33,33,0.78)"
+      : p.$active ? "rgba(180,170,160,0.85)" : "rgba(180,170,160,0.7)"};
   mix-blend-mode: multiply;
-  transition: transform 0.5s ${SPRING}, background 0.4s ${SPRING},
-    box-shadow 0.4s ${SPRING};
+  transition: transform 0.5s ${SPRING}, background 0.4s ${SPRING}, box-shadow 0.4s ${SPRING};
   display: grid;
   place-items: center;
   text-align: center;
-  box-shadow: ${p =>
-    p.$active ? "0 14px 40px -16px rgba(192,33,33,0.55)" : "none"};
-
-  &:focus-visible {
-    outline: 2px solid ${RED};
-    outline-offset: 4px;
-  }
+  box-shadow: ${p => p.$active ? "0 14px 40px -16px rgba(192,33,33,0.55)" : "none"};
+  &:focus-visible { outline: 2px solid ${RED}; outline-offset: 4px; }
 `;
 
 const VennLabel = styled.span<{ $active: boolean }>`
@@ -478,14 +394,13 @@ const VennLabel = styled.span<{ $active: boolean }>`
   pointer-events: none;
 `;
 
-
 const PilarDetail = styled.div<{ $key: string }>`
   display: flex;
   flex-direction: column;
   gap: 13px;
-  padding: 24px 24px 24px 24px;
+  padding: 24px;
   border-left: 3px solid ${RED};
-  background: rgba(192, 33, 33, 0.04);
+  background: rgba(192,33,33,0.04);
   min-height: 180px;
   animation: ${fadeUp} 0.5s ${SPRING};
 `;
@@ -508,16 +423,12 @@ const PilarDesc = styled.p`
   margin: 0;
 `;
 
-
 const Valores = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0;
-  border-top: 1px solid rgba(26, 26, 24, 0.12);
-
-  @media (max-width: 720px) {
-    grid-template-columns: 1fr;
-  }
+  border-top: 1px solid rgba(26,26,24,0.12);
+  @media (max-width: 720px) { grid-template-columns: 1fr; }
 `;
 
 const ValorItem = styled.div`
@@ -525,25 +436,12 @@ const ValorItem = styled.div`
   grid-template-columns: auto 1fr;
   gap: 16px;
   padding: 20px 20px 20px 0;
-  border-bottom: 1px solid rgba(26, 26, 24, 0.12);
-
-  &:nth-child(odd) {
-    padding-right: 28px;
-    border-right: 1px solid rgba(26, 26, 24, 0.12);
-  }
-
-  &:nth-child(even) {
-    padding-left: 28px;
-  }
-
+  border-bottom: 1px solid rgba(26,26,24,0.12);
+  &:nth-child(odd)  { padding-right: 28px; border-right: 1px solid rgba(26,26,24,0.12); }
+  &:nth-child(even) { padding-left: 28px; }
   @media (max-width: 720px) {
-    &:nth-child(odd) {
-      padding-right: 0;
-      border-right: none;
-    }
-    &:nth-child(even) {
-      padding-left: 0;
-    }
+    &:nth-child(odd)  { padding-right: 0; border-right: none; }
+    &:nth-child(even) { padding-left: 0; }
   }
 `;
 
@@ -580,7 +478,6 @@ const ValorText = styled.p`
   margin: 0;
 `;
 
-
 export default function CulturaSection() {
   const { ref: sectionRef, visible } = useInView();
   const [gestaoIdx, setGestaoIdx] = useState(GESTOES.length - 2);
@@ -591,14 +488,8 @@ export default function CulturaSection() {
   const angle = -gestaoIdx * step;
   const radius = 360;
 
-  const next = useCallback(
-    () => setGestaoIdx(i => (i + 1) % total),
-    [total]
-  );
-  const prev = useCallback(
-    () => setGestaoIdx(i => (i - 1 + total) % total),
-    [total]
-  );
+  const next = useCallback(() => setGestaoIdx(i => (i + 1) % total), [total]);
+  const prev = useCallback(() => setGestaoIdx(i => (i - 1 + total) % total), [total]);
 
   useEffect(() => {
     if (!visible) return;
@@ -619,7 +510,7 @@ export default function CulturaSection() {
 
   return (
     <Section ref={sectionRef}>
-      {/* ----------- LEFT ----------- */}
+      {/* LEFT */}
       <Left $visible={visible}>
         <Eyebrow>
           <EyebrowLabel>As Gestões</EyebrowLabel>
@@ -650,7 +541,6 @@ export default function CulturaSection() {
                     onClick={() => setGestaoIdx(i)}
                     aria-label={g.label}
                   >
-                    
                     <CardImage src={g.image} alt={g.label} />
                     <CardOverlay>
                       <CardLabel>{g.label}</CardLabel>
@@ -666,35 +556,18 @@ export default function CulturaSection() {
             <ActiveLabel>{GESTOES[gestaoIdx].label}</ActiveLabel>
             <Dots>
               {GESTOES.map((g, i) => (
-                <Dot
-                  key={g.id}
-                  $active={i === gestaoIdx}
-                  onClick={() => setGestaoIdx(i)}
-                  aria-label={`Ir para ${g.label}`}
-                />
+                <Dot key={g.id} $active={i === gestaoIdx} onClick={() => setGestaoIdx(i)} aria-label={`Ir para ${g.label}`} />
               ))}
             </Dots>
             <ArrowGroup>
               <NavArrow onClick={prev} aria-label="Gestão anterior">
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                  <path
-                    d="M9 2L4 7l5 5"
-                    stroke="currentColor"
-                    strokeWidth="1.6"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
+                  <path d="M9 2L4 7l5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </NavArrow>
               <NavArrow onClick={next} aria-label="Próxima gestão">
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                  <path
-                    d="M5 2l5 5-5 5"
-                    stroke="currentColor"
-                    strokeWidth="1.6"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
+                  <path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </NavArrow>
             </ArrowGroup>
@@ -702,7 +575,7 @@ export default function CulturaSection() {
         </Carousel3D>
       </Left>
 
-      {/* ----------- RIGHT ----------- */}
+      {/* RIGHT */}
       <Right $visible={visible}>
         <RightHeader>
           <RightEyebrow>Identidade</RightEyebrow>
@@ -742,14 +615,14 @@ export default function CulturaSection() {
 
         <Valores>
           {VALORES.map((v, i) => (
-          <ValorItem key={v.label}>
-            <ValorNum>0{i + 1}</ValorNum>
-            <ValorBody>
-              <ValorLabel>{v.label}</ValorLabel>
-              <ValorText>{v.description}</ValorText>
-            </ValorBody>
-          </ValorItem>
-        ))}
+            <ValorItem key={v.label}>
+              <ValorNum>0{i + 1}</ValorNum>
+              <ValorBody>
+                <ValorLabel>{v.label}</ValorLabel>
+                <ValorText>{v.description}</ValorText>
+              </ValorBody>
+            </ValorItem>
+          ))}
         </Valores>
       </Right>
     </Section>

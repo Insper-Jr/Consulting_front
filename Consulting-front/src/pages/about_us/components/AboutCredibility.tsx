@@ -1,26 +1,29 @@
-import React from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import styled, { keyframes, css } from "styled-components";
-import { useInView } from "../../../hooks/useInView";
+import { useInView } from "@/hooks/useInView";
+import FeiraFoto1 from "../../../assets/feira/imagem1.png";
+import FeiraFoto2 from "../../../assets/feira/imagem2.png";
+import FeiraFoto3 from "../../../assets/feira/imagem3.png";
 
-/* ─── Tokens ─────────────────────────────────────────── */
-const RED        = "#C02121";
-const DARK       = "#1a1a18";
-const DARK2      = "#0e0404";
-const MUTED      = "#7a746e";
-const BG         = "#FAF2EA";
-const BORDER     = "rgba(26,26,24,0.08)";
+/* ─── Tokens (mesmos da CulturaSection) ──────────────── */
+const RED      = "#C02121";
+const RED_DEEP = "#7d1414";
+const DARK     = "#1a1a18";
+const MUTED    = "#7a746e";
+const BG       = "#FAF2EA";
+const CREAM    = "#FAF2EA";
+const BORDER   = "rgba(26,26,24,0.12)";
 const FONT_TITLE = `'Montserrat', Helvetica, sans-serif`;
 const FONT_BODY  = `'Inter', Helvetica, sans-serif`;
-const EASE       = "cubic-bezier(0.16,1,0.3,1)";
+const SPRING     = "cubic-bezier(0.16,1,0.3,1)";
 
 /* ─── Data ───────────────────────────────────────────── */
-// Duplicamos a lista para o loop contínuo do marquee
 const LEADERS = [
-  { name: "Thiago Maffra",    role: "CEO · XP Inc."               },
-  { name: "Milton Maluhy",    role: "CEO · Itaú Unibanco"         },
+  { name: "Thiago Maffra",    role: "CEO · XP Inc." },
+  { name: "Milton Maluhy",    role: "CEO · Itaú Unibanco" },
   { name: "Luiza H. Trajano", role: "Chairwoman · Magazine Luiza" },
-  { name: "Marcelo Noronha",  role: "CEO · Bradesco"              },
-  { name: "R. Campos Neto",   role: "Presidente · Banco Central"  },
+  { name: "Marcelo Noronha",  role: "CEO · Bradesco" },
+  { name: "R. Campos Neto",   role: "Presidente · Banco Central" },
 ];
 
 const FAIR_STATS = [
@@ -29,12 +32,22 @@ const FAIR_STATS = [
   { value: "R$525k", label: "movimentados"         },
 ];
 
-/* ─── Animations ─────────────────────────────────────── */
-const fadeUp = keyframes`
-  from { opacity: 0; transform: translateY(22px); }
-  to   { opacity: 1; transform: translateY(0);    }
-`;
+type Foto = { id: string; src: string; alt: string };
+const FEIRA_FOTOS: Foto[] = [
+  { id: "f1", src: FeiraFoto1, alt: "Feira de Carreiras IJR – 1" },
+  { id: "f2", src: FeiraFoto2, alt: "Feira de Carreiras IJR – 2" },
+  { id: "f3", src: FeiraFoto3, alt: "Feira de Carreiras IJR – 3" },
+];
 
+/* ─── Animations ─────────────────────────────────────── */
+const slideLeft = keyframes`
+  from { opacity: 0; transform: translateX(-20px); }
+  to   { opacity: 1; transform: translateX(0); }
+`;
+const slideRight = keyframes`
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+`;
 const marquee = keyframes`
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
@@ -42,38 +55,175 @@ const marquee = keyframes`
 
 /* ─── Layout ─────────────────────────────────────────── */
 const Section = styled.section`
-  background: ${BG};
   width: 100%;
-  padding: 64px 0 72px;
-  box-sizing: border-box;
-  overflow: hidden;
+  display: grid;
+  grid-template-columns: 0.85fr 1fr;
+  & > * { min-width: 0; }
+  @media (max-width: 980px) { grid-template-columns: 1fr; }
 `;
 
-const Inner = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 48px;
+const Left = styled.div<{ $visible: boolean }>`
+  background: ${RED_DEEP};
+  padding: 72px 56px 72px max(40px, calc((100vw - 1200px) / 2));
   display: flex;
   flex-direction: column;
-  gap: 48px;
-
-  @media (max-width: 768px) {
-    padding: 0 24px;
-    gap: 52px;
-  }
+  gap: 28px;
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+  opacity: 0;
+  ${p => p.$visible && css`animation: ${slideLeft} 1s ${SPRING} 0s forwards;`}
+  @media (max-width: 980px) { padding-left: 24px; padding-right: 24px; }
 `;
 
-/* ─── Header ─────────────────────────────────────────── */
-const Header = styled.div<{ $v: boolean }>`
+const Right = styled.div<{ $visible: boolean }>`
+  background: ${BG};
+  padding: 72px max(40px, calc((100vw - 1200px) / 2)) 72px 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  min-width: 0;
+  opacity: 0;
+  ${p => p.$visible && css`animation: ${slideRight} 1s ${SPRING} 0.15s forwards;`}
+  @media (max-width: 980px) { padding-left: 24px; padding-right: 24px; }
+`;
+
+/* ─── LEFT: header ───────────────────────────────────── */
+const Eyebrow = styled.span`
+  font-family: ${FONT_TITLE};
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: ${CREAM};
+  opacity: 0.6;
+`;
+
+const TitleBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+`;
+
+const TitleMain = styled.h2`
+  font-family: ${FONT_TITLE};
+  font-size: 32px;
+  font-weight: 700;
+  color: ${CREAM};
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin: 0;
+`;
+const TitleMuted  = styled.span` opacity: 0.5; display: block; `;
+const TitleItalic = styled.span` font-style: italic; font-weight: 400; display: block; `;
+
+const TitleAccent = styled.div<{ $visible: boolean }>`
+  width: ${p => (p.$visible ? "56px" : "0")};
+  height: 3px;
+  background: ${CREAM};
+  transition: width 1s ${SPRING} 0.6s;
+`;
+
+const BodyText = styled.p`
+  font-family: ${FONT_BODY};
+  font-size: 16px;
+  color: ${CREAM};
+  line-height: 1.5;
+  margin: 0;
+  max-width: 440px;
+  font-weight: 400;
+  opacity: 0.88;
+`;
+
+/* ─── LEFT: menção sutil ao Top 10 ───────────────────── */
+const RankInline = styled.div`
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px 8px 10px;
+  border: 1px solid rgba(250,242,234,0.22);
+  border-radius: 2px;
+  width: fit-content;
+  margin-top: 4px;
+`;
+const RankTag = styled.span`
+  font-family: ${FONT_TITLE};
+  font-size: 11px;
+  font-weight: 700;
+  color: ${CREAM};
+  letter-spacing: 0.04em;
+  em { font-style: italic; color: ${CREAM}; }
+`;
+const RankText = styled.span`
+  font-family: ${FONT_BODY};
+  font-size: 12px;
+  color: ${CREAM};
+  opacity: 0.75;
+  letter-spacing: 0.01em;
+  span { opacity: 0.65; }
+`;
+
+/* ─── LEFT: marquee de líderes ───────────────────────── */
+const LeadersBlock = styled.div`
   display: flex;
   flex-direction: column;
   gap: 14px;
-  max-width: 600px;
-  opacity: 0;
-  ${p => p.$v && css`animation: ${fadeUp} 0.9s ${EASE} 0.05s forwards;`}
+  margin-left: -56px;
+  margin-right: -56px;
+  @media (max-width: 980px) { margin-left: -24px; margin-right: -24px; }
+`;
+const LeadersLabel = styled.span`
+  font-family: ${FONT_TITLE};
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: ${CREAM};
+  opacity: 0.55;
+  padding: 0 56px;
+  @media (max-width: 980px) { padding: 0 24px; }
+`;
+const MarqueeWrapper = styled.div`
+  overflow: hidden;
+  border-top: 1px solid rgba(250,242,234,0.18);
+  border-bottom: 1px solid rgba(250,242,234,0.18);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+          mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+`;
+const MarqueeTrack = styled.div`
+  display: flex;
+  width: max-content;
+  animation: ${marquee} 32s linear infinite;
+  &:hover { animation-play-state: paused; }
+`;
+const LeaderItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 20px 36px;
+  flex-shrink: 0;
+`;
+const LeaderName = styled.span`
+  font-family: ${FONT_TITLE};
+  font-size: 14px;
+  font-weight: 700;
+  color: ${CREAM};
+  white-space: nowrap;
+`;
+const LeaderRole = styled.span`
+  font-family: ${FONT_BODY};
+  font-size: 12px;
+  color: ${CREAM};
+  opacity: 0.6;
+  white-space: nowrap;
+`;
+const LeaderSep = styled.span`
+  width: 4px; height: 4px; border-radius: 50%;
+  background: ${CREAM}; opacity: 0.35; flex-shrink: 0;
 `;
 
-const Eyebrow = styled.span`
+/* ─── RIGHT: header ──────────────────────────────────── */
+const RightEyebrow = styled.span`
   font-family: ${FONT_TITLE};
   font-size: 11px;
   font-weight: 700;
@@ -81,338 +231,176 @@ const Eyebrow = styled.span`
   text-transform: uppercase;
   color: ${RED};
 `;
-
-const Title = styled.h2`
+const RightTitle = styled.h2`
   font-family: ${FONT_TITLE};
-  font-size: clamp(26px, 3vw, 34px);
-  font-weight: 700;
-  color: ${DARK};
-  letter-spacing: -0.025em;
-  line-height: 1.1;
-  margin: 0;
-`;
-
-const Divider = styled.div`
-  width: 40px;
-  height: 3px;
-  background: ${RED};
-`;
-
-const Subtitle = styled.p`
-  font-family: ${FONT_BODY};
-  font-size: 16px;
-  color: ${MUTED};
-  line-height: 1.65;
-  margin: 0;
-`;
-
-/* ─── Leaders marquee ────────────────────────────────── */
-const LeadersBlock = styled.div<{ $v: boolean }>`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  opacity: 0;
-  /* sai do Inner para poder sangrar nas bordas */
-  margin-left: -48px;
-  margin-right: -48px;
-  ${p => p.$v && css`animation: ${fadeUp} 0.8s ${EASE} 0.1s forwards;`}
-
-  @media (max-width: 768px) {
-    margin-left: -24px;
-    margin-right: -24px;
-  }
-`;
-
-const LeadersLabel = styled.span`
-  font-family: ${FONT_TITLE};
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: ${MUTED};
-  padding: 0 48px;
-
-  @media (max-width: 768px) {
-    padding: 0 24px;
-  }
-`;
-
-const MarqueeWrapper = styled.div`
-  overflow: hidden;
-  border-top: 1px solid ${BORDER};
-  border-bottom: 1px solid ${BORDER};
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    black 8%,
-    black 92%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    black 8%,
-    black 92%,
-    transparent 100%
-  );
-`;
-
-const MarqueeTrack = styled.div`
-  display: flex;
-  width: max-content;
-  animation: ${marquee} 28s linear infinite;
-
-  &:hover {
-    animation-play-state: paused;
-  }
-`;
-
-const LeaderItem = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 32px;
-  padding: 22px 40px;
-  flex-shrink: 0;
-`;
-
-const LeaderName = styled.span`
-  font-family: ${FONT_TITLE};
-  font-size: 15px;
-  font-weight: 700;
-  color: ${DARK};
-  white-space: nowrap;
-`;
-
-const LeaderRole = styled.span`
-  font-family: ${FONT_BODY};
-  font-size: 13px;
-  color: ${MUTED};
-  white-space: nowrap;
-`;
-
-const LeaderSep = styled.span`
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: ${RED};
-  flex-shrink: 0;
-`;
-
-/* ─── Bottom grid ────────────────────────────────────── */
-const BottomGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 0.65fr;
-  gap: 48px;
-  align-items: start;
-
-  @media (max-width: 860px) {
-    grid-template-columns: 1fr;
-  }
-`;
-
-const BlockLabel = styled.span`
-  font-family: ${FONT_TITLE};
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: ${MUTED};
-`;
-
-/* ─── Feira block ────────────────────────────────────── */
-const FairBlock = styled.div<{ $v: boolean }>`
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-  opacity: 0;
-  ${p => p.$v && css`animation: ${fadeUp} 0.8s ${EASE} 0.1s forwards;`}
-`;
-
-const FairTitle = styled.h3`
-  font-family: ${FONT_TITLE};
-  font-size: 18px;
-  font-weight: 700;
-  color: ${DARK};
-  margin: 10px 0 0;
-  letter-spacing: -0.01em;
-`;
-
-const FairDesc = styled.p`
-  font-family: ${FONT_BODY};
-  font-size: 15px;
-  color: ${MUTED};
-  line-height: 1.6;
-  margin: 6px 0 0;
-`;
-
-const FairStats = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const FairStat = styled.div`
-  display: flex;
-  align-items: baseline;
-  gap: 14px;
-  padding: 14px 0;
-  border-bottom: 1px solid ${BORDER};
-  &:first-child { border-top: 1px solid ${BORDER}; }
-`;
-
-const FairStatValue = styled.span`
-  font-family: ${FONT_TITLE};
-  font-size: 22px;
+  font-size: 32px;
   font-weight: 700;
   color: ${DARK};
   letter-spacing: -0.02em;
-  min-width: 72px;
+  line-height: 1.1;
+  margin: 0;
+`;
+const RightTitleMuted = styled.span` display: block; opacity: 0.4; `;
+const RightAccent = styled.div`
+  width: 56px; height: 3px; background: ${RED};
 `;
 
-const FairStatLabel = styled.span`
-  font-family: ${FONT_BODY};
-  font-size: 14px;
+/* ─── RIGHT: Feira (carrossel + stats) ───────────────── */
+const FeiraWrap = styled.div`
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 32px;
+  align-items: stretch;
+  @media (max-width: 720px) { grid-template-columns: 1fr; }
+`;
+
+const FeiraInfo = styled.div`
+  display: flex; flex-direction: column; gap: 16px;
+`;
+const FeiraEyebrow = styled.span`
+  font-family: ${FONT_TITLE};
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
   color: ${MUTED};
 `;
-
-/* ─── Gradient cards (estilo IntroSection) ───────────── */
-const CardsCol = styled.div<{ $v: boolean }>`
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  opacity: 0;
-  ${p => p.$v && css`animation: ${fadeUp} 0.8s ${EASE} 0.18s forwards;`}
+const FeiraTitle = styled.h3`
+  font-family: ${FONT_TITLE};
+  font-size: 22px; font-weight: 700;
+  color: ${DARK};
+  letter-spacing: -0.01em; margin: 0;
+`;
+const FeiraDesc = styled.p`
+  font-family: ${FONT_BODY};
+  font-size: 14px; color: ${MUTED};
+  line-height: 1.6; margin: 0;
+`;
+const FeiraStats = styled.div`
+  display: grid; grid-template-columns: 1fr;
+  border-top: 1px solid ${BORDER};
+  margin-top: 4px;
+`;
+const FeiraStat = styled.div`
+  display: grid; grid-template-columns: auto 1fr;
+  gap: 16px; align-items: baseline;
+  padding: 14px 0;
+  border-bottom: 1px solid ${BORDER};
+`;
+const FeiraStatNum = styled.span`
+  font-family: ${FONT_TITLE};
+  font-size: 22px; font-weight: 700; font-style: italic;
+  color: ${RED}; letter-spacing: -0.02em;
+  line-height: 1; min-width: 80px;
+`;
+const FeiraStatLabel = styled.span`
+  font-family: ${FONT_BODY};
+  font-size: 13px; color: ${MUTED};
 `;
 
-const GradCard = styled.div`
-  background: linear-gradient(135deg, #230606 0%, #691212 100%);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 10px;
-  padding: 10px 14px;
+/* — Carrossel passante — */
+const CarouselWrap = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.25);
-  transition: box-shadow 0.25s, transform 0.25s;
-
-  &:hover {
-    box-shadow: 0 8px 36px rgba(192,33,33,0.3);
-    transform: translateY(-2px);
-  }
+  min-height: 280px;
 `;
-
-const CardLabel = styled.span`
-  font-family: ${FONT_TITLE};
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(250,242,234,0.45);
-`;
-
-const CardValue = styled.div`
-  font-family: ${FONT_TITLE};
-  font-size: clamp(20px, 3.5vw, 11px);
-  font-weight: 800;
-  color: #fff;
-  letter-spacing: -0.03em;
-  line-height: 1;
-`;
-
-const CardBadge = styled.div`
-  display: inline-flex;
-  align-items: center;
-  background: rgba(192,33,33,0.25);
-  border: 1px solid rgba(192,33,33,0.35);
-  border-radius: 4px;
-  padding: 4px 10px;
-  width: fit-content;
-`;
-
-const CardBadgeText = styled.span`
-  font-family: ${FONT_TITLE};
-  font-size: 11px;
-  font-weight: 700;
-  color: #ff8080;
-  letter-spacing: 0.06em;
-`;
-
-const CardSub = styled.p`
-  font-family: ${FONT_BODY};
-  font-size: 13px;
-  color: rgba(255,255,255,0.35);
-  line-height: 1.55;
-  margin: 0;
-`;
-
-
-
-/* ─── NPS bar ────────────────────────────────────────── */
-const npsGrow = keyframes`
-  from { transform: scaleX(0); }
-  to   { transform: scaleX(1); }
-`;
-
-const NPSScale = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-`;
-
-const NPSBar = styled.div`
-  height: 4px;
-  background: rgba(255,255,255,0.1);
+const CarouselViewport = styled.div`
   position: relative;
+  width: 100%;
+  flex: 1;
+  min-height: 240px;
   overflow: hidden;
+  border-radius: 4px;
+  background: #2a0a0a;
+  box-shadow: 0 12px 32px -16px rgba(0,0,0,0.35);
 `;
-
-const NPSFill = styled.div`
-  position: absolute;
-  top: 0; left: 0;
-  height: 100%;
-  width: 90%;
-  background: ${RED};
-  transform-origin: left;
-  animation: ${npsGrow} 1.2s ${EASE} 0.5s both;
-`;
-
-const NPSScaleLabels = styled.div`
+const CarouselTrack = styled.div<{ $idx: number }>`
   display: flex;
+  width: 100%;
+  height: 100%;
+  position: absolute; inset: 0;
+  transform: translateX(${p => -p.$idx * 100}%);
+  transition: transform 0.9s ${SPRING};
+`;
+const Slide = styled.div`
+  flex: 0 0 100%;
+  width: 100%; height: 100%;
+  position: relative;
+`;
+const SlideImg = styled.img`
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+`;
+const SlideOverlay = styled.div`
+  position: absolute; inset: auto 0 0 0;
+  height: 50%;
+  background: linear-gradient(180deg, rgba(10,4,4,0) 0%, rgba(10,4,4,0.55) 100%);
+  pointer-events: none;
+`;
+const CarouselFooter = styled.div`
+  display: flex; align-items: center;
   justify-content: space-between;
 `;
-
-const NPSScaleLabel = styled.span<{ $bold?: boolean }>`
-  font-family: ${FONT_BODY};
-  font-size: 10px;
-  color: ${p => p.$bold ? RED : "rgba(250,242,234,0.3)"};
-  font-weight: ${p => p.$bold ? 700 : 400};
-  letter-spacing: ${p => p.$bold ? "0.04em" : "0"};
+const Dots = styled.div` display: flex; gap: 6px; `;
+const Dot = styled.button<{ $active: boolean }>`
+  all: unset; cursor: pointer;
+  width: ${p => (p.$active ? "18px" : "6px")};
+  height: 6px; border-radius: 3px;
+  background: ${p => (p.$active ? RED : "rgba(26,26,24,0.2)")};
+  transition: all 0.4s ${SPRING};
+`;
+const ArrowGroup = styled.div` display: flex; gap: 6px; `;
+const NavArrow = styled.button`
+  all: unset; cursor: pointer;
+  width: 30px; height: 30px;
+  border: 1px solid ${BORDER};
+  border-radius: 50%;
+  display: grid; place-items: center;
+  color: ${DARK};
+  transition: background 0.3s ${SPRING}, border-color 0.3s ${SPRING};
+  &:hover { background: rgba(26,26,24,0.04); border-color: rgba(26,26,24,0.3); }
 `;
 
 /* ══════════════════════════════════════════════════════ */
 export default function AboutCredibility() {
-  const { ref: headerRef,  visible: hV } = useInView();
-  const { ref: leadersRef, visible: lV } = useInView();
-  const { ref: bottomRef,  visible: bV } = useInView();
+  const { ref: sectionRef, visible } = useInView();
+  const [idx, setIdx] = useState(0);
+  const total = FEIRA_FOTOS.length;
 
-  // Duplica os líderes para o loop contínuo
+  const next = useCallback(() => setIdx(i => (i + 1) % total), [total]);
+  const prev = useCallback(() => setIdx(i => (i - 1 + total) % total), [total]);
+
+  useEffect(() => {
+    if (!visible) return;
+    const id = window.setInterval(next, 4500);
+    return () => window.clearInterval(id);
+  }, [visible, next]);
+
   const loopItems = [...LEADERS, ...LEADERS];
 
   return (
-    <Section>
-      <Inner>
+    <Section ref={sectionRef}>
+      {/* LEFT */}
+      <Left $visible={visible}>
+        <Eyebrow>Posicionamento &amp; Rede</Eyebrow>
 
-        {/* ── Header ── */}
-        <Header ref={headerRef} $v={hV}>
-          <Eyebrow>Credibilidade em números</Eyebrow>
-          <Title>O que nos posiciona no mercado</Title>
-          <Divider />
-          <Subtitle>
-            Nosso ecossistema vai além dos projetos. Conectamos o Insper a alguns dos maiores líderes do Brasil e geramos impacto institucional real.
-          </Subtitle>
-        </Header>
+        <TitleBlock>
+          <TitleMain>
+            <TitleMuted>O que nos posiciona</TitleMuted>
+            <TitleItalic>no mercado</TitleItalic>
+          </TitleMain>
+          <TitleAccent $visible={visible} />
+          <BodyText>
+            Nosso ecossistema vai além dos projetos. Conectamos o Insper a alguns
+            dos maiores líderes do Brasil e geramos impacto institucional real.
+          </BodyText>
+        </TitleBlock>
 
-        {/* ── Líderes — marquee ── */}
-        <LeadersBlock ref={leadersRef} $v={lV}>
+        <RankInline>
+          <RankTag><em>Top 10</em></RankTag>
+          <RankText>entre as melhores do Brasil · <span>ranking nacional 2025</span></RankText>
+        </RankInline>
+
+        <LeadersBlock>
           <LeadersLabel>Alguns dos líderes presentes em eventos da IJR</LeadersLabel>
           <MarqueeWrapper>
             <MarqueeTrack>
@@ -426,61 +414,71 @@ export default function AboutCredibility() {
             </MarqueeTrack>
           </MarqueeWrapper>
         </LeadersBlock>
+      </Left>
 
-        {/* ── Bottom: feira | números ── */}
-        <BottomGrid ref={bottomRef}>
+      {/* RIGHT */}
+      <Right $visible={visible}>
+        <RightEyebrow>Credibilidade em números</RightEyebrow>
+        <RightTitle>
+          <RightTitleMuted>Impacto que se</RightTitleMuted>
+          traduz em presença
+        </RightTitle>
+        <RightAccent />
 
-          <FairBlock $v={bV}>
-            <div>
-              <BlockLabel>Evento próprio</BlockLabel>
-              <FairTitle>Feira de Carreiras</FairTitle>
-              <FairDesc>
-                Evento anual organizado pela IJR que conecta o ecossistema Insper ao mercado de trabalho.
-              </FairDesc>
-            </div>
-            <FairStats>
+        <FeiraWrap>
+          <FeiraInfo>
+            <FeiraEyebrow>Evento próprio</FeiraEyebrow>
+            <FeiraTitle>Feira de Carreiras</FeiraTitle>
+            <FeiraDesc>
+              Evento anual organizado pela IJR que conecta o ecossistema Insper
+              ao mercado de trabalho.
+            </FeiraDesc>
+            <FeiraStats>
               {FAIR_STATS.map(s => (
-                <FairStat key={s.label}>
-                  <FairStatValue>{s.value}</FairStatValue>
-                  <FairStatLabel>{s.label}</FairStatLabel>
-                </FairStat>
+                <FeiraStat key={s.label}>
+                  <FeiraStatNum>{s.value}</FeiraStatNum>
+                  <FeiraStatLabel>{s.label}</FeiraStatLabel>
+                </FeiraStat>
               ))}
-            </FairStats>
-          </FairBlock>
+            </FeiraStats>
+          </FeiraInfo>
 
-          <CardsCol $v={bV}>
+          <CarouselWrap>
+            <CarouselViewport>
+              <CarouselTrack $idx={idx}>
+                {FEIRA_FOTOS.map(f => (
+                  <Slide key={f.id}>
+                    <SlideImg src={f.src} alt={f.alt} />
+                    <SlideOverlay />
+                  </Slide>
+                ))}
+              </CarouselTrack>
+            </CarouselViewport>
 
-            <GradCard>
-              <CardLabel>Faturamento 2025</CardLabel>
-              <CardValue>R$ 1.071.065</CardValue>
-              <CardBadge>
-                <CardBadgeText>↑ +219% vs 2024</CardBadgeText>
-              </CardBadge>
-              <CardSub>Faturamento acumulado em 2025, ano de recorde histórico da Insper Jr.</CardSub>
-            </GradCard>
-
-            <GradCard>
-              <CardLabel>Índice NPS · Satisfação dos clientes</CardLabel>
-              <CardValue>+90</CardValue>
-              <CardBadge>
-                <CardBadgeText>★ Zona de excelência</CardBadgeText>
-              </CardBadge>
-              <NPSScale>
-                <NPSBar><NPSFill /></NPSBar>
-                <NPSScaleLabels>
-                  <NPSScaleLabel>0</NPSScaleLabel>
-                  <NPSScaleLabel>Bom · 50</NPSScaleLabel>
-                  <NPSScaleLabel>Ótimo · 75</NPSScaleLabel>
-                  <NPSScaleLabel $bold>+90 ★</NPSScaleLabel>
-                </NPSScaleLabels>
-              </NPSScale>
-            </GradCard>
-
-          </CardsCol>
-
-        </BottomGrid>
-
-      </Inner>
+            <CarouselFooter>
+              <Dots>
+                {FEIRA_FOTOS.map((f, i) => (
+                  <Dot key={f.id} $active={i === idx}
+                    onClick={() => setIdx(i)}
+                    aria-label={`Foto ${i + 1}`} />
+                ))}
+              </Dots>
+              <ArrowGroup>
+                <NavArrow onClick={prev} aria-label="Foto anterior">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <path d="M9 2L4 7l5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </NavArrow>
+                <NavArrow onClick={next} aria-label="Próxima foto">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </NavArrow>
+              </ArrowGroup>
+            </CarouselFooter>
+          </CarouselWrap>
+        </FeiraWrap>
+      </Right>
     </Section>
   );
 }

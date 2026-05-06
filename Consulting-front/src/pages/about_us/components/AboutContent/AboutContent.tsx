@@ -101,8 +101,8 @@ const Meta = styled.span`
 // ── Top row ───────────────────────────────────────────────────────────────────
 const TopRow = styled.div`
   display: grid;
-  grid-template-columns: 1.15fr 1fr;
-  gap: 80px;
+  grid-template-columns: 1.8fr 1fr;
+  gap: 60px;
   align-items: end;
 
   @media (max-width: 860px) {
@@ -150,7 +150,6 @@ const Body = styled.p`
   color: ${MUTED};
   line-height: 1.65;
   margin: 0;
-  max-width: 480px;
 `;
 
 const CtaLink = styled.a`
@@ -235,12 +234,12 @@ const BigLabel = styled.div`
 // ── Mini metrics row ──────────────────────────────────────────────────────────
 const MetricsRow = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   border-top: 1px solid rgba(26, 26, 24, 0.12);
   border-bottom: 1px solid rgba(26, 26, 24, 0.12);
 
   @media (max-width: 700px) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 `;
 
@@ -258,11 +257,6 @@ const Metric = styled.div<{ $visible: boolean; $i: number }>`
   `}
 
   &:last-child { border-right: none; }
-
-  @media (max-width: 700px) {
-    &:nth-child(2n) { border-right: none; }
-    &:nth-child(-n + 2) { border-bottom: 1px solid rgba(26, 26, 24, 0.12); }
-  }
 `;
 
 const MetricNum = styled.div`
@@ -356,9 +350,8 @@ export default function AboutContent() {
         <TopRow>
           <Left $visible={leftVisible}>
             <Title>
-              Consultoria<br />
-              <i>estratégica</i> para<br />
-              negócios reais.
+              Consultoria <i>estratégica</i><br />
+              para negócios reais.
             </Title>
             <Accent $visible={leftVisible} />
             <Body>
@@ -387,10 +380,9 @@ export default function AboutContent() {
 
         <MetricsRow>
           {[
-            ["+550", "projetos entregues"],
-            ["+X", "clientes atendidos"],
-            ["+X", "alumni formados"],
-            ["100%", "sem fins lucrativos"],
+            ["+550", "projetos entregues"  ],
+            ["+1000",   "alumni formados"     ],
+            ["100%", "sem fins lucrativos" ],
           ].map(([n, lbl], i) => (
             <Metric key={i} $visible={rightVisible} $i={i}>
               <MetricNum>{n}</MetricNum>

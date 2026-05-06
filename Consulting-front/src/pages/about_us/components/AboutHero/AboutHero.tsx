@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import styled, { keyframes, css } from "styled-components";
 import { useParticles } from "../../../../hooks/useParticleBackground";
 
@@ -168,6 +168,16 @@ export default function AboutHero() {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const canvasRef  = useRef<HTMLCanvasElement>(null);
 
+  // glow que acompanha o cursor — mesmo do AboutTeamAndPartners
+  const [glowPos, setGlowPos] = useState({ x: 0, y: 0 });
+  const [hovered, setHovered] = useState(false);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = wrapperRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    setGlowPos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+  }, []);
+
   // reutiliza o hook de partículas existente,
   // mas sobrescreve as cores via useEffect antes do hook rodar
   useParticles(wrapperRef, canvasRef);
@@ -185,7 +195,32 @@ export default function AboutHero() {
   }, []);
 
   return (
-    <HeroOuter ref={wrapperRef}>
+    <HeroOuter
+      ref={wrapperRef}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {/* Glow inline — acompanha cursor sem re-render do styled */}
+      <div
+        style={{
+          position: "absolute",
+          width: 500,
+          height: 500,
+          borderRadius: "50%",
+          background:
+            "radial-gradient(circle, rgba(192,33,33,0.12) 0%, transparent 65%)",
+          left: glowPos.x,
+          top: glowPos.y,
+          transform: "translate(-50%, -50%)",
+          opacity: hovered ? 1 : 0,
+          transition: "opacity 0.35s ease",
+          pointerEvents: "none",
+          zIndex: 0,
+          mixBlendMode: "screen",
+        }}
+      />
+
       {/* Canvas de partículas */}
       <canvas
         ref={canvasRef}
