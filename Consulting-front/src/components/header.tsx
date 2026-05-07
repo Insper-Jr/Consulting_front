@@ -7,14 +7,21 @@ import LogoIJR from "./LogoIJR";
 
 type DropdownKey = "solucoes" | null;
 
+const FRENTES = [
+  { label: "Business",                to: "/overview?frente=business" },
+  { label: "Engenharia & Tecnologia", to: "/overview?frente=tech"     },
+  { label: "Direito",                 to: "/overview?frente=direito"  },
+  { label: "Processos",               to: "/overview?frente=processos"},
+];
+
 const Header = () => {
   const { t, i18n } = useTranslation();
 
   const NAV_ITEMS = [
-    { label: t("nav.solutions"), key: "solucoes", to: null },
-    { label: t("nav.about"),     key: null,       to: "/about" },
-    { label: t("nav.join"),      key: null,       to: "/join" },
-    { label: t("nav.contact"),   key: null,       to: "/contact" },
+    { label: t("nav.solutions"), key: "solucoes", to: null      },
+    { label: t("nav.about"),     key: null,       to: "/about"  },
+    { label: t("nav.join"),      key: null,       to: "/join"   },
+    { label: t("nav.contact"),   key: null,       to: "/contact"},
   ] as const;
 
   const [isScrolled,     setIsScrolled]     = useState(false);
@@ -22,6 +29,7 @@ const Header = () => {
   const [activeDropdown, setActiveDropdown] = useState<DropdownKey>(null);
   const [searchOpen,     setSearchOpen]     = useState(false);
   const [langOpen,       setLangOpen]       = useState(false);
+  const [sidebarSolOpen, setSidebarSolOpen] = useState(false);
 
   const lang = i18n.language === "en" ? "EN" : "PT";
 
@@ -41,7 +49,7 @@ const Header = () => {
     setSidebarOpen(true);
   };
   const scheduleSidebarClose = () => {
-    sidebarCloseTimer.current = setTimeout(() => setSidebarOpen(false), 350); // era 220
+    sidebarCloseTimer.current = setTimeout(() => setSidebarOpen(false), 350);
   };
   const cancelSidebarClose = () => {
     if (sidebarCloseTimer.current) clearTimeout(sidebarCloseTimer.current);
@@ -71,7 +79,7 @@ const Header = () => {
     if (langCloseTimer.current) clearTimeout(langCloseTimer.current);
   };
 
-  const isSolid = isScrolled || activeDropdown === "solucoes";
+  const isSolid = isScrolled;
 
   return (
     <>
@@ -85,30 +93,59 @@ const Header = () => {
         onMouseEnter={cancelSidebarClose}
         onMouseLeave={scheduleSidebarClose}
       >
-        {/* Topo com logo */}
         <SidebarHead>
           <LogoIJR height={28} color="#fff" />
         </SidebarHead>
 
         <SidebarDivider />
 
-        {/* Links */}
         <SidebarLinks>
-          {NAV_ITEMS.map((item, i) => (
-            <SidebarNavLink
-              key={item.label}
-              to={item.to ?? (item.key === "solucoes" ? "/overview" : "/")}
-              onClick={() => setSidebarOpen(false)}
-            >
-              <span>{item.label}</span>
-              <SidebarArrow>→</SidebarArrow>
-            </SidebarNavLink>
-          ))}
+          {NAV_ITEMS.map((item) =>
+            item.key === "solucoes" ? (
+              /* ── Soluções com submenu expansível ── */
+              <SidebarSolWrapper
+                key={item.label}
+                onMouseEnter={() => setSidebarSolOpen(true)}
+                onMouseLeave={() => setSidebarSolOpen(false)}
+              >
+                <SidebarNavLink
+                  to="/overview"
+                  onClick={() => setSidebarOpen(false)}
+                >
+                  <span>{item.label}</span>
+                  <SidebarSolCaret isOpen={sidebarSolOpen}>▾</SidebarSolCaret>
+                </SidebarNavLink>
+
+                <SidebarSubMenu isOpen={sidebarSolOpen}>
+                  {FRENTES.map((f) => (
+                    <SidebarSubLink
+                      key={f.label}
+                      to={f.to}
+                      onClick={() => {
+                        setSidebarOpen(false);
+                        setSidebarSolOpen(false);
+                      }}
+                    >
+                      {f.label}
+                    </SidebarSubLink>
+                  ))}
+                </SidebarSubMenu>
+              </SidebarSolWrapper>
+            ) : (
+              <SidebarNavLink
+                key={item.label}
+                to={item.to!}
+                onClick={() => setSidebarOpen(false)}
+              >
+                <span>{item.label}</span>
+                <SidebarArrow>→</SidebarArrow>
+              </SidebarNavLink>
+            )
+          )}
         </SidebarLinks>
 
         <SidebarDivider />
 
-        {/* Rodapé */}
         <SidebarBottom>
           <SidebarTagline>
             Consultoria universitária de alto impacto
@@ -124,48 +161,83 @@ const Header = () => {
         onMouseLeave={scheduleSidebarClose}
       />
 
-      {/* ── Header + Dropdown Zone ── */}
-      <HeaderZone onMouseLeave={scheduleNavClose}>
+      {/* ── Header ── */}
+      <HeaderZone>
         <HeaderWrap isSolid={isSolid}>
 
-          {/* Esquerda — hover abre sidebar */}
           <HeaderLeft>
-            <HamburgerBtn 
+            <HamburgerBtn
               onMouseEnter={openSidebar}
               onMouseLeave={scheduleSidebarClose}
-              aria-label="Menu">
+              aria-label="Menu"
+            >
               <HamburgerLine />
               <HamburgerLine />
               <HamburgerLine />
             </HamburgerBtn>
             <LogoIJR height={30} color="#fff" />
-            
           </HeaderLeft>
 
-          {/* Centro */}
           <CenterNav>
             {NAV_ITEMS.map((item) =>
               item.key === "solucoes" ? (
-                <NavBtn key={item.label} onMouseEnter={() => openNav("solucoes")}>
-                  {item.label}
-                  <Arrow isOpen={activeDropdown === "solucoes"}>
-                    <svg viewBox="0 0 24 24">
-                      <path d="M6 9l6 6 6-6" stroke="white" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </Arrow>
-                </NavBtn>
+                /* ── Soluções: dropdown pequeno estilo Visagio ── */
+                <NavItemWrapper
+                  key={item.label}
+                  onMouseEnter={() => openNav("solucoes")}
+                  onMouseLeave={scheduleNavClose}
+                >
+                  <NavBtn>
+                    {item.label}
+                    <Arrow isOpen={activeDropdown === "solucoes"}>
+                      <svg viewBox="0 0 24 24">
+                        <path
+                          d="M6 9l6 6 6-6"
+                          stroke="white"
+                          strokeWidth="2"
+                          fill="none"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </Arrow>
+                  </NavBtn>
+
+                  {activeDropdown === "solucoes" && (
+                    <SmallDropdown
+                      onMouseEnter={cancelNavClose}
+                      onMouseLeave={scheduleNavClose}
+                    >
+                      {FRENTES.map((f) => (
+                        <SmallDropLink
+                          key={f.label}
+                          to={f.to}
+                          onClick={() => setActiveDropdown(null)}
+                        >
+                          {f.label}
+                        </SmallDropLink>
+                      ))}
+                    </SmallDropdown>
+                  )}
+                </NavItemWrapper>
               ) : (
-                <NavBtnLink key={item.label} to={item.to!} onMouseEnter={() => openNav(null)}>
+                <NavBtnLink
+                  key={item.label}
+                  to={item.to!}
+                  onMouseEnter={() => openNav(null)}
+                >
                   {item.label}
                 </NavBtnLink>
               )
             )}
           </CenterNav>
 
-          {/* Direita */}
           <HeaderRight>
             <SearchWrap>
-              <SearchIconBtn onClick={() => setSearchOpen((v) => !v)} aria-label="Buscar">
+              <SearchIconBtn
+                onClick={() => setSearchOpen((v) => !v)}
+                aria-label="Buscar"
+              >
                 <MagnifyingGlass size={19} color="white" weight="regular" />
               </SearchIconBtn>
               <SearchInput
@@ -183,49 +255,29 @@ const Header = () => {
                 <LangCaret isOpen={langOpen}>▾</LangCaret>
               </LangCurrent>
               <LangBridge isOpen={langOpen} />
-              <LangMenu isOpen={langOpen} onMouseEnter={cancelLangClose} onMouseLeave={scheduleLangClose}>
-                <LangOpt isActive={lang === "PT"} onClick={() => { i18n.changeLanguage("pt"); setLangOpen(false); }}>PT</LangOpt>
-                <LangOpt isActive={lang === "EN"} onClick={() => { i18n.changeLanguage("en"); setLangOpen(false); }}>EN</LangOpt>
+              <LangMenu
+                isOpen={langOpen}
+                onMouseEnter={cancelLangClose}
+                onMouseLeave={scheduleLangClose}
+              >
+                <LangOpt
+                  isActive={lang === "PT"}
+                  onClick={() => { i18n.changeLanguage("pt"); setLangOpen(false); }}
+                >
+                  PT
+                </LangOpt>
+                <LangOpt
+                  isActive={lang === "EN"}
+                  onClick={() => { i18n.changeLanguage("en"); setLangOpen(false); }}
+                >
+                  EN
+                </LangOpt>
               </LangMenu>
             </LangWrap>
 
             <HeaderCTA to="/contact">{t("nav.cta")}</HeaderCTA>
           </HeaderRight>
         </HeaderWrap>
-
-        {/* ── Dropdown Soluções ── */}
-        {activeDropdown === "solucoes" && (
-          <DropdownPanel onMouseEnter={cancelNavClose} onMouseLeave={scheduleNavClose}>
-            <DropdownInner>
-              <DropCol>
-                <DropColTitle>{t("dropdown.business.title")}</DropColTitle>
-                <DropLink to="/marketing">{t("dropdown.business.marketing")}</DropLink>
-                <DropLink to="/market">{t("dropdown.business.market")}</DropLink>
-                <DropLink to="/operational">{t("dropdown.business.operational")}</DropLink>
-                <DropLink to="/financial">{t("dropdown.business.financial")}</DropLink>
-              </DropCol>
-              <DropCol>
-                <DropColTitle>{t("dropdown.tech.title")}</DropColTitle>
-                <DropLink to="/data">{t("dropdown.tech.data")}</DropLink>
-                <DropLink to="/products">{t("dropdown.tech.products")}</DropLink>
-                <DropLink to="/devweb">{t("dropdown.tech.devweb")}</DropLink>
-              </DropCol>
-              <DropCol>
-                <DropColTitle>{t("dropdown.law.title")}</DropColTitle>
-                <DropSubTitle>{t("dropdown.law.creation.title")}</DropSubTitle>
-                <DropLink to="/creation?tab=0">{t("dropdown.law.creation.planning")}</DropLink>
-                <DropLink to="/creation?tab=1">{t("dropdown.law.creation.cnpj")}</DropLink>
-                <DropLink to="/creation?tab=2">{t("dropdown.law.creation.docs")}</DropLink>
-                <DropSubTitle>{t("dropdown.law.strategy.title")}</DropSubTitle>
-                <DropLink to="/strategy?tab=0">{t("dropdown.law.strategy.contract")}</DropLink>
-                <DropLink to="/strategy?tab=1">{t("dropdown.law.strategy.tax")}</DropLink>
-                <DropSubTitle>{t("dropdown.law.protection.title")}</DropSubTitle>
-                <DropLink to="/protection?tab=0">{t("dropdown.law.protection.ip")}</DropLink>
-                <DropLink to="/protection?tab=1">{t("dropdown.law.protection.lgpd")}</DropLink>
-              </DropCol>
-            </DropdownInner>
-          </DropdownPanel>
-        )}
       </HeaderZone>
     </>
   );
@@ -260,7 +312,7 @@ const SidebarOverlay = styled.div`
   animation: ${fadeIn} 0.2s ease;
 `;
 
-/* ── Sidebar melhorada ── */
+/* ── Sidebar ── */
 const Sidebar = styled.aside<{ isOpen: boolean }>`
   position: fixed;
   top: 0; left: 0;
@@ -315,7 +367,6 @@ const SidebarNavLink = styled(Link)`
     padding-left: 2.3rem;
   }
 
-  /* animação escalonada nos links quando abre */
   animation: ${slideIn} 0.3s ease both;
 `;
 
@@ -329,6 +380,47 @@ const SidebarArrow = styled.span`
   ${SidebarNavLink}:hover & {
     opacity: 1;
     transform: translateX(4px);
+  }
+`;
+
+/* ── Sidebar Soluções expand ── */
+const SidebarSolWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const SidebarSolCaret = styled.span<{ isOpen: boolean }>`
+  margin-left: auto;
+  font-size: 0.85rem;
+  color: #C02121;
+  opacity: 0.85;
+  transition: transform 0.25s ease;
+  transform: ${({ isOpen }) => (isOpen ? "rotate(180deg)" : "rotate(0deg)")};
+`;
+
+const SidebarSubMenu = styled.div<{ isOpen: boolean }>`
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  max-height: ${({ isOpen }) => (isOpen ? "240px" : "0")};
+  transition: max-height 0.42s ease;
+  background: rgba(0, 0, 0, 0.25);
+`;
+
+const SidebarSubLink = styled(Link)`
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  padding: 0.6rem 2rem 0.6rem 2.75rem;
+  border-left: 2px solid transparent;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+
+  &:hover {
+    color: #fff;
+    background: rgba(192, 33, 33, 0.08);
+    border-left-color: #C02121;
   }
 `;
 
@@ -375,9 +467,11 @@ const HeaderWrap = styled.header<{ isSolid: boolean }>`
   justify-content: space-between;
   padding: 0 2rem;
   height: 4.5rem;
-  background: ${({ isSolid }) => isSolid ? "rgba(14, 4, 4, 0.97)" : "transparent"};
-  backdrop-filter: ${({ isSolid }) => isSolid ? "blur(8px)" : "none"};
-  border-bottom: ${({ isSolid }) => isSolid ? "1px solid rgba(255,255,255,0.06)" : "none"};
+  background: ${({ isSolid }) =>
+    isSolid ? "rgba(14, 4, 4, 0.97)" : "transparent"};
+  backdrop-filter: ${({ isSolid }) => (isSolid ? "blur(8px)" : "none")};
+  border-bottom: ${({ isSolid }) =>
+    isSolid ? "1px solid rgba(255,255,255,0.06)" : "none"};
   transition: background 0.3s ease, border-color 0.3s ease;
   z-index: 1000;
   font-family: "Montserrat", sans-serif;
@@ -391,7 +485,6 @@ const HeaderLeft = styled.div`
   padding: 0.5rem 0.5rem 0.5rem 0;
 `;
 
-/* Hamburger — agora só visual, sem onClick */
 const HamburgerBtn = styled.div`
   padding: 0.4rem;
   display: flex;
@@ -427,6 +520,13 @@ const CenterNav = styled.nav`
   @media (max-width: 900px) { display: none; }
 `;
 
+/* ── Nav item wrapper for relative positioning of small dropdown ── */
+const NavItemWrapper = styled.div`
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+`;
+
 const navItemBase = css`
   color: rgba(255, 255, 255, 0.85);
   font-family: "Montserrat", sans-serif;
@@ -450,6 +550,54 @@ const NavBtn = styled.div`
 `;
 
 const NavBtnLink = styled(Link)`${navItemBase}`;
+
+/* ── Small dropdown (Visagio-style) ── */
+const SmallDropdown = styled.div`
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding-top: 8px; /* bridge gap — mantém hover ao cruzar o espaço */
+  background: transparent;
+  z-index: 998;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 8px; left: 0; right: 0; bottom: 0;
+    background: rgba(14, 4, 4, 0.97);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(192, 33, 33, 0.08);
+    z-index: -1;
+  }
+
+  animation: ${fadeIn} 0.12s ease;
+`;
+
+const SmallDropLink = styled(Link)`
+  display: block;
+  color: rgba(255, 255, 255, 0.72);
+  text-decoration: none;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.68rem 1.25rem;
+  min-width: 180px;
+  border-left: 2px solid transparent;
+  transition: color 0.15s, background 0.15s, border-color 0.15s, padding-left 0.15s;
+
+  &:hover {
+    color: #fff;
+    background: rgba(192, 33, 33, 0.1);
+    border-left-color: #C02121;
+    padding-left: 1.5rem;
+  }
+
+  &:first-child { border-radius: 5px 5px 0 0; padding-top: 0.9rem; }
+  &:last-child  { border-radius: 0 0 5px 5px; padding-bottom: 0.9rem; }
+`;
 
 const HeaderRight = styled.div`
   display: flex;
@@ -544,57 +692,17 @@ const HeaderCTA = styled(Link)`
   @media (max-width: 900px) { display: none; }
 `;
 
-const DropdownPanel = styled.div`
-  position: fixed; top: 4.5rem; left: 0; right: 0;
-  background: rgba(14, 4, 4, 0.97);
-  backdrop-filter: blur(8px);
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  z-index: 997; padding: 2.5rem 0;
-  animation: ${fadeIn} 0.18s ease;
-`;
-
-const DropdownInner = styled.div`
-  max-width: 1100px; margin: 0 auto; padding: 0 2rem;
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
-  @media (max-width: 900px) { grid-template-columns: 1fr; gap: 1.5rem; }
-`;
-
-const DropCol = styled.div`
-  display: flex; flex-direction: column; gap: 0.35rem;
-`;
-
-const DropColTitle = styled.h3`
-  font-family: "Montserrat", sans-serif; color: #fff;
-  font-size: 0.85rem; font-weight: 700; letter-spacing: 0.08em;
-  text-transform: uppercase; margin-bottom: 0.75rem;
-  padding-bottom: 0.6rem; border-bottom: 2px solid #C02121;
-`;
-
-const DropSubTitle = styled.p`
-  font-family: "Montserrat", sans-serif;
-  color: rgba(255, 255, 255, 0.45);
-  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em;
-  text-transform: uppercase; margin-top: 0.75rem; margin-bottom: 0.25rem;
-`;
-
-const DropLink = styled(Link)`
-  color: rgba(255, 255, 255, 0.7); text-decoration: none;
-  font-family: "Montserrat", sans-serif;
-  font-size: 0.85rem; font-weight: 400; padding: 0.3rem 0;
-  transition: color 0.2s, padding-left 0.2s;
-  &:hover { color: #fff; padding-left: 0.4rem; }
-`;
-
 const Arrow = styled.span<{ isOpen: boolean }>`
   width: 20px; height: 20px; border-radius: 50%;
-  background: ${({ isOpen }) => isOpen ? "#C02121" : "rgba(192, 33, 33, 0.15)"};
+  background: ${({ isOpen }) =>
+    isOpen ? "#C02121" : "rgba(192, 33, 33, 0.15)"};
   display: flex; align-items: center; justify-content: center;
   transition: background 0.25s ease;
 
   svg {
     width: 15px; height: 15px; display: block;
-    transform: ${({ isOpen }) => isOpen ? "rotate(180deg)" : "rotate(0deg)"};
+    transform: ${({ isOpen }) =>
+      isOpen ? "rotate(180deg)" : "rotate(0deg)"};
     transition: transform 0.25s ease;
   }
 `;

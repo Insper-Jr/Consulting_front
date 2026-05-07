@@ -114,11 +114,27 @@ const RecognitionCard = styled.div<{ $visible: boolean; $delay: number }>`
   display: flex;
   flex-direction: column;
   gap: 14px;
+  position: relative;
+  border: 1px solid transparent;
   opacity: 0;
   ${p => p.$visible && css`animation: ${fadeUp} 0.7s ${SPRING} ${p.$delay}s forwards;`}
-  transition: background 0.2s ease;
+  transition: background 0.25s ease, border-color 0.25s ease;
 
-  &:hover { background: #FAF2EA; }
+  &:hover {
+    background: rgba(192,33,33,0.05);
+    border-color: rgba(192,33,33,0.45);
+  }
+`;
+
+const CardAccent = styled.div`
+  width: 20px;
+  height: 2px;
+  background: ${RED};
+  transition: width 0.3s ${SPRING};
+
+  ${RecognitionCard}:hover & {
+    width: 40px;
+  }
 `;
 
 const LogoWrap = styled.div`
@@ -180,6 +196,7 @@ export default function AboutRecognitions() {
         <Grid ref={gridRef}>
           {RECOGNITIONS.map((r, i) => (
             <RecognitionCard key={r.name} $visible={gridVisible} $delay={0.1 + i * 0.08}>
+              <CardAccent />
               <LogoWrap>
                 <Logo src={r.logo} alt={r.name} />
               </LogoWrap>

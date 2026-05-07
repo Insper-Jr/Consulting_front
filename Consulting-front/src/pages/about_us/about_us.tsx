@@ -6,13 +6,12 @@ import AboutHero           from "./components/AboutHero/AboutHero";
 import AboutContent        from "./components/AboutContent/AboutContent";
 import AboutHistory        from "./components/AboutHistory";
 import AboutJuniorMovement from "./components/AboutJuniorMovement";
-import AboutTeam           from "./components/AboutTeam";
-import AboutPartners       from "./components/AboutPartners";
+import AboutTeam           from "./components/AboutTeamAndPartners";
 import AboutCredibility    from "./components/AboutCredibility";
-import OurCulture          from "./components/culture";
+import OurCulture          from "./components/AboutCulture";
 import AboutRecognitions   from "./components/AboutRecognitions";
 import AboutCTA            from "./components/AboutCTA";
-import ContactSection from "../home/components/sectionContact";
+import ContactSection from "../../components/sectionContact";
 
 function About_Us() {
   return (
@@ -22,11 +21,10 @@ function About_Us() {
       <AboutHero />
       <AboutContent />
       <AboutHistory />
-      <AboutJuniorMovement />
-      <AboutTeam />
-      <AboutPartners />
       <OurCulture />
+      <AboutTeam />
       <AboutCredibility />
+      <AboutJuniorMovement />
       <AboutRecognitions />
       <AboutCTA />
       <ContactSection />

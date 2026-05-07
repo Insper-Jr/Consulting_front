@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import styled, { keyframes, css } from "styled-components";
 import { useParticles } from "../../../hooks/useParticleBackground";
 import { useInView } from "@/hooks/useInView";
@@ -37,7 +37,7 @@ const pulse = keyframes`
 const Section = styled.section`
   background: ${BG};
   width: 100%;
-  padding: 100px 0;
+  padding: 72px 0;
   box-sizing: border-box;
   position: relative;
   overflow: hidden;
@@ -52,8 +52,8 @@ const Inner = styled.div`
 const Header = styled.div<{ $visible: boolean }>`
   display: flex;
   flex-direction: column;
-  gap: 40px;
-  margin-bottom: 64px;
+  gap: 28px;
+  margin-bottom: 56px;
   opacity: 0;
   ${p => p.$visible && css`animation: ${fadeUp} 0.9s ${SPRING} 0.1s forwards;`}
 `;
@@ -99,7 +99,7 @@ const TrackLine = styled.div<{ $visible: boolean }>`
   top: 12px;
   bottom: 12px;
   width: 1px;
-  background: linear-gradient(to bottom, ${RED} 0%, ${RED} 30%, rgba(192,33,33,0.15) 100%);
+  background: linear-gradient(to bottom, ${RED} 0%, ${RED} 30%, rgba(192,33,33,0.18) 100%);
   transform-origin: top center;
   transform: scaleY(0);
   ${p => p.$visible && css`animation: ${lineGrow} 1.2s ${SPRING} 0.4s forwards;`}
@@ -110,7 +110,7 @@ const Item = styled.div<{ $visible: boolean; $delay: number }>`
   grid-template-columns: 88px 1fr;
   gap: 40px;
   align-items: flex-start;
-  padding: 0 0 32px;
+  padding: 0 0 28px;
   opacity: 0;
   ${p => p.$visible && css`animation: ${fadeUp} 0.7s ${SPRING} ${p.$delay}s forwards;`}
   &:last-child { padding-bottom: 0; }
@@ -167,7 +167,6 @@ const Text = styled.p`
   color: rgba(250,242,234,0.85);
   line-height: 1.6;
   margin: 0;
-  max-width: 580px;
 `;
 
 export default function AboutHistory() {
@@ -176,10 +175,38 @@ export default function AboutHistory() {
   const { ref: headerRef, visible: headerVisible } = useInView();
   const { ref: sectionRef, visible: sectionVisible } = useInView();
 
+  const [glowPos, setGlowPos]     = useState({ x: 0, y: 0 });
+  const [hovered, setHovered]     = useState(false);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    const rect = wrapperRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    setGlowPos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+  }, []);
+
   useParticles(wrapperRef as React.RefObject<HTMLDivElement>, canvasRef);
 
   return (
-    <Section ref={wrapperRef}>
+    <Section
+      ref={wrapperRef}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {/* glow inline — sem re-render de styled-component */}
+      <div style={{
+        position: "absolute",
+        width: 500, height: 500,
+        borderRadius: "50%",
+        background: "radial-gradient(circle, rgba(192,33,33,0.12) 0%, transparent 65%)",
+        left: glowPos.x,
+        top: glowPos.y,
+        transform: "translate(-50%, -50%)",
+        opacity: hovered ? 1 : 0,
+        transition: "opacity 0.35s ease",
+        pointerEvents: "none",
+        zIndex: 0,
+      }} />
       <canvas
         ref={canvasRef}
         style={{
