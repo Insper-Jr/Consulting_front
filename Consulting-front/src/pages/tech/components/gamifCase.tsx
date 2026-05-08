@@ -1,6 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import styled, { keyframes } from "styled-components";
 
+import obrasImg     from "../../../assets/gamificacao/obras.png";
+import rankingImg   from "../../../assets/gamificacao/ranking.png";
+import top20Img     from "../../../assets/gamificacao/top20.png";
+import segurancaImg from "../../../assets/gamificacao/seguranca.png";
+
 // ── Tokens (mirrors parent page) ──────────────────────────────────────────
 const C = {
   redTitle: "#A10F23",
@@ -15,11 +20,23 @@ const FONT_MONO  = `ui-monospace, "SF Mono", Menlo, monospace`;
 
 const TOTAL_SLIDES = 5;
 
+// ── Shots data ─────────────────────────────────────────────────────────────
+const SHOTS = [
+  { id: "obras",     label: "Obras",     bar: "quadro-de-pontos · obras",    img: obrasImg,     alt: "Selecione a obra — visão de todas as obras",               capH: "Selecione a obra",      capT: "entrada do painel gamificado" },
+  { id: "ranking",   label: "Ranking",   bar: "quadro-de-pontos · vizcaya",  img: rankingImg,   alt: "Ranking de equipes — pódio com A1 e B1",                    capH: "Ranking de equipes",    capT: "pódio em tempo real" },
+  { id: "top20",     label: "Top 20",    bar: "quadro-de-pontos · top-20",   img: top20Img,     alt: "Top 20 funcionários — pódio individual e lista de cargos", capH: "Top 20 funcionários",   capT: "pódio + lista por cargo" },
+  { id: "seguranca", label: "Segurança", bar: "quadro-de-pontos · seguranca",img: segurancaImg, alt: "Segurança em Primeiro — grid de KPIs de EPI",               capH: "Segurança em primeiro", capT: "KPIs ao lado do score" },
+];
+const TOTAL_SHOTS = SHOTS.length;
+
 // ── Component ──────────────────────────────────────────────────────────────
 export default function GamifCase() {
   const [idx, setIdx] = useState(0);
+  const [sIdx, setSIdx] = useState(0);
   const deckRef = useRef<HTMLElement>(null);
+  const shotsRef = useRef<HTMLDivElement>(null);
   const inViewRef = useRef(false);
+  const shotsInViewRef = useRef(false);
 
   useEffect(() => {
     const deck = deckRef.current;
@@ -33,7 +50,23 @@ export default function GamifCase() {
   }, []);
 
   useEffect(() => {
+    const sh = shotsRef.current;
+    if (!sh || !("IntersectionObserver" in window)) return;
+    const io = new IntersectionObserver(
+      ([e]) => { shotsInViewRef.current = e.isIntersecting; },
+      { threshold: 0.3 }
+    );
+    io.observe(sh);
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
+      if (shotsInViewRef.current) {
+        if (e.key === "ArrowLeft")  setSIdx(i => (i - 1 + TOTAL_SHOTS) % TOTAL_SHOTS);
+        else if (e.key === "ArrowRight") setSIdx(i => (i + 1) % TOTAL_SHOTS);
+        return;
+      }
       if (!inViewRef.current) return;
       if (e.key === "ArrowLeft")  setIdx(i => (i - 1 + TOTAL_SLIDES) % TOTAL_SLIDES);
       if (e.key === "ArrowRight") setIdx(i => (i + 1) % TOTAL_SLIDES);
@@ -45,6 +78,8 @@ export default function GamifCase() {
   const pad = (n: number) => String(n).padStart(2, "0");
   const goPrev = () => setIdx(i => Math.max(0, i - 1));
   const goNext = () => setIdx(i => Math.min(TOTAL_SLIDES - 1, i + 1));
+  const sPrev = () => setSIdx(i => Math.max(0, i - 1));
+  const sNext = () => setSIdx(i => Math.min(TOTAL_SHOTS - 1, i + 1));
 
   return (
     <CaseSection id="case-gamificacao">
@@ -104,6 +139,43 @@ export default function GamifCase() {
               <CdCounter>{pad(idx + 1)} / {pad(TOTAL_SLIDES)}</CdCounter>
               <CdBtn onClick={goNext} disabled={idx === TOTAL_SLIDES - 1} aria-label="Próximo">→</CdBtn>
             </CdControls>
+
+            {/* Mini deck · telas reais */}
+            <ShotsMini ref={shotsRef} aria-label="Telas reais da plataforma Gamificação">
+              <ShotsMiniHead>
+                <ShotsMiniH>Como aparece <em>no canteiro.</em></ShotsMiniH>
+              </ShotsMiniHead>
+              <ShotsMiniFrame>
+                <ShotsMiniStack>
+                  {SHOTS.map((s, i) => (
+                    <ShotsMiniSlide key={s.id} $active={sIdx === i}>
+                      <ShotsMiniBar>
+                        <Dot1 /><Dot2 /><Dot3 /><b>{s.bar}</b>
+                      </ShotsMiniBar>
+                      <ShotsMiniImg src={s.img} alt={s.alt} loading="lazy" />
+                      <ShotsMiniCap><span>{s.capH}</span> · {s.capT}</ShotsMiniCap>
+                    </ShotsMiniSlide>
+                  ))}
+                </ShotsMiniStack>
+              </ShotsMiniFrame>
+              <ShotsMiniControls>
+                <CdBtn onClick={sPrev} disabled={sIdx === 0} aria-label="Anterior">←</CdBtn>
+                <ShotsMiniDots>
+                  {SHOTS.map((s, i) => (
+                    <ShotsMiniDot
+                      key={s.id}
+                      $active={sIdx === i}
+                      onClick={() => setSIdx(i)}
+                      aria-label={`Tela ${i + 1}`}
+                    >
+                      {s.label}
+                    </ShotsMiniDot>
+                  ))}
+                </ShotsMiniDots>
+                <CdCounter>{pad(sIdx + 1)} / {pad(TOTAL_SHOTS)}</CdCounter>
+                <CdBtn onClick={sNext} disabled={sIdx === TOTAL_SHOTS - 1} aria-label="Próximo">→</CdBtn>
+              </ShotsMiniControls>
+            </ShotsMini>
           </CaseDeck>
         </CaseSplit>
       </CaseInner>
@@ -1139,4 +1211,169 @@ const CdCounter = styled.span`
   color: #888;
   letter-spacing: 0.16em;
   flex-shrink: 0;
+`;
+
+// ── Shots mini deck (real screenshots) ────────────────────────────────────
+const ShotsMini = styled.div`
+  margin-top: 2rem;
+  padding-top: 1.6rem;
+  border-top: 1px dashed rgba(0,0,0,0.16);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+`;
+
+const ShotsMiniHead = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+`;
+
+const ShotsMiniH = styled.h4`
+  font-family: ${FONT_TITLE};
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1a1a;
+  letter-spacing: -0.02em;
+  line-height: 1.18;
+  margin: 0;
+  em {
+    font-style: italic;
+    color: ${C.redTitle};
+    font-weight: 700;
+  }
+`;
+
+const ShotsMiniFrame = styled.div`
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.85 / 1;
+  background: #3aa0d8;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 14px 36px -16px rgba(0,0,0,0.28), 0 0 0 1px rgba(0,0,0,0.07);
+`;
+
+const ShotsMiniStack = styled.div`
+  position: absolute;
+  inset: 0;
+`;
+
+const ShotsMiniSlide = styled.figure<{ $active: boolean }>`
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  opacity: ${p => p.$active ? 1 : 0};
+  pointer-events: ${p => p.$active ? "auto" : "none"};
+  transform: ${p => p.$active ? "translateX(0)" : "translateX(20px)"};
+  transition: opacity 0.5s ease, transform 0.55s cubic-bezier(0.16,1,0.3,1);
+`;
+
+const ShotsMiniBar = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.32rem;
+  padding: 0.38rem 0.6rem;
+  background: #2a2a2a;
+  font-family: ${FONT_MONO};
+  font-size: 9px;
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 0.05em;
+  flex: 0 0 auto;
+  b {
+    margin-left: 0.45rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.78);
+  }
+`;
+
+const Dot1 = styled.span`
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ff5f57;
+  display: block;
+  flex: 0 0 auto;
+`;
+
+const Dot2 = styled.span`
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #febc2e;
+  display: block;
+  flex: 0 0 auto;
+`;
+
+const Dot3 = styled.span`
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #28c840;
+  display: block;
+  flex: 0 0 auto;
+`;
+
+const ShotsMiniImg = styled.img`
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  background: #3aa0d8;
+`;
+
+const ShotsMiniCap = styled.div`
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0.55rem 0.75rem;
+  background: linear-gradient(180deg, rgba(26,26,26,0) 0%, rgba(26,26,26,0.85) 60%, rgba(26,26,26,0.96) 100%);
+  font-family: ${FONT_MONO};
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: rgba(255,255,255,0.78);
+  span {
+    font-family: ${FONT_TITLE};
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.005em;
+  }
+`;
+
+const ShotsMiniControls = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+`;
+
+const ShotsMiniDots = styled.div`
+  flex: 1;
+  display: flex;
+  gap: 0.32rem;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
+
+const ShotsMiniDot = styled.button<{ $active: boolean }>`
+  appearance: none;
+  background: ${p => p.$active ? "#1a1a1a" : "transparent"};
+  border: 1px solid ${p => p.$active ? "#1a1a1a" : "rgba(0,0,0,0.14)"};
+  border-radius: 999px;
+  padding: 0.3rem 0.65rem;
+  font-family: ${FONT_MONO};
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: ${p => p.$active ? "#fff" : "rgba(0,0,0,0.55)"};
+  cursor: pointer;
+  transition: all 0.25s ease;
+  &:hover {
+    border-color: ${p => p.$active ? "#1a1a1a" : "rgba(0,0,0,0.32)"};
+    color: ${p => p.$active ? "#fff" : "#1a1a1a"};
+  }
 `;

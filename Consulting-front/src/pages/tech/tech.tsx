@@ -279,12 +279,40 @@ function Tech() {
   // Wire up hero/intro shared canvas (visible behind the white intro section)
   useParticleNetwork(sharedCanvasRef, heroIntroRef, {
     count: 75,
-    glowEl: heroGlowRef.current,
     maxDist: 120,
     dotColor: "rgba(230,90,90,0.63)",
     lineColor: (c: number) => `rgba(230,90,90,${0.252 * c})`,
     deadZone: (W, H) => ({ x: W * 0.22, y: H * 0.18, w: W * 0.56, h: H * 0.64 }),
   });
+
+  // Hero glow follows cursor (radial gradient that lights up on hover)
+  useEffect(() => {
+    const wrap = heroIntroRef.current;
+    const glow = heroGlowRef.current;
+    if (!wrap || !glow) return;
+    let raf = 0;
+    const onEnter = () => { glow.style.opacity = "1"; };
+    const onLeave = () => { glow.style.opacity = "0"; };
+    const onMove = (e: MouseEvent) => {
+      const rect = wrap.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        glow.style.left = `${x}px`;
+        glow.style.top = `${y}px`;
+      });
+    };
+    wrap.addEventListener("mouseenter", onEnter);
+    wrap.addEventListener("mouseleave", onLeave);
+    wrap.addEventListener("mousemove", onMove);
+    return () => {
+      wrap.removeEventListener("mouseenter", onEnter);
+      wrap.removeEventListener("mouseleave", onLeave);
+      wrap.removeEventListener("mousemove", onMove);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
 
   // Wire up hero canvas (visible on top of the dark hero background)
   useParticleNetwork(heroCanvasRef, heroRef, {
@@ -647,17 +675,19 @@ const SharedCanvas = styled.canvas`
 
 const HeroGlow = styled.div`
   position: absolute;
+  left: 50%;
+  top: 50%;
   width: 500px;
   height: 500px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(192,33,33,0.12) 0%, transparent 65%);
+  background: radial-gradient(circle, rgba(192,33,33,0.18) 0%, transparent 65%);
   transform: translate(-50%, -50%);
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.35s ease;
   mix-blend-mode: screen;
-  z-index: 0;
-  ${HeroIntroWrap}:hover & { opacity: 1; }
+  z-index: 1;
+  will-change: left, top, opacity;
 `;
 
 // ── Hero ──
