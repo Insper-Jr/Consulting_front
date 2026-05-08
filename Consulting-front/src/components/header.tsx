@@ -9,7 +9,7 @@ type DropdownKey = "solucoes" | null;
 
 const FRENTES = [
   { label: "Business",                to: "/overview?frente=business" },
-  { label: "Engenharia & Tecnologia", to: "/overview?frente=tech"     },
+  { label: "Engenharia & Tecnologia", to: "/tech"                     },
   { label: "Direito",                 to: "/overview?frente=direito"  },
   { label: "Processos",               to: "/overview?frente=processos"},
 ];

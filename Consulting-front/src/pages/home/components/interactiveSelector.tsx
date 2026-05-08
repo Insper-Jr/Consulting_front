@@ -1,46 +1,44 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
 import styled, { keyframes, css } from "styled-components";
+import { useTranslation } from "react-i18next";
 import { useParticles } from "../../../hooks/useParticleBackground";
 
 const RED = "#691212", BG = "#FAF2EA", FONT = `'Inter',Helvetica,sans-serif`;
 const SPRING = "0.72s cubic-bezier(0.34,1.08,0.64,1)";
 const SMOOTH = "0.55s cubic-bezier(0.4,0,0.2,1)";
 
-const CONTENT: Record<string, { description: string; image: string }> = {
-  "Finanças":                    { description: "Apoiamos instituições financeiras a navegar regulações complexas e acelerar a transformação digital com segurança.", image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=900&q=85" },
-  "Saúde":                       { description: "Conectamos tecnologia e cuidado para melhorar processos clínicos, reduzir custos e ampliar o acesso à saúde.", image: "https://images.unsplash.com/photo-1527613426441-4da17471b66d?w=900&q=85" },
-  "Varejo":                      { description: "Ajudamos varejistas a criar experiências omnichannel que fidelizam clientes e aumentam a eficiência operacional.", image: "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=900&q=85" },
-  "Energia":                     { description: "Aceleramos a transição energética com soluções que unem inovação, sustentabilidade e viabilidade econômica.", image: "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=900&q=85" },
-  "Manufatura":                  { description: "Modernizamos operações industriais com automação inteligente e análise de dados em tempo real.", image: "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=900&q=85" },
-  "Plano Estratégico de Marketing": { description: "Estruturamos planos de marketing com base em dados, posicionamento claro e metas que conectam marca e resultado.", image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=900&q=85" },
-  "Análise Mercadológica":       { description: "Mapeamos mercados, concorrentes e oportunidades para embasar decisões estratégicas com precisão.", image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=85" },
-  "Plano Operacional":           { description: "Transformamos estratégia em execução com processos claros, indicadores e responsabilidades bem definidas.", image: "https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?w=900&q=85" },
-  "Viabilidade Financeira":      { description: "Avaliamos a rentabilidade e os riscos do seu projeto antes de qualquer compromisso de capital.", image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=900&q=85" },
-  "Análise de Dados":            { description: "Extraímos padrões e insights de grandes volumes de dados para orientar decisões mais inteligentes.", image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&q=85" },
-  "Desenvolvimento de Produtos": { description: "Do conceito ao lançamento: estruturamos o ciclo de vida do produto com foco em valor e escalabilidade.", image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=900&q=85" },
-  "Desenvolvimento Web":         { description: "Construímos interfaces e sistemas web robustos, performáticos e pensados para converter.", image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=900&q=85" },
-  "Criação e Estruturação":      { description: "Ajudamos a materializar ideias em estruturas sólidas — societárias, operacionais e de marca.", image: "https://images.unsplash.com/photo-1495364141860-b0d03eccd065?w=900&q=85" },
-  "Planejamento Societário":     { description: "Estruturamos a governança e a participação societária para garantir alinhamento e longevidade.", image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=900&q=85" },
-  "Emissão de CNPJ":             { description: "Simplificamos a abertura da sua empresa com agilidade, segurança e zero burocracia desnecessária.", image: "https://images.unsplash.com/photo-1664575602554-2087b04935a5?w=900&q=85" },
-  "Documentos Constitutivos":    { description: "Elaboramos contratos sociais, estatutos e atas com precisão jurídica e linguagem clara.", image: "https://images.unsplash.com/photo-1553484771-371a605b060b?w=900&q=85" },
-  "Operação e Estratégia":       { description: "Integramos visão estratégica e eficiência operacional para gerar resultados sustentáveis.", image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=900&q=85" },
-  "Contratos":                   { description: "Redigimos e revisamos contratos que protegem seus interesses e antecipam riscos.", image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=900&q=85" },
-  "Planejamento Tributário":     { description: "Reduzimos a carga fiscal do seu negócio de forma legal, estruturada e alinhada ao crescimento.", image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=900&q=85" },
-  "Proteção e Regularização":    { description: "Regularizamos ativos e garantimos conformidade para que seu negócio opere com segurança jurídica.", image: "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=900&q=85" },
-  "Propriedade Intelectual":     { description: "Protegemos marcas, patentes e criações para preservar o que torna o seu negócio único.", image: "https://images.unsplash.com/photo-1562654501-a0ccc0fc3fb1?w=900&q=85" },
-  "LGPD":                        { description: "Implementamos adequação à Lei Geral de Proteção de Dados com governança, processos e treinamento.", image: "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=900&q=85" },
+const IMAGES: Record<string, string> = {
+  finance:        "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=900&q=85",
+  health:         "https://images.unsplash.com/photo-1527613426441-4da17471b66d?w=900&q=85",
+  retail:         "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=900&q=85",
+  energy:         "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=900&q=85",
+  manufacturing:  "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=900&q=85",
+  marketing:      "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=900&q=85",
+  marketAnalysis: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=85",
+  operational:    "https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?w=900&q=85",
+  financial:      "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=900&q=85",
+  data:           "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&q=85",
+  product:        "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=900&q=85",
+  web:            "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=900&q=85",
+  creation:       "https://images.unsplash.com/photo-1495364141860-b0d03eccd065?w=900&q=85",
+  corporate:      "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=900&q=85",
+  cnpj:           "https://images.unsplash.com/photo-1664575602554-2087b04935a5?w=900&q=85",
+  docs:           "https://images.unsplash.com/photo-1553484771-371a605b060b?w=900&q=85",
+  operations:     "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=900&q=85",
+  contracts:      "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=900&q=85",
+  tax:            "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=900&q=85",
+  protection:     "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=900&q=85",
+  ip:             "https://images.unsplash.com/photo-1562654501-a0ccc0fc3fb1?w=900&q=85",
+  lgpd:           "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=900&q=85",
 };
 
-const INDUSTRIES   = ["Finanças","Saúde","Varejo","Energia","Manufatura"];
-const CAPABILITIES = [
-  "Plano Estratégico de Marketing","Análise Mercadológica","Plano Operacional",
-  "Viabilidade Financeira","Análise de Dados",
-  "Desenvolvimento de Produtos","Desenvolvimento Web","Criação e Estruturação",
-  "Planejamento Societário","Emissão de CNPJ","Documentos Constitutivos","Operação e Estratégia",
-  "Contratos","Planejamento Tributário","Proteção e Regularização",
-  "Propriedade Intelectual","LGPD",
-];
+const INDUSTRY_IDS    = ["finance","health","retail","energy","manufacturing"] as const;
+const CAPABILITY_IDS  = [
+  "marketing","marketAnalysis","operational","financial","data",
+  "product","web","creation","corporate","cnpj","docs","operations",
+  "contracts","tax","protection","ip","lgpd",
+] as const;
 
 // ─── Keyframes ─────────────────────────────────────────────────────────────────
 const imgEnter  = keyframes`from{opacity:0;transform:translateX(40px)} to{opacity:1;transform:translateX(0)}`;
@@ -109,36 +107,44 @@ const WaveSvg   = styled.div`width:100%;overflow:hidden;line-height:0;background
 
 // ─── ImageCrossfade ────────────────────────────────────────────────────────────
 function ImageCrossfade({ activeKey }: { activeKey: string }) {
-  const [imgs, setImgs] = useState({ current: CONTENT[activeKey].image, prev: null as string | null });
+  const { t } = useTranslation();
+  const [imgs, setImgs] = useState({ current: IMAGES[activeKey], prev: null as string | null });
   const prevKey = useRef(activeKey);
   useEffect(() => {
     if (activeKey === prevKey.current) return;
-    setImgs(s => ({ current: CONTENT[activeKey].image, prev: s.current }));
+    setImgs(s => ({ current: IMAGES[activeKey], prev: s.current }));
     prevKey.current = activeKey;
-    const t = setTimeout(() => setImgs(s => ({ ...s, prev: null })), 600);
-    return () => clearTimeout(t);
+    const timer = setTimeout(() => setImgs(s => ({ ...s, prev: null })), 600);
+    return () => clearTimeout(timer);
   }, [activeKey]);
+  const isIndustry = (INDUSTRY_IDS as readonly string[]).includes(activeKey);
+  const labelKey   = isIndustry
+    ? `interactiveSelector.industries.${activeKey}`
+    : `interactiveSelector.capabilities.${activeKey}`;
   return (
     <ImgWrap>
       {imgs.prev && <Img key={`x-${imgs.prev}`} src={imgs.prev} alt="" $exit />}
       <Img key={`e-${imgs.current}`} src={imgs.current} alt={activeKey} $enter />
       <Overlay />
       <Caption key={activeKey}>
-        <CapTag>{activeKey}</CapTag>
-        <CapText>{CONTENT[activeKey].description}</CapText>
-        <CapLink href="/">Saiba mais →</CapLink>
+        <CapTag>{t(labelKey)}</CapTag>
+        <CapText>{t(`interactiveSelector.descriptions.${activeKey}`)}</CapText>
+        <CapLink href="/">{t("interactiveSelector.learnMore")}</CapLink>
       </Caption>
     </ImgWrap>
   );
 }
 
 // ─── Dropdown ──────────────────────────────────────────────────────────────────
-function Dropdown({ placeholder, options, value, onChange }: { placeholder:string; options:string[]; value:string; onChange:(v:string)=>void }) {
+type DropOption = { id: string; label: string };
+function Dropdown({ placeholder, options, value, onChange }: { placeholder:string; options:DropOption[]; value:string; onChange:(v:string)=>void }) {
   const [open, setOpen] = useState(false);
   const [pos, setPos] = useState({ top: 0, left: 0, width: 0, maxH: 160 });
   const wrapRef = useRef<HTMLDivElement>(null);
   const btnRef  = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
+
+  const selectedLabel = options.find(o => o.id === value)?.label ?? "";
 
   const openMenu = () => {
     if (btnRef.current) {
@@ -170,7 +176,7 @@ function Dropdown({ placeholder, options, value, onChange }: { placeholder:strin
   return (
     <DropWrap ref={wrapRef}>
       <DropBtn ref={btnRef} onClick={openMenu} $open={open} $sel={value !== ""}>
-        <span>{value || placeholder}</span>
+        <span>{selectedLabel || placeholder}</span>
         <BtnRight>
           {value && (
             <ClearBtn onClick={(e) => { e.stopPropagation(); onChange(""); setOpen(false); }}>×</ClearBtn>
@@ -183,12 +189,12 @@ function Dropdown({ placeholder, options, value, onChange }: { placeholder:strin
           <MenuScroll $maxH={pos.maxH}>
             {options.map((opt, idx) => (
               <MenuItem
-                key={opt}
-                $sel={value===opt}
+                key={opt.id}
+                $sel={value === opt.id}
                 $idx={idx}
-                onClick={() => { onChange(value === opt ? "" : opt); setOpen(false); }}
+                onClick={() => { onChange(value === opt.id ? "" : opt.id); setOpen(false); }}
               >
-                {opt}
+                {opt.label}
               </MenuItem>
             ))}
           </MenuScroll>
@@ -201,6 +207,7 @@ function Dropdown({ placeholder, options, value, onChange }: { placeholder:strin
 
 // ─── Main ──────────────────────────────────────────────────────────────────────
 export default function InteractiveSelector() {
+  const { t } = useTranslation();
   const [sel, setSel] = useState({ industry: "", capability: "" });
   const activeKey = sel.capability || sel.industry;
   const isActive  = activeKey !== "";
@@ -208,16 +215,20 @@ export default function InteractiveSelector() {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const canvasRef  = useRef<HTMLCanvasElement>(null);
   useParticles(wrapperRef, canvasRef);
+
+  const industriesList   = INDUSTRY_IDS.map(id => ({ id, label: t(`interactiveSelector.industries.${id}`) }));
+  const capabilitiesList = CAPABILITY_IDS.map(id => ({ id, label: t(`interactiveSelector.capabilities.${id}`) }));
+
   return (
     <Wrapper ref={wrapperRef}>
       <canvas ref={canvasRef} style={{ position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none",zIndex:0 }} />
       <Section $active={isActive}>
         <Left $active={isActive}>
-          <Title>Como podemos<br />te ajudar?</Title>
-          <Subtitle $active={isActive}>Diga-nos o que você precisa e nós o conectaremos com a expertise certa — adaptada ao seu setor e objetivos.</Subtitle>
+          <Title>{t("interactiveSelector.titleLine1")}<br />{t("interactiveSelector.titleLine2")}</Title>
+          <Subtitle $active={isActive}>{t("interactiveSelector.subtitle")}</Subtitle>
           <Controls>
-            <Dropdown placeholder="Indústrias"  options={INDUSTRIES}   value={sel.industry}   onChange={handle("industry")} />
-            <Dropdown placeholder="Capacidades" options={CAPABILITIES} value={sel.capability} onChange={handle("capability")} />
+            <Dropdown placeholder={t("interactiveSelector.industriesLabel")}   options={industriesList}   value={sel.industry}   onChange={handle("industry")} />
+            <Dropdown placeholder={t("interactiveSelector.capabilitiesLabel")} options={capabilitiesList} value={sel.capability} onChange={handle("capability")} />
           </Controls>
         </Left>
       </Section>

@@ -88,7 +88,7 @@ function fibonacciSphere(n: number): Point[] {
   return pts;
 }
 
-const R = 286;
+const R = 229;
 const INITIAL_TILT = -18;
 const RETURN_DELAY = 10000;
 const RETURN_DURATION = 1500;
@@ -532,9 +532,11 @@ const PartnersRows = () => {
       </LeftCol>
 
       <TestimonialPane>
-        <TestimonialLabel>DEPOIMENTOS</TestimonialLabel>
-        <TestimonialTitle>O que eles dizem</TestimonialTitle>
-        <TestimonialRedLine />
+        <TestimonialTitleBlock>
+          <TestimonialLabel>DEPOIMENTOS</TestimonialLabel>
+          <TestimonialTitle>O que eles dizem</TestimonialTitle>
+          <TestimonialRedLine />
+        </TestimonialTitleBlock>
 
         <QuotePair key={pageKey}>
           {currentPair.map((t, i) => (
@@ -574,11 +576,11 @@ export default PartnersRows;
 const Section = styled.section`
   background: white;
   width: 100%;
-  padding: 3rem 3rem;
+  padding: 2.4rem 2.4rem;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.6rem;
   overflow: hidden;
 `;
 
@@ -586,35 +588,36 @@ const TitleBlock = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.75rem;
+  gap: 1.1rem;
 `;
 
 const Label = styled.span`
-  font-family: "Inter", sans-serif;
-  font-size: 13px;
+  font-family: 'Montserrat', Helvetica, sans-serif;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.12em;
-  color: #691212;
+  letter-spacing: 0.14em;
+  color: #C02121;
   text-transform: uppercase;
 `;
 
 const Title = styled.h2`
-  font-family: "Inter", sans-serif;
-  font-size: 36px;
-  font-weight: 800;
-  color: #080f0f;
+  font-family: 'Montserrat', Helvetica, sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #080F0F;
   margin: 0;
   line-height: 1.1;
 
   @media (max-width: 600px) {
-    font-size: 32px;
+    font-size: 26px;
   }
 `;
 
 const RedLine = styled.div`
-  width: 48px;
-  height: 4px;
-  background: #691212;
+  width: 3rem;
+  height: 3px;
+  background: #C02121;
   border-radius: 2px;
 `;
 
@@ -623,8 +626,8 @@ const COL_MIN_HEIGHT = `${R * 2 + 220}px`;
 const Layout = styled.div`
   display: grid;
   grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
-  gap: 3rem;
-  align-items: start;
+  gap: 2.4rem;
+  align-items: stretch;
   width: 100%;
 
   @media (max-width: 1100px) {
@@ -673,50 +676,58 @@ const TestimonialPane = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding-left: 5rem;
-  min-height: ${COL_MIN_HEIGHT};
+  padding-left: 4rem;
+  padding-bottom: 40px;
 
   @media (max-width: 1100px) {
     padding-left: 0;
-    min-height: 0;
+    padding-bottom: 0;
   }
 `;
 
+const TestimonialTitleBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.1rem;
+  margin-bottom: 1.25rem;
+`;
+
 const TestimonialLabel = styled.span`
-  font-family: "Inter", sans-serif;
-  font-size: 13px;
+  font-family: 'Montserrat', Helvetica, sans-serif;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.12em;
-  color: #691212;
+  letter-spacing: 0.14em;
+  color: #C02121;
   text-transform: uppercase;
 `;
 
 const TestimonialTitle = styled.h3`
-  font-family: "Inter", sans-serif;
-  font-size: 36px;
-  font-weight: 800;
-  color: #080f0f;
+  font-family: 'Montserrat', Helvetica, sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #080F0F;
   margin: 0;
   line-height: 1.1;
 
   @media (max-width: 600px) {
-    font-size: 32px;
+    font-size: 26px;
   }
 `;
 
 const TestimonialRedLine = styled.div`
-  width: 48px;
-  height: 4px;
-  background: #691212;
+  width: 3rem;
+  height: 3px;
+  background: #C02121;
   border-radius: 2px;
-  margin-bottom: 1.25rem;
 `;
 
 const QuotePair = styled.div`
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 2rem;
-  margin-left: 1.5rem;
+  gap: 1.6rem;
+  margin-left: 1.2rem;
   flex: 1;
   animation: ${fadeInUp} 0.55s ease forwards;
 
@@ -730,13 +741,13 @@ const QuoteCard = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  min-height: 480px;
+  min-height: 384px;
   height: 100%;
 `;
 
 const QuoteMark = styled.span`
   font-family: Georgia, serif;
-  font-size: 64px;
+  font-size: 51px;
   line-height: 1;
   color: #691212;
   font-weight: 700;
@@ -747,7 +758,7 @@ const QuoteMark = styled.span`
 const QuoteText = styled.p`
   font-family: "Inter", sans-serif;
   font-style: italic;
-  font-size: 17px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 1.7;
   color: #3a3a3a;
@@ -765,7 +776,7 @@ const Person = styled.div`
 const PersonName = styled.p`
   font-family: "Inter", sans-serif;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 13px;
   color: #080f0f;
   margin: 0;
 `;
@@ -773,7 +784,7 @@ const PersonName = styled.p`
 const PersonRole = styled.p`
   font-family: "Inter", sans-serif;
   font-weight: 400;
-  font-size: 15px;
+  font-size: 12px;
   color: #6b6760;
   margin: 0;
 `;
@@ -782,12 +793,7 @@ const Indicators = styled.div`
   display: flex;
   gap: 0.6rem;
   margin-top: auto;
-  padding-top: 1.25rem;
-
-  @media (max-width: 1100px) {
-    margin-top: 1.25rem;
-    padding-top: 0;
-  }
+  padding-top: 0.75rem;
 `;
 
 const Indicator = styled.button`
@@ -868,8 +874,8 @@ const LogoSlot = styled.div`
 
 const LogoImg = styled.img`
   display: block;
-  max-width: 120px;
-  max-height: 60px;
+  max-width: 96px;
+  max-height: 48px;
   object-fit: contain;
   user-select: none;
   -webkit-user-drag: none;

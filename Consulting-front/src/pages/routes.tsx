@@ -15,6 +15,7 @@ import Join from "./join/join"
 import Overview from "./overview/overview"
 import Strategy from "./strategy/strategy"
 import Protection from "./protection/protection"
+import Tech from "./tech/tech"
 
 const routes: RouteObject[] = [{
     path: "/",
@@ -75,6 +76,10 @@ const routes: RouteObject[] = [{
 {
     path: "/join",
     element: <Join />,
+},
+{
+    path: "/tech",
+    element: <Tech />,
 }
 ]
 export default routes
