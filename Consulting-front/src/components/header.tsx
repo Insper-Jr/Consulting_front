@@ -6,12 +6,13 @@ import { useTranslation } from "react-i18next";
 import LogoIJR from "./LogoIJR";
 
 type DropdownKey = "solucoes" | null;
+type Frente = { label: string; to: string };
 
-const FRENTES = [
+const FRENTES: Frente[] = [
   { label: "Business",                to: "/overview?frente=business" },
   { label: "Engenharia & Tecnologia", to: "/overview?frente=tech"     },
   { label: "Direito",                 to: "/overview?frente=direito"  },
-  { label: "Processos",               to: "/overview?frente=processos"},
+  { label: "Processos",               to: "/processos"                },
 ];
 
 const Header = () => {

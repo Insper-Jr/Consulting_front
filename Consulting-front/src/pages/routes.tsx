@@ -11,10 +11,11 @@ import Contact from "./contact/contact"
 import About_Us from "./about_us/about_us"
 import Creation from "./creation/creation"
 import Join from "./join/join"
-
 import Overview from "./overview/overview"
 import Strategy from "./strategy/strategy"
 import Protection from "./protection/protection"
+import Processos from "./processos/processos"
+
 
 const routes: RouteObject[] = [{
     path: "/",
@@ -75,6 +76,11 @@ const routes: RouteObject[] = [{
 {
     path: "/join",
     element: <Join />,
-}
+},
+{
+    path: "/processos",
+    element: <Processos />,
+},
+
 ]
 export default routes
