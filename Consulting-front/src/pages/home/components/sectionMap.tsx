@@ -1,4 +1,5 @@
 import styled, { createGlobalStyle } from "styled-components";
+import { useTranslation } from "react-i18next";
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
@@ -78,19 +79,20 @@ const MapFrame = styled.div`
 `;
 
 export default function OfficeMap() {
+  const { t } = useTranslation();
   return (
     <>
       <GlobalStyle />
       <Section>
         <Header>
-          <Eyebrow>Onde estamos</Eyebrow>
-          <Title>Nosso escritório</Title>
+          <Eyebrow>{t("sectionMap.eyebrow")}</Eyebrow>
+          <Title>{t("sectionMap.title")}</Title>
         </Header>
 
         <Wrap>
           <Panel>
             <div>
-              <OfficeName>São Paulo</OfficeName>
+              <OfficeName>{t("sectionMap.officeName")}</OfficeName>
               <Address>
                 <strong>Insper Jr.</strong>
                 R. Quatá, 200 — 1º Andar<br />
@@ -103,7 +105,7 @@ export default function OfficeMap() {
               href="https://www.google.com/maps/place/R.+Quat%C3%A1,+200+-+1%C2%BA+Andar+-+Vila+Ol%C3%ADmpia,+S%C3%A3o+Paulo+-+SP,+04546-041/@-23.5990549,-46.675479,17z"
               target="_blank" rel="noopener noreferrer"
             >
-              Abrir no Google Maps <span>→</span>
+              {t("sectionMap.mapsLink")} <span>→</span>
             </MapsLink>
           </Panel>
 

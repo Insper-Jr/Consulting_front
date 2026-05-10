@@ -1,0 +1,108 @@
+import React from "react";
+import styled, { keyframes, css } from "styled-components";
+import { useInView } from "@/hooks/useInView";
+
+/* ─── Tokens ─────────────────────────────────────────── */
+const RED    = "#C02121";
+const DARK   = "#1a1a18";
+const MUTED  = "#7a746e";
+const BG     = "#FAF2EA";
+const BORDER = "rgba(26,26,24,0.10)";
+const FONT_TITLE = `'Montserrat', Helvetica, sans-serif`;
+const FONT_BODY  = `'Inter', Helvetica, sans-serif`;
+const SPRING    = "cubic-bezier(0.16,1,0.3,1)";
+
+const fadeUp = keyframes`
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+`;
+
+/* ─── Layout: faixa única, fina, sutil ───────────────── */
+const Strip = styled.section<{ $visible: boolean }>`
+  background: ${BG};
+  border-top: 1px solid ${BORDER};
+  border-bottom: 1px solid ${BORDER};
+  padding: 22px max(40px, calc((100vw - 1200px) / 2));
+  opacity: 0;
+  ${p => p.$visible && css`animation: ${fadeUp} 0.8s ${SPRING} 0.05s forwards;`}
+`;
+
+const Inner = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 28px;
+  align-items: center;
+
+  @media (max-width: 760px) {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+`;
+
+const Eyebrow = styled.span`
+  font-family: ${FONT_TITLE};
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: ${RED};
+  white-space: nowrap;
+`;
+
+const Body = styled.p`
+  font-family: ${FONT_BODY};
+  font-size: 13px;
+  color: ${MUTED};
+  line-height: 1.55;
+  margin: 0;
+
+  strong {
+    color: ${DARK};
+    font-weight: 600;
+  }
+`;
+
+const Tags = styled.div`
+  display: flex;
+  gap: 6px;
+  flex-wrap: nowrap;
+  @media (max-width: 760px) { flex-wrap: wrap; }
+`;
+
+const Tag = styled.span`
+  font-family: ${FONT_TITLE};
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: ${MUTED};
+  border: 1px solid ${BORDER};
+  padding: 5px 8px;
+  white-space: nowrap;
+  border-radius: 2px;
+`;
+
+/* ══════════════════════════════════════════════════════ */
+export default function AboutJuniorMovement() {
+  const { ref, visible } = useInView();
+
+  return (
+    <Strip ref={ref} $visible={visible}>
+      <Inner>
+        <Eyebrow>O que é uma EJ</Eyebrow>
+        <Body>
+          <strong>Empresas Juniores</strong> são consultorias formadas por
+          estudantes universitários, sem fins lucrativos e supervisionadas por
+          professores. Fazemos parte de um movimento nacional de <strong>+600 EJs</strong>.
+        </Body>
+        <Tags>
+          <Tag>Sem fins lucrativos</Tag>
+          <Tag>Supervisionados</Tag>
+          <Tag>+600 EJs no Brasil</Tag>
+        </Tags>
+      </Inner>
+    </Strip>
+  );
+}

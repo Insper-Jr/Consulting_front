@@ -1,33 +1,41 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { X, MagnifyingGlass } from "phosphor-react";
+import { MagnifyingGlass } from "phosphor-react";
 import styled, { css, keyframes } from "styled-components";
 import { useTranslation } from "react-i18next";
 import LogoIJR from "./LogoIJR";
 
 type DropdownKey = "solucoes" | null;
 
+const FRENTES = [
+  { label: "Business",                to: "/overview?frente=business" },
+  { label: "Engenharia & Tecnologia", to: "/tech"                     },
+  { label: "Direito",                 to: "/overview?frente=direito"  },
+  { label: "Processos",               to: "/overview?frente=processos"},
+];
+
 const Header = () => {
   const { t, i18n } = useTranslation();
 
   const NAV_ITEMS = [
-    { label: t("nav.solutions"), key: "solucoes", to: null },
-    { label: t("nav.about"),     key: null,       to: "/about" },
-    { label: t("nav.join"),      key: null,       to: "/join" },
-    { label: t("nav.contact"),   key: null,       to: "/contact" },
+    { label: t("nav.solutions"), key: "solucoes", to: null      },
+    { label: t("nav.about"),     key: null,       to: "/about"  },
+    { label: t("nav.join"),      key: null,       to: "/join"   },
+    { label: t("nav.contact"),   key: null,       to: "/contact"},
   ] as const;
 
   const [isScrolled,     setIsScrolled]     = useState(false);
-  const [headerHovered,  setHeaderHovered]  = useState(false);
   const [sidebarOpen,    setSidebarOpen]    = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<DropdownKey>(null);
   const [searchOpen,     setSearchOpen]     = useState(false);
   const [langOpen,       setLangOpen]       = useState(false);
+  const [sidebarSolOpen, setSidebarSolOpen] = useState(false);
 
   const lang = i18n.language === "en" ? "EN" : "PT";
 
-  const navCloseTimer  = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const langCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const navCloseTimer     = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const langCloseTimer    = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const sidebarCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 50);
@@ -35,22 +43,31 @@ const Header = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
-    document.body.style.overflow = sidebarOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [sidebarOpen]);
+  /* Sidebar hover */
+  const openSidebar = () => {
+    if (sidebarCloseTimer.current) clearTimeout(sidebarCloseTimer.current);
+    setSidebarOpen(true);
+  };
+  const scheduleSidebarClose = () => {
+    sidebarCloseTimer.current = setTimeout(() => setSidebarOpen(false), 350);
+  };
+  const cancelSidebarClose = () => {
+    if (sidebarCloseTimer.current) clearTimeout(sidebarCloseTimer.current);
+  };
 
+  /* Dropdown nav */
   const openNav = (key: DropdownKey) => {
     if (navCloseTimer.current) clearTimeout(navCloseTimer.current);
     setActiveDropdown(key);
   };
   const scheduleNavClose = () => {
-    navCloseTimer.current = setTimeout(() => setActiveDropdown(null), 1200);
+    navCloseTimer.current = setTimeout(() => setActiveDropdown(null), 200);
   };
   const cancelNavClose = () => {
     if (navCloseTimer.current) clearTimeout(navCloseTimer.current);
   };
 
+  /* Lang */
   const openLang = () => {
     if (langCloseTimer.current) clearTimeout(langCloseTimer.current);
     setLangOpen(true);
@@ -62,45 +79,98 @@ const Header = () => {
     if (langCloseTimer.current) clearTimeout(langCloseTimer.current);
   };
 
-const isSolid = isScrolled || activeDropdown === "solucoes";
+  const isSolid = isScrolled;
 
   return (
     <>
-      {sidebarOpen && <SidebarOverlay onClick={() => setSidebarOpen(false)} />}
+      {sidebarOpen && (
+        <SidebarOverlay onClick={() => setSidebarOpen(false)} />
+      )}
 
       {/* ── Sidebar ── */}
-      <Sidebar isOpen={sidebarOpen}>
-        <SidebarTop>
-          <SidebarCloseBtn onClick={() => setSidebarOpen(false)} aria-label="Fechar menu">
-            <X size={24} weight="bold" />
-          </SidebarCloseBtn>
-        </SidebarTop>
+      <Sidebar
+        isOpen={sidebarOpen}
+        onMouseEnter={cancelSidebarClose}
+        onMouseLeave={scheduleSidebarClose}
+      >
+        <SidebarHead>
+          <LogoIJR height={28} color="#fff" />
+        </SidebarHead>
+
+        <SidebarDivider />
+
         <SidebarLinks>
-          {NAV_ITEMS.map((item) => (
-            <SidebarNavLink
-              key={item.label}
-              to={item.to ?? (item.key === "solucoes" ? "/overview" : "/")}
-              onClick={() => setSidebarOpen(false)}
-            >
-              {item.label}
-            </SidebarNavLink>
-          ))}
+          {NAV_ITEMS.map((item) =>
+            item.key === "solucoes" ? (
+              /* ── Soluções com submenu expansível ── */
+              <SidebarSolWrapper
+                key={item.label}
+                onMouseEnter={() => setSidebarSolOpen(true)}
+                onMouseLeave={() => setSidebarSolOpen(false)}
+              >
+                <SidebarNavLink
+                  to="/overview"
+                  onClick={() => setSidebarOpen(false)}
+                >
+                  <span>{item.label}</span>
+                  <SidebarSolCaret isOpen={sidebarSolOpen}>▾</SidebarSolCaret>
+                </SidebarNavLink>
+
+                <SidebarSubMenu isOpen={sidebarSolOpen}>
+                  {FRENTES.map((f) => (
+                    <SidebarSubLink
+                      key={f.label}
+                      to={f.to}
+                      onClick={() => {
+                        setSidebarOpen(false);
+                        setSidebarSolOpen(false);
+                      }}
+                    >
+                      {f.label}
+                    </SidebarSubLink>
+                  ))}
+                </SidebarSubMenu>
+              </SidebarSolWrapper>
+            ) : (
+              <SidebarNavLink
+                key={item.label}
+                to={item.to!}
+                onClick={() => setSidebarOpen(false)}
+              >
+                <span>{item.label}</span>
+                <SidebarArrow>→</SidebarArrow>
+              </SidebarNavLink>
+            )
+          )}
         </SidebarLinks>
+
+        <SidebarDivider />
+
         <SidebarBottom>
+          <SidebarTagline>
+            Consultoria universitária de alto impacto
+          </SidebarTagline>
           <SidebarCTA to="/contact" onClick={() => setSidebarOpen(false)}>
             {t("nav.cta")}
           </SidebarCTA>
         </SidebarBottom>
       </Sidebar>
 
-      {/* ── Header + Dropdown Zone ── */}
-      <HeaderZone onMouseLeave={scheduleNavClose}>
-        <HeaderWrap
-          isSolid={isSolid}
-        >
-          {/* Esquerda */}
+      <HoverTrigger
+        onMouseEnter={openSidebar}
+        onMouseLeave={scheduleSidebarClose}
+      />
+
+      {/* ── Header ── */}
+      <HeaderZone>
+        <HeaderWrap isSolid={isSolid}>
+
           <HeaderLeft>
-            <HamburgerBtn onClick={() => setSidebarOpen(true)} aria-label="Abrir menu">
+            <HamburgerBtn
+              onMouseEnter={openSidebar}
+              onMouseLeave={scheduleSidebarClose}
+              aria-label="Menu"
+            >
               <HamburgerLine />
               <HamburgerLine />
               <HamburgerLine />
@@ -108,37 +178,66 @@ const isSolid = isScrolled || activeDropdown === "solucoes";
             <LogoIJR height={30} color="#fff" />
           </HeaderLeft>
 
-          {/* Centro */}
           <CenterNav>
             {NAV_ITEMS.map((item) =>
               item.key === "solucoes" ? (
-              <NavBtn onMouseEnter={() => openNav("solucoes")}>
-                {item.label}
-                <Arrow isOpen={activeDropdown === "solucoes"}>
-                  <svg viewBox="0 0 24 24">
-                    <path
-                      d="M6 9l6 6 6-6"
-                      stroke="white"
-                      strokeWidth="2"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </Arrow>
-              </NavBtn>
+                /* ── Soluções: dropdown pequeno estilo Visagio ── */
+                <NavItemWrapper
+                  key={item.label}
+                  onMouseEnter={() => openNav("solucoes")}
+                  onMouseLeave={scheduleNavClose}
+                >
+                  <NavBtn>
+                    {item.label}
+                    <Arrow isOpen={activeDropdown === "solucoes"}>
+                      <svg viewBox="0 0 24 24">
+                        <path
+                          d="M6 9l6 6 6-6"
+                          stroke="white"
+                          strokeWidth="2"
+                          fill="none"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </Arrow>
+                  </NavBtn>
+
+                  {activeDropdown === "solucoes" && (
+                    <SmallDropdown
+                      onMouseEnter={cancelNavClose}
+                      onMouseLeave={scheduleNavClose}
+                    >
+                      {FRENTES.map((f) => (
+                        <SmallDropLink
+                          key={f.label}
+                          to={f.to}
+                          onClick={() => setActiveDropdown(null)}
+                        >
+                          {f.label}
+                        </SmallDropLink>
+                      ))}
+                    </SmallDropdown>
+                  )}
+                </NavItemWrapper>
               ) : (
-                <NavBtnLink key={item.label} to={item.to!} onMouseEnter={() => openNav(null)}>
+                <NavBtnLink
+                  key={item.label}
+                  to={item.to!}
+                  onMouseEnter={() => openNav(null)}
+                >
                   {item.label}
                 </NavBtnLink>
               )
             )}
           </CenterNav>
 
-          {/* Direita */}
           <HeaderRight>
             <SearchWrap>
-              <SearchIconBtn onClick={() => setSearchOpen((v) => !v)} aria-label="Buscar">
+              <SearchIconBtn
+                onClick={() => setSearchOpen((v) => !v)}
+                aria-label="Buscar"
+              >
                 <MagnifyingGlass size={19} color="white" weight="regular" />
               </SearchIconBtn>
               <SearchInput
@@ -156,49 +255,29 @@ const isSolid = isScrolled || activeDropdown === "solucoes";
                 <LangCaret isOpen={langOpen}>▾</LangCaret>
               </LangCurrent>
               <LangBridge isOpen={langOpen} />
-              <LangMenu isOpen={langOpen} onMouseEnter={cancelLangClose} onMouseLeave={scheduleLangClose}>
-                <LangOpt isActive={lang === "PT"} onClick={() => { i18n.changeLanguage("pt"); setLangOpen(false); }}>PT</LangOpt>
-                <LangOpt isActive={lang === "EN"} onClick={() => { i18n.changeLanguage("en"); setLangOpen(false); }}>EN</LangOpt>
+              <LangMenu
+                isOpen={langOpen}
+                onMouseEnter={cancelLangClose}
+                onMouseLeave={scheduleLangClose}
+              >
+                <LangOpt
+                  isActive={lang === "PT"}
+                  onClick={() => { i18n.changeLanguage("pt"); setLangOpen(false); }}
+                >
+                  PT
+                </LangOpt>
+                <LangOpt
+                  isActive={lang === "EN"}
+                  onClick={() => { i18n.changeLanguage("en"); setLangOpen(false); }}
+                >
+                  EN
+                </LangOpt>
               </LangMenu>
             </LangWrap>
 
             <HeaderCTA to="/contact">{t("nav.cta")}</HeaderCTA>
           </HeaderRight>
         </HeaderWrap>
-
-        {/* ── Dropdown Nossas Soluções ── */}
-        {activeDropdown === "solucoes" && (
-          <DropdownPanel onMouseEnter={cancelNavClose} onMouseLeave={scheduleNavClose}>
-            <DropdownInner>
-              <DropCol>
-                <DropColTitle>{t("dropdown.business.title")}</DropColTitle>
-                <DropLink to="/marketing">{t("dropdown.business.marketing")}</DropLink>
-                <DropLink to="/market">{t("dropdown.business.market")}</DropLink>
-                <DropLink to="/operational">{t("dropdown.business.operational")}</DropLink>
-                <DropLink to="/financial">{t("dropdown.business.financial")}</DropLink>
-              </DropCol>
-              <DropCol>
-                <DropColTitle>{t("dropdown.tech.title")}</DropColTitle>
-                <DropLink to="/data">{t("dropdown.tech.data")}</DropLink>
-                <DropLink to="/products">{t("dropdown.tech.products")}</DropLink>
-                <DropLink to="/devweb">{t("dropdown.tech.devweb")}</DropLink>
-              </DropCol>
-              <DropCol>
-                <DropColTitle>{t("dropdown.law.title")}</DropColTitle>
-                <DropSubTitle>{t("dropdown.law.creation.title")}</DropSubTitle>
-                <DropLink to="/creation?tab=0">{t("dropdown.law.creation.planning")}</DropLink>
-                <DropLink to="/creation?tab=1">{t("dropdown.law.creation.cnpj")}</DropLink>
-                <DropLink to="/creation?tab=2">{t("dropdown.law.creation.docs")}</DropLink>
-                <DropSubTitle>{t("dropdown.law.strategy.title")}</DropSubTitle>
-                <DropLink to="/strategy?tab=0">{t("dropdown.law.strategy.contract")}</DropLink>
-                <DropLink to="/strategy?tab=1">{t("dropdown.law.strategy.tax")}</DropLink>
-                <DropSubTitle>{t("dropdown.law.protection.title")}</DropSubTitle>
-                <DropLink to="/protection?tab=0">{t("dropdown.law.protection.ip")}</DropLink>
-                <DropLink to="/protection?tab=1">{t("dropdown.law.protection.lgpd")}</DropLink>
-              </DropCol>
-            </DropdownInner>
-          </DropdownPanel>
-        )}
       </HeaderZone>
     </>
   );
@@ -206,11 +285,16 @@ const isSolid = isScrolled || activeDropdown === "solucoes";
 
 export default Header;
 
-// ── Styled Components ─────────────────────────────────────────────────────────
+// ── Styled Components ────────────────────────────────────────────────────────
 
 const fadeIn = keyframes`
   from { opacity: 0; }
   to   { opacity: 1; }
+`;
+
+const slideIn = keyframes`
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
 `;
 
 const HeaderZone = styled.div`
@@ -223,113 +307,237 @@ const HeaderZone = styled.div`
 const SidebarOverlay = styled.div`
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(0, 0, 0, 0.45);
   z-index: 1099;
-  animation: ${fadeIn} 0.25s ease;
+  animation: ${fadeIn} 0.2s ease;
 `;
 
+/* ── Sidebar ── */
 const Sidebar = styled.aside<{ isOpen: boolean }>`
   position: fixed;
   top: 0; left: 0;
-  width: 320px;
+  width: 300px;
   height: 100dvh;
-  background: #080F0F;
-  border-right: 1px solid rgba(255, 255, 255, 0.07);
+  background: #0e0404;
+  border-right: 1px solid rgba(192, 33, 33, 0.2);
   z-index: 1200;
   display: flex;
   flex-direction: column;
   transform: translateX(${({ isOpen }) => (isOpen ? "0" : "-100%")});
-  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
   @media (max-width: 360px) { width: 100vw; }
 `;
 
-const SidebarTop = styled.div`
-  padding: 1.5rem 1.5rem 1rem;
+const SidebarHead = styled.div`
+  padding: 1.5rem 2rem;
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
 `;
 
-const SidebarCloseBtn = styled.button`
-  background: none; border: none;
-  color: rgba(255, 255, 255, 0.6);
-  cursor: pointer; padding: 0.4rem;
-  border-radius: 4px; transition: color 0.2s; line-height: 0;
-  &:hover { color: #fff; }
+const SidebarDivider = styled.div`
+  height: 1px;
+  background: rgba(255, 255, 255, 0.06);
+  margin: 0 2rem;
 `;
 
 const SidebarLinks = styled.nav`
   flex: 1;
-  display: flex; flex-direction: column;
-  padding: 1rem 2rem; gap: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
 `;
 
 const SidebarNavLink = styled(Link)`
-  color: rgba(255, 255, 255, 0.75);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: rgba(255, 255, 255, 0.65);
   text-decoration: none;
   font-family: "Montserrat", sans-serif;
-  font-size: 1.05rem; font-weight: 500; letter-spacing: 0.02em;
-  padding: 0.75rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  transition: color 0.2s, padding-left 0.2s;
-  &:hover { color: #fff; padding-left: 0.5rem; }
-  &:last-child { border-bottom: none; }
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 0.85rem 2rem;
+  transition: color 0.2s, background 0.2s, padding-left 0.2s;
+
+  &:hover {
+    color: #fff;
+    background: rgba(192, 33, 33, 0.08);
+    padding-left: 2.3rem;
+  }
+
+  animation: ${slideIn} 0.3s ease both;
 `;
 
-const SidebarBottom = styled.div`padding: 2rem;`;
+const SidebarArrow = styled.span`
+  margin-left: auto;
+  opacity: 0;
+  font-size: 0.8rem;
+  color: #C02121;
+  transition: opacity 0.2s, transform 0.2s;
+
+  ${SidebarNavLink}:hover & {
+    opacity: 1;
+    transform: translateX(4px);
+  }
+`;
+
+/* ── Sidebar Soluções expand ── */
+const SidebarSolWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const SidebarSolCaret = styled.span<{ isOpen: boolean }>`
+  margin-left: auto;
+  font-size: 0.85rem;
+  color: #C02121;
+  opacity: 0.85;
+  transition: transform 0.25s ease;
+  transform: ${({ isOpen }) => (isOpen ? "rotate(180deg)" : "rotate(0deg)")};
+`;
+
+const SidebarSubMenu = styled.div<{ isOpen: boolean }>`
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  max-height: ${({ isOpen }) => (isOpen ? "240px" : "0")};
+  transition: max-height 0.42s ease;
+  background: rgba(0, 0, 0, 0.25);
+`;
+
+const SidebarSubLink = styled(Link)`
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  padding: 0.6rem 2rem 0.6rem 2.75rem;
+  border-left: 2px solid transparent;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+
+  &:hover {
+    color: #fff;
+    background: rgba(192, 33, 33, 0.08);
+    border-left-color: #C02121;
+  }
+`;
+
+const SidebarBottom = styled.div`
+  padding: 1.5rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+`;
+
+const SidebarTagline = styled.p`
+  font-family: "Inter", sans-serif;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.25);
+  line-height: 1.5;
+  margin: 0;
+  letter-spacing: 0.01em;
+`;
 
 const SidebarCTA = styled(Link)`
-  display: block; text-align: center;
-  background: #C02121; color: #fff;
+  display: block;
+  text-align: center;
+  background: #C02121;
+  color: #fff;
   font-family: "Montserrat", sans-serif;
-  font-size: 0.9rem; font-weight: 700;
-  letter-spacing: 0.06em; text-transform: uppercase;
-  text-decoration: none; padding: 0.85rem 1.5rem;
-  border-radius: 4px; transition: background 0.25s;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.85rem 1.5rem;
+  border-radius: 2px;
+  transition: background 0.25s;
+
   &:hover { background: #691212; }
 `;
 
+/* ── Header ── */
 const HeaderWrap = styled.header<{ isSolid: boolean }>`
   position: fixed;
   top: 0; left: 0; right: 0;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 2rem; height: 4.5rem;
-  background: ${({ isSolid }) => isSolid ? "rgba(8, 15, 15, 0.97)" : "transparent"};
-  backdrop-filter: ${({ isSolid }) => isSolid ? "blur(8px)" : "none"};
-  border-bottom: ${({ isSolid }) => isSolid ? "1px solid rgba(255,255,255,0.06)" : "none"};
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 4.5rem;
+  background: ${({ isSolid }) =>
+    isSolid ? "rgba(14, 4, 4, 0.97)" : "transparent"};
+  backdrop-filter: ${({ isSolid }) => (isSolid ? "blur(8px)" : "none")};
+  border-bottom: ${({ isSolid }) =>
+    isSolid ? "1px solid rgba(255,255,255,0.06)" : "none"};
   transition: background 0.3s ease, border-color 0.3s ease;
   z-index: 1000;
   font-family: "Montserrat", sans-serif;
 `;
 
 const HeaderLeft = styled.div`
-  display: flex; align-items: center; gap: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  cursor: default;
+  padding: 0.5rem 0.5rem 0.5rem 0;
 `;
 
-const HamburgerBtn = styled.button`
-  background: none; border: none; cursor: pointer;
-  padding: 0.4rem; display: flex; flex-direction: column;
-  gap: 5px; line-height: 0; transition: opacity 0.2s;
-  &:hover { opacity: 0.7; }
+const HamburgerBtn = styled.div`
+  padding: 0.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  line-height: 0;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+
+  ${HeaderLeft}:hover & { opacity: 1; }
 `;
 
 const HamburgerLine = styled.span`
-  display: block; width: 22px; height: 2px;
-  background: #fff; border-radius: 2px;
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: width 0.2s;
+
+  &:nth-child(2) { width: 16px; }
+  ${HeaderLeft}:hover &:nth-child(2) { width: 22px; }
 `;
 
 const CenterNav = styled.nav`
-  display: flex; align-items: center; gap: 0.25rem;
-  position: absolute; left: 50%; transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+
   @media (max-width: 900px) { display: none; }
+`;
+
+/* ── Nav item wrapper for relative positioning of small dropdown ── */
+const NavItemWrapper = styled.div`
+  position: relative;
+  display: inline-flex;
+  align-items: center;
 `;
 
 const navItemBase = css`
   color: rgba(255, 255, 255, 0.85);
   font-family: "Montserrat", sans-serif;
-  font-size: 0.875rem; font-weight: 500;
-  letter-spacing: 0.02em; text-decoration: none;
-  padding: 0.5rem 0.85rem; border-radius: 4px;
-  cursor: pointer; transition: color 0.2s, background 0.2s;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  padding: 0.5rem 0.85rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s;
   white-space: nowrap;
   &:hover { color: #fff; background: rgba(255, 255, 255, 0.07); }
 `;
@@ -338,18 +546,71 @@ const NavBtn = styled.div`
   ${navItemBase}
   display: inline-flex;
   align-items: center;
-  gap: 6px; /* espaço entre texto e seta */
+  gap: 6px;
 `;
 
 const NavBtnLink = styled(Link)`${navItemBase}`;
 
+/* ── Small dropdown (Visagio-style) ── */
+const SmallDropdown = styled.div`
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding-top: 8px; /* bridge gap — mantém hover ao cruzar o espaço */
+  background: transparent;
+  z-index: 998;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 8px; left: 0; right: 0; bottom: 0;
+    background: rgba(14, 4, 4, 0.97);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(192, 33, 33, 0.08);
+    z-index: -1;
+  }
+
+  animation: ${fadeIn} 0.12s ease;
+`;
+
+const SmallDropLink = styled(Link)`
+  display: block;
+  color: rgba(255, 255, 255, 0.72);
+  text-decoration: none;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.68rem 1.25rem;
+  min-width: 180px;
+  border-left: 2px solid transparent;
+  transition: color 0.15s, background 0.15s, border-color 0.15s, padding-left 0.15s;
+
+  &:hover {
+    color: #fff;
+    background: rgba(192, 33, 33, 0.1);
+    border-left-color: #C02121;
+    padding-left: 1.5rem;
+  }
+
+  &:first-child { border-radius: 5px 5px 0 0; padding-top: 0.9rem; }
+  &:last-child  { border-radius: 0 0 5px 5px; padding-bottom: 0.9rem; }
+`;
+
 const HeaderRight = styled.div`
-  display: flex; align-items: center; gap: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
   @media (max-width: 900px) { gap: 0.5rem; }
 `;
 
 const SearchWrap = styled.div`
-  display: flex; align-items: center; gap: 0.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
 `;
 
 const SearchIconBtn = styled.button`
@@ -389,7 +650,8 @@ const LangCurrent = styled.div`
 `;
 
 const LangCaret = styled.span<{ isOpen: boolean }>`
-  font-size: 0.7rem; transition: transform 0.2s;
+  font-size: 0.7rem;
+  transition: transform 0.2s;
   transform: ${({ isOpen }) => (isOpen ? "rotate(180deg)" : "rotate(0)")};
 `;
 
@@ -401,7 +663,7 @@ const LangBridge = styled.div<{ isOpen: boolean }>`
 const LangMenu = styled.div<{ isOpen: boolean }>`
   position: absolute; top: calc(100% + 8px); left: 50%;
   transform: translateX(-50%);
-  background: rgba(8, 15, 15, 0.97);
+  background: rgba(14, 4, 4, 0.97);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 4px; overflow: hidden;
   display: ${({ isOpen }) => (isOpen ? "block" : "none")};
@@ -430,74 +692,27 @@ const HeaderCTA = styled(Link)`
   @media (max-width: 900px) { display: none; }
 `;
 
-const DropdownPanel = styled.div`
-  position: fixed; top: 4.5rem; left: 0; right: 0;
-  background: rgba(8, 15, 15, 0.97);
-  backdrop-filter: blur(8px);
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  z-index: 997; padding: 2.5rem 0;
-  animation: ${fadeIn} 0.18s ease;
-`;
-
-const DropdownInner = styled.div`
-  max-width: 1100px; margin: 0 auto; padding: 0 2rem;
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
-  @media (max-width: 900px) { grid-template-columns: 1fr; gap: 1.5rem; }
-`;
-
-const DropCol = styled.div`
-  display: flex; flex-direction: column; gap: 0.35rem;
-`;
-
-const DropColTitle = styled.h3`
-  font-family: "Montserrat", sans-serif; color: #fff;
-  font-size: 0.85rem; font-weight: 700; letter-spacing: 0.08em;
-  text-transform: uppercase; margin-bottom: 0.75rem;
-  padding-bottom: 0.6rem; border-bottom: 2px solid #C02121;
-`;
-
-const DropSubTitle = styled.p`
-  font-family: "Montserrat", sans-serif;
-  color: rgba(255, 255, 255, 0.45);
-  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em;
-  text-transform: uppercase; margin-top: 0.75rem; margin-bottom: 0.25rem;
-`;
-
-const DropLink = styled(Link)`
-  color: rgba(255, 255, 255, 0.7); text-decoration: none;
-  font-family: "Montserrat", sans-serif;
-  font-size: 0.85rem; font-weight: 400; padding: 0.3rem 0;
-  transition: color 0.2s, padding-left 0.2s;
-  &:hover { color: #fff; padding-left: 0.4rem; }
-`;
-
 const Arrow = styled.span<{ isOpen: boolean }>`
-  margin-left: 8px;
-
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-
+  width: 20px; height: 20px; border-radius: 50%;
   background: ${({ isOpen }) =>
     isOpen ? "#C02121" : "rgba(192, 33, 33, 0.15)"};
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-
+  display: flex; align-items: center; justify-content: center;
   transition: background 0.25s ease;
 
   svg {
-    width: 15px;
-    height: 15px;
-
-    display: block; 
-
+    width: 15px; height: 15px; display: block;
     transform: ${({ isOpen }) =>
       isOpen ? "rotate(180deg)" : "rotate(0deg)"};
-
     transition: transform 0.25s ease;
   }
+`;
+
+const HoverTrigger = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 56px;
+  height: 100vh;
+  z-index: 996;
+  pointer-events: auto;
 `;
