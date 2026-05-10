@@ -6,6 +6,7 @@ import Footer from "../../components/footerNovo";
 import WppButton from "../../components/wppButton";
 import WalleCase from "./components/walleCase";
 import GamifCase from "./components/gamifCase";
+import MedCase from "./components/medCase";
 
 // ── Color tokens (from HTML reference) ──────────────────────────────────────
 const COLORS = {
@@ -541,6 +542,8 @@ function Tech() {
 
           {/* Case Gamificação after Escopo 02 (Desenvolvimento Web) */}
           {i === 1 && <GamifCase />}
+          {/* Case Medicina I — logo abaixo do Gamificação, mesmo escopo (Web) */}
+          {i === 1 && <MedCase />}
         </React.Fragment>
       ))}
 

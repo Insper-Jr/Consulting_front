@@ -1,10 +1,22 @@
 import { useEffect, useRef, useState } from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
-import obrasImg     from "../../../assets/gamificacao/obras.png";
-import rankingImg   from "../../../assets/gamificacao/ranking.png";
-import top20Img     from "../../../assets/gamificacao/top20.png";
-import segurancaImg from "../../../assets/gamificacao/seguranca.png";
+import slideProblema   from "../../../assets/gamificacao/slides/01-problema.png";
+import slideSolucao    from "../../../assets/gamificacao/slides/02-solucao.png";
+import slidePlataforma from "../../../assets/gamificacao/slides/03-plataforma.png";
+
+import painel01Visao        from "../../../assets/gamificacao/slides/painel/01-visao.png";
+import painel02Acomp        from "../../../assets/gamificacao/slides/painel/02-acomp.png";
+import painel03Gestao       from "../../../assets/gamificacao/slides/painel/03-gestao.png";
+import painel04Equipes      from "../../../assets/gamificacao/slides/painel/04-equipes.png";
+import painel05Funcionarios from "../../../assets/gamificacao/slides/painel/05-funcionarios.png";
+import painel06Validacoes   from "../../../assets/gamificacao/slides/painel/06-validacoes.png";
+import painel07Cargos       from "../../../assets/gamificacao/slides/painel/07-cargos.png";
+import painel08Dashboard    from "../../../assets/gamificacao/slides/painel/08-dashboard.png";
+import painel09Dashboard2   from "../../../assets/gamificacao/slides/painel/09-dashboard2.png";
+import painel10Operario     from "../../../assets/gamificacao/slides/painel/10-operario.png";
+import painel11Ranking      from "../../../assets/gamificacao/slides/painel/11-operario-ranking.png";
+import painel12Top20        from "../../../assets/gamificacao/slides/painel/12-operario-top20.png";
 
 // ── Tokens (mirrors parent page) ──────────────────────────────────────────
 const C = {
@@ -18,14 +30,231 @@ const FONT_TITLE = `"Montserrat", Helvetica, sans-serif`;
 const FONT_BODY  = `"Inter", Helvetica, sans-serif`;
 const FONT_MONO  = `ui-monospace, "SF Mono", Menlo, monospace`;
 
-const TOTAL_SLIDES = 5;
+// ── Slide deck data ─────────────────────────────────────────────────────────
+const SLIDES = [
+  { id: "problema",   img: slideProblema,   alt: "Baixa Produtividade e Falta de Engajamento em Obras", cap: "01 · Problema" },
+  { id: "solucao",    img: slideSolucao,    alt: "Aumento da Produtividade Através de Gamificação",     cap: "02 · Solução" },
+  { id: "plataforma", img: slidePlataforma, alt: "Nossa Solução: Plataforma de Gamificação Para Obras", cap: "03 · Plataforma" },
+];
+const TOTAL_SLIDES = SLIDES.length;
 
-// ── Shots data ─────────────────────────────────────────────────────────────
+// ── Shots data (painel do gestor — 10 telas) ───────────────────────────────
+// Blurs sobre o slide "Gestão de Obras" (4 cards: 3 no topo + 1 abaixo).
+// Coordenadas em % do recorte 16:9 (2667x1500).
+// Cada card tem: (1) título+código  (2) responsável  (3) data início
+// (4) data fim previsto  (5) número de blocos. Width/height opcionais
+// sobrescrevem o default 4%x3.5% do BlurMask.
+const GESTAO_BLURS: Array<{ top: string; left: string; width?: string; height?: string }> = [
+  // Títulos + códigos (existentes — usam default 4%x3.5%)
+  { top: "40.2%", left: "25.2%" }, // Vizcaya / VIZ
+  { top: "40.2%", left: "46.1%" }, // Villa Lobos / CPF.01.0001
+  { top: "40.2%", left: "67.1%" }, // Teste / OBR-001
+  { top: "65.4%", left: "25.2%" }, // Bs Gold / BSG
+  // Vizcaya — campos sensíveis (offset x=53 para limpar ícones)
+  { top: "45.73%", left: "25.98%", width: "5.70%", height: "1.47%" }, // resp
+  { top: "49.20%", left: "25.98%", width: "5.14%", height: "1.87%" }, // inicio
+  { top: "53.07%", left: "25.98%", width: "5.14%", height: "1.87%" }, // fim
+  { top: "55.60%", left: "26.24%", width: "2.74%", height: "1.33%" }, // blocos (shift +7px, narrow)
+  // Villa Lobos
+  { top: "45.73%", left: "46.83%", width: "5.70%", height: "1.47%" },
+  { top: "49.20%", left: "46.83%", width: "5.14%", height: "1.87%" },
+  { top: "53.07%", left: "46.83%", width: "5.14%", height: "1.87%" },
+  { top: "55.60%", left: "47.09%", width: "2.74%", height: "1.33%" }, // blocos
+  // Teste
+  { top: "45.73%", left: "67.68%", width: "5.70%", height: "1.47%" },
+  { top: "49.20%", left: "67.68%", width: "5.14%", height: "1.87%" },
+  { top: "53.07%", left: "67.68%", width: "5.14%", height: "1.87%" },
+  { top: "55.60%", left: "67.94%", width: "2.74%", height: "1.33%" }, // blocos
+  // Bs Gold (segunda linha, +25% no top)
+  { top: "70.73%", left: "25.98%", width: "5.70%", height: "1.47%" },
+  { top: "74.20%", left: "25.98%", width: "5.14%", height: "1.87%" },
+  { top: "78.07%", left: "25.98%", width: "5.14%", height: "1.87%" },
+  { top: "80.60%", left: "26.24%", width: "2.74%", height: "1.33%" }, // blocos
+  // Contadores Pacotes/Ativos/Trilhas Ativas — calibrados per-card via pixel-detect
+  // Vizcaya (4/0/0)
+  { top: "58.27%", left: "25.20%", width: "0.60%", height: "1.20%" }, // pacotes
+  { top: "58.27%", left: "28.12%", width: "0.55%", height: "1.20%" }, // ativos
+  { top: "58.27%", left: "30.67%", width: "0.55%", height: "1.20%" }, // trilhas
+  // Villa Lobos (2/0/0)
+  { top: "58.27%", left: "46.12%", width: "0.51%", height: "1.20%" },
+  { top: "58.27%", left: "49.01%", width: "0.59%", height: "1.20%" },
+  { top: "58.27%", left: "51.59%", width: "0.55%", height: "1.20%" },
+  // Teste (3/0/0)
+  { top: "58.27%", left: "67.04%", width: "0.51%", height: "1.20%" },
+  { top: "58.27%", left: "69.93%", width: "0.55%", height: "1.20%" },
+  { top: "58.27%", left: "72.48%", width: "0.59%", height: "1.20%" },
+  // Bs Gold (1/0/0)
+  { top: "83.40%", left: "25.20%", width: "0.45%", height: "1.20%" },
+  { top: "83.40%", left: "28.01%", width: "0.59%", height: "1.20%" },
+  { top: "83.40%", left: "30.60%", width: "0.55%", height: "1.20%" },
+];
+
+// ── Blurs do slide "Gestão de Equipes" — 16 campos sensíveis ──────────────
+// Cabeçalho da obra: Vizcaya / VIZ / 10 pavimentos / 3 datas (Início, Fim
+// Previsto, Fim Contrato). Cards A1 e B1: títulos + 4 nomes de funcionários
+// cada (2 profissionais + 2 auxiliares). Coordenadas pixel-detect via 8x zoom.
+const EQUIPES_BLURS: Array<{ top: string; left: string; width?: string; height?: string }> = [
+  // Cabeçalho da obra
+  { top: "30.67%", left: "24.18%", width: "4.54%", height: "2.40%" }, // Vizcaya
+  { top: "34.20%", left: "24.18%", width: "1.01%", height: "1.20%" }, // VIZ
+  { top: "34.20%", left: "25.87%", width: "3.71%", height: "1.20%" }, // 10 pavimentos
+  { top: "37.47%", left: "25.83%", width: "2.96%", height: "1.13%" }, // 27/01/2026
+  { top: "37.47%", left: "32.88%", width: "2.92%", height: "1.13%" }, // 26/02/2026
+  { top: "37.47%", left: "40.12%", width: "2.96%", height: "1.13%" }, // 28/02/2026
+  // Card A1
+  { top: "51.07%", left: "24.90%", width: "2.00%", height: "2.50%" }, // A1
+  { top: "58.80%", left: "25.65%", width: "5.36%", height: "1.07%" }, // Daniel Jorge De Lima
+  { top: "62.27%", left: "25.61%", width: "5.36%", height: "1.20%" }, // Jeova Santos Targino
+  { top: "68.67%", left: "25.65%", width: "4.54%", height: "1.07%" }, // Lucas Freitas Silva
+  { top: "72.13%", left: "25.61%", width: "6.52%", height: "1.20%" }, // Joao Manoel Lima Duarte
+  // Card B1
+  { top: "51.07%", left: "45.82%", width: "2.00%", height: "2.50%" }, // B1
+  { top: "58.80%", left: "46.64%", width: "6.45%", height: "1.07%" }, // Francisco Silveira Queiroz
+  { top: "62.27%", left: "46.64%", width: "5.36%", height: "1.20%" }, // Daniel Jorge De Lima (B1)
+  { top: "68.67%", left: "46.61%", width: "5.70%", height: "1.07%" }, // Agnaldo Ferreira Vidal
+  { top: "72.13%", left: "46.61%", width: "8.92%", height: "1.20%" }, // Claudio Henrique De Paula Moreno
+];
+
+// ── Blurs do slide "Gestão de Funcionários" — 12 campos sensíveis ─────────
+// Mesma estrutura de cabeçalho do slide equipes (Vizcaya/VIZ/datas) +
+// 4 números de stats (Total/Profissionais/Auxiliares/Ativos) + 2 nomes
+// de funcionários da lista. Coordenadas pixel-detect.
+const FUNC_BLURS: Array<{ top: string; left: string; width?: string; height?: string }> = [
+  // Cabeçalho da obra (mesmas posições do slide equipes)
+  { top: "30.67%", left: "24.18%", width: "4.54%", height: "2.40%" }, // Vizcaya
+  { top: "34.20%", left: "24.18%", width: "1.01%", height: "1.20%" }, // VIZ
+  { top: "34.20%", left: "25.87%", width: "3.71%", height: "1.20%" }, // 10 pavimentos
+  { top: "37.47%", left: "25.83%", width: "2.96%", height: "1.13%" }, // 27/01/2026
+  { top: "37.47%", left: "32.88%", width: "2.92%", height: "1.13%" }, // 26/02/2026
+  { top: "37.47%", left: "40.12%", width: "2.96%", height: "1.13%" }, // 28/02/2026
+  // 4 stat numbers (47/21/26/47) — apenas o dígito, sem o ícone
+  // Dígitos em y=830-847 (~18px). Mask y=825-852 com margem mínima.
+  { top: "55.00%", left: "26.30%", width: "1.20%", height: "1.80%" }, // Total 47
+  { top: "55.00%", left: "41.92%", width: "0.94%", height: "1.80%" }, // Profissionais 21
+  { top: "55.00%", left: "57.52%", width: "1.16%", height: "1.80%" }, // Auxiliares 26
+  { top: "55.00%", left: "73.12%", width: "1.16%", height: "1.80%" }, // Ativos 47
+  // 2 employee names
+  { top: "74.33%", left: "25.80%", width: "5.77%", height: "1.20%" }, // Agnaldo Ferreira Vidal
+  { top: "79.73%", left: "25.80%", width: "7.72%", height: "1.13%" }, // Alan Gerfeson Pereira Da Silva
+];
+
+// ── Blurs do slide "Gestão de Cargos" — 20 campos sensíveis ───────────────
+// 4 stats grandes (16/9/7/205) + 4 subtítulos abaixo + 6 nomes de cargos
+// (Bombeiro/Carpinteiro/Eletricista/Ferreiro/Gesseiro/Operador de Betoneira)
+// + 6 números de funcionários por cargo (11/5/10/0/1/1).
+const CARGOS_BLURS: Array<{ top: string; left: string; width?: string; height?: string }> = [
+  // 4 big stat numbers
+  { top: "36.33%", left: "25.20%", width: "1.31%", height: "2.67%" }, // 16
+  { top: "36.33%", left: "40.83%", width: "3.52%", height: "2.67%" }, // 9 (icon + digit)
+  { top: "36.33%", left: "56.39%", width: "3.56%", height: "2.67%" }, // 7 (icon + digit)
+  { top: "36.33%", left: "71.99%", width: "4.20%", height: "2.67%" }, // 205
+  // Pequenos números do subtítulo — dígitos em y=586-595, ~10px tall
+  { top: "38.87%", left: "25.16%", width: "0.41%", height: "1.07%" }, // 0
+  { top: "38.87%", left: "40.91%", width: "0.79%", height: "1.07%" }, // 102
+  { top: "38.87%", left: "56.51%", width: "0.79%", height: "1.07%" }, // 103
+  // 6 cargo names (left column) + 6 Funcionários counts (middle column)
+  { top: "55.00%", left: "25.80%", width: "2.62%", height: "2.00%" }, // Bombeiro
+  { top: "55.00%", left: "59.96%", width: "0.67%", height: "2.00%" }, // 11
+  { top: "60.27%", left: "25.80%", width: "2.96%", height: "1.87%" }, // Carpinteiro
+  { top: "60.27%", left: "60.07%", width: "0.49%", height: "1.87%" }, // 5
+  { top: "65.53%", left: "25.80%", width: "2.55%", height: "1.87%" }, // Eletricista
+  { top: "65.53%", left: "59.96%", width: "0.75%", height: "1.87%" }, // 10
+  { top: "70.80%", left: "25.80%", width: "2.14%", height: "2.13%" }, // Ferreiro
+  { top: "70.80%", left: "60.07%", width: "0.49%", height: "2.13%" }, // 0
+  { top: "76.13%", left: "25.80%", width: "2.29%", height: "1.87%" }, // Gesseiro
+  { top: "76.13%", left: "60.10%", width: "0.37%", height: "1.87%" }, // 1
+  { top: "81.33%", left: "25.80%", width: "5.89%", height: "1.93%" }, // Operador de Betoneira
+  { top: "81.33%", left: "60.10%", width: "0.37%", height: "1.93%" }, // 1
+];
+
+// ── Blurs do slide "Dashboard de Desempenho" — 6 campos sensíveis ─────────
+// 4 stats no topo (2/21/A1/Daniel Jorge De Lima) + 2 equipes na tabela (A1/B1).
+const DASH2_BLURS: Array<{ top: string; left: string; width?: string; height?: string }> = [
+  { top: "30.87%", left: "34.23%", width: "0.60%", height: "1.33%" }, // 2 Equipes Listadas
+  { top: "30.87%", left: "47.88%", width: "0.82%", height: "1.33%" }, // 21 Funcionários Listados
+  { top: "30.87%", left: "61.57%", width: "0.94%", height: "1.33%" }, // A1 Equipe em 1° Lugar
+  { top: "30.87%", left: "72.37%", width: "6.94%", height: "1.33%" }, // Daniel Jorge De Lima
+  { top: "71.67%", left: "30.30%", width: "0.82%", height: "1.47%" }, // A1 (tabela equipes)
+  { top: "75.47%", left: "30.33%", width: "0.75%", height: "1.53%" }, // B1 (tabela equipes)
+  // Alertas operacionais
+  { top: "69.13%", left: "56.62%", width: "10.87%", height: "1.07%" }, // Prazo da obra vencido
+  { top: "73.13%", left: "56.62%", width: "8.70%", height: "1.07%" }, // Nenhum pacote encerrado
+];
+
+// ── Blurs do slide "Visão do Operário: Seleção de Obra" — 20 campos ───────
+// 4 cards (3 no topo + 1 abaixo). Cada card tem 5 elementos sensíveis.
+// IMPORTANTE: Card 1 (Vizcaya) não tem subtítulo "Gestor", mas cards 2/3/4
+// têm — por isso os números/datas ficam em Y diferente.
+const OPERARIO_BLURS: Array<{ top: string; left: string; width?: string; height?: string }> = [
+  // Card 1 — Vizcaya (sem Gestor: digits/date em y=520-534)
+  { top: "27.00%", left: "14.92%", width: "2.02%", height: "2.47%" }, // VIZ tag
+  { top: "30.13%", left: "14.92%", width: "3.00%", height: "2.67%" }, // Vizcaya
+  { top: "34.33%", left: "15.22%", width: "1.05%", height: "1.67%" }, // 2 equipes
+  { top: "34.33%", left: "17.17%", width: "1.01%", height: "1.67%" }, // 4 pacotes
+  { top: "34.33%", left: "34.12%", width: "3.07%", height: "1.67%" }, // 27/01/2026
+  // Card 2 — Villa Lobos (com Gestor: digits/date em y=540-556)
+  { top: "27.00%", left: "39.37%", width: "4.80%", height: "2.47%" }, // CPP.01.0001 tag
+  { top: "30.13%", left: "39.37%", width: "4.69%", height: "2.67%" }, // Villa Lobos
+  { top: "35.73%", left: "39.48%", width: "1.01%", height: "1.73%" }, // 1 equipes
+  { top: "35.73%", left: "41.62%", width: "0.97%", height: "1.73%" }, // 2 pacotes
+  { top: "35.73%", left: "58.64%", width: "2.92%", height: "1.73%" }, // 31/12/2022
+  // Card 3 — Teste (com Gestor: digits/date em y=540-556)
+  { top: "27.00%", left: "63.78%", width: "3.37%", height: "2.47%" }, // OBR-001 tag
+  { top: "30.13%", left: "63.78%", width: "2.51%", height: "2.67%" }, // Teste
+  { top: "35.73%", left: "63.89%", width: "1.16%", height: "1.73%" }, // 3 equipes
+  { top: "35.73%", left: "66.10%", width: "0.94%", height: "1.73%" }, // 3 pacotes
+  { top: "35.73%", left: "82.79%", width: "3.26%", height: "1.73%" }, // 03/03/2026
+  // Card 4 — Bs Gold (com Gestor, linha de baixo: digits/date em y=820-836)
+  { top: "45.40%", left: "14.92%", width: "2.02%", height: "2.47%" }, // BSG tag
+  { top: "48.53%", left: "14.92%", width: "3.00%", height: "2.67%" }, // Bs Gold
+  { top: "54.40%", left: "15.00%", width: "1.05%", height: "1.60%" }, // 1 equipes
+  { top: "54.40%", left: "17.40%", width: "0.64%", height: "1.60%" }, // 1 pacotes
+  { top: "54.40%", left: "34.12%", width: "3.07%", height: "1.60%" }, // 30/09/2023
+];
+
+// ── Blurs do slide "Visão do Operário: Ranking de Equipes" — 2 campos ─────
+// A1 (yellow, 1° lugar) e B1 (white, 2° lugar) no pódio 8-bit.
+const RANKING_OP_BLURS: Array<{ top: string; left: string; width?: string; height?: string }> = [
+  { top: "41.07%", left: "54.82%", width: "1.27%", height: "1.67%" }, // A1 (yellow)
+  { top: "49.00%", left: "43.91%", width: "1.01%", height: "1.40%" }, // B1 (white)
+];
+
+// ── Blurs do slide "Top 20 Funcionários" — todos os nomes ─────────────────
+// Pódio (3) + lista left (4) + middle (4) + right (3) = 14 nomes.
+const TOP20_BLURS: Array<{ top: string; left: string; width?: string; height?: string }> = [
+  // Pódio
+  { top: "41.13%", left: "45.49%", width: "9.45%", height: "1.80%" }, // Daniel Jorge De Lima (1°)
+  { top: "49.13%", left: "34.87%", width: "7.76%", height: "1.40%" }, // Jeova Santos Targino (2°)
+  { top: "52.80%", left: "57.26%", width: "8.40%", height: "1.40%" }, // Alexsandro Verissimo (3°)
+  // Lista — coluna esquerda
+  { top: "71.27%", left: "17.20%", width: "12.50%", height: "1.67%" }, // 4 — Antonio Benedito De Paula Rocha
+  { top: "75.13%", left: "17.20%", width: "8.85%", height: "1.40%" }, // 5 — Antonio Castelo Branco
+  { top: "78.87%", left: "17.20%", width: "7.45%", height: "1.53%" }, // 6 — Carlos Alberto Silva
+  { top: "82.60%", left: "17.20%", width: "10.25%", height: "1.40%" }, // 7 — Edneudo Dos Santos Matos
+  // Lista — coluna do meio
+  { top: "71.27%", left: "41.78%", width: "9.55%", height: "1.67%" }, // 10 — Francisco Cardoso Gomes
+  { top: "75.13%", left: "41.78%", width: "13.05%", height: "1.40%" }, // 11 — Francisco Roberto Andre De Moura
+  { top: "78.87%", left: "41.78%", width: "9.95%", height: "1.53%" }, // 12 — Francisco Sales Freire Filho
+  { top: "82.60%", left: "41.78%", width: "9.55%", height: "1.40%" }, // 13 — Francisco Silveira Queiroz
+  // Lista — coluna direita
+  { top: "71.55%", left: "66.40%", width: "11.70%", height: "1.40%" }, // 16 — Jose Carlos Fernandes De Souza
+  { top: "76.20%", left: "66.40%", width: "9.70%", height: "1.27%" }, // 17 — Jose Wilson Lino De Souza
+  { top: "80.93%", left: "66.52%", width: "6.94%", height: "1.40%" }, // 18 — Luis Chaves Freitas
+];
+
 const SHOTS = [
-  { id: "obras",     label: "Obras",     bar: "quadro-de-pontos · obras",    img: obrasImg,     alt: "Selecione a obra — visão de todas as obras",               capH: "Selecione a obra",      capT: "entrada do painel gamificado" },
-  { id: "ranking",   label: "Ranking",   bar: "quadro-de-pontos · vizcaya",  img: rankingImg,   alt: "Ranking de equipes — pódio com A1 e B1",                    capH: "Ranking de equipes",    capT: "pódio em tempo real" },
-  { id: "top20",     label: "Top 20",    bar: "quadro-de-pontos · top-20",   img: top20Img,     alt: "Top 20 funcionários — pódio individual e lista de cargos", capH: "Top 20 funcionários",   capT: "pódio + lista por cargo" },
-  { id: "seguranca", label: "Segurança", bar: "quadro-de-pontos · seguranca",img: segurancaImg, alt: "Segurança em Primeiro — grid de KPIs de EPI",               capH: "Segurança em primeiro", capT: "KPIs ao lado do score" },
+  { id: "visao",        label: "Visão",      bar: "painel-do-gestor · visao-geral",         img: painel01Visao,        alt: "Painel do Gestor — Visão Consolidada",            capH: "Visão consolidada",      capT: "todas as obras em um só lugar" },
+  { id: "acomp",        label: "Acomp.",     bar: "painel-do-gestor · acompanhamento",      img: painel02Acomp,        alt: "Painel do Gestor — Acompanhamento de Obras",      capH: "Acompanhamento",         capT: "status, progresso e alertas" },
+  { id: "gestao",       label: "Obras",      bar: "painel-do-gestor · gestao-obras",        img: painel03Gestao,       alt: "Painel do Gestor — Gestão de Obras",              capH: "Gestão de obras",        capT: "crie, organize e monitore" },
+  { id: "equipes",      label: "Equipes",    bar: "painel-do-gestor · gestao-equipes",      img: painel04Equipes,      alt: "Painel do Gestor — Gestão de Equipes",            capH: "Gestão de equipes",      capT: "monte e gerencia times" },
+  { id: "funcionarios", label: "Func.",      bar: "painel-do-gestor · gestao-funcionarios", img: painel05Funcionarios, alt: "Painel do Gestor — Gestão de Funcionários",       capH: "Gestão de funcionários", capT: "lista por cargo e matrícula" },
+  { id: "validacoes",   label: "Validações", bar: "painel-do-gestor · validacoes",          img: painel06Validacoes,   alt: "Painel do Gestor — Validação de Tarefas",         capH: "Validação de tarefas",   capT: "aprovações antes de pontuar" },
+  { id: "cargos",       label: "Cargos",     bar: "painel-do-gestor · gestao-cargos",       img: painel07Cargos,       alt: "Painel do Gestor — Gestão de Cargos",             capH: "Gestão de cargos",       capT: "funcionários por categoria" },
+  { id: "dash1",        label: "Dashboard",  bar: "painel-do-gestor · dashboard-obra",      img: painel08Dashboard,    alt: "Painel do Gestor — Dashboard de Desempenho",      capH: "Dashboard de desempenho",capT: "avanço, presença, pontuação" },
+  { id: "dash2",        label: "Ranking",    bar: "painel-do-gestor · dashboard-ranking",   img: painel09Dashboard2,   alt: "Painel do Gestor — Ranking e Alertas",            capH: "Ranking e alertas",      capT: "equipes, pontuação e atrasos" },
+  { id: "operario",     label: "Operário",   bar: "painel-gamificado · selecione-obra",     img: painel10Operario,     alt: "Visão do Operário — Seleção de Obra (8-bit)",     capH: "Visão do operário",      capT: "interface gamificada 8-bit" },
+  { id: "ranking_op",   label: "Ranking",    bar: "painel-gamificado · ranking-equipes",    img: painel11Ranking,      alt: "Visão do Operário — Ranking de Equipes (8-bit)",  capH: "Ranking de equipes",     capT: "competição em tempo real" },
+  { id: "top20",        label: "Top 20",     bar: "painel-gamificado · top-20-funcionarios",img: painel12Top20,        alt: "Visão do Operário — Top 20 Funcionários (8-bit)", capH: "Top 20 funcionários",    capT: "pódio e ranking individual" },
 ];
 const TOTAL_SHOTS = SHOTS.length;
 
@@ -123,11 +352,12 @@ export default function GamifCase() {
           <CaseDeck ref={deckRef} aria-label="Apresentação do projeto Gamificação">
             <CdFrame>
               <CdStack>
-                <SlideCover  active={idx === 0} />
-                <SlideArch   active={idx === 1} />
-                <SlideSpecs  active={idx === 2} />
-                <SlidePrat   active={idx === 3} />
-                <SlideRes    active={idx === 4} />
+                {SLIDES.map((s, i) => (
+                  <CdSlide key={s.id} $active={idx === i}>
+                    <CdiImage src={s.img} alt={s.alt} loading="lazy" />
+                    <CdiCaption>{s.cap}</CdiCaption>
+                  </CdSlide>
+                ))}
               </CdStack>
             </CdFrame>
 
@@ -152,7 +382,65 @@ export default function GamifCase() {
                       <ShotsMiniBar>
                         <Dot1 /><Dot2 /><Dot3 /><b>{s.bar}</b>
                       </ShotsMiniBar>
-                      <ShotsMiniImg src={s.img} alt={s.alt} loading="lazy" />
+                      <ShotsMiniImgFrame>
+                        <ShotsMiniImg src={s.img} alt={s.alt} loading="lazy" />
+                        {s.id === "gestao" && (
+                          <BlurOverlay aria-hidden="true">
+                            {GESTAO_BLURS.map((pos, j) => (
+                              <BlurMask key={j} style={pos} />
+                            ))}
+                          </BlurOverlay>
+                        )}
+                        {s.id === "equipes" && (
+                          <BlurOverlay aria-hidden="true">
+                            {EQUIPES_BLURS.map((pos, j) => (
+                              <BlurMask key={j} style={pos} />
+                            ))}
+                          </BlurOverlay>
+                        )}
+                        {s.id === "funcionarios" && (
+                          <BlurOverlay aria-hidden="true">
+                            {FUNC_BLURS.map((pos, j) => (
+                              <BlurMask key={j} style={pos} />
+                            ))}
+                          </BlurOverlay>
+                        )}
+                        {s.id === "cargos" && (
+                          <BlurOverlay aria-hidden="true">
+                            {CARGOS_BLURS.map((pos, j) => (
+                              <BlurMask key={j} style={pos} />
+                            ))}
+                          </BlurOverlay>
+                        )}
+                        {s.id === "dash2" && (
+                          <BlurOverlay aria-hidden="true">
+                            {DASH2_BLURS.map((pos, j) => (
+                              <BlurMask key={j} style={pos} />
+                            ))}
+                          </BlurOverlay>
+                        )}
+                        {s.id === "operario" && (
+                          <BlurOverlay aria-hidden="true">
+                            {OPERARIO_BLURS.map((pos, j) => (
+                              <BlurMask key={j} style={pos} />
+                            ))}
+                          </BlurOverlay>
+                        )}
+                        {s.id === "ranking_op" && (
+                          <BlurOverlay aria-hidden="true">
+                            {RANKING_OP_BLURS.map((pos, j) => (
+                              <BlurMask key={j} style={pos} />
+                            ))}
+                          </BlurOverlay>
+                        )}
+                        {s.id === "top20" && (
+                          <BlurOverlay aria-hidden="true">
+                            {TOP20_BLURS.map((pos, j) => (
+                              <BlurMask key={j} style={pos} />
+                            ))}
+                          </BlurOverlay>
+                        )}
+                      </ShotsMiniImgFrame>
                       <ShotsMiniCap><span>{s.capH}</span> · {s.capT}</ShotsMiniCap>
                     </ShotsMiniSlide>
                   ))}
@@ -183,161 +471,6 @@ export default function GamifCase() {
   );
 }
 
-// ── Slides ─────────────────────────────────────────────────────────────────
-function SlideCover({ active }: { active: boolean }) {
-  return (
-    <CdSlide $active={active}>
-      <CdiCover>
-        <CdiGrid />
-        <CdiCoverOrbit />
-        <CdiCoverDot />
-        <CdiCorner>Live · 2025</CdiCorner>
-        <CdiCoverContent>
-          <CdiPill>Case · Desenvolvimento Web</CdiPill>
-          <CdiBigNameSmall>Gamificação<Dot>.</Dot></CdiBigNameSmall>
-          <CdiTag>Plataforma fullstack que centraliza a <strong>operação de obras</strong> e engaja a <strong>equipe de campo</strong> com um sistema de pontos.</CdiTag>
-          <CdiMeta>
-            <div><span>Cliente</span>BTB Engenharia</div>
-            <div><span>Setor</span>Construção</div>
-            <div><span>Stack</span>React · FastAPI · Supabase</div>
-            <div><span>Públicos</span>Gestão + campo</div>
-          </CdiMeta>
-        </CdiCoverContent>
-      </CdiCover>
-    </CdSlide>
-  );
-}
-
-function SlideArch({ active }: { active: boolean }) {
-  return (
-    <CdSlide $active={active}>
-      <CdiArch>
-        <CdiCorner>Stack · 3 camadas</CdiCorner>
-        <CdiEye>Arquitetura</CdiEye>
-        <CdiH>Três camadas, <em>uma base de dados.</em></CdiH>
-        <CdiArchStage>
-          <CdiArchSvg viewBox="0 0 300 160" preserveAspectRatio="none" aria-hidden="true">
-            <path d="M150 30 C150 60, 60 70, 50 130" />
-            <path d="M150 30 C150 70, 150 80, 150 130" />
-            <path d="M150 30 C150 60, 240 70, 250 130" />
-          </CdiArchSvg>
-          <CdiOrch>
-            <CdiOrchPill>Núcleo</CdiOrchPill>
-            <CdiOrchName>Supabase Postgres</CdiOrchName>
-            <CdiOrchTag>Auth · Triggers · Functions</CdiOrchTag>
-          </CdiOrch>
-          <CdiSpokes>
-            <CdiSp><CdiSpNum>01</CdiSpNum><CdiSpName>React + Vite</CdiSpName><CdiSpTag>Front fullstack</CdiSpTag></CdiSp>
-            <CdiSp><CdiSpNum>02</CdiSpNum><CdiSpName>FastAPI</CdiSpName><CdiSpTag>Queries · Alembic</CdiSpTag></CdiSp>
-            <CdiSp><CdiSpNum>03</CdiSpNum><CdiSpName>Triggers SQL</CdiSpName><CdiSpTag>Automação no banco</CdiSpTag></CdiSp>
-          </CdiSpokes>
-        </CdiArchStage>
-      </CdiArch>
-    </CdSlide>
-  );
-}
-
-function SlideSpecs({ active }: { active: boolean }) {
-  const cards = [
-    {
-      num: "01", eye: "Gestão", name: "Operação central.",
-      desc: "Visão geral de obras, pacotes, blocos e atividades — com progresso real e prazos.",
-      tags: ["Obras & pacotes", "Validações", "Cargos & usuários"],
-    },
-    {
-      num: "02", eye: "Engajamento", name: "Painel gamificado.",
-      desc: "Estética 8-bit para o operário: ranking de equipes, top funcionários e quadro de pontos.",
-      tags: ["Ranking equipes", "Top 20", "Quadro de pontos"],
-    },
-    {
-      num: "03", eye: "Segurança", name: "KPIs em campo.",
-      desc: "Lembretes contínuos de EPI, equipamentos, altura e emergência ao lado dos rankings.",
-      tags: ["EPI & cinto", "Reportes", "Código vermelho"],
-    },
-  ];
-  return (
-    <CdSlide $active={active}>
-      <CdiSpecs>
-        <CdiCorner>Módulos · 3 frentes</CdiCorner>
-        <CdiEye>Módulos</CdiEye>
-        <CdiH>Uma plataforma, <em>três frentes.</em></CdiH>
-        <CdiSpecsGrid>
-          {cards.map(c => (
-            <CdiCard key={c.num}>
-              <CdiCardNum>{c.num}</CdiCardNum>
-              <CdiCardEye>{c.eye}</CdiCardEye>
-              <CdiCardName>{c.name}</CdiCardName>
-              <CdiCardDesc>{c.desc}</CdiCardDesc>
-              <CdiCardTags>
-                {c.tags.map(t => <CdiCardTag key={t}>{t}</CdiCardTag>)}
-              </CdiCardTags>
-            </CdiCard>
-          ))}
-        </CdiSpecsGrid>
-      </CdiSpecs>
-    </CdSlide>
-  );
-}
-
-function SlidePrat({ active }: { active: boolean }) {
-  const chats = [
-    { msg: "Como está minha obra?",     verb: "ABRE", role: "Gestão",  route: "Visão Geral" },
-    { msg: "Quem é o melhor da obra?",  verb: "ABRE", role: "Campo",   route: "Top 20" },
-    { msg: "Concluí esta atividade.",   verb: "+ PTS", role: "Trigger", route: "Postgres" },
-  ];
-  return (
-    <CdSlide $active={active}>
-      <CdiPrat>
-        <CdiCorner>Demo · 04</CdiCorner>
-        <CdiEye>Na prática</CdiEye>
-        <CdiH>Pessoa certa, <em>tela certa.</em></CdiH>
-        <CdiChats>
-          {chats.map((c, i) => (
-            <CdiChat key={i}>
-              <CdiChatBubble>"{c.msg}"</CdiChatBubble>
-              <CdiArrow>
-                <svg viewBox="0 0 24 8" aria-hidden="true"><path d="M2 4 L22 4 M18 1 L22 4 L18 7" /></svg>
-                <div>{c.verb}</div>
-              </CdiArrow>
-              <CdiRoute><span>{c.role}</span>{c.route}</CdiRoute>
-            </CdiChat>
-          ))}
-        </CdiChats>
-        <CdiPratFoot>validação no banco <strong>·</strong> pontuação automática <strong>·</strong> ranking em tempo real</CdiPratFoot>
-      </CdiPrat>
-    </CdSlide>
-  );
-}
-
-function SlideRes({ active }: { active: boolean }) {
-  return (
-    <CdSlide $active={active}>
-      <CdiRes>
-        <CdiCorner>Resultado · 05</CdiCorner>
-        <CdiEye>Resultado</CdiEye>
-        <CdiH>Operação e engajamento, <em>no mesmo lugar.</em></CdiH>
-        <CdiResStage>
-          <CdiResHero>
-            <CdiResHeroNum>1<sup>app</sup></CdiResHeroNum>
-            <CdiResHeroLab>plataforma única,<br />do escritório à obra.</CdiResHeroLab>
-            <CdiResHeroRule />
-          </CdiResHero>
-          <CdiStats>
-            <div><strong>2</strong><span>painéis conectados <br />(gestão + campo)</span></div>
-            <div><strong>4</strong><span>módulos: obras · validações · cargos · usuários</span></div>
-            <div><strong>N</strong><span>obras em paralelo, com progresso real consolidado</span></div>
-          </CdiStats>
-        </CdiResStage>
-      </CdiRes>
-    </CdSlide>
-  );
-}
-
-// ── Animations ─────────────────────────────────────────────────────────────
-const cdiPulse = keyframes`
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
-`;
 
 // ── Styled: case header ────────────────────────────────────────────────────
 const CaseSection = styled.section`
@@ -516,7 +649,7 @@ const CaseDeck = styled.aside`
 const CdFrame = styled.div`
   position: relative;
   width: 100%;
-  aspect-ratio: 4/3;
+  aspect-ratio: 16/9;
   background: ${C.ink};
   border-radius: 8px;
   overflow: hidden;
@@ -540,620 +673,33 @@ const CdSlide = styled.figure<{ $active: boolean }>`
   transition: opacity 0.55s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1);
 `;
 
-const CdImgBase = `
-  flex: 1;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 2.25rem 2rem;
-  background: linear-gradient(180deg, #fff 0%, #faf6f1 100%);
-  overflow: hidden;
-`;
-
-const CdiEye = styled.div`
-  font-family: ${FONT_TITLE};
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  color: ${C.redTitle};
-  text-transform: uppercase;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.6rem;
-  position: relative;
-  z-index: 2;
-  &::before { content: ""; display: block; width: 18px; height: 1.5px; background: ${C.redTitle}; }
-`;
-
-const CdiH = styled.h5`
-  font-family: ${FONT_TITLE};
-  font-size: 22px;
-  font-weight: 700;
-  color: ${C.ink};
-  letter-spacing: -0.02em;
-  line-height: 1.18;
-  margin: 0 0 1.2rem;
-  position: relative;
-  z-index: 2;
-  em { font-style: italic; color: ${C.redTitle}; font-weight: 700; }
-`;
-
-const CdiCorner = styled.div`
-  position: absolute;
-  top: 1.4rem;
-  right: 1.6rem;
-  font-family: ${FONT_MONO};
-  font-size: 9.5px;
-  letter-spacing: 0.22em;
-  color: rgba(0,0,0,0.35);
-  text-transform: uppercase;
-  z-index: 3;
-  pointer-events: none;
-  &::before {
-    content: "●";
-    color: ${C.redTitle};
-    margin-right: 0.4rem;
-    font-size: 8px;
-    animation: ${cdiPulse} 2.4s ease-in-out infinite;
-  }
-`;
-
-// ── Slide 01 — Cover ──────────────────────────────────────────────────────
-const CdiCover = styled.div`
-  ${CdImgBase}
-  justify-content: flex-end;
-  align-items: flex-start;
-  background: linear-gradient(135deg, #fff 0%, #fbf5ee 60%, #f5e9dc 100%);
-  padding: 2rem 2.2rem;
-`;
-
-const CdiGrid = styled.div`
-  position: absolute;
-  inset: 0;
-  background-image: linear-gradient(rgba(26,26,26,0.045) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(26,26,26,0.045) 1px, transparent 1px);
-  background-size: 28px 28px;
-  pointer-events: none;
-  mask-image: radial-gradient(ellipse at 70% 30%, #000 30%, transparent 75%);
-  -webkit-mask-image: radial-gradient(ellipse at 70% 30%, #000 30%, transparent 75%);
-`;
-
-const CdiCoverOrbit = styled.div`
-  position: absolute;
-  top: -40%;
-  right: -30%;
-  width: 120%;
-  height: 160%;
-  border-radius: 50%;
-  border: 1px dashed rgba(161,15,35,0.18);
-  pointer-events: none;
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 8%;
-    border-radius: 50%;
-    border: 1px dashed rgba(161,15,35,0.12);
-  }
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 18%;
-    border-radius: 50%;
-    border: 1px dashed rgba(161,15,35,0.08);
-  }
-`;
-
-const CdiCoverDot = styled.div`
-  position: absolute;
-  top: 14%;
-  right: 18%;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: ${C.redTitle};
-  box-shadow: 0 0 0 6px rgba(161,15,35,0.15), 0 0 0 12px rgba(161,15,35,0.08);
-`;
-
-const CdiCoverContent = styled.div`
-  position: relative;
-  z-index: 2;
+// ── Image slide content ───────────────────────────────────────────────────
+const CdiImage = styled.img`
+  flex: 1 1 auto;
   width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  background: #fff;
 `;
 
-const CdiPill = styled.span`
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: ${FONT_MONO};
-  font-size: 9.5px;
-  letter-spacing: 0.24em;
-  color: ${C.redTitle};
-  text-transform: uppercase;
-  padding: 0.45rem 0.85rem;
-  background: rgba(255,255,255,0.85);
-  border: 1px solid rgba(161,15,35,0.3);
-  border-radius: 2px;
-  margin-bottom: 1.1rem;
-  &::before {
-    content: "";
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: ${C.redTitle};
-  }
-`;
-
-// Smaller bigname for cover (60px per HTML inline style for Gamificação)
-const CdiBigNameSmall = styled.h4`
-  font-family: ${FONT_TITLE};
-  font-size: 60px;
-  font-weight: 800;
-  color: ${C.ink};
-  letter-spacing: -0.04em;
-  line-height: 0.88;
-  margin: 0 0 0.25rem;
-  @media (max-width: 700px) { font-size: 44px; }
-`;
-
-const CdiTag = styled.p`
-  font-family: ${FONT_BODY};
-  font-size: 13px;
-  color: #555;
-  margin: 0.4rem 0 1.4rem;
-  line-height: 1.55;
-  max-width: 380px;
-  strong { color: ${C.ink}; font-weight: 600; }
-`;
-
-const CdiMeta = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0;
-  border-top: 1px solid rgba(0,0,0,0.1);
-  padding-top: 0.85rem;
-  > div {
-    font-family: ${FONT_TITLE};
-    font-size: 12px;
-    font-weight: 600;
-    color: ${C.ink};
-    padding-right: 0.5rem;
-    border-right: 1px solid rgba(0,0,0,0.08);
-    &:last-child { border-right: none; }
-    span {
-      display: block;
-      font-family: ${FONT_MONO};
-      font-size: 8.5px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      color: ${C.redTitle};
-      text-transform: uppercase;
-      margin-bottom: 0.3rem;
-    }
-  }
-`;
-
-// ── Slide 02 — Architecture ───────────────────────────────────────────────
-const CdiArch = styled.div`
-  ${CdImgBase}
-  padding: 1.6rem 2rem 2.2rem;
-`;
-
-const CdiArchStage = styled.div`
-  flex: 1;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 0;
-  margin-top: 0.5rem;
-`;
-
-const CdiArchSvg = styled.svg`
+const CdiCaption = styled.figcaption`
   position: absolute;
-  top: 42px;
   left: 0;
   right: 0;
-  height: 60px;
-  width: 100%;
-  pointer-events: none;
-  path {
-    stroke: rgba(161,15,35,0.4);
-    stroke-width: 1.2;
-    fill: none;
-    stroke-dasharray: 3 3;
-  }
-`;
-
-const CdiOrch = styled.div`
-  position: relative;
-  background: linear-gradient(135deg, ${C.redTitle}, ${C.redDark});
-  color: #fff;
-  padding: 0.85rem 1.4rem;
-  border-radius: 6px;
-  text-align: center;
-  min-width: 240px;
-  box-shadow: 0 8px 24px -8px rgba(161,15,35,0.5);
-  z-index: 2;
-  &::before {
-    content: "";
-    position: absolute;
-    inset: -3px;
-    border-radius: 8px;
-    border: 1px solid rgba(161,15,35,0.25);
-    pointer-events: none;
-  }
-`;
-
-const CdiOrchPill = styled.div`
+  bottom: 0;
+  padding: 0.65rem 0.95rem;
+  background: linear-gradient(180deg, rgba(26,26,26,0) 0%, rgba(26,26,26,0.78) 50%, rgba(26,26,26,0.94) 100%);
   font-family: ${FONT_MONO};
-  font-size: 8.5px;
-  letter-spacing: 0.24em;
-  color: rgba(255,255,255,0.78);
-  text-transform: uppercase;
-  font-weight: 700;
-  margin-bottom: 0.25rem;
-`;
-
-const CdiOrchName = styled.div`
-  font-family: ${FONT_TITLE};
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-`;
-
-const CdiOrchTag = styled.div`
-  font-family: ${FONT_MONO};
-  font-size: 8.5px;
-  color: rgba(255,255,255,0.65);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  margin-top: 0.3rem;
-`;
-
-const CdiSpokes = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.55rem;
-  width: 100%;
-  margin-top: 4.2rem;
-  position: relative;
-  z-index: 2;
-`;
-
-const CdiSp = styled.div`
-  background: #fff;
-  border: 1px solid rgba(0,0,0,0.08);
-  padding: 0.7rem 0.8rem;
-  border-radius: 4px;
-  text-align: left;
-  position: relative;
-  box-shadow: 0 2px 8px -4px rgba(0,0,0,0.06);
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: ${C.redTitle};
-    border-radius: 4px 4px 0 0;
-  }
-`;
-
-const CdiSpNum = styled.span`
-  font-family: ${FONT_MONO};
-  font-size: 9px;
-  color: ${C.redTitle};
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  margin-bottom: 0.25rem;
-  display: block;
-`;
-
-const CdiSpName = styled.div`
-  font-family: ${FONT_TITLE};
-  font-size: 12px;
-  font-weight: 700;
-  color: ${C.ink};
-  letter-spacing: -0.01em;
-  margin-bottom: 0.15rem;
-`;
-
-const CdiSpTag = styled.div`
-  font-family: ${FONT_MONO};
-  font-size: 9px;
-  color: #888;
-  letter-spacing: 0.05em;
-`;
-
-// ── Slide 03 — Specs ──────────────────────────────────────────────────────
-const CdiSpecs = styled.div`
-  ${CdImgBase}
-  padding: 1.6rem 1.6rem 2rem;
-`;
-
-const CdiSpecsGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.6rem;
-  flex: 1;
-`;
-
-const CdiCard = styled.div`
-  background: #fff;
-  border: 1px solid rgba(0,0,0,0.08);
-  padding: 0.95rem 0.8rem;
-  border-radius: 4px;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 60px;
-    background: linear-gradient(180deg, rgba(161,15,35,0.06), transparent);
-  }
-`;
-
-const CdiCardNum = styled.div`
-  position: absolute;
-  top: 0.6rem;
-  right: 0.7rem;
-  font-family: ${FONT_TITLE};
-  font-size: 32px;
-  font-weight: 800;
-  color: rgba(161,15,35,0.12);
-  letter-spacing: -0.04em;
-  line-height: 1;
-  z-index: 1;
-`;
-
-const CdiCardEye = styled.div`
-  font-family: ${FONT_MONO};
-  font-size: 8.5px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  color: ${C.redTitle};
-  text-transform: uppercase;
-  margin-bottom: 0.55rem;
-  position: relative;
-  z-index: 2;
-`;
-
-const CdiCardName = styled.div`
-  font-family: ${FONT_TITLE};
-  font-size: 15px;
-  font-weight: 700;
-  color: ${C.ink};
-  letter-spacing: -0.015em;
-  margin-bottom: 0.45rem;
-  position: relative;
-  z-index: 2;
-`;
-
-const CdiCardDesc = styled.p`
-  font-family: ${FONT_BODY};
   font-size: 10.5px;
-  color: #555;
-  line-height: 1.45;
-  margin-bottom: 0.7rem;
-  margin-top: 0;
-  position: relative;
+  letter-spacing: 0.18em;
+  color: rgba(255,255,255,0.85);
+  text-transform: uppercase;
   z-index: 2;
+  pointer-events: none;
 `;
 
-const CdiCardTags = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  margin-top: auto;
-  position: relative;
-  z-index: 2;
-`;
-
-const CdiCardTag = styled.div`
-  font-family: ${FONT_MONO};
-  font-size: 8.5px;
-  color: #666;
-  letter-spacing: 0.04em;
-  padding-left: 0.6rem;
-  position: relative;
-  &::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 6px;
-    width: 3px;
-    height: 3px;
-    background: ${C.redTitle};
-    border-radius: 50%;
-  }
-`;
-
-// ── Slide 04 — In practice ────────────────────────────────────────────────
-const CdiPrat = styled.div`
-  ${CdImgBase}
-  padding: 1.5rem 1.8rem 3.2rem;
-  background: linear-gradient(180deg, #fff 0%, #f5ede1 100%);
-`;
-
-const CdiChats = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-  justify-content: center;
-`;
-
-const CdiChat = styled.div`
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  gap: 0.6rem;
-  align-items: center;
-`;
-
-const CdiChatBubble = styled.div`
-  background: #fff;
-  border-radius: 10px 10px 10px 2px;
-  padding: 0.6rem 0.8rem;
-  font-family: ${FONT_BODY};
-  font-size: 11.5px;
-  color: ${C.ink};
-  box-shadow: 0 2px 6px -2px rgba(0,0,0,0.08);
-  position: relative;
-  &::before {
-    content: "USER";
-    display: block;
-    font-family: ${FONT_MONO};
-    font-size: 7.5px;
-    letter-spacing: 0.18em;
-    color: #999;
-    font-weight: 700;
-    margin-bottom: 0.2rem;
-  }
-`;
-
-const CdiArrow = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.2rem;
-  font-family: ${FONT_MONO};
-  font-size: 8.5px;
-  letter-spacing: 0.14em;
-  color: ${C.redTitle};
-  font-weight: 700;
-  svg { width: 24px; height: 8px; }
-  svg path { stroke: ${C.redTitle}; stroke-width: 1.5; fill: none; }
-`;
-
-const CdiRoute = styled.div`
-  background: linear-gradient(135deg, ${C.redTitle}, ${C.redDark});
-  color: #fff;
-  border-radius: 4px;
-  padding: 0.55rem 0.65rem;
-  font-family: ${FONT_TITLE};
-  font-size: 11.5px;
-  font-weight: 700;
-  text-align: center;
-  letter-spacing: -0.01em;
-  box-shadow: 0 4px 12px -4px rgba(161,15,35,0.4);
-  span {
-    display: block;
-    font-family: ${FONT_MONO};
-    font-size: 7.5px;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    color: rgba(255,255,255,0.7);
-    text-transform: uppercase;
-    margin-bottom: 0.18rem;
-  }
-`;
-
-const CdiPratFoot = styled.div`
-  margin-top: 0.7rem;
-  padding-top: 0.55rem;
-  border-top: 1px dashed rgba(0,0,0,0.15);
-  font-family: ${FONT_MONO};
-  font-size: 9.5px;
-  color: #666;
-  letter-spacing: 0.06em;
-  text-align: center;
-  strong { color: ${C.redTitle}; font-weight: 700; }
-`;
-
-// ── Slide 05 — Result ─────────────────────────────────────────────────────
-const CdiRes = styled.div`
-  ${CdImgBase}
-  padding: 1.8rem 2rem 2.2rem;
-  background: linear-gradient(135deg, #fff 0%, #fbf5ee 100%);
-`;
-
-const CdiResStage = styled.div`
-  flex: 1;
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 1.5rem;
-  align-items: center;
-`;
-
-const CdiResHero = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
-
-const CdiResHeroNum = styled.div`
-  font-family: ${FONT_TITLE};
-  font-size: 120px;
-  font-weight: 800;
-  color: ${C.redTitle};
-  letter-spacing: -0.07em;
-  line-height: 0.85;
-  margin: 0;
-  sup {
-    font-family: ${FONT_TITLE};
-    font-size: 32px;
-    font-weight: 600;
-    color: ${C.redTitle};
-    vertical-align: top;
-    letter-spacing: -0.02em;
-    margin-left: 0.1em;
-  }
-`;
-
-const CdiResHeroLab = styled.div`
-  font-family: ${FONT_TITLE};
-  font-size: 14px;
-  font-weight: 700;
-  color: ${C.ink};
-  letter-spacing: -0.01em;
-  margin-top: 0.45rem;
-  line-height: 1.3;
-`;
-
-const CdiResHeroRule = styled.div`
-  width: 48px;
-  height: 2px;
-  background: ${C.redTitle};
-  margin-top: 0.85rem;
-`;
-
-const CdiStats = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  border-top: 1px solid rgba(0,0,0,0.1);
-  > div {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 0.85rem;
-    align-items: baseline;
-    padding: 0.65rem 0;
-    border-bottom: 1px solid rgba(0,0,0,0.08);
-    strong {
-      font-family: ${FONT_TITLE};
-      font-size: 28px;
-      font-weight: 800;
-      color: ${C.ink};
-      letter-spacing: -0.025em;
-      line-height: 1;
-    }
-    span {
-      font-family: ${FONT_BODY};
-      font-size: 11px;
-      color: #555;
-      line-height: 1.4;
-    }
-  }
-`;
 
 // ── Controls ──────────────────────────────────────────────────────────────
 const CdControls = styled.div`
@@ -1247,11 +793,20 @@ const ShotsMiniH = styled.h4`
 const ShotsMiniFrame = styled.div`
   position: relative;
   width: 100%;
-  aspect-ratio: 1.85 / 1;
-  background: #3aa0d8;
+  aspect-ratio: 16 / 9;
+  background: #1a1a1a;
   border-radius: 6px;
   overflow: hidden;
   box-shadow: 0 14px 36px -16px rgba(0,0,0,0.28), 0 0 0 1px rgba(0,0,0,0.07);
+`;
+
+const ShotsMiniImgFrame = styled.div`
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  display: block;
+  background: #fff;
 `;
 
 const ShotsMiniStack = styled.div`
@@ -1317,13 +872,34 @@ const Dot3 = styled.span`
 `;
 
 const ShotsMiniImg = styled.img`
-  flex: 1 1 auto;
-  min-height: 0;
   width: 100%;
-  object-fit: contain;
-  object-position: center;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
   display: block;
-  background: #3aa0d8;
+  background: #fff;
+`;
+
+// Wrapper alinhado à imagem real (16:9, top-left): permite posicionar
+// os blurs em % relativas à imagem original sem distorção do bar superior.
+const BlurOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  pointer-events: none;
+  z-index: 1;
+`;
+
+const BlurMask = styled.div`
+  position: absolute;
+  width: 4%;
+  height: 3.5%;
+  background: rgba(225, 230, 236, 0.55);
+  backdrop-filter: blur(11px);
+  -webkit-backdrop-filter: blur(11px);
+  border-radius: 2px;
 `;
 
 const ShotsMiniCap = styled.div`
