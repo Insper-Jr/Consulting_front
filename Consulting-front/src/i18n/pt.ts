@@ -53,7 +53,7 @@ const pt = {
       cta:      "Conheça nossas soluções",
     },
     tech: {
-      label:    "Engenharia & Tech",
+      label:    "Engenharia Tech",
       title:    "Tecnologia aplicada a resultados reais.",
       subtitle: "Dados, produtos digitais e desenvolvimento web com foco em impacto para o seu negócio.",
       cta:      "Conheça nossas soluções",
@@ -65,9 +65,9 @@ const pt = {
       cta:      "Conheça nossas soluções",
     },
     processes: {
-      label:    "Processos",
+      label:    "Engenharia de Processos",
       title:    "Eficiência que libera o potencial da sua equipe.",
-      subtitle: "Mapeamento, redesenho e otimização de processos para empresas em crescimento.",
+      subtitle: "Mapeamento, redesenho e otimização de processos para empresas.",
       cta:      "Conheça nossas soluções",
     },
   },

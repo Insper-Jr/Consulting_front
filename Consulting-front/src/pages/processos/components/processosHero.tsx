@@ -16,13 +16,9 @@ const fadeIn   = keyframes`from{opacity:0}to{opacity:1}`;
 const fadeUp   = keyframes`from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}`;
 const wordIn   = keyframes`from{opacity:0;transform:translateY(28px);filter:blur(6px)}to{opacity:1;transform:translateY(0);filter:blur(0)}`;
 const lineGrow = keyframes`from{transform:scaleX(0)}to{transform:scaleX(1)}`;
-const pulse    = keyframes`0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.85)}`;
-const spin     = keyframes`to{transform:rotate(360deg)}`;
 const bounce   = keyframes`0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}`;
 
-/* ── Layout ──
-   Única diferença vs doc16: styled.div (não section) e ref<HTMLDivElement>
-   para o useParticles funcionar sem cast. height:100vh = mesmo tamanho do AboutHero. */
+/* ── Layout ── */
 const Outer = styled.div`
   position: relative; width: 100%; height: 100vh;
   background: ${BG}; overflow: hidden;
@@ -122,29 +118,6 @@ const BtnGhost = styled.a`
   &:hover { color: rgba(250,242,234,.9); border-color: rgba(250,242,234,.4); }
 `;
 
-const Ribbon = styled.div<{ $v: boolean }>`
-  display: flex; align-items: center; gap: 18px;
-  padding-top: 24px; border-top: 1px solid rgba(255,255,255,.08);
-  max-width: 480px; opacity: 0;
-  animation: ${p => p.$v ? fadeUp : "none"} .7s 1.85s ${SPRING} forwards;
-`;
-
-const RibbonDot = styled.span`
-  width: 6px; height: 6px; border-radius: 50%; background: ${RED};
-  box-shadow: 0 0 12px ${RED}; animation: ${pulse} 2.4s ease-in-out infinite;
-`;
-
-const RibbonName = styled.span`
-  font-family: ${FONT_TITLE}; font-size: 14px; font-weight: 600;
-  color: rgba(250,242,234,.85); letter-spacing: -0.005em;
-  em { color: ${RED}; font-style: normal; font-weight: 700; }
-`;
-
-const RibbonMeta = styled.span`
-  font-family: ${FONT_BODY}; font-size: 12px; color: rgba(250,242,234,.4); margin-left: auto;
-  @media (max-width: 480px) { display: none; }
-`;
-
 /* ── Right ── */
 const Right = styled.div`
   padding: 88px 0 48px 0;
@@ -159,23 +132,6 @@ const Flow = styled.div<{ $v: boolean }>`
 
   svg { width: 100%; height: 100%; overflow: visible; }
 
-  /* Anéis giratórios — centrados no centróide do triângulo (260, 213) */
-  .ring {
-    fill: none; stroke: rgba(192,33,33,.32); stroke-width: 1.5;
-    stroke-dasharray: 3 5;
-    transform-box: fill-box;
-    transform-origin: center;
-    animation: ${spin} 60s linear infinite;
-  }
-  .ring2 {
-    stroke: rgba(192,33,33,.18);
-    transform-box: fill-box;
-    transform-origin: center;
-    animation: ${spin} 90s linear infinite reverse;
-  }
-
-
-  /* Todas as arestas vermelhas — a bolinha percorre o circuito inteiro */
   .edge {
     fill: none; stroke: rgba(192,33,33,.5); stroke-width: 1.2; stroke-dasharray: 4 6;
   }
@@ -183,7 +139,7 @@ const Flow = styled.div<{ $v: boolean }>`
   .pulse { fill: ${RED}; filter: drop-shadow(0 0 8px ${RED}); }
 
   .node circle {
-    fill: rgba(14,4,4,.8); stroke: rgba(250,242,234,.55);
+    fill: rgba(14,4,4,.8); stroke: rgba(250,242,234,.4);
     stroke-width: 1.4; transition: .3s;
   }
   .node.active circle {
@@ -195,6 +151,15 @@ const Flow = styled.div<{ $v: boolean }>`
     fill: rgba(250,242,234,.78); letter-spacing: .05em; text-anchor: middle;
   }
   .node.active text { fill: ${CREAM}; }
+
+  .step-num {
+    font-family: ${FONT_TITLE}; font-size: 10px; font-weight: 700;
+    fill: rgba(192,33,33,.5); letter-spacing: .12em; text-anchor: middle;
+  }
+
+  .connector {
+    stroke: rgba(192,33,33,.2); stroke-width: 1; stroke-dasharray: 2 3;
+  }
 `;
 
 /* ── Scroll hint ── */
@@ -231,7 +196,6 @@ const D = [0.55, 0.78];
 
 /* ── Component ── */
 export default function ProcessosHero() {
-  /* ref<HTMLDivElement> sem cast — única diferença vs doc16, necessária para useParticles */
   const wrapperRef = useRef<HTMLDivElement>(null);
   const canvasRef  = useRef<HTMLCanvasElement>(null);
   useParticles(wrapperRef, canvasRef);
@@ -274,81 +238,69 @@ export default function ProcessosHero() {
 
       <Grid>
         <Inner>
-        <Left>
-          <Eyebrow $v={v}>Frente de Engenharia</Eyebrow>
+          <Left>
+            <Eyebrow $v={v}>Frente de Engenharia</Eyebrow>
 
-          <Title>
-            {W.map((w, i) => <Word key={w} $d={D[i]} $v={v}>{w}</Word>)}
-            <br />
-            <Word $d={1.02} $v={v}><Accent>Otimização</Accent></Word>
-            <br />
-            <Word $d={1.22} $v={v}>de Processos</Word>
-          </Title>
+            <Title>
+              {W.map((w, i) => <Word key={w} $d={D[i]} $v={v}>{w}</Word>)}
+              <br />
+              <Word $d={1.02} $v={v}><Accent>Otimização</Accent></Word>
+              <br />
+              <Word $d={1.22} $v={v}>de Processos</Word>
+            </Title>
 
-          <Divider $v={v} />
+            <Divider $v={v} />
 
-          <Sub $v={v}>
-            Mapeamos sua operação, coletamos dados com precisão e construímos
-            um modelo computacional completo para identificar gargalos e
-            recomendar as melhorias de maior impacto.
-          </Sub>
+            <Sub $v={v}>
+              Mapeamos sua operação, coletamos dados com precisão e construímos
+              um modelo computacional completo para identificar gargalos e
+              recomendar as melhorias de maior impacto.
+            </Sub>
 
-          <Actions $v={v}>
-            <BtnPrimary href="#contato">Solicitar Diagnóstico <ArrowR /></BtnPrimary>
-            <BtnGhost href="#escopos">Nossos escopos <ChevD /></BtnGhost>
-          </Actions>
+            <Actions $v={v}>
+              <BtnPrimary href="/contact">Solicitar Diagnóstico <ArrowR /></BtnPrimary>
+              <BtnGhost href="#escopos">Nossos escopos <ChevD /></BtnGhost>
+            </Actions>
+          </Left>
 
-          <Ribbon $v={v}>
-            <RibbonDot />
-            <RibbonName>Any<em>Logic</em></RibbonName>
-            <RibbonMeta>Software de simulação computacional</RibbonMeta>
-          </Ribbon>
-        </Left>
+          <Right>
+            <Flow $v={v}>
+              <svg viewBox="0 0 520 520">
+                <defs>
+                  <marker id="ah" viewBox="0 0 10 10" refX="6" refY="5"
+                    markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="rgba(192,33,33,.7)" />
+                  </marker>
+                </defs>
 
-        <Right>
-          <Flow $v={v}>
-            <svg viewBox="0 0 520 520">
-              <defs>
-                <marker id="ah" viewBox="0 0 10 10" refX="6" refY="5"
-                  markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                  <path d="M0,0 L10,5 L0,10 z" fill="rgba(192,33,33,.7)" />
-                </marker>
-              </defs>
+                                {/* Linhas verticais do índice ao nó */}
+                <line className="connector" x1="90"  y1="186" x2="90"  y2="204" />
+                <line className="connector" x1="260" y1="186" x2="260" y2="204" />
+                <line className="connector" x1="430" y1="186" x2="430" y2="204" />
 
-              {/*
-                Triângulo equilátero, circunraio=120, centrado em (260,240).
-                Bordo externo dos nós: 120+54=174. Anel interno r=192 (fora dos nós).
-                Anel externo r=238 (cabe no viewBox 520x520).
-                MA(156,180) SI(364,180) OT(260,360)
-              */}
-              <circle className="ring"  cx="260" cy="240" r="192" />
-              <circle className="ring ring2" cx="260" cy="240" r="238" />
+                {/* Setas horizontais entre nós */}
+                <path className="edge" d="M144,260 L206,260" markerEnd="url(#ah)" />
+                <path className="edge" d="M314,260 L376,260" markerEnd="url(#ah)" />
 
+                {/* Pulso linear — esquerda para direita */}
+                <circle className="pulse" r="3.5">
+                  <animateMotion dur="6s" repeatCount="indefinite"
+                    path="M90,260 L430,260" calcMode="linear" />
+                </circle>
 
-              {/* Arestas vermelhas */}
-              <path className="edge" d="M156,180 L364,180" markerEnd="url(#ah)" />
-              <path className="edge" d="M364,180 Q410,275 260,360" markerEnd="url(#ah)" />
-              <path className="edge" d="M260,360 Q110,275 156,180" markerEnd="url(#ah)" />
-
-              {/* Bolinha — circuito completo 10s */}
-              <circle className="pulse" r="3.5">
-                <animateMotion dur="10s" repeatCount="indefinite"
-                  path="M156,180 L364,180 Q410,275 260,360 Q110,275 156,180" />
-              </circle>
-
-              {/* Só SIMULAÇÃO aceso */}
-              <g className="node" transform="translate(156,180)">
-                <circle r="54" /><text y="4">MAPEAMENTO</text>
-              </g>
-              <g className="node active" transform="translate(364,180)">
-                <circle r="54" /><text y="4">SIMULAÇÃO</text>
-              </g>
-              <g className="node" transform="translate(260,360)">
-                <circle r="54" /><text y="4">OTIMIZAÇÃO</text>
-              </g>
-            </svg>
-          </Flow>
-        </Right>
+                {/* Nós */}
+                <g className="node active" transform="translate(90,260)">
+                  <circle r="54" /><text y="4">MAPEAMENTO</text>
+                </g>
+                <g className="node active" transform="translate(260,260)">
+                  <circle r="54" /><text y="4">SIMULAÇÃO</text>
+                </g>
+                <g className="node active" transform="translate(430,260)">
+                  <circle r="54" /><text y="4">OTIMIZAÇÃO</text>
+                </g>
+              </svg>
+            </Flow>
+          </Right>
         </Inner>
       </Grid>
 

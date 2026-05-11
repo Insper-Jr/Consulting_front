@@ -110,11 +110,12 @@ const Inner = styled.div`
 
 /* ─── Header ─────────────────────────────────────────── */
 const Header = styled.div<{ $v: boolean }>`
-  display: flex; flex-direction: column; gap: 20px;
+  display: flex; flex-direction: column; gap: 16px; // ← era 20px
   max-width: 680px; margin-bottom: 64px;
   opacity: ${p => p.$v ? 1 : 0};
   animation: ${p => p.$v ? fadeUp : "none"} .55s .05s ${SPRING} both;
 `;
+
 const Eyebrow = styled.span`
   font-family: ${FONT_TITLE}; font-size: 11px; font-weight: 700;
   letter-spacing: .18em; text-transform: uppercase; color: ${RED};
@@ -205,6 +206,7 @@ const StageTitle = styled.h3`
   font-family: ${FONT_TITLE}; font-size: 18px; font-weight: 700;
   letter-spacing: -0.01em; line-height: 1.2; color: ${DARK};
   margin: 0 0 10px;
+  min-height: calc(18px * 1.2 * 2); /* ← reserva espaço para 2 linhas sempre */
 `;
 
 const StageText = styled.p`
@@ -310,31 +312,71 @@ const PanelClose = styled.button`
 
 /* Entregas — coluna única vertical, sem numeração */
 const ExpectList = styled.div`
-  display: flex; flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 `;
 
 const ExpectLabel = styled.div`
-  font-family: ${FONT_BODY}; font-size: 11px; font-weight: 700;
-  letter-spacing: .18em; text-transform: uppercase;
-  color: rgba(250,242,234,.35); margin-bottom: 24px;
-  display: flex; align-items: center; gap: 10px;
-  &::before { content: ""; display: block; width: 18px; height: 2px; background: ${RED}; }
+  font-family: ${FONT_BODY};
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(250,242,234,.35);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  &::before {
+    content: "";
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: ${RED};
+  }
 `;
 
 const ExpectItem = styled.div`
-  padding: 20px 0;
-  border-bottom: 1px solid rgba(255,255,255,.07);
-  &:last-child { border-bottom: none; }
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-top: 2px solid ${RED};
+  border-radius: 4px;
+  padding: 20px 20px 18px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-top-color: ${RED};
+  }
+`;
+
+const ExpectIndex = styled.span`
+  font-family: ${FONT_BODY};
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: ${RED};
+  opacity: 0.7;
+  display: block;
+  margin-bottom: 8px;
 `;
 
 const ExpectTitle = styled.div`
-  font-family: ${FONT_TITLE}; font-size: 15px; font-weight: 700;
-  color: ${CREAM}; margin-bottom: 6px; letter-spacing: -0.01em;
+  font-family: ${FONT_TITLE};
+  font-size: 14px;
+  font-weight: 700;
+  color: ${CREAM};
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
 `;
 
 const ExpectText = styled.div`
-  font-family: ${FONT_BODY}; font-size: 13px; line-height: 1.6;
-  color: rgba(250,242,234,.5);
+  font-family: ${FONT_BODY};
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(250,242,234,.45);
 `;
 
 const ChevUp = () => (
@@ -450,8 +492,9 @@ export default function ProcessosScope() {
               <div>
                 <ExpectLabel>O que esperar do projeto</ExpectLabel>
                 <ExpectList>
-                  {cur.expect.map(e => (
+                  {cur.expect.map((e, i) => (
                     <ExpectItem key={e.title}>
+                      <ExpectIndex>{String(i + 1).padStart(2, "0")}</ExpectIndex>
                       <ExpectTitle>{e.title}</ExpectTitle>
                       <ExpectText>{e.body}</ExpectText>
                     </ExpectItem>

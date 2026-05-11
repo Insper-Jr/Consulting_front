@@ -4,7 +4,7 @@ import styled, { keyframes, css } from "styled-components";
 import TechImg     from "../../../assets/hero/tech.jpg";
 import BussinesImg from "../../../assets/hero/business2.png";
 import LawImg      from "../../../assets/hero/law2.png";
-import ProcessImg  from "../../../assets/hero/law.jpg";
+import ProcessImg  from "../../../assets/hero/process6.webp";
 import { useTranslation } from "react-i18next";
 
 const FONT_TITLE = `'Montserrat', Helvetica, sans-serif`;
@@ -42,16 +42,6 @@ const Hero = () => {
       overlayOpacity: 0.4,
     },
     {
-      id: "tech",
-      label: t("hero.tech.label"),
-      title: t("hero.tech.title"),
-      subtitle: t("hero.tech.subtitle"),
-      ctaLabel: t("hero.tech.cta"),
-      ctaTo: "/overview",
-      gradient: "linear-gradient(135deg, #0e0404 0%, #0d1520 55%, #152035 100%)",
-      image: TechImg,
-    },
-    {
       id: "direito",
       label: t("hero.law.label"),
       title: t("hero.law.title"),
@@ -62,6 +52,17 @@ const Hero = () => {
       image: LawImg,
       overlayOpacity: 0.4,
     },
+    {
+      id: "tech",
+      label: t("hero.tech.label"),
+      title: t("hero.tech.title"),
+      subtitle: t("hero.tech.subtitle"),
+      ctaLabel: t("hero.tech.cta"),
+      ctaTo: "/overview",
+      gradient: "linear-gradient(135deg, #0e0404 0%, #0d1520 55%, #152035 100%)",
+      image: TechImg,
+    },
+    
     {
       id: "processos",
       label: t("hero.processes.label"),

@@ -53,7 +53,7 @@ const en = {
       cta:      "Explore our solutions",
     },
     tech: {
-      label:    "Engineering & Tech",
+      label:    "Tech Engineering",
       title:    "Technology applied to real results.",
       subtitle: "Data, digital products and web development focused on impact for your business.",
       cta:      "Explore our solutions",
@@ -65,9 +65,9 @@ const en = {
       cta:      "Explore our solutions",
     },
     processes: {
-      label:    "Processes",
+      label:    "Process Engineering",
       title:    "Efficiency that unleashes your team's potential.",
-      subtitle: "Mapping, redesign and optimization of processes for growing companies.",
+      subtitle: "Mapping, redesign and optimization of processes for companies.",
       cta:      "Explore our solutions",
     },
   },

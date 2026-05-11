@@ -34,7 +34,7 @@ const ITEMS = [
   },
   {
     title: "Tecnologia de simulação real",
-    body:  "Utilizamos o AnyLogic, software profissional de simulação adotado por grandes empresas e centros de pesquisa ao redor do mundo. Nada de planilhas e estimativas.",
+    body:  "Utilizamos ferramentas profissionais de simulação adotadas por grandes empresas e centros de pesquisa ao redor do mundo. Nada de planilhas e estimativas.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <rect x="2" y="3" width="20" height="14" rx="2"/>
@@ -86,7 +86,7 @@ const Inner = styled.div`
 
 /* ─── Header ─────────────────────────────────────────── */
 const Header = styled.div<{ $v: boolean }>`
-  display: flex; flex-direction: column; gap: 10px;
+  display: flex; flex-direction: column; gap: 16px; // ← era 10px
   max-width: 580px; opacity: 0;
   ${p => p.$v && css`animation: ${fadeUp} 0.8s ${SPRING} 0.1s forwards;`}
 `;
@@ -103,7 +103,9 @@ const H2 = styled.h2`
 `;
 
 const Divider = styled.div<{ $v: boolean }>`
-  width: 32px; height: 2px; background: ${RED};
+  width: 48px;  // ← era 32px
+  height: 3px;  // ← era 2px
+  background: ${RED};
   transform-origin: left;
   transform: ${p => p.$v ? "scaleX(1)" : "scaleX(0)"};
   animation: ${p => p.$v ? lineGrow : "none"} .5s .3s ${SPRING} both;
