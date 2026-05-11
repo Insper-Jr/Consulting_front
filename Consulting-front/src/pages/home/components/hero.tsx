@@ -68,7 +68,7 @@ const Hero = () => {
       title: t("hero.processes.title"),
       subtitle: t("hero.processes.subtitle"),
       ctaLabel: t("hero.processes.cta"),
-      ctaTo: "/overview",
+      ctaTo: "/processos",
       gradient: "linear-gradient(135deg, #0e0404 0%, #0e0e0e 55%, #181818 100%)",
       image: ProcessImg,
       overlayOpacity: 0.3,

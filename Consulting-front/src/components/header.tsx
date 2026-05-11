@@ -18,12 +18,13 @@ const FRENTES: Frente[] = [
 const Header = () => {
   const { t, i18n } = useTranslation();
 
-  const NAV_ITEMS = [
-    { label: t("nav.solutions"), key: "solucoes", to: null      },
-    { label: t("nav.about"),     key: null,       to: "/about"  },
-    { label: t("nav.join"),      key: null,       to: "/join"   },
-    { label: t("nav.contact"),   key: null,       to: "/contact"},
-  ] as const;
+const NAV_ITEMS = [
+  { label: t("nav.solutions"), key: "solucoes", to: null       },
+  { label: t("nav.about"),     key: null,       to: "/about"   },
+  { label: t("nav.alumni"),    key: null,       to: "/alumni"  }, 
+  { label: t("nav.join"),      key: null,       to: "/join"    },
+  { label: t("nav.contact"),   key: null,       to: "/contact" },
+] as const;
 
   const [isScrolled,     setIsScrolled]     = useState(false);
   const [sidebarOpen,    setSidebarOpen]    = useState(false);

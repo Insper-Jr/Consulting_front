@@ -15,6 +15,7 @@ import Overview from "./overview/overview"
 import Strategy from "./strategy/strategy"
 import Protection from "./protection/protection"
 import Processos from "./processos/processos"
+import Alumni from "./alumni/alumni"
 
 
 const routes: RouteObject[] = [{
@@ -81,6 +82,9 @@ const routes: RouteObject[] = [{
     path: "/processos",
     element: <Processos />,
 },
-
+{
+    path: "/alumni",
+    element: <Alumni />,
+},
 ]
 export default routes

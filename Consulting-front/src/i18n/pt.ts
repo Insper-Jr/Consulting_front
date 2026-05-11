@@ -3,6 +3,7 @@ const pt = {
   nav: {
     solutions: "Nossas Soluções",
     about:     "A Insper Jr",
+    alumni:    "Alumni",
     join:      "Faça Parte",
     contact:   "Contato",
     cta:       "Fale Conosco",

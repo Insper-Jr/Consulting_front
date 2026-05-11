@@ -3,6 +3,7 @@ const en = {
   nav: {
     solutions: "Our Solutions",
     about:     "About Us",
+    alumni:    "Alumni",
     join:      "Join Us",
     contact:   "Contact",
     cta:       "Get in Touch",
