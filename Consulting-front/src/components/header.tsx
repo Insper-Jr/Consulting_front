@@ -11,17 +11,6 @@ type Frente =
   | { label: string; to: string;  sub?: never }
   | { label: string; to?: never; sub: SubFrente[] };
 
-const FRENTES: Frente[] = [
-  { label: "Business", to: "/overview?frente=business" },
-  { label: "Direito",  to: "/overview?frente=direito"  },
-  {
-    label: "Engenharia",
-    sub: [
-      { label: "Tecnologia", to: "/overview?frente=tech" },
-      { label: "Processos",  to: "/processos"            },
-    ],
-  },
-];
 
 const Header = () => {
   const { t, i18n } = useTranslation();
@@ -33,6 +22,18 @@ const Header = () => {
     { label: t("nav.join"),      key: null,       to: "/join"    },
     { label: t("nav.contact"),   key: null,       to: "/contact" },
   ] as const;
+
+  const FRENTES: Frente[] = [
+    { label: t("frentes.business"), to: "/overview?frente=business" },
+    { label: t("frentes.direito"),  to: "/overview?frente=direito"  },
+    {
+      label: t("frentes.engenharia"),
+      sub: [
+        { label: t("frentes.tech"),      to: "/overview?frente=tech" },
+        { label: t("frentes.processos"), to: "/processos"            },
+      ],
+    },
+  ];
 
   const [isScrolled,     setIsScrolled]     = useState(false);
   const [sidebarOpen,    setSidebarOpen]    = useState(false);

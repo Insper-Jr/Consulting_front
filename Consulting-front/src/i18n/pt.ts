@@ -8,6 +8,16 @@ const pt = {
     contact:   "Contato",
     cta:       "Fale Conosco",
   },
+
+  // ── Frentes (dropdown de Soluções) ──
+  frentes: {
+    business:   "Business",
+    direito:    "Direito",
+    engenharia: "Engenharia",
+    tech:       "Tecnologia",
+    processos:  "Processos",
+  },
+
   dropdown: {
     business: {
       title:       "Business",
@@ -17,7 +27,7 @@ const pt = {
       financial:   "Viabilidade Financeira",
     },
     tech: {
-      title:    "Engenharia & Tecnologia",
+      title:    "Engenharia Tech", // ← atualizado
       data:     "Análise de Dados",
       products: "Desenvolvimento de Produtos",
       devweb:   "Desenvolvimento Web",
@@ -25,10 +35,10 @@ const pt = {
     law: {
       title: "Direito",
       creation: {
-        title:     "Criação e Estruturação",
-        planning:  "Planejamento Societário",
-        cnpj:      "Emissão de CNPJ",
-        docs:      "Documentos Constitutivos",
+        title:    "Criação e Estruturação",
+        planning: "Planejamento Societário",
+        cnpj:     "Emissão de CNPJ",
+        docs:     "Documentos Constitutivos",
       },
       strategy: {
         title:    "Operação e Estratégia",
@@ -42,6 +52,7 @@ const pt = {
       },
     },
   },
+
   search: "Buscar...",
 
   // ── Hero ──
