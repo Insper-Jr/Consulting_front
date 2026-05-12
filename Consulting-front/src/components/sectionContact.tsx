@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled, { keyframes, createGlobalStyle } from "styled-components";
+import { useTranslation } from "react-i18next";
 
 const fadeUp = keyframes`from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}`;
 const shimmer = keyframes`0%{background-position:-200% center}100%{background-position:200% center}`;
@@ -98,6 +99,7 @@ const SubmitBtn = styled.button<{ $loading?: boolean }>`
 const Success = styled.p`font-family: ${FONT}; font-size: 16px; color: ${c.red}; margin: 0;`;
 
 export default function ContactSection() {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "done">("idle");
 
@@ -113,35 +115,35 @@ export default function ContactSection() {
       <Section>
         <Container>
           <TopRow>
-            <Title>Entre em contato com a nossa equipe</Title>
-            <ContactButton href="/contato">
+            <Title>{t("sectionContact.title")}</Title>
+            <ContactButton href="/contact">
               <svg viewBox="0 0 20 20" fill="currentColor">
                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
               </svg>
-              Contato
+              {t("sectionContact.button")}
             </ContactButton>
           </TopRow>
           <Divider />
           <NewsletterRow>
             <Copy>
-              <Label>Newsletter</Label>
-              <Heading>Fique por dentro das nossas novidades</Heading>
-              <Sub>Receba insights e atualizações no seu e-mail. Sem spam.</Sub>
+              <Label>{t("sectionContact.newsletterLabel")}</Label>
+              <Heading>{t("sectionContact.newsletterHeading")}</Heading>
+              <Sub>{t("sectionContact.newsletterSub")}</Sub>
             </Copy>
             <div style={{ flex: 1, minWidth: 260, maxWidth: 420 }}>
               {status === "done" ? (
-                <Success>✓ Obrigado! Você receberá nossas novidades em breve.</Success>
+                <Success>{t("sectionContact.success")}</Success>
               ) : (
                 <Form>
                   <EmailInput
-                    type="email" placeholder="seu@email.com" value={email}
+                    type="email" placeholder={t("sectionContact.emailPlaceholder")} value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
                     disabled={status === "loading"}
                   />
                   <SubmitBtn onClick={handleSubmit} disabled={status === "loading"} $loading={status === "loading"}>
-                    {status === "loading" ? "Enviando…" : "Inscrever-se"}
+                    {status === "loading" ? t("sectionContact.submitting") : t("sectionContact.submitBtn")}
                   </SubmitBtn>
                 </Form>
               )}
