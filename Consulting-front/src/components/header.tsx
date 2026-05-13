@@ -29,7 +29,7 @@ const Header = () => {
     {
       label: t("frentes.engenharia"),
       sub: [
-        { label: t("frentes.tech"),      to: "/overview?frente=tech" },
+        { label: t("frentes.tech"),      to: "/tech" },
         { label: t("frentes.processos"), to: "/processos"            },
       ],
     },

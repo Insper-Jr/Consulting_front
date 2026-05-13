@@ -14,6 +14,7 @@ import Join from "./join/join"
 import Overview from "./overview/overview"
 import Strategy from "./strategy/strategy"
 import Protection from "./protection/protection"
+import Tech from "./tech/tech"
 import Processos from "./processos/processos"
 import Alumni from "./alumni/alumni"
 
@@ -77,6 +78,10 @@ const routes: RouteObject[] = [{
 {
     path: "/join",
     element: <Join />,
+},
+{
+    path: "/tech",
+    element: <Tech />,
 },
 {
     path: "/processos",
