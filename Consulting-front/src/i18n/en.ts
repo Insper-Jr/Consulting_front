@@ -3,10 +3,21 @@ const en = {
   nav: {
     solutions: "Our Solutions",
     about:     "About Us",
+    alumni:    "Alumni",
     join:      "Join Us",
     contact:   "Contact",
     cta:       "Get in Touch",
   },
+
+  // ── Frentes (Solutions dropdown) ──
+  frentes: {
+    business:   "Business",
+    direito:    "Law",
+    engenharia: "Engineering",
+    tech:       "Technology",
+    processos:  "Processes",
+  },
+
   dropdown: {
     business: {
       title:       "Business",
@@ -16,7 +27,7 @@ const en = {
       financial:   "Financial Feasibility",
     },
     tech: {
-      title:    "Engineering & Technology",
+      title:    "Tech Engineering", // ← atualizado
       data:     "Data Analysis",
       products: "Product Development",
       devweb:   "Web Development",
@@ -24,10 +35,10 @@ const en = {
     law: {
       title: "Law",
       creation: {
-        title:     "Formation & Structure",
-        planning:  "Corporate Planning",
-        cnpj:      "Company Registration",
-        docs:      "Constitutional Documents",
+        title:    "Formation & Structure",
+        planning: "Corporate Planning",
+        cnpj:     "Company Registration",
+        docs:     "Constitutional Documents",
       },
       strategy: {
         title:    "Operations & Strategy",
@@ -41,6 +52,7 @@ const en = {
       },
     },
   },
+
   search: "Search...",
 
   // ── Hero ──
@@ -52,7 +64,7 @@ const en = {
       cta:      "Explore our solutions",
     },
     tech: {
-      label:    "Engineering & Tech",
+      label:    "Tech Engineering",
       title:    "Technology applied to real results.",
       subtitle: "Data, digital products and web development focused on impact for your business.",
       cta:      "Explore our solutions",
@@ -64,9 +76,9 @@ const en = {
       cta:      "Explore our solutions",
     },
     processes: {
-      label:    "Processes",
+      label:    "Process Engineering",
       title:    "Efficiency that unleashes your team's potential.",
-      subtitle: "Mapping, redesign and optimization of processes for growing companies.",
+      subtitle: "Mapping, redesign and optimization of processes for companies.",
       cta:      "Explore our solutions",
     },
   },

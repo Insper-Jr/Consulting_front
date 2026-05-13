@@ -3,10 +3,21 @@ const pt = {
   nav: {
     solutions: "Nossas Soluções",
     about:     "A Insper Jr",
+    alumni:    "Alumni",
     join:      "Faça Parte",
     contact:   "Contato",
     cta:       "Fale Conosco",
   },
+
+  // ── Frentes (dropdown de Soluções) ──
+  frentes: {
+    business:   "Business",
+    direito:    "Direito",
+    engenharia: "Engenharia",
+    tech:       "Tecnologia",
+    processos:  "Processos",
+  },
+
   dropdown: {
     business: {
       title:       "Business",
@@ -16,7 +27,7 @@ const pt = {
       financial:   "Viabilidade Financeira",
     },
     tech: {
-      title:    "Engenharia & Tecnologia",
+      title:    "Engenharia Tech", // ← atualizado
       data:     "Análise de Dados",
       products: "Desenvolvimento de Produtos",
       devweb:   "Desenvolvimento Web",
@@ -24,10 +35,10 @@ const pt = {
     law: {
       title: "Direito",
       creation: {
-        title:     "Criação e Estruturação",
-        planning:  "Planejamento Societário",
-        cnpj:      "Emissão de CNPJ",
-        docs:      "Documentos Constitutivos",
+        title:    "Criação e Estruturação",
+        planning: "Planejamento Societário",
+        cnpj:     "Emissão de CNPJ",
+        docs:     "Documentos Constitutivos",
       },
       strategy: {
         title:    "Operação e Estratégia",
@@ -41,6 +52,7 @@ const pt = {
       },
     },
   },
+
   search: "Buscar...",
 
   // ── Hero ──
@@ -52,7 +64,7 @@ const pt = {
       cta:      "Conheça nossas soluções",
     },
     tech: {
-      label:    "Engenharia & Tech",
+      label:    "Engenharia Tech",
       title:    "Tecnologia aplicada a resultados reais.",
       subtitle: "Dados, produtos digitais e desenvolvimento web com foco em impacto para o seu negócio.",
       cta:      "Conheça nossas soluções",
@@ -64,9 +76,9 @@ const pt = {
       cta:      "Conheça nossas soluções",
     },
     processes: {
-      label:    "Processos",
+      label:    "Engenharia de Processos",
       title:    "Eficiência que libera o potencial da sua equipe.",
-      subtitle: "Mapeamento, redesenho e otimização de processos para empresas em crescimento.",
+      subtitle: "Mapeamento, redesenho e otimização de processos para empresas.",
       cta:      "Conheça nossas soluções",
     },
   },
