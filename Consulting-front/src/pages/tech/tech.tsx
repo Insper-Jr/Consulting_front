@@ -4,9 +4,11 @@ import styled, { createGlobalStyle, keyframes, css } from "styled-components";
 import Header from "../../components/header";
 import Footer from "../../components/footerNovo";
 import WppButton from "../../components/wppButton";
-import WalleCase from "./components/walleCase";
-import GamifCase from "./components/gamifCase";
-import MedCase from "./components/medCase";
+import ContactSection from "../../components/sectionContact";
+import TechCTA from "./components/techCTA";
+// Imagens de destaque dos cases
+import gamifHighlight from "../../assets/gamificacao/slides/02-solucao.png";
+import medHighlight from "../../assets/medicina/slides/04-contexto.jpg";
 
 // ── Color tokens (from HTML reference) ──────────────────────────────────────
 const COLORS = {
@@ -27,6 +29,7 @@ const FONT_MONO  = `ui-monospace, "SF Mono", Menlo, monospace`;
 // ── Global Style: import fonts ─────────────────────────────────────────────
 const TechGlobal = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap');
+  html { scroll-behavior: smooth; }
 `;
 
 // ── Particle Network (canvas) hook ─────────────────────────────────────────
@@ -189,31 +192,6 @@ type Scope = {
 const SCOPES: Scope[] = [
   {
     num: "01",
-    tab: "Dados",
-    title: <>Dados que viram <i>decisão</i>.</>,
-    lede: <>Responsável por <strong>transformar dados em inteligência estratégica</strong> — da estruturação e modelagem dos bancos ao desenvolvimento de <strong>dashboards interativos</strong> e modelos de machine learning para apoio à tomada de decisão.</>,
-    side: {
-      eyebrow: "Ficha do escopo",
-      rows: [
-        { key: "Produto-chave", val: <><strong>Dashboards interativos</strong> (React + Python)</> },
-        { key: "Bancos de dados", val: <>· SQL (PostgreSQL, Supabase, SQL Workbench)<br />· NoSQL</> },
-        { key: "Aplicações", val: <>Visualização estratégica, análise exploratória e diagnóstica, Machine Learning (previsão, classificação, clusterização)</> },
-        { key: "Sinergia", val: <>Forte integração com Desenvolvimento Web — dashboards embarcados em plataformas</> },
-      ],
-      quote: "Desenvolvimento orientado ao problema — não à ferramenta.",
-    },
-    detail: <>Nossa abordagem é <strong>orientada ao problema</strong> e não restrita a ferramentas específicas. Estruturamos e modelamos os dados conforme a necessidade do cliente, integramos com outras frentes (ex: dashboards dentro de plataformas web) e entregamos <strong>documentação técnica detalhada</strong> de todos os métodos utilizados. O produto-chave são os dashboards — front-end em React e back-end em Python, conectados ao banco em tempo real.</>,
-    bullets: [
-      "Dashboards interativos",
-      "Visualização de dados estratégicos",
-      "Análise exploratória e diagnóstica",
-      "Modelos de Machine Learning — previsão, classificação e clusterização",
-      "Apoio à tomada de decisão baseada em dados",
-    ],
-    tags: ["Python", "React", "SQL", "PostgreSQL", "Supabase", "SQL Workbench", "NoSQL", "Machine Learning"],
-  },
-  {
-    num: "02",
     tab: "Desenvolvimento Web",
     title: <>Plataformas <i>completas</i>.</>,
     lede: <>Focado na <strong>criação de plataformas digitais completas (fullstack)</strong> — de componentes isolados a sistemas inteiros. Arquitetura modular e escalável, com integração nativa a dados, automações e agentes de IA.</>,
@@ -236,6 +214,31 @@ const SCOPES: Scope[] = [
       "Soluções interativas",
     ],
     tags: ["React", "Python", "GitHub"],
+  },
+  {
+    num: "02",
+    tab: "Dados",
+    title: <>Dados que viram <i>decisão</i>.</>,
+    lede: <>Responsável por <strong>transformar dados em inteligência estratégica</strong> — da estruturação e modelagem dos bancos ao desenvolvimento de <strong>dashboards interativos</strong> e modelos de machine learning para apoio à tomada de decisão.</>,
+    side: {
+      eyebrow: "Ficha do escopo",
+      rows: [
+        { key: "Produto-chave", val: <><strong>Dashboards interativos</strong> (React + Python)</> },
+        { key: "Bancos de dados", val: <>· SQL (PostgreSQL, Supabase, SQL Workbench)<br />· NoSQL</> },
+        { key: "Aplicações", val: <>Visualização estratégica, análise exploratória e diagnóstica, Machine Learning (previsão, classificação, clusterização)</> },
+        { key: "Sinergia", val: <>Forte integração com Desenvolvimento Web — dashboards embarcados em plataformas</> },
+      ],
+      quote: "Desenvolvimento orientado ao problema — não à ferramenta.",
+    },
+    detail: <>Nossa abordagem é <strong>orientada ao problema</strong> e não restrita a ferramentas específicas. Estruturamos e modelamos os dados conforme a necessidade do cliente, integramos com outras frentes (ex: dashboards dentro de plataformas web) e entregamos <strong>documentação técnica detalhada</strong> de todos os métodos utilizados. O produto-chave são os dashboards — front-end em React e back-end em Python, conectados ao banco em tempo real.</>,
+    bullets: [
+      "Dashboards interativos",
+      "Visualização de dados estratégicos",
+      "Análise exploratória e diagnóstica",
+      "Modelos de Machine Learning — previsão, classificação e clusterização",
+      "Apoio à tomada de decisão baseada em dados",
+    ],
+    tags: ["Python", "React", "SQL", "PostgreSQL", "Supabase", "SQL Workbench", "NoSQL", "Machine Learning"],
   },
   {
     num: "03",
@@ -430,127 +433,136 @@ function Tech() {
           </HeroScroll>
         </Hero>
 
-        {/* Sobre a frente */}
-        <Intro id="sobre-frente">
-          <SectionHeader>
-            <Line $hidden />
-            <SectionTitle>Sobre a frente</SectionTitle>
-            <Line $hidden />
-          </SectionHeader>
-
-          <FrenteLede>
-            Desde 2017, desenvolvemos soluções digitais e tecnológicas que unem engenharia, dados, automação e desenvolvimento de software para gerar impacto real em empresas e organizações. Nossa atuação evolui constantemente em tecnologias, metodologias e materiais internos — sempre buscando a melhor solução para cada projeto, sem se limitar a ferramentas ou padrões específicos.
-          </FrenteLede>
-
-          <PillarsGrid>
-            <Pillar>
-              <PillarNum>01 — Multidisciplinar</PillarNum>
-              <PillarTitle>Cinco cursos, uma frente</PillarTitle>
-              <PillarText>
-                Reunimos alunos de <strong>Engenharia da Computação, Mecânica, Mecatrônica, Produção e Ciência da Computação</strong>, garantindo visão multidisciplinar e acesso a diferentes áreas do universo tech.
-              </PillarText>
-            </Pillar>
-            <Pillar>
-              <PillarNum>02 — Integrada</PillarNum>
-              <PillarTitle>Três escopos que conversam</PillarTitle>
-              <PillarText>
-                A atuação se divide em <strong>Dados, Desenvolvimento Web e Automação</strong>. A divisão é apenas organizacional: os escopos funcionam de forma integrada dentro de uma mesma solução.
-              </PillarText>
-            </Pillar>
-            <Pillar>
-              <PillarNum>03 — Sob medida</PillarNum>
-              <PillarTitle>Soluções completas</PillarTitle>
-              <PillarText>
-                Combinamos dashboards analíticos, bancos de dados, automações e agentes inteligentes em uma única plataforma — <strong>adaptada ao contexto e às necessidades de cada cliente</strong>.
-              </PillarText>
-            </Pillar>
-          </PillarsGrid>
-
-          <StatsBar>
-            <Stat><StatValue>3+</StatValue><StatLabel>Escopos integrados</StatLabel></Stat>
-            <Stat><StatValue>5</StatValue><StatLabel>Cursos de Engenharia</StatLabel></Stat>
-            <Stat><StatValue>8+</StatValue><StatLabel>Anos de Atuação</StatLabel></Stat>
-            <Stat><StatValue>24+</StatValue><StatLabel>Anos de Insper Jr.</StatLabel></Stat>
-          </StatsBar>
-        </Intro>
       </HeroIntroWrap>
 
-      {/* Red animated bar */}
+      {/* Red animated bar above Nossos Escopos */}
       <RedBarWrap><RedBar /></RedBarWrap>
 
-      {/* Section: Nossos Escopos */}
-      <SectionHeader>
-        <Line $hidden />
-        <SectionTitle>Nossos Escopos</SectionTitle>
-        <Line $hidden />
-      </SectionHeader>
-      <SectionSubtitle>
-        Três frentes que operam de forma integrada — e podem ser combinadas para entregar soluções tecnológicas completas dentro de um mesmo ecossistema.
-      </SectionSubtitle>
+      {/* Section opening: Nossos Escopos */}
+      <ScopesOpening>
+        <OpeningEyebrow>Frentes de atuação</OpeningEyebrow>
+        <OpeningTitle>Nossos Escopos</OpeningTitle>
+        <OpeningDivider />
+        <OpeningSubtitle>
+          Três frentes que operam de forma integrada — e podem ser combinadas para entregar soluções tecnológicas completas dentro de um mesmo ecossistema.
+        </OpeningSubtitle>
 
-      {SCOPES.map((s, i) => (
-        <React.Fragment key={s.num}>
-          <ScopeSection>
-            <ScopesWrap>
-              <ScopePanel role="tabpanel">
+        <OpeningIndex>
+          {SCOPES.map((s) => (
+            <IndexCard
+              key={s.num}
+              href={`#escopo-${s.num}`}
+              onClick={(e) => {
+                e.preventDefault();
+                const target = document.getElementById(`escopo-${s.num}`);
+                if (target) {
+                  target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  history.replaceState(null, '', `#escopo-${s.num}`);
+                }
+              }}
+            >
+              <IndexBadge>ESCOPO {s.num}</IndexBadge>
+              <IndexTitle>{s.tab}</IndexTitle>
+              <IndexCTA>
+                <span>Explorar</span>
+                <IndexArrow aria-hidden="true">→</IndexArrow>
+              </IndexCTA>
+            </IndexCard>
+          ))}
+        </OpeningIndex>
+      </ScopesOpening>
+
+      {SCOPES.map((s) => (
+        <ScopeSection key={s.num} id={`escopo-${s.num}`}>
+          <ScopesWrap>
+            <ScopePanel role="tabpanel">
+              <ScopeHeader>
                 <ScopeCounter>
                   <CounterNum>ESCOPO {s.num}</CounterNum>
                   <ScopeName>{s.tab}</ScopeName>
                 </ScopeCounter>
-
-                <PanelTop>
-                  <PanelLeft>
-                    <ScopeTitleH3>{s.title}</ScopeTitleH3>
-                    <Accent />
-                    <ScopeLede>{s.lede}</ScopeLede>
-                  </PanelLeft>
-                  <PanelSide>
-                    <SideCorner />
-                    <SideEyebrow>{s.side.eyebrow}</SideEyebrow>
-                    <SideRows>
-                      {s.side.rows.map((r, j) => (
-                        <SideRow key={j}>
-                          <SideKey>{r.key}</SideKey>
-                          <SideVal>{r.val}</SideVal>
-                        </SideRow>
-                      ))}
-                    </SideRows>
-                    <SideQuote>{s.side.quote}</SideQuote>
-                  </PanelSide>
-                </PanelTop>
-
-                <PanelBody>
-                  <PanelCol>
-                    <ColLabel>Como atuamos</ColLabel>
-                    <ScopeDetail>{s.detail}</ScopeDetail>
-                  </PanelCol>
-                  <PanelCol>
-                    <ColLabel>Principais aplicações</ColLabel>
-                    <Bullets>
-                      {s.bullets.map((b, j) => <li key={j}>{b}</li>)}
-                    </Bullets>
-                  </PanelCol>
-                </PanelBody>
-
                 <PanelTags>
                   <TagsLabel>Tecnologias</TagsLabel>
                   {s.tags.map(t => <Tag key={t}>{t}</Tag>)}
                 </PanelTags>
-              </ScopePanel>
-            </ScopesWrap>
-          </ScopeSection>
+              </ScopeHeader>
 
-          {/* Case Gamificação after Escopo 02 (Desenvolvimento Web) */}
-          {i === 1 && <GamifCase />}
-          {/* Case Medicina I — logo abaixo do Gamificação, mesmo escopo (Web) */}
-          {i === 1 && <MedCase />}
-        </React.Fragment>
+              <ScopeGrid>
+                <ScopeMain>
+                  <ScopeIntro>
+                    <ScopeTitleH3>{s.title}</ScopeTitleH3>
+                    <Accent />
+                    <ScopeLede>{s.lede}</ScopeLede>
+                  </ScopeIntro>
+
+                  <PanelBody>
+                    <PanelCol>
+                      <ColLabel>Como atuamos</ColLabel>
+                      <ScopeDetail>{s.detail}</ScopeDetail>
+                    </PanelCol>
+                    <PanelCol>
+                      <ColLabel>Principais aplicações</ColLabel>
+                      <Bullets>
+                        {s.bullets.map((b, j) => <li key={j}>{b}</li>)}
+                      </Bullets>
+                    </PanelCol>
+                  </PanelBody>
+                </ScopeMain>
+
+                <PanelSide>
+                  <SideCorner />
+                  <SideEyebrow>{s.side.eyebrow}</SideEyebrow>
+                  <SideRows>
+                    {s.side.rows.map((r, j) => (
+                      <SideRow key={j}>
+                        <SideKey>{r.key}</SideKey>
+                        <SideVal>{r.val}</SideVal>
+                      </SideRow>
+                    ))}
+                  </SideRows>
+                  <SideQuote>{s.side.quote}</SideQuote>
+                </PanelSide>
+              </ScopeGrid>
+            </ScopePanel>
+          </ScopesWrap>
+        </ScopeSection>
       ))}
 
-      {/* Case Wall-E (after Escopo 03 — Automação) */}
-      <WalleCase />
+      {/* Red animated bar above Cases de Destaque */}
+      <RedBarWrap><RedBar /></RedBarWrap>
 
-      {/* Integration band */}
+      {/* Cases de Destaque — overview com links para páginas dedicadas */}
+      <HighlightCases>
+        <SectionHeader>
+          <OpeningEyebrow>Projetos em destaque</OpeningEyebrow>
+          <SectionTitle>Cases de Destaque</SectionTitle>
+          <OpeningDivider />
+        </SectionHeader>
+        <SectionSubtitle>
+          Conheça três projetos que exemplificam a forma como entregamos soluções tecnológicas — do desenvolvimento web a automações inteligentes.
+        </SectionSubtitle>
+        <HighlightGrid>
+          <HighlightCard to="/tech/gamificacao" aria-label="Ver case Gamificação">
+            <HighlightCardTitle>Gamificação</HighlightCardTitle>
+            <HighlightCardImage src={gamifHighlight} alt="Aumento da Produtividade Através de Gamificação" />
+            <HighlightCardSubtitle>Escopo · Desenvolvimento Web</HighlightCardSubtitle>
+          </HighlightCard>
+          <HighlightCard to="/tech/medicina" aria-label="Ver case Medicina">
+            <HighlightCardTitle>Medicina</HighlightCardTitle>
+            <HighlightCardImage src={medHighlight} alt="Contexto do Projeto Medicina" />
+            <HighlightCardSubtitle>Escopo · Desenvolvimento Web</HighlightCardSubtitle>
+          </HighlightCard>
+          <HighlightCard to="/tech/wall-e" aria-label="Ver case Wall-E">
+            <HighlightCardTitle>Wall-E</HighlightCardTitle>
+            <HighlightCardPlaceholder aria-label="Imagem a ser definida">
+              <span>Imagem em breve</span>
+            </HighlightCardPlaceholder>
+            <HighlightCardSubtitle>Escopo · Automação</HighlightCardSubtitle>
+          </HighlightCard>
+        </HighlightGrid>
+      </HighlightCases>
+
+      {/* Integration band — Sinergia entre Escopos */}
       <Integration ref={integrationRef}>
         <SynergyCanvas ref={synergyCanvasRef} />
         <CursorGlow ref={integrationGlowRef} />
@@ -560,31 +572,67 @@ function Tech() {
             Soluções que <span>conversam entre si</span> em um mesmo ecossistema
           </IntegrationTitle>
           <IntegrationLede>
-            A divisão dos escopos é apenas organizacional. Em um único projeto é possível combinar dashboards analíticos, bancos de dados, automações e agentes inteligentes — entregando uma solução completa, adaptada ao contexto e às necessidades do cliente.
+            Não existe pacote padrão. Cada solução combina dashboards, bancos de dados, automações e agentes inteligentes nas proporções certas para o desafio do cliente — sempre construída sob medida.
           </IntegrationLede>
-          <IntegrationGrid>
-            <IntCard>
-              <IntCardTitle>Dados + Web</IntCardTitle>
-              <IntCardText>Dashboards interativos embarcados diretamente em plataformas, conectados ao banco em tempo real.</IntCardText>
-            </IntCard>
-            <IntCard>
-              <IntCardTitle>Web + Automação</IntCardTitle>
-              <IntCardText>Fluxos automatizados disparados a partir de eventos da plataforma, conectando sistemas internos e externos.</IntCardText>
-            </IntCard>
-            <IntCard>
-              <IntCardTitle>Automação + IA</IntCardTitle>
-              <IntCardText>Agentes inteligentes operando em WhatsApp, plataformas próprias e sistemas internos com base em fluxos estruturados.</IntCardText>
-            </IntCard>
-          </IntegrationGrid>
         </IntegrationInner>
       </Integration>
+
+      {/* Red animated bar above Sobre a frente */}
+      <RedBarWrap><RedBar /></RedBarWrap>
+
+      {/* Sobre a frente */}
+      <Intro id="sobre-frente">
+        <SectionHeader>
+          <OpeningEyebrow>Quem somos</OpeningEyebrow>
+          <SectionTitle>Sobre a frente</SectionTitle>
+          <OpeningDivider />
+        </SectionHeader>
+
+        <FrenteLede>
+          Desde 2017, desenvolvemos soluções digitais e tecnológicas que unem engenharia, dados, automação e desenvolvimento de software para gerar impacto real em empresas e organizações. Nossa atuação evolui constantemente em tecnologias, metodologias e materiais internos — sempre buscando a melhor solução para cada projeto, sem se limitar a ferramentas ou padrões específicos.
+        </FrenteLede>
+
+        <PillarsGrid>
+          <Pillar>
+            <PillarNum>01 — Multidisciplinar</PillarNum>
+            <PillarTitle>Cinco cursos, uma frente</PillarTitle>
+            <PillarText>
+              Reunimos alunos de <strong>Engenharia da Computação, Mecânica, Mecatrônica, Produção e Ciência da Computação</strong>, garantindo visão multidisciplinar e acesso a diferentes áreas do universo tech.
+            </PillarText>
+          </Pillar>
+          <Pillar>
+            <PillarNum>02 — Integrada</PillarNum>
+            <PillarTitle>Três escopos que conversam</PillarTitle>
+            <PillarText>
+              A atuação se divide em <strong>Dados, Desenvolvimento Web e Automação</strong>. A divisão é apenas organizacional: os escopos funcionam de forma integrada dentro de uma mesma solução.
+            </PillarText>
+          </Pillar>
+          <Pillar>
+            <PillarNum>03 — Sob medida</PillarNum>
+            <PillarTitle>Soluções completas</PillarTitle>
+            <PillarText>
+              Combinamos dashboards analíticos, bancos de dados, automações e agentes inteligentes em uma única plataforma — <strong>adaptada ao contexto e às necessidades de cada cliente</strong>.
+            </PillarText>
+          </Pillar>
+        </PillarsGrid>
+
+        <StatsBar>
+          <Stat><StatValue>3+</StatValue><StatLabel>Escopos integrados</StatLabel></Stat>
+          <Stat><StatValue>5</StatValue><StatLabel>Cursos de Engenharia</StatLabel></Stat>
+          <Stat><StatValue>8+</StatValue><StatLabel>Anos de Atuação</StatLabel></Stat>
+          <Stat><StatValue>24+</StatValue><StatLabel>Anos de Insper Jr.</StatLabel></Stat>
+        </StatsBar>
+      </Intro>
+
+      {/* Red animated bar above Diferenciais */}
+      <RedBarWrap><RedBar /></RedBarWrap>
 
       {/* Diferenciais */}
       <Diferenciais>
         <SectionHeader>
-          <Line $hidden />
+          <OpeningEyebrow>O que nos diferencia</OpeningEyebrow>
           <SectionTitle>Diferenciais</SectionTitle>
-          <Line $hidden />
+          <OpeningDivider />
         </SectionHeader>
         <SectionSubtitle>
           O que faz a frente de Tecnologia da Insper Jr. se destacar no mercado.
@@ -611,14 +659,9 @@ function Tech() {
         </DifGrid>
       </Diferenciais>
 
-      {/* Closing CTA */}
-      <Closing>
-        <ClosingTitle>Vamos transformar seu desafio em solução?</ClosingTitle>
-        <ClosingText>
-          Mais de duas décadas de Insper Jr. e centenas de projetos: conhecimento técnico, visão estratégica e inovação aplicada.
-        </ClosingText>
-        <ClosingLink to="/contact">Solicite um diagnóstico gratuito</ClosingLink>
-      </Closing>
+      {/* Closing CTA + Contact */}
+      <TechCTA />
+      <ContactSection />
 
       <Footer />
     </PageWrap>
@@ -822,7 +865,7 @@ const HeroScrollLine = styled.div`
 
 // ── Intro / Sobre a frente ──
 const Intro = styled.section`
-  padding: 5rem 2rem 2rem;
+  padding: 0 2rem 4rem;
   width: 80%;
   max-width: 1240px;
   margin: 0 auto;
@@ -830,19 +873,20 @@ const Intro = styled.section`
 
   @media (max-width: 768px) {
     width: 90%;
-    padding: 3.5rem 1rem 1rem;
+    padding: 0 1rem 2.5rem;
   }
 `;
 
 // ── Section header ──
 const SectionHeader = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-  margin: 5rem auto 1rem;
+  margin: 5rem auto 0;
   max-width: 1100px;
   padding: 0 2rem;
+  text-align: center;
 `;
 
 const Line = styled.div<{ $hidden?: boolean }>`
@@ -854,26 +898,185 @@ const Line = styled.div<{ $hidden?: boolean }>`
 
 const SectionTitle = styled.h2`
   font-family: ${FONT_TITLE};
-  font-size: 36px;
-  color: ${COLORS.redTitle};
-  white-space: nowrap;
-  margin: 0;
+  font-size: 32px;
   font-weight: 700;
+  color: #080F0F;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0;
 
   @media (max-width: 600px) { font-size: 26px; }
 `;
 
 const SectionSubtitle = styled.p`
   font-family: ${FONT_BODY};
-  font-size: 18px;
-  max-width: 800px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  max-width: 700px;
   margin: 0 auto 3rem;
   text-align: center;
-  color: #333;
+  color: #444;
   padding: 0 1rem;
 
-  @media (max-width: 600px) { font-size: 15px; }
+  @media (max-width: 600px) { font-size: 14px; }
 `;
+
+// ── Scopes Opening (editorial chapter intro) ──
+const ScopesOpening = styled.section`
+  max-width: 1240px;
+  margin: 5rem auto 0;
+  padding: 0 2rem;
+  text-align: center;
+
+  @media (max-width: 768px) {
+    margin: 3.5rem auto 0;
+    padding: 0 1rem;
+  }
+`;
+
+const OpeningEyebrow = styled.p`
+  font-family: ${FONT_TITLE};
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #C02121;
+  margin: 0 0 0.9rem;
+`;
+
+const OpeningTitle = styled.h2`
+  font-family: ${FONT_TITLE};
+  font-size: 32px;
+  font-weight: 700;
+  color: #080F0F;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0;
+`;
+
+const OpeningDivider = styled.div`
+  width: 3rem;
+  height: 3px;
+  background: #C02121;
+  border-radius: 2px;
+  margin: 1rem auto 1.6rem;
+`;
+
+const OpeningSubtitle = styled.p`
+  font-family: ${FONT_BODY};
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #444;
+  max-width: 700px;
+  margin: 0 auto 3rem;
+
+  @media (max-width: 600px) { font-size: 14px; }
+`;
+
+const OpeningIndex = styled.nav`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  max-width: 980px;
+  margin: 0 auto;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(26,26,24,0.08);
+
+  @media (max-width: 700px) {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+`;
+
+const IndexArrow = styled.span`
+  display: inline-block;
+  font-family: ${FONT_TITLE};
+  font-size: 15px;
+  line-height: 1;
+  color: ${COLORS.redTitle};
+  transition: transform 0.28s cubic-bezier(0.16,1,0.3,1);
+`;
+
+const IndexCard = styled.a`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+  padding: 0.5rem 0;
+  background: transparent;
+  border: none;
+  text-decoration: none;
+  color: ${COLORS.ink};
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.28s cubic-bezier(0.16,1,0.3,1);
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  &:hover ${IndexArrow} {
+    transform: translateX(5px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${COLORS.redTitle};
+    outline-offset: 4px;
+  }
+`;
+
+const IndexBadge = styled.span`
+  font-family: ${FONT_MONO};
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: ${COLORS.redTitle};
+  text-transform: uppercase;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid rgba(161,15,35,0.4);
+  border-radius: 2px;
+`;
+
+const IndexTitle = styled.span`
+  font-family: ${FONT_TITLE};
+  font-size: 22px;
+  font-weight: 700;
+  color: ${COLORS.ink};
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  position: relative;
+  padding-bottom: 0.6rem;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 32px;
+    height: 2px;
+    background: ${COLORS.redTitle};
+    transform: translateX(-50%);
+  }
+
+  @media (max-width: 700px) { font-size: 20px; }
+`;
+
+const IndexCTA = styled.span`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: ${FONT_TITLE};
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: ${COLORS.redTitle};
+  margin-top: 0.15rem;
+`;
+
 
 const FrenteLede = styled.p`
   max-width: 920px;
@@ -1002,58 +1205,79 @@ const RedBar = styled.div`
 // ── Scopes (one section per scope) ──
 const ScopeSection = styled.section`
   min-height: 100vh;
-  padding: 6rem 2rem;
+  padding: 2rem;
+  scroll-margin-top: 80px;
   display: flex;
   align-items: center;
   background: #ffffff;
   border-top: 1px solid rgba(26,26,24,0.06);
 
   &:nth-of-type(even) { background: ${COLORS.lightCream}; }
+
+  @media (max-width: 900px) {
+    min-height: auto;
+    padding: 3rem 1rem;
+  }
 `;
 
 const ScopesWrap = styled.div`
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 0 auto;
   padding: 0;
   width: 100%;
 `;
 
 const ScopePanel = styled.div`
-  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+`;
+
+const ScopeHeader = styled.div`
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+
+  @media (max-width: 900px) {
+    align-items: flex-start;
+    gap: 1rem;
+  }
 `;
 
 const ScopeCounter = styled.p`
   font-family: ${FONT_TITLE};
-  margin: 0 0 3rem;
+  margin: 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 1rem;
+  gap: 0.55rem;
   line-height: 1;
 `;
 
 const CounterNum = styled.span`
   font-family: ${FONT_MONO};
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.18em;
   color: ${COLORS.redTitle};
   opacity: 1;
-  padding: 0.4rem 0.7rem;
+  padding: 0.3rem 0.6rem;
   border: 1px solid rgba(161,15,35,0.4);
   border-radius: 2px;
 `;
 
 const ScopeName = styled.span`
   font-family: ${FONT_TITLE};
-  font-size: 88px;
+  font-size: 48px;
   font-weight: 800;
   letter-spacing: -0.035em;
   text-transform: none;
   color: ${COLORS.ink};
   line-height: 1;
   position: relative;
-  padding-bottom: 1rem;
+  padding-bottom: 0.5rem;
   display: inline-block;
 
   &::after {
@@ -1061,37 +1285,44 @@ const ScopeName = styled.span`
     position: absolute;
     left: 0;
     bottom: 0;
-    width: 88px;
-    height: 4px;
+    width: 56px;
+    height: 3px;
     background: ${COLORS.redTitle};
   }
 
-  @media (max-width: 1100px) { font-size: 64px; }
-  @media (max-width: 700px) { font-size: 48px; }
+  @media (max-width: 1100px) { font-size: 40px; }
+  @media (max-width: 700px) { font-size: 32px; }
 `;
 
-const PanelTop = styled.div`
+const ScopeGrid = styled.div`
   display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: 4rem;
+  grid-template-columns: 1.55fr 1fr;
+  gap: 2.5rem;
   align-items: stretch;
-  margin-bottom: 3rem;
 
-  @media (max-width: 900px) { grid-template-columns: 1fr; gap: 2rem; }
+  @media (max-width: 1024px) { gap: 1.75rem; }
+  @media (max-width: 900px) { grid-template-columns: 1fr; gap: 1.5rem; }
 `;
 
-const PanelLeft = styled.div`
+const ScopeMain = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  gap: 2.25rem;
+  min-width: 0;
+  height: 100%;
+`;
+
+const ScopeIntro = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const ScopeTitleH3 = styled.h3`
   color: ${COLORS.ink};
   font-family: ${FONT_TITLE};
-  font-size: 48px;
+  font-size: 40px;
   font-weight: 700;
-  margin: 0 0 0.5rem;
+  margin: 0;
   letter-spacing: -0.02em;
   line-height: 1.1;
 
@@ -1101,14 +1332,14 @@ const ScopeTitleH3 = styled.h3`
     color: ${COLORS.redTitle};
   }
 
-  @media (max-width: 900px) { font-size: 36px; }
+  @media (max-width: 900px) { font-size: 28px; }
 `;
 
 const Accent = styled.div`
   width: 56px;
   height: 3px;
   background: ${COLORS.redTitle};
-  margin: 1.25rem 0 1.5rem;
+  margin: 0.9rem 0 1.2rem;
   transform-origin: left center;
   transform: scaleX(0);
   animation: ${accentGrow} 0.9s cubic-bezier(0.16,1,0.3,1) 0.3s forwards;
@@ -1116,60 +1347,61 @@ const Accent = styled.div`
 
 const ScopeLede = styled.p`
   font-family: ${FONT_BODY};
-  font-size: 17px;
-  line-height: 1.65;
+  font-size: 16.5px;
+  line-height: 1.6;
   color: #5a5550;
   margin: 0;
-  max-width: 520px;
   strong { color: ${COLORS.ink}; font-weight: 600; }
 
-  @media (max-width: 600px) { font-size: 16px; }
+  @media (max-width: 600px) { font-size: 14px; }
 `;
 
 const PanelSide = styled.aside`
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  background: ${COLORS.lightCream};
+  display: flex;
+  flex-direction: column;
+  background: rgba(161, 15, 35, 0.035);
   border: 1px solid rgba(26,26,24,0.08);
   border-left: 3px solid ${COLORS.redTitle};
-  padding: 1.75rem 1.75rem 1.5rem;
+  padding: 1.5rem 1.75rem 1.4rem;
   position: relative;
 `;
 
 const SideCorner = styled.div`
   content: "";
   position: absolute;
-  top: 1.75rem;
-  right: 1.75rem;
-  width: 28px;
-  height: 28px;
+  top: 1.1rem;
+  right: 1.1rem;
+  width: 26px;
+  height: 26px;
   border-top: 2px solid rgba(161,15,35,0.25);
   border-right: 2px solid rgba(161,15,35,0.25);
 `;
 
 const SideEyebrow = styled.p`
   font-family: ${FONT_TITLE};
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: ${COLORS.redTitle};
-  margin: 0 0 1.25rem;
+  margin: 0 0 0.85rem;
 `;
 
 const SideRows = styled.div`
   display: flex;
   flex-direction: column;
+  flex: 1;
+  justify-content: space-evenly;
 `;
 
 const SideRow = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0.2rem;
-  padding: 0.85rem 0;
+  gap: 0.25rem;
+  padding: 0.75rem 0;
   border-bottom: 1px solid rgba(26,26,24,0.08);
-  &:first-of-type { padding-top: 0; }
-  &:last-of-type { border-bottom: none; }
+  &:first-of-type { padding-top: 0.35rem; }
+  &:last-of-type { border-bottom: none; padding-bottom: 0.35rem; }
 `;
 
 const SideKey = styled.span`
@@ -1184,24 +1416,24 @@ const SideVal = styled.span`
   font-family: ${FONT_BODY};
   font-size: 14px;
   color: ${COLORS.ink};
-  line-height: 1.4;
+  line-height: 1.45;
   font-weight: 500;
   strong { color: ${COLORS.redTitle}; font-weight: 700; }
 `;
 
 const SideQuote = styled.p`
-  margin-top: 1rem;
+  margin: 1.1rem 0 0;
   padding-top: 1rem;
   border-top: 1px solid rgba(26,26,24,0.08);
   font-family: ${FONT_BODY};
-  font-size: 13px;
+  font-size: 13.5px;
   line-height: 1.55;
   color: #5a5550;
   font-style: italic;
   &::before {
     content: "\\201C";
     font-family: ${FONT_TITLE};
-    font-size: 28px;
+    font-size: 26px;
     color: ${COLORS.redTitle};
     line-height: 0;
     position: relative;
@@ -1212,24 +1444,29 @@ const SideQuote = styled.p`
 
 const PanelBody = styled.div`
   display: grid;
-  grid-template-columns: 1.15fr 1fr;
+  grid-template-columns: 1.05fr 1fr;
   border-top: 1px solid rgba(26,26,24,0.12);
   border-bottom: 1px solid rgba(26,26,24,0.12);
+  flex: 1;
+  align-content: center;
 
-  @media (max-width: 900px) { grid-template-columns: 1fr; }
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    flex: 0 1 auto;
+  }
 `;
 
 const PanelCol = styled.div`
-  padding: 2rem 2rem 2rem 0;
+  padding: 1.5rem 2rem 1.5rem 0;
   & + & {
-    padding: 2rem 0 2rem 2.5rem;
+    padding: 1.5rem 0 1.5rem 2.25rem;
     border-left: 1px solid rgba(26,26,24,0.12);
   }
 
   @media (max-width: 900px) {
-    padding: 2rem 0;
+    padding: 1.1rem 0;
     & + & {
-      padding: 2rem 0;
+      padding: 1.1rem 0;
       border-left: none;
       border-top: 1px solid rgba(26,26,24,0.12);
     }
@@ -1238,18 +1475,18 @@ const PanelCol = styled.div`
 
 const ColLabel = styled.p`
   font-family: ${FONT_TITLE};
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: ${COLORS.redTitle};
-  margin: 0 0 1.25rem;
+  margin: 0 0 0.85rem;
 `;
 
 const ScopeDetail = styled.p`
   font-family: ${FONT_BODY};
   font-size: 15px;
-  line-height: 1.7;
+  line-height: 1.65;
   color: #3a3530;
   margin: 0;
   strong { color: ${COLORS.ink}; font-weight: 600; }
@@ -1266,8 +1503,8 @@ const Bullets = styled.ul`
   li {
     font-family: ${FONT_BODY};
     font-size: 14.5px;
-    line-height: 1.45;
-    padding: 0.85rem 0 0.85rem 2.1rem;
+    line-height: 1.4;
+    padding: 0.6rem 0 0.6rem 2rem;
     position: relative;
     color: ${COLORS.ink};
     border-bottom: 1px solid rgba(26,26,24,0.07);
@@ -1277,9 +1514,9 @@ const Bullets = styled.ul`
       content: counter(entrega, decimal-leading-zero);
       position: absolute;
       left: 0;
-      top: 0.95em;
+      top: 0.75em;
       font-family: ${FONT_TITLE};
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 700;
       color: ${COLORS.redTitle};
       letter-spacing: 0.05em;
@@ -1288,11 +1525,18 @@ const Bullets = styled.ul`
 `;
 
 const PanelTags = styled.div`
-  margin-top: 2rem;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  flex: 1;
+  min-width: 0;
+
+  @media (max-width: 900px) {
+    flex: 0 1 auto;
+    justify-content: flex-start;
+  }
 `;
 
 const TagsLabel = styled.span`
@@ -1302,20 +1546,172 @@ const TagsLabel = styled.span`
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: #7a746e;
-  margin-right: 0.5rem;
+  margin-right: 0.3rem;
 `;
 
 const Tag = styled.span`
   font-family: ${FONT_MONO};
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 500;
   color: ${COLORS.ink};
   background: transparent;
   border: 1px solid rgba(26,26,24,0.18);
-  padding: 0.45rem 0.85rem;
+  padding: 0.4rem 0.75rem;
   border-radius: 2px;
   transition: border-color 0.2s ease, color 0.2s ease;
   &:hover { border-color: ${COLORS.redTitle}; color: ${COLORS.redTitle}; }
+`;
+
+// ── Highlight Cases (overview cards) ──
+const HighlightCases = styled.section`
+  padding: 0 2rem 5rem;
+  max-width: 1240px;
+  margin: 0 auto;
+  width: 100%;
+
+  @media (max-width: 900px) {
+    padding: 0 1rem 3.5rem;
+  }
+`;
+
+const HighlightGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+  margin-top: 2rem;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+`;
+
+const HighlightCard = styled(Link)`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid rgba(26,26,24,0.08);
+  border-top: 3px solid ${COLORS.redTitle};
+  border-radius: 4px;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+
+  /* Garante que a imagem respeite o border-radius do card sem cortar o badge */
+  & > img {
+    border-radius: 0;
+  }
+
+  &::before {
+    content: "Clique aqui";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-bottom: 0.6rem;
+    background: ${COLORS.redTitle};
+    color: #fff;
+    font-family: ${FONT_TITLE};
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 0.45rem 0.85rem;
+    border-radius: 999px;
+    box-shadow: 0 6px 14px rgba(161, 15, 35, 0.32);
+    opacity: 0;
+    transform: translate(-50%, 8px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    pointer-events: none;
+    z-index: 2;
+    white-space: nowrap;
+  }
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 32px rgba(0,0,0,0.12);
+    border-color: rgba(161,15,35,0.35);
+
+    &::before {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${COLORS.redTitle};
+    outline-offset: 3px;
+
+    &::before {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+  }
+`;
+
+const HighlightCardTitle = styled.h3`
+  font-family: ${FONT_TITLE};
+  font-size: 22px;
+  font-weight: 700;
+  color: ${COLORS.ink};
+  margin: 0;
+  padding: 1.25rem 1.5rem 1rem;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+
+  @media (max-width: 900px) { font-size: 20px; padding: 1rem 1.25rem 0.85rem; }
+`;
+
+const HighlightCardImage = styled.img`
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  display: block;
+  background: ${COLORS.lightCream};
+`;
+
+const HighlightCardPlaceholder = styled.div`
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: repeating-linear-gradient(
+    45deg,
+    ${COLORS.lightCream},
+    ${COLORS.lightCream} 12px,
+    rgba(161,15,35,0.05) 12px,
+    rgba(161,15,35,0.05) 24px
+  );
+  border-top: 1px solid rgba(26,26,24,0.06);
+  border-bottom: 1px solid rgba(26,26,24,0.06);
+
+  span {
+    font-family: ${FONT_MONO};
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: ${COLORS.redTitle};
+    padding: 0.5rem 0.85rem;
+    background: rgba(255,255,255,0.85);
+    border: 1px solid rgba(161,15,35,0.25);
+    border-radius: 2px;
+  }
+`;
+
+const HighlightCardSubtitle = styled.p`
+  font-family: ${FONT_MONO};
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: ${COLORS.redTitle};
+  margin: 0;
+  padding: 1rem 1.5rem 1.25rem;
+
+  @media (max-width: 900px) { padding: 0.85rem 1.25rem 1rem; }
 `;
 
 // ── Integration band ──
@@ -1437,7 +1833,7 @@ const IntCardText = styled.p`
 
 // ── Diferenciais ──
 const Diferenciais = styled.section`
-  padding: 5rem 2rem;
+  padding: 0 2rem 5rem;
   max-width: 1240px;
   margin: 0 auto;
 `;
@@ -1513,40 +1909,3 @@ const DifText = styled.p`
   margin: 0;
 `;
 
-// ── Closing ──
-const Closing = styled.section`
-  background: linear-gradient(135deg, ${COLORS.redTitle} 0%, ${COLORS.redDark} 100%);
-  color: #fff;
-  padding: 4rem 2rem;
-  text-align: center;
-`;
-
-const ClosingTitle = styled.h2`
-  font-family: ${FONT_TITLE};
-  font-size: 32px;
-  font-weight: 700;
-  margin: 0 0 0.75rem;
-`;
-
-const ClosingText = styled.p`
-  font-family: ${FONT_BODY};
-  font-size: 17px;
-  margin: 0 0 1.75rem;
-  opacity: 0.92;
-`;
-
-const ClosingLink = styled(Link)`
-  display: inline-block;
-  background: #fff;
-  color: ${COLORS.redTitle};
-  font-family: ${FONT_TITLE};
-  font-weight: 700;
-  font-size: 0.85rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 0.95rem 1.75rem;
-  border-radius: 4px;
-  text-decoration: none;
-  transition: transform 0.2s ease;
-  &:hover { transform: translateY(-2px); }
-`;
