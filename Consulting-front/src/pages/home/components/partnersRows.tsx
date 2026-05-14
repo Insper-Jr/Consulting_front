@@ -582,6 +582,8 @@ const Section = styled.section`
   flex-direction: column;
   gap: 1.6rem;
   overflow: hidden;
+
+  @media (max-width: 600px) { padding: 2rem 1.25rem; }
 `;
 
 const TitleBlock = styled.div`

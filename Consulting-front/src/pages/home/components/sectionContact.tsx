@@ -18,6 +18,7 @@ const FONT = `'Inter', sans-serif`;
 
 const Section = styled.section`
   background: #f3f4f6; padding: 36px 24px; font-family: ${FONT};
+  @media (max-width: 480px) { padding: 28px 16px; }
 `;
 const Container = styled.div`max-width: 1040px; margin: 0 auto;`;
 
@@ -29,6 +30,7 @@ const TopRow = styled.div`
 const Title = styled.h2`
   font-family: ${FONT}; font-weight: 700; font-size: 32px;
   color: ${c.black}; margin: 0;
+  @media (max-width: 480px) { font-size: 24px; }
 `;
 
 const ContactButton = styled.a`
@@ -38,6 +40,7 @@ const ContactButton = styled.a`
   text-decoration: none; cursor: pointer; transition: background 0.2s ease;
   &:hover { background: ${c.crimson}; }
   svg { width: 15px; height: 15px; flex-shrink: 0; }
+  @media (max-width: 480px) { padding: 12px 20px; }
 `;
 
 const Divider = styled.div`

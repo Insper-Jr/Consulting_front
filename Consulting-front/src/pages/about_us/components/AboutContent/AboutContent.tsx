@@ -64,6 +64,10 @@ const Inner = styled.div`
     padding: 0 32px;
     gap: 64px;
   }
+  @media (max-width: 480px) {
+    padding: 0 20px;
+    gap: 48px;
+  }
 `;
 
 // ── Index marker (eyebrow + meta) ─────────────────────────────────────────────
@@ -134,6 +138,7 @@ const Title = styled.h2`
   }
 
   @media (max-width: 860px) { font-size: 40px; }
+  @media (max-width: 480px) { font-size: 30px; }
 `;
 
 const Accent = styled.div<{ $visible: boolean }>`

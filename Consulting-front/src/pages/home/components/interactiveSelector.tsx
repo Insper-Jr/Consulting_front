@@ -56,6 +56,12 @@ const Section    = styled.section<{$active:boolean}>`
   position:relative;
   display:flex;align-items:center;
   padding:100px 0 80px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 60px 0 40px;
+    min-height: auto;
+  }
 `;
 
 const Left       = styled.div<{$active:boolean}>`
@@ -68,9 +74,19 @@ const Left       = styled.div<{$active:boolean}>`
   justify-content:center;
   position:relative;z-index:2;
   transition:margin-left ${SPRING};
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-left: 0;
+    align-items: center;
+    text-align: center;
+    padding: 0 1.25rem 2rem;
+  }
 `;
 
-const Title      = styled.h2`font-family:${FONT};font-size:34px;font-weight:700;color:#1a1a18;letter-spacing:-0.025em;line-height:1.2;margin:0 0 14px;`;
+const Title      = styled.h2`font-family:${FONT};font-size:34px;font-weight:700;color:#1a1a18;letter-spacing:-0.025em;line-height:1.2;margin:0 0 14px;
+  @media (max-width: 480px) { font-size: 26px; }
+`;
 const Subtitle   = styled.p<{$active:boolean}>`font-family:${FONT};font-size:15px;color:#7a746e;line-height:1.6;margin:0 0 36px;max-width:${p=>p.$active?340:420}px;transition:max-width ${SMOOTH};`;
 const Controls   = styled.div`display:flex;gap:12px;align-items:center;flex-wrap:wrap;`;
 
@@ -84,6 +100,14 @@ const ImagePanel = styled.div<{$active:boolean}>`
   pointer-events:${p=>p.$active?"auto":"none"};
   transition:transform ${SPRING}, opacity 0.25s ease;
   z-index:1;
+
+  @media (max-width: 768px) {
+    position: relative;
+    width: 100%;
+    height: ${p=>p.$active?"240px":"0"};
+    transform: none;
+    transition: height 0.45s cubic-bezier(0.4,0,0.2,1), opacity 0.25s ease;
+  }
 `;
 
 const ImgWrap = styled.div`position:relative;width:100%;height:100%;overflow:hidden;`;

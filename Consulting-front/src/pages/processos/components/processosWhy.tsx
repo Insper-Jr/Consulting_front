@@ -76,12 +76,14 @@ const ITEMS = [
 const Section = styled.section`
   background: ${CREAM};
   padding: 56px 0;
+  @media (max-width: 480px) { padding: 44px 0; }
 `;
 
 const Inner = styled.div`
   max-width: 1240px; margin: 0 auto; padding: 0 56px;
   display: flex; flex-direction: column; gap: 36px;
   @media (max-width: 768px) { padding: 0 28px; }
+  @media (max-width: 480px) { padding: 0 20px; gap: 28px; }
 `;
 
 /* ─── Header ─────────────────────────────────────────── */
@@ -100,6 +102,7 @@ const H2 = styled.h2`
   font-family: ${FONT_TITLE}; font-size: 28px; font-weight: 700;
   letter-spacing: -0.02em; line-height: 1.15; color: ${DARK}; margin: 0;
   i { font-style: italic; font-weight: 400; }
+  @media (max-width: 480px) { font-size: 24px; }
 `;
 
 const Divider = styled.div<{ $v: boolean }>`

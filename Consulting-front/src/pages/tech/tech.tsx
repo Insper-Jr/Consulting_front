@@ -698,6 +698,7 @@ const Hero = styled.section`
   position: relative;
   width: 100%;
   min-height: 100vh;
+  min-height: 100dvh;
   background: ${COLORS.black};
   display: flex;
   align-items: center;
@@ -732,6 +733,8 @@ const HeroCenter = styled.div`
   padding: 0 24px;
   text-align: center;
   max-width: 760px;
+
+  @media (max-width: 600px) { gap: 20px; padding: 0 20px; }
 `;
 
 const HeroEyebrow = styled.span`
@@ -804,6 +807,8 @@ const HeroScroll = styled.div`
   gap: 8px;
   opacity: 0;
   animation: ${heroFadeIn} 0.6s cubic-bezier(0.16,1,0.3,1) 2.1s forwards;
+
+  @media (max-width: 480px) { display: none; }
 `;
 
 const HeroScrollDot = styled.div`
@@ -843,6 +848,8 @@ const SectionHeader = styled.div`
   margin: 5rem auto 1rem;
   max-width: 1100px;
   padding: 0 2rem;
+
+  @media (max-width: 600px) { margin: 3rem auto 0.5rem; padding: 0 1rem; gap: 0.6rem; }
 `;
 
 const Line = styled.div<{ $hidden?: boolean }>`
@@ -949,6 +956,8 @@ const StatsBar = styled.div`
   flex-wrap: wrap;
   padding-top: 2.5rem;
   border-top: 1px solid rgba(0,0,0,0.08);
+
+  @media (max-width: 600px) { margin-top: 2.5rem; padding-top: 1.5rem; gap: 1.25rem; }
 `;
 
 const Stat = styled.div`
@@ -1002,6 +1011,7 @@ const RedBar = styled.div`
 // ── Scopes (one section per scope) ──
 const ScopeSection = styled.section`
   min-height: 100vh;
+  min-height: 100dvh;
   padding: 6rem 2rem;
   display: flex;
   align-items: center;
@@ -1009,6 +1019,8 @@ const ScopeSection = styled.section`
   border-top: 1px solid rgba(26,26,24,0.06);
 
   &:nth-of-type(even) { background: ${COLORS.lightCream}; }
+
+  @media (max-width: 768px) { padding: 4rem 1.25rem; min-height: auto; }
 `;
 
 const ScopesWrap = styled.div`

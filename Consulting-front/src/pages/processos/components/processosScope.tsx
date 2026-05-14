@@ -299,11 +299,13 @@ const ScopeSection = styled.section`
   background: ${CREAM};
   padding: 96px 0 64px;  // ← adicionar bottom padding
   @media (max-width: 960px) { padding: 72px 0 48px; }
+  @media (max-width: 480px) { padding: 52px 0 36px; }
 `;
 
 const Inner = styled.div`
   max-width: 1240px; margin: 0 auto; padding: 0 56px;
   @media (max-width: 960px) { padding: 0 28px; }
+  @media (max-width: 480px) { padding: 0 20px; }
 `;
 
 const ScopeHeader = styled.div<{ $v: boolean }>`
@@ -323,6 +325,7 @@ const H2 = styled.h2`
   letter-spacing: -0.02em; line-height: 1.1; color: ${DARK}; margin: 0;
   i { font-style: italic; font-weight: 400; }
   @media (max-width: 960px) { font-size: 28px; }
+  @media (max-width: 480px) { font-size: 24px; }
 `;
 
 const HDivider = styled.div<{ $v: boolean }>`
@@ -358,6 +361,7 @@ const Stage = styled.div<{ $active: boolean }>`
   flex: 1; position: relative; z-index: 1;
   display: flex; flex-direction: column;
   align-items: center; padding: 0 24px; cursor: default;
+  @media (max-width: 480px) { padding: 0 8px; }
 `;
 
 const StageNode = styled.div<{ $active: boolean }>`
@@ -456,6 +460,7 @@ const DetailInner = styled.div<{ $v: boolean }>`
 const PanelTitle = styled.h3`
   font-family: ${FONT_TITLE}; font-size: 28px; font-weight: 700;
   letter-spacing: -0.02em; line-height: 1.15; color: ${CREAM}; margin: 0 0 20px;
+  @media (max-width: 480px) { font-size: 22px; }
 `;
 
 const PanelBody = styled.div`

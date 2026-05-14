@@ -83,6 +83,7 @@ const Section = styled.section`
   box-sizing: border-box;
   position: relative;
   overflow: hidden;
+  @media (max-width: 480px) { padding: 60px 0 48px; }
 `;
 
 const Inner = styled.div`
@@ -94,6 +95,7 @@ const Inner = styled.div`
   gap: 72px;
   position: relative;
   z-index: 1;
+  @media (max-width: 480px) { padding: 0 20px; gap: 48px; }
 `;
 
 // ── Team top row ───────────────────────────────────────────────────────────────
@@ -134,6 +136,7 @@ const Title = styled.h2`
   letter-spacing: -0.02em;
   line-height: 1.1;
   margin: 0;
+  @media (max-width: 480px) { font-size: 26px; }
 `;
 
 const Divider = styled.div`
