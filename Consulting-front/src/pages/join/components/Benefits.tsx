@@ -170,7 +170,7 @@ export default Benefits;
 
 const Section = styled.section`
   background: #fff;
-  padding: 120px 0;
+  padding: 80px 0 60px;
   border-top: 1px solid rgba(8,15,15,0.08);
   font-family: ${FONT};
   color: #080F0F;
@@ -361,7 +361,6 @@ const BulletItem = styled.li`
 const StatsRow = styled.div`
   display: flex; align-items: center;
   margin-top: 48px; padding-top: 40px;
-  border-top: 1px solid rgba(8,15,15,0.10);
   @media (max-width: 600px) { flex-direction: column; align-items: flex-start; gap: 28px; }
 `;
 

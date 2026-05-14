@@ -101,7 +101,6 @@ export default Valores;
 const Section = styled.section`
   background: #FAF4F0;
   padding: 120px 0;
-  border-top: 1px solid rgba(8,15,15,0.10);
   font-family: ${FONT};
   color: #080F0F;
   @media (max-width: 980px) { padding: 80px 0; }

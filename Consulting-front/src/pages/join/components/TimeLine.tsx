@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import styled, { keyframes } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 
 type FrenteId = "business" | "tech" | "direito" | "processos";
 type Step = { num: string; label: string; desc: string };
@@ -44,22 +44,24 @@ const FRENTES: { id: FrenteId; label: string; editalUrl: string; steps: Step[] }
   },
 ];
 
-const trackEnter = keyframes`
-  from { opacity: 0; transform: translateX(-80px); }
-  to   { opacity: 1; transform: none; }
-`;
-
-const trackLeave = keyframes`
-  from { opacity: 1; transform: none; }
-  to   { opacity: 0; transform: translateX(80px); }
+const GlobalAnim = createGlobalStyle`
+  @keyframes trackLeave {
+    from { opacity: 1; transform: translateX(0); }
+    to   { opacity: 0; transform: translateX(110%); }
+  }
+  @keyframes trackEnter {
+    from { opacity: 0; transform: translateX(-110%); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
 `;
 
 const TimeLine = () => {
-  const [selected, setSelected] = useState<FrenteId>("business");
-  const [leaving, setLeaving]   = useState(false);
-  const pendingRef = useRef<FrenteId | null>(null);
-  const innerRef   = useRef<HTMLDivElement>(null);
-  const [visible, setVisible]   = useState(false);
+  const [selected, setSelected]               = useState<FrenteId>("business");
+  const [displayedFrente, setDisplayedFrente] = useState<FrenteId>("business");
+  const busyRef  = useRef(false);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const el = innerRef.current;
@@ -72,21 +74,42 @@ const TimeLine = () => {
     return () => io.disconnect();
   }, []);
 
-  const current = FRENTES.find((f) => f.id === selected) ?? FRENTES[0];
+  const current = FRENTES.find((f) => f.id === displayedFrente) ?? FRENTES[0];
 
   const handleSelect = (id: FrenteId) => {
-    if (id === selected || leaving) return;
-    pendingRef.current = id;
-    setLeaving(true);
-    setTimeout(() => { setSelected(pendingRef.current!); setLeaving(false); }, 220);
+    if (id === selected || busyRef.current) return;
+    busyRef.current = true;
+    setSelected(id);
+
+    const el = trackRef.current;
+    if (!el) return;
+
+    // Dispara animação de saída pela direita
+    el.style.animation = "trackLeave 0.6s cubic-bezier(0.4,0,1,1) forwards";
+
+    setTimeout(() => {
+      // Troca o conteúdo enquanto o elemento está fora da tela (translateX 110%)
+      setDisplayedFrente(id);
+
+      // Reseta a animação e força reflow para o browser registrar a mudança
+      el.style.animation = "none";
+      void el.offsetWidth;
+
+      // Dispara animação de entrada pela esquerda
+      el.style.animation = "trackEnter 1.05s cubic-bezier(0.25,0,0.1,1) forwards";
+
+      setTimeout(() => { busyRef.current = false; }, 850);
+    }, 560);
   };
 
   return (
     <Section>
+      <GlobalAnim />
       <Inner ref={innerRef} data-visible={String(visible)}>
         <Head>
           <div className="left">
-            <span className="eyebrow">03 · Etapas do Processo Seletivo</span>
+            <span className="eye
+            brow">03 · Etapas do Processo Seletivo</span>
             <h2>O processo de cada frente.</h2>
           </div>
           <EditalBlock>
@@ -110,7 +133,7 @@ const TimeLine = () => {
         </Pills>
 
         <TrackWrap>
-          <Track key={selected} $cols={current.steps.length} $leaving={leaving}>
+          <Track ref={trackRef} $cols={current.steps.length}>
             <Rail />
             {current.steps.map((s) => (
               <StepItem key={s.num}>
@@ -205,15 +228,17 @@ const Pill = styled.button<{ $active: boolean }>`
   }
 `;
 
-const TrackWrap = styled.div`overflow: hidden;`;
+const TrackWrap = styled.div`
+  overflow: hidden;
+  margin: 0 -9999px;
+  padding: 0 9999px;
+`;
 
-const Track = styled.div<{ $cols: number; $leaving: boolean }>`
+const Track = styled.div<{ $cols: number }>`
   position: relative; display: grid;
   grid-template-columns: repeat(${({ $cols }) => $cols}, 1fr);
   padding-top: 8px;
-  animation-name: ${({ $leaving }) => $leaving ? trackLeave : trackEnter};
-  animation-duration: ${({ $leaving }) => $leaving ? "0.2s" : "0.3s"};
-  animation-timing-function: ease-out; animation-fill-mode: both;
+  animation: trackEnter 0.65s cubic-bezier(0.25,0,0.1,1) forwards;
   @media (max-width: 980px) { grid-template-columns: 1fr; gap: 36px; }
 `;
 
