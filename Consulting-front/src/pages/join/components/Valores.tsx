@@ -104,6 +104,7 @@ const Section = styled.section`
   font-family: ${FONT};
   color: #080F0F;
   @media (max-width: 980px) { padding: 80px 0; }
+  @media (max-width: 640px) { padding: 60px 0; }
 `;
 
 const Inner = styled.div`
@@ -115,7 +116,7 @@ const Inner = styled.div`
   transform: translateY(24px);
   transition: opacity 0.5s ease-out, transform 0.5s ease-out;
   &[data-visible="true"] { opacity: 1; transform: none; }
-  @media (max-width: 600px) { padding: 0 24px; }
+  @media (max-width: 600px) { padding: 0 20px; }
 `;
 
 const Head = styled.div`
@@ -130,6 +131,7 @@ const Head = styled.div`
   .lead-sub { margin: 0; color: rgba(8,15,15,0.52); font-size: 15px; line-height: 1.65; max-width: 38ch; }
 
   @media (max-width: 980px) { grid-template-columns: 1fr; gap: 16px; margin-bottom: 40px; }
+  @media (max-width: 640px) { margin-bottom: 28px; }
 `;
 
 const Grid = styled.div`
@@ -163,6 +165,7 @@ const TitleWrap = styled.div`
       transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
     }
   }
+  @media (max-width: 640px) { h4 { font-size: 19px; } }
 `;
 
 const Card = styled.div<{ $idx: number }>`

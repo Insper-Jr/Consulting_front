@@ -158,6 +158,7 @@ const Section = styled.section`
   font-family: ${FONT};
   color: #080F0F;
   @media (max-width: 980px) { padding: 80px 0; }
+  @media (max-width: 640px) { padding: 60px 0; }
 `;
 
 const Inner = styled.div`
@@ -169,7 +170,7 @@ const Inner = styled.div`
   transform: translateY(24px);
   transition: opacity 0.5s ease-out, transform 0.5s ease-out;
   &[data-visible="true"] { opacity: 1; transform: none; }
-  @media (max-width: 600px) { padding: 0 24px; }
+  @media (max-width: 600px) { padding: 0 20px; }
 `;
 
 const Head = styled.div`
@@ -207,9 +208,13 @@ const EditalCta = styled.a`
   font-size: 13px; font-weight: 700; letter-spacing: 0.02em; text-decoration: none;
   transition: background 0.2s, gap 0.2s;
   &:hover { background: #a01a1a; gap: 10px; }
+  @media (max-width: 640px) { padding: 12px 18px; font-size: 14px; }
 `;
 
-const Pills = styled.div`display: inline-flex; gap: 10px; flex-wrap: wrap; margin-bottom: 64px;`;
+const Pills = styled.div`
+  display: inline-flex; gap: 10px; flex-wrap: wrap; margin-bottom: 64px;
+  @media (max-width: 640px) { margin-bottom: 40px; gap: 8px; }
+`;
 
 const Pill = styled.button<{ $active: boolean }>`
   display: inline-flex; align-items: center; gap: 8px;
@@ -220,6 +225,7 @@ const Pill = styled.button<{ $active: boolean }>`
   border: 1px solid ${({ $active }) => $active ? "#080F0F" : "rgba(8,15,15,0.18)"};
   transition: all 0.25s;
   &:hover { border-color: #080F0F; }
+  @media (max-width: 640px) { padding: 11px 16px; }
   .dot {
     width: 6px; height: 6px; border-radius: 50%;
     background: ${({ $active }) => $active ? "#C02121" : "rgba(8,15,15,0.2)"};
@@ -240,6 +246,7 @@ const Track = styled.div<{ $cols: number }>`
   padding-top: 8px;
   animation: trackEnter 0.65s cubic-bezier(0.25,0,0.1,1) forwards;
   @media (max-width: 980px) { grid-template-columns: 1fr; gap: 36px; }
+  @media (max-width: 640px) { gap: 28px; }
 `;
 
 const Rail = styled.div`
