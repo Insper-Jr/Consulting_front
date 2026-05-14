@@ -47,6 +47,7 @@ const Section = styled.section`
   width: 100%;
   padding: 56px 0;
   box-sizing: border-box;
+  @media (max-width: 480px) { padding: 40px 0; }
 `;
 
 const Inner = styled.div`
@@ -105,6 +106,9 @@ const Grid = styled.div`
 
   @media (max-width: 800px) {
     grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 420px) {
+    grid-template-columns: 1fr;
   }
 `;
 

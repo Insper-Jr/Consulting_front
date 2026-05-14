@@ -105,6 +105,7 @@ const Outer = styled.div`
   position: relative;
   width: 100%;
   height: 100vh;
+  height: 100dvh;
   background: ${BG_DARK};
   overflow: hidden;
   display: flex;
@@ -144,6 +145,7 @@ const Inner = styled.div`
   align-items: center;
 
   @media (max-width: 960px) { padding: 0 28px; }
+  @media (max-width: 480px) { padding: 0 20px; }
 `;
 
 const Left = styled.div`
@@ -154,6 +156,7 @@ const Left = styled.div`
   justify-content: center;
 
   @media (max-width: 960px) { padding: 100px 0 48px; }
+  @media (max-width: 480px) { padding: 90px 0 40px; }
 `;
 
 const Eyebrow = styled.span<{ $v: boolean }>`
@@ -178,6 +181,7 @@ const Title = styled.h1`
   margin: 0 0 28px;
 
   @media (max-width: 960px) { font-size: 38px; }
+  @media (max-width: 480px) { font-size: 32px; }
 `;
 
 const Word = styled.span<{ $d: number; $v: boolean }>`
@@ -228,6 +232,8 @@ const ScrollHint = styled.div`
   gap: 8px;
   opacity: 0;
   animation: ${fadeIn} 0.6s ${SPRING} 2.1s forwards;
+
+  @media (max-width: 480px) { display: none; }
 `;
 
 const ScrollDot = styled.div`

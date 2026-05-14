@@ -80,6 +80,7 @@ export default Hero;
 const Section = styled.section`
   position: relative;
   min-height: 100vh;
+  min-height: 100dvh;
   background: #080f0f;
   overflow: hidden;
   font-family: "Montserrat", sans-serif;
@@ -133,7 +134,8 @@ const Content = styled.div`
   }
 
   @media (max-width: 600px) {
-    padding: 110px 24px 64px;
+    padding: 110px 20px 56px;
+    gap: 40px;
   }
 `;
 
@@ -156,6 +158,10 @@ const Headline = styled.h1`
   @media (max-width: 600px) {
     font-size: 38px;
   }
+
+  @media (max-width: 380px) {
+    font-size: 32px;
+  }
 `;
 
 const Highlight = styled.span`
@@ -172,6 +178,8 @@ const Lead = styled.p`
   max-width: 460px;
   margin: 0 0 56px;
   text-shadow: 0 1px 12px rgba(0, 0, 0, 0.6);
+
+  @media (max-width: 600px) { margin: 0 0 36px; }
 `;
 
 const Stats = styled.div`
@@ -213,12 +221,16 @@ const Awards = styled.div`
   align-items: center;
   gap: 28px;
   flex-wrap: wrap;
+
+  @media (max-width: 600px) { gap: 20px; }
 `;
 
 const AwardLogo = styled.img`
   width: auto;
   opacity: 0.85;
   filter: brightness(0) invert(1);
+
+  @media (max-width: 600px) { height: 32px !important; }
 `;
 
 const Right = styled.div``;

@@ -113,6 +113,7 @@ const TitleMain = styled.h2`
   letter-spacing: -0.02em;
   line-height: 1.05;
   margin: 0;
+  @media (max-width: 480px) { font-size: 26px; }
 `;
 const TitleMuted  = styled.span` opacity: 0.5; display: block; `;
 const TitleItalic = styled.span` font-style: italic; font-weight: 400; display: block; `;
