@@ -170,11 +170,12 @@ export default Benefits;
 
 const Section = styled.section`
   background: #fff;
-  padding: 120px 0;
+  padding: 80px 0 60px;
   border-top: 1px solid rgba(8,15,15,0.08);
   font-family: ${FONT};
   color: #080F0F;
   @media (max-width: 980px) { padding: 80px 0; }
+  @media (max-width: 640px) { padding: 60px 0; }
 `;
 
 const Inner = styled.div`
@@ -186,7 +187,7 @@ const Inner = styled.div`
   transform: translateY(24px);
   transition: opacity 0.5s ease-out, transform 0.5s ease-out;
   &[data-visible="true"] { opacity: 1; transform: none; }
-  @media (max-width: 600px) { padding: 0 24px; }
+  @media (max-width: 600px) { padding: 0 20px; }
 `;
 
 
@@ -221,6 +222,7 @@ const Head = styled.div`
   }
 
   @media (max-width: 980px) { grid-template-columns: 1fr; gap: 16px; margin-bottom: 40px; }
+  @media (max-width: 640px) { gap: 14px; margin-bottom: 28px; }
 `;
 
 const TabsWrapper = styled.div`
@@ -308,6 +310,8 @@ const PanelLeft = styled.div`
     );
     pointer-events: none;
   }
+  @media (max-width: 720px) { padding: 36px 28px; }
+  @media (max-width: 600px) { padding: 28px 20px; }
 `;
 
 const PanelCategory = styled.span`
@@ -331,6 +335,7 @@ const GhostIcon = styled.div`
   position: absolute; bottom: 18px; right: 18px;
   color: rgba(255,255,255,0.06);
   transform: scale(3.5); transform-origin: bottom right; pointer-events: none;
+  @media (max-width: 600px) { transform: scale(2.4); }
 `;
 
 const PanelRight = styled.div`
@@ -361,8 +366,7 @@ const BulletItem = styled.li`
 const StatsRow = styled.div`
   display: flex; align-items: center;
   margin-top: 48px; padding-top: 40px;
-  border-top: 1px solid rgba(8,15,15,0.10);
-  @media (max-width: 600px) { flex-direction: column; align-items: flex-start; gap: 28px; }
+  @media (max-width: 600px) { flex-direction: column; align-items: flex-start; gap: 28px; margin-top: 32px; padding-top: 28px; }
 `;
 
 const Stat = styled.div<{ $idx: number }>`

@@ -438,6 +438,8 @@ const TextBlock = styled.div<{ $visible?: boolean }>`
   z-index: 2;
   opacity: 0;
   ${p => p.$visible && css`animation: ${fadeUp} 0.9s ${SPRING} 0.1s forwards;`}
+
+  @media (max-width: 768px) { padding: 0 1.5rem; }
 `;
 
 const Eyebrow = styled.span`
@@ -458,6 +460,8 @@ const SectionTitle = styled.h2`
   letter-spacing: -0.02em;
   line-height: 1.1;
   margin: 0;
+
+  @media (max-width: 480px) { font-size: 26px; }
 `;
 
 const Divider = styled.div`
@@ -504,6 +508,12 @@ const BottomRow = styled.div`
   align-items: center;
   width: 90%;
   margin: 0 auto;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    width: 100%;
+    gap: 1rem;
+  }
 `;
 
 const MapCol = styled.div<{ $visible?: boolean }>`
@@ -514,6 +524,12 @@ const MapCol = styled.div<{ $visible?: boolean }>`
   margin-top: -16rem;
   opacity: 0;
   ${p => p.$visible && css`animation: ${fadeUp} 0.9s ${SPRING} 0.1s forwards;`}
+
+  @media (max-width: 900px) {
+    margin-left: 0;
+    margin-top: 0;
+    align-items: center;
+  }
 `;
 
 const MapContainer = styled.div`
@@ -601,6 +617,8 @@ const AwardsList = styled.div`
   justify-content: center;
   gap: 1.5rem;
   flex-wrap: nowrap;
+
+  @media (max-width: 480px) { flex-wrap: wrap; gap: 1rem; }
 `;
 
 const AwardImg = styled.img`
@@ -615,6 +633,8 @@ const AwardImg = styled.img`
     opacity: 1;
     filter: grayscale(0%);
   }
+
+  @media (max-width: 480px) { height: 1.5rem; width: 4rem; }
 `;
 
 const RightCol = styled.div<{ $visible?: boolean }>`
@@ -626,4 +646,10 @@ const RightCol = styled.div<{ $visible?: boolean }>`
   margin-top: -5rem;
   opacity: 0;
   ${p => p.$visible && css`animation: ${fadeUp} 0.9s ${SPRING} 0.25s forwards;`}
+
+  @media (max-width: 900px) {
+    padding: 1rem 1.5rem 2rem;
+    margin-left: 0;
+    margin-top: 0;
+  }
 `;

@@ -15,6 +15,7 @@ const FONT = `'Inter', sans-serif`;
 const Section = styled.section`
   width: 100%; max-width: 1100px; margin: 0 auto;
   font-family: ${FONT}; padding: 4rem 0;
+  @media (max-width: 768px) { padding: 3rem 1.25rem; }
 `;
 
 const Header = styled.div`text-align: center; margin-bottom: 1.5rem;`;
@@ -32,12 +33,14 @@ const Title = styled.h2`
 const Wrap = styled.div`
   display: flex; height: 420px; overflow: hidden;
   border-radius: 4px; box-shadow: 0 8px 40px rgba(8,15,15,0.12);
+  @media (max-width: 768px) { flex-direction: column; height: auto; }
 `;
 
 const Panel = styled.div`
   width: 36%; flex-shrink: 0; background: ${c.red};
   padding: 2.5rem 2rem; display: flex; flex-direction: column;
   justify-content: space-between; position: relative; overflow: hidden;
+  @media (max-width: 768px) { width: 100%; padding: 1.75rem 1.5rem; gap: 1.25rem; }
   &::before {
     content: ''; position: absolute; bottom: -60px; left: -60px;
     width: 200px; height: 200px; border-radius: 50%;

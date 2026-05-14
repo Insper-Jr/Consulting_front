@@ -38,6 +38,7 @@ const HeroOuter = styled.div`
   position: relative;
   width: 100%;
   min-height: 100vh;
+  min-height: 100dvh;
   background: ${DARK_BG};
   display: flex;
   align-items: center;
@@ -54,6 +55,8 @@ const Center = styled.div`
   gap: 32px;
   padding: 0 24px;
   text-align: center;
+
+  @media (max-width: 640px) { gap: 20px; padding: 0 20px; }
 `;
 
 // Eyebrow
@@ -77,6 +80,9 @@ const Title = styled.h1`
   letter-spacing: -0.03em;
   line-height: 1.1;
   margin: 0;
+
+  @media (max-width: 640px) { font-size: 36px; }
+  @media (max-width: 380px) { font-size: 30px; }
 `;
 
 const Word = styled.span<{ $delay: number }>`
@@ -124,6 +130,9 @@ const ScrollHint = styled.div`
   gap: 8px;
   opacity: 0;
   animation: ${subtitleIn} 0.6s ${SPRING} 2.1s forwards;
+
+  @media (max-width: 640px) { bottom: 24px; }
+  @media (max-width: 380px) { display: none; }
 `;
 
 const ScrollDot = styled.div`

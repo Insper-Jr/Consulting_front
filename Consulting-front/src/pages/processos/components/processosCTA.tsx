@@ -19,6 +19,7 @@ const Section = styled.section`
   width: 100%;
   padding: 56px 0;
   box-sizing: border-box;
+  @media (max-width: 480px) { padding: 44px 0; }
 `;
 
 const Inner = styled.div<{ $visible: boolean }>`
@@ -82,6 +83,9 @@ const BtnPrimary = styled.a`
   &:hover {
     background: #4e0d0d;
     transform: translateY(-1px);
+  }
+  @media (max-width: 480px) {
+    width: 100%; text-align: center; padding: 15px 24px;
   }
 `;
 
