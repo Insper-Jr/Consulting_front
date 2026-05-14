@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import styled, { keyframes } from "styled-components";
 import { useParticles } from "../../../hooks/useParticleBackground";
+import ProcessImg from "../../../assets/hero/process6.webp"; // ← ajuste o path se necessário
 
 /* ── Tokens ── */
 const RED        = "#C02121";
@@ -20,18 +21,52 @@ const bounce   = keyframes`0%,100%{transform:translateY(0)}50%{transform:transla
 
 /* ── Layout ── */
 const Outer = styled.div`
-  position: relative; width: 100%; height: 100vh;
-  background: ${BG}; overflow: hidden;
-  display: flex; align-items: stretch; isolation: isolate;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: stretch;
+  isolation: isolate;
 `;
 
+/* Foto de fundo */
+const PhotoBg = styled.div`
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: url(${ProcessImg}) center center / cover no-repeat;
+`;
+
+/* Gradiente esquerda → direita para legibilidade do texto */
+const GradientOverlay = styled.div`
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to right,
+    rgba(14, 4, 4, 0.97) 0%,
+    rgba(14, 4, 4, 0.85) 35%,
+    rgba(14, 4, 4, 0.45) 65%,
+    rgba(14, 4, 4, 0.15) 100%
+  );
+`;
+
+/* Gradiente vertical sutil para escurecer topo e rodapé */
 const Vignette = styled.div`
-  position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background: radial-gradient(ellipse at center, transparent 35%, rgba(14,4,4,0.92) 100%);
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(14,4,4,0.35) 0%,
+    transparent 20%,
+    transparent 75%,
+    rgba(14,4,4,0.75) 100%
+  );
 `;
 
 const Blueprint = styled.div`
-  position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: .35;
+  position: absolute; inset: 0; z-index: 2; pointer-events: none; opacity: .25;
   background-image:
     linear-gradient(rgba(192,33,33,.06) 1px, transparent 1px),
     linear-gradient(90deg, rgba(192,33,33,.06) 1px, transparent 1px);
@@ -41,7 +76,7 @@ const Blueprint = styled.div`
 `;
 
 const Grid = styled.div`
-  position: relative; z-index: 2; width: 100%;
+  position: relative; z-index: 4; width: 100%;
   display: flex; align-items: center;
 `;
 
@@ -50,17 +85,13 @@ const Inner = styled.div`
   max-width: 1240px;
   margin: 0 auto;
   padding: 0 56px;
-  display: grid;
-  grid-template-columns: 1.05fr .95fr;
-  gap: 48px;
-  align-items: center;
-
-  @media (max-width: 960px) { grid-template-columns: 1fr; padding: 0 28px; gap: 0; }
+  @media (max-width: 960px) { padding: 0 28px; }
 `;
 
 /* ── Left ── */
 const Left = styled.div`
   padding: 88px 0 48px 0;
+  max-width: 620px;
   display: flex; flex-direction: column; justify-content: center;
   @media (max-width: 960px) { padding: 100px 0 48px; }
 `;
@@ -135,9 +166,7 @@ const Flow = styled.div<{ $v: boolean }>`
   .edge {
     fill: none; stroke: rgba(192,33,33,.5); stroke-width: 1.2; stroke-dasharray: 4 6;
   }
-
   .pulse { fill: ${RED}; filter: drop-shadow(0 0 8px ${RED}); }
-
   .node circle {
     fill: rgba(14,4,4,.8); stroke: rgba(250,242,234,.4);
     stroke-width: 1.4; transition: .3s;
@@ -151,12 +180,10 @@ const Flow = styled.div<{ $v: boolean }>`
     fill: rgba(250,242,234,.78); letter-spacing: .05em; text-anchor: middle;
   }
   .node.active text { fill: ${CREAM}; }
-
   .step-num {
     font-family: ${FONT_TITLE}; font-size: 10px; font-weight: 700;
     fill: rgba(192,33,33,.5); letter-spacing: .12em; text-anchor: middle;
   }
-
   .connector {
     stroke: rgba(192,33,33,.2); stroke-width: 1; stroke-dasharray: 2 3;
   }
@@ -165,7 +192,7 @@ const Flow = styled.div<{ $v: boolean }>`
 /* ── Scroll hint ── */
 const ScrollHint = styled.div`
   position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
-  z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px;
+  z-index: 4; display: flex; flex-direction: column; align-items: center; gap: 8px;
   opacity: 0; animation: ${fadeIn} 0.6s ${SPRING} 2.1s forwards;
 `;
 const ScrollDot = styled.div`
@@ -206,35 +233,20 @@ export default function ProcessosHero() {
     return () => clearTimeout(t);
   }, []);
 
-  const [g, setG]     = useState({ x: 0, y: 0 });
-  const [hov, setHov] = useState(false);
-  const onMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    const r = wrapperRef.current?.getBoundingClientRect();
-    if (!r) return;
-    setG({ x: e.clientX - r.left, y: e.clientY - r.top });
-  }, []);
 
   return (
-    <Outer ref={wrapperRef} onMouseMove={onMove}
-      onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}>
+    <Outer ref={wrapperRef}>
+
+      {/* ── Background layers ── */}
+      <PhotoBg />
+      <GradientOverlay />
+      <Vignette />
+      <Blueprint />
 
       <canvas ref={canvasRef} style={{
         position: "absolute", inset: 0, width: "100%", height: "100%",
-        pointerEvents: "none", zIndex: 0,
+        pointerEvents: "none", zIndex: 3,
       }} />
-
-      <Blueprint />
-
-      {/* Cursor glow */}
-      <div style={{
-        position: "absolute", width: 500, height: 500, borderRadius: "50%",
-        background: "radial-gradient(circle, rgba(192,33,33,0.12) 0%, transparent 65%)",
-        left: g.x, top: g.y, transform: "translate(-50%,-50%)",
-        opacity: hov ? 1 : 0, transition: "opacity .35s ease",
-        pointerEvents: "none", zIndex: 1, mixBlendMode: "screen",
-      }} />
-
-      <Vignette />
 
       <Grid>
         <Inner>
@@ -262,45 +274,6 @@ export default function ProcessosHero() {
               <BtnGhost href="#escopos">Nossos escopos <ChevD /></BtnGhost>
             </Actions>
           </Left>
-
-          <Right>
-            <Flow $v={v}>
-              <svg viewBox="0 0 520 520">
-                <defs>
-                  <marker id="ah" viewBox="0 0 10 10" refX="6" refY="5"
-                    markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                    <path d="M0,0 L10,5 L0,10 z" fill="rgba(192,33,33,.7)" />
-                  </marker>
-                </defs>
-
-                                {/* Linhas verticais do índice ao nó */}
-                <line className="connector" x1="90"  y1="186" x2="90"  y2="204" />
-                <line className="connector" x1="260" y1="186" x2="260" y2="204" />
-                <line className="connector" x1="430" y1="186" x2="430" y2="204" />
-
-                {/* Setas horizontais entre nós */}
-                <path className="edge" d="M144,260 L206,260" markerEnd="url(#ah)" />
-                <path className="edge" d="M314,260 L376,260" markerEnd="url(#ah)" />
-
-                {/* Pulso linear — esquerda para direita */}
-                <circle className="pulse" r="3.5">
-                  <animateMotion dur="6s" repeatCount="indefinite"
-                    path="M90,260 L430,260" calcMode="linear" />
-                </circle>
-
-                {/* Nós */}
-                <g className="node active" transform="translate(90,260)">
-                  <circle r="54" /><text y="4">MAPEAMENTO</text>
-                </g>
-                <g className="node active" transform="translate(260,260)">
-                  <circle r="54" /><text y="4">SIMULAÇÃO</text>
-                </g>
-                <g className="node active" transform="translate(430,260)">
-                  <circle r="54" /><text y="4">OTIMIZAÇÃO</text>
-                </g>
-              </svg>
-            </Flow>
-          </Right>
         </Inner>
       </Grid>
 
@@ -310,7 +283,7 @@ export default function ProcessosHero() {
       </ScrollHint>
 
       {/* Wave para a seção seguinte */}
-      <div style={{ position: "absolute", left: 0, right: 0, bottom: -1, lineHeight: 0, zIndex: 3 }}>
+      <div style={{ position: "absolute", left: 0, right: 0, bottom: -1, lineHeight: 0, zIndex: 5 }}>
         <svg viewBox="0 0 1440 72" preserveAspectRatio="none"
           xmlns="http://www.w3.org/2000/svg" style={{ display: "block", width: "100%" }}>
           <path d="M0,72 L0,36 C240,72 480,0 720,36 C960,72 1200,0 1440,36 L1440,72 Z"
