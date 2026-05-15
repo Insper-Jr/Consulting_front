@@ -194,6 +194,8 @@ const Section = styled.div`
   border-top: 1px solid ${BORDER_DARK};
   overflow: hidden;
   isolation: isolate;
+
+  @media (max-width: 640px) { padding: 60px 0; }
 `;
 
 const Blueprint = styled.div`
@@ -254,6 +256,8 @@ const Subtitle = styled.p`
   line-height: ${TYPE.body.lh};
   color: ${MUTED};
   margin-bottom: 40px;
+
+  @media (max-width: 640px) { margin-bottom: 28px; }
 `;
 
 const Form = styled.div`
@@ -298,6 +302,8 @@ const Input = styled.input`
 
   &::placeholder { color: rgba(255, 255, 255, 0.2); }
   &:focus { border-color: ${RED}; }
+
+  @media (max-width: 640px) { font-size: 16px; padding: 13px 14px; }
 `;
 
 const Notice = styled.p`
@@ -331,6 +337,8 @@ const SubmitBtn = styled.button`
 
   &:hover:not(:disabled) { background: ${RED_DEEP}; }
   &:disabled { opacity: 0.4; cursor: default; }
+
+  @media (max-width: 580px) { align-self: stretch; padding: 16px 24px; }
 `;
 
 const Spinner = styled.span`

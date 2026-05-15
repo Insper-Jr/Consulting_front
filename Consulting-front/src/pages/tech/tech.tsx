@@ -741,6 +741,7 @@ const Hero = styled.section`
   position: relative;
   width: 100%;
   min-height: 100vh;
+  min-height: 100dvh;
   background: ${COLORS.black};
   display: flex;
   align-items: center;
@@ -775,6 +776,8 @@ const HeroCenter = styled.div`
   padding: 0 24px;
   text-align: center;
   max-width: 760px;
+
+  @media (max-width: 600px) { gap: 20px; padding: 0 20px; }
 `;
 
 const HeroEyebrow = styled.span`
@@ -847,6 +850,8 @@ const HeroScroll = styled.div`
   gap: 8px;
   opacity: 0;
   animation: ${heroFadeIn} 0.6s cubic-bezier(0.16,1,0.3,1) 2.1s forwards;
+
+  @media (max-width: 480px) { display: none; }
 `;
 
 const HeroScrollDot = styled.div`
@@ -1152,6 +1157,8 @@ const StatsBar = styled.div`
   flex-wrap: wrap;
   padding-top: 2.5rem;
   border-top: 1px solid rgba(0,0,0,0.08);
+
+  @media (max-width: 600px) { margin-top: 2.5rem; padding-top: 1.5rem; gap: 1.25rem; }
 `;
 
 const Stat = styled.div`

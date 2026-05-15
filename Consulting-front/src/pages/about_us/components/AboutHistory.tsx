@@ -41,12 +41,14 @@ const Section = styled.section`
   box-sizing: border-box;
   position: relative;
   overflow: hidden;
+  @media (max-width: 480px) { padding: 48px 0; }
 `;
 
 const Inner = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 48px;
+  @media (max-width: 480px) { padding: 0 20px; }
 `;
 
 const Header = styled.div<{ $visible: boolean }>`
@@ -77,6 +79,7 @@ const Title = styled.h2`
   margin: 0;
 
   i { font-style: italic; font-weight: 400; color: ${RED}; }
+  @media (max-width: 480px) { font-size: 26px; }
 `;
 
 const Divider = styled.div<{ $visible: boolean }>`
@@ -114,6 +117,7 @@ const Item = styled.div<{ $visible: boolean; $delay: number }>`
   opacity: 0;
   ${p => p.$visible && css`animation: ${fadeUp} 0.7s ${SPRING} ${p.$delay}s forwards;`}
   &:last-child { padding-bottom: 0; }
+  @media (max-width: 480px) { grid-template-columns: 60px 1fr; gap: 20px; }
 `;
 
 const YearCol = styled.div`

@@ -310,6 +310,8 @@ const CaseSection = styled.section`
   padding: 5rem 2rem 7rem;
   position: relative;
   margin-top: 0;
+
+  @media (max-width: 700px) { padding: 3rem 1.25rem 4rem; }
 `;
 
 const CaseInner = styled.div`
@@ -361,6 +363,7 @@ const CaseBigName = styled.span`
   }
   @media (max-width: 1100px) { font-size: 64px; }
   @media (max-width: 700px)  { font-size: 48px; }
+  @media (max-width: 400px)  { font-size: 38px; }
 `;
 
 const Dot = styled.span`
