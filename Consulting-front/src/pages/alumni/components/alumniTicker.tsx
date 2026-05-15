@@ -3,15 +3,17 @@ import { RED, FONT_TITLE, TYPE, SPRING } from "../../processos/components/tokens
 
 const COMPANIES = [
   "McKinsey & Company",
+  "Bain & Company",
+  "BCG",
+  "Goldman Sachs",
   "BTG Pactual",
   "Nubank",
-  "Bain & Company",
+  "Moelis & Company",
+  "Rothschild & Co",
+  "EY-Parthenon",
   "Itaú BBA",
-  "Accenture",
-  "Goldman Sachs",
-  "XP Investimentos",
-  "Santander",
-  "BCG",
+  "Amazon",
+  "UBS",
 ];
 
 const AlumniTicker = () => {
