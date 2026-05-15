@@ -11,10 +11,6 @@ const COLORS = {
   redCTA: "#C02121",
   ink: "#1a1a1a",
   bg: "#ffffff",
-  greenLight: "#dcfce7",     // verde claro de fundo
-  greenLightHover: "#bbf7d0",// hover um pouco mais saturado
-  greenInk: "#166534",       // texto/ícone verde escuro
-  greenBorder: "#86efac",    // borda verde clara
 };
 
 const FONT_TITLE = `"Montserrat", Helvetica, sans-serif`;
@@ -99,24 +95,25 @@ const BackButton = styled.button`
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: ${COLORS.greenInk};
-  background: ${COLORS.greenLight};
-  border: 1px solid ${COLORS.greenBorder};
+  color: ${COLORS.ink};
+  background: ${COLORS.bg};
+  border: 1px solid rgba(26,26,24,0.18);
   padding: 0.65rem 1.1rem;
   border-radius: 999px;
   text-decoration: none;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 14px rgba(22, 101, 52, 0.15);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
 
   svg {
     transition: transform 0.2s ease;
+    color: ${COLORS.redCTA};
   }
 
   &:hover {
-    background: ${COLORS.greenLightHover};
-    border-color: ${COLORS.greenInk};
-    box-shadow: 0 6px 18px rgba(22, 101, 52, 0.25);
+    background: #f7f7f7;
+    border-color: rgba(161,15,35,0.35);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
     transform: translateY(-1px);
 
     svg {
@@ -125,8 +122,7 @@ const BackButton = styled.button`
   }
 
   &:focus-visible {
-    outline: 2px solid ${COLORS.greenInk};
-    outline-offset: 3px;
+    outline: none;
   }
 `;
 
