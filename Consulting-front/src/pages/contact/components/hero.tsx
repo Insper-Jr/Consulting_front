@@ -139,7 +139,11 @@ const Content = styled.div`
   }
 `;
 
-const Left = styled.div``;
+const Left = styled.div`
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
+`;
 
 const Headline = styled.h1`
   color: #fff;
@@ -179,7 +183,11 @@ const Lead = styled.p`
   margin: 0 0 56px;
   text-shadow: 0 1px 12px rgba(0, 0, 0, 0.6);
 
-  @media (max-width: 600px) { margin: 0 0 36px; }
+  @media (max-width: 600px) {
+    max-width: 100%;
+    margin: 0 0 36px;
+    font-size: 15px;
+  }
 `;
 
 const Stats = styled.div`
@@ -233,4 +241,7 @@ const AwardLogo = styled.img`
   @media (max-width: 600px) { height: 32px !important; }
 `;
 
-const Right = styled.div``;
+const Right = styled.div`
+  min-width: 0;
+  width: 100%;
+`;
