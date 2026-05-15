@@ -83,6 +83,16 @@ const MEMBERS: Member[] = [
     photo:    GuilhermeKaidei,
     linkedin: "https://www.linkedin.com/in/guilherme-kaidei/",
     quote:    "Estar na Insper Jr. foi uma experiência essencial para o meu desenvolvimento profissional. Ter a oportunidade de trabalhar com pessoas de diferentes cursos, todas com o objetivo em comum de contribuir para o crescimento da empresa, me proporcionou muito aprendizado, troca de experiências e desenvolvimento tanto técnico quanto interpessoal. Durante meu tempo na empresa, também tive meu primeiro contato com projetos voltados para clientes reais, entendendo na prática a responsabilidade e o impacto de entregar soluções que geravam valor de verdade. Essa vivência me ajudou a desenvolver uma visão mais próxima da dinâmica do mercado de trabalho e foi fundamental para me preparar para os próximos passos da minha carreira, trazendo mais maturidade, senso de responsabilidade e visão profissional.",
+  },
+  {
+    id: 11,
+    name:     "Henrique Manequini",
+    role:     "Analista",
+    area: "Investment banking",
+    company:  "G5 Partners",
+    photo:    HenriqueManequini,
+    linkedin: "https://www.linkedin.com/in/henrique-manequini-rocha-pinto-7a16b223a/",
+    quote:    "A Insper Jr. teve um papel enorme na minha formação. Foi onde aprendi, na prática, a lidar com clientes de verdade, construir relações e trabalhar bem em equipe. As visitas a empresas e o contato com o mercado me ajudaram a entender de perto como as coisas funcionam e me mostraram que era na área em que eu queria estar. Além disso, desenvolvi soft skills e construi uma rede que me acompanha até hoje.",
   },  
   {
     id: 7,
@@ -119,16 +129,7 @@ const MEMBERS: Member[] = [
     photo:    TomasMiele,
     linkedin: "https://www.linkedin.com/in/tomas-miele/",
     quote:    "Durante minha passagem pela Jr, tive a oportunidade de atuar em múltiplos projetos que me proporcionaram uma vivência próxima ao dia a dia corporativo, lidando com prazos, desafios e impactos reais para empresas parceiras. Entre as experiências, participei do desenvolvimento de um website para uma empresa, em que tivemos o desafio de atender às necessidades e expectativas do cliente ao longo de todo o projeto. Essa experiência foi fundamental para meu desenvolvimento profissional, permitindo desenvolver habilidades técnicas e de trabalho em equipe em um ambiente com demandas e desafios reais.",
-  },
-  {
-    id: 6,
-    name:     "Charlize Suarez",
-    role:     "Estagiária de IB - M&A",
-    company:  "Galapagos Capital",
-    photo:    CharlizeSuarez,
-    linkedin: "https://www.linkedin.com/in/charlize-suarez-325581265/",
-    quote:    "",
-  },
+  },  
   {
     id: 10,
     name:     "João Gabriel Faraco",
@@ -139,19 +140,25 @@ const MEMBERS: Member[] = [
     linkedin: "https://www.linkedin.com/in/jo%C3%A3o-gabriel-faraco-871a8628a/",
     quote:    "Fazer parte da Insper Junior foi uma experiência muito importante na minha trajetória no Insper. Além de representar meu primeiro contato com o mercado de trabalho, foi um período de grande aprendizado e desenvolvimento profissional. Também tive a oportunidade de construir conexões e trabalhar com pessoas que contribuíram bastante para minha formação.",
   },
-  {
-    id: 11,
-    name:     "Henrique Manequini",
-    role:     "Analista",
-    area: "Investment banking",
-    company:  "G5 Partners",
-    photo:    HenriqueManequini,
-    linkedin: "https://www.linkedin.com/in/henrique-manequini-rocha-pinto-7a16b223a/",
-    quote:    "A Insper Jr. teve um papel enorme na minha formação. Foi onde aprendi, na prática, a lidar com clientes de verdade, construir relações e trabalhar bem em equipe. As visitas a empresas e o contato com o mercado me ajudaram a entender de perto como as coisas funcionam e me mostraram que era na área em que eu queria estar. Além disso, desenvolvi soft skills e construi uma rede que me acompanha até hoje.",
-  },
-
-
-
+  // {
+  //   id: 6,
+  //   name:     "Charlize Suarez",
+  //   role:     "Estagiária de IB - M&A",
+  //   company:  "Galapagos Capital",
+  //   photo:    CharlizeSuarez,
+  //   linkedin: "https://www.linkedin.com/in/charlize-suarez-325581265/",
+  //   quote:    "",
+  // },
+  // {
+  //   id: 12,
+  //   initials: "EG", 
+  //   name:     "Enzo Gargiulo",
+  //   role:     "Investor relations",
+  //   company:  "SPX Capital",
+  //   linkedin: "https://www.linkedin.com/in/enzogargiulo/",
+  //   quote:    "",
+  // },
+  
 ];
 
 // ── Component ──────────────────────────────────────────────────────────────

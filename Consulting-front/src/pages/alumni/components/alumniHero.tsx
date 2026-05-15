@@ -203,7 +203,7 @@ const Subtitle = styled.p`
   font-size: ${TYPE.body.size};
   font-weight: 400;
   line-height: 1.65;
-  color: rgba(250, 242, 234, 0.6);
+  color: ${CREAM};
   max-width: 560px;
   margin: 0;
   opacity: 0;
