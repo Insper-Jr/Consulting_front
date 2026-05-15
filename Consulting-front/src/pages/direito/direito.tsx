@@ -191,69 +191,69 @@ const SCOPES: Scope[] = [
     num: "01",
     tab: "Elaboração e/ou Revisão Contratual",
     title: <>Contratos <i>sob medida</i>.</>,
-    lede: <>Escopo voltado à <strong>elaboração do zero ou revisão estratégica de contratos</strong>, sempre considerando as necessidades específicas do cliente e os parâmetros legais aplicáveis. Garante clareza jurídica e segurança na tomada de decisão.</>,
+    lede: <>Escopo voltado à <strong>elaboração do zero</strong> ou à <strong>revisão estratégica de contratos já existentes</strong>. Na revisão, partimos de um instrumento que o cliente já utiliza e propomos <strong>mudanças e adequações</strong> que enderecem a dor do cliente sem perder de vista a lei aplicável — entregando, ao fim, um material juridicamente consistente e alinhado às necessidades do negócio.</>,
     side: {
       eyebrow: "Ficha do escopo",
       rows: [
-        { key: "Entregável", val: <><strong>Contrato finalizado</strong> + memorando explicativo (em revisões)</> },
-        { key: "Aplicações", val: <>Contratos comerciais, parcerias, prestação de serviços, NDA, distribuição</> },
-        { key: "Abordagem", val: <>Análise das necessidades específicas + parâmetros legais aplicáveis</> },
+        { key: "Entregáveis", val: <><strong>Contrato finalizado</strong> + memorando explicativo (em revisões) + apresentação executiva</> },
+        { key: "Aplicações", val: <>Contratos personalizados conforme a necessidade do cliente, envolvendo diferentes áreas do Direito</> },
+        { key: "Abordagem", val: <>Elaboração do zero <strong>ou</strong> revisão de material existente do cliente — sempre mirando a dor do negócio + a lei aplicável</> },
         { key: "Sinergia", val: <>Apoio direto a Business e Engenharia em demandas contratuais</> },
         { key: "Supervisão", val: <>Banca técnica com professores e escritórios parceiros</> },
       ],
       quote: "Cada contrato é desenhado para o cliente — não modelo de prateleira.",
     },
-    detail: <>Trabalhamos com <strong>elaboração de contratos do zero</strong> e <strong>revisão estratégica</strong> de instrumentos existentes. Em casos de revisão, entregamos um <strong>memorando explicativo</strong> que justifica cada alteração realizada, dando ao cliente clareza total sobre o porquê de cada ajuste. A atuação combina análise técnica das necessidades do cliente, parâmetros legais aplicáveis e revisão por bancas com professores e escritórios parceiros.</>,
+    detail: <>Trabalhamos com <strong>elaboração de contratos do zero</strong> e <strong>revisão estratégica</strong> de instrumentos existentes. Em casos de revisão, entregamos um <strong>memorando explicativo</strong> que justifica cada alteração realizada e uma <strong>apresentação executiva</strong> que sintetiza os pontos críticos da revisão para a tomada de decisão. A atuação combina análise técnica das necessidades do cliente, parâmetros legais aplicáveis e revisão por bancas com professores e escritórios parceiros.</>,
     bullets: [
-      "Contratos comerciais e de prestação de serviços",
-      "Contratos de parceria e distribuição",
-      "Termos de uso, NDAs e acordos específicos",
-      "Revisão contratual com memorando explicativo",
+      "Contratos personalizados conforme a necessidade do cliente",
+      "Cobertura ampla — diferentes áreas e ramos do Direito",
+      "Elaboração do zero ou revisão estratégica de instrumentos",
+      "Memorando + apresentação executiva (em revisões)",
     ],
-    tags: ["Direito Civil", "Direito Empresarial", "Contratos", "NDA"],
+    tags: ["Direito Civil", "Direito Empresarial", "Contratos"],
   },
   {
     num: "02",
     tab: "Planejamento Consultivo Societário",
     title: <>Estrutura <i>societária</i> sob análise.</>,
-    lede: <>Serviço de <strong>análise estratégica da estrutura societária</strong> do cliente, com identificação de riscos, oportunidades de melhoria e alternativas possíveis. Escopo 100% consultivo, cujo entregável é um <strong>parecer fundamentado</strong>.</>,
+    lede: <>Serviço de <strong>análise estratégica da estrutura societária</strong> do cliente, com identificação de riscos, oportunidades de melhoria e alternativas possíveis. Escopo consultivo, <strong>sem envolver emissão de documentos em cartório</strong> — entrega de <strong>parecer fundamentado</strong> e <strong>apresentação executiva</strong> com os caminhos recomendados.</>,
     side: {
       eyebrow: "Ficha do escopo",
       rows: [
-        { key: "Entregável", val: <><strong>Parecer consultivo</strong> com caminhos e recomendações</> },
-        { key: "Natureza", val: <>100% consultivo — apresenta alternativas, sem indução a decisões</> },
+        { key: "Entregáveis", val: <><strong>Parecer consultivo</strong> + apresentação executiva com caminhos e recomendações</> },
+        { key: "Natureza", val: <>Consultivo — <strong>não envolve emissão de documentos em cartório</strong>; apresenta alternativas sem induzir decisões</> },
         { key: "Aplicações", val: <>Análise societária, identificação de riscos, modelos jurídicos comparados</> },
         { key: "Limites", val: <>Sem execução direta de procedimentos cartorários ou registrais</> },
         { key: "Supervisão", val: <>Banca com professores especialistas em societário</> },
       ],
       quote: "Recomendações fundamentadas — a decisão final é do cliente.",
     },
-    detail: <>O escopo de Planejamento Consultivo Societário <strong>mapeia a estrutura atual</strong>, identifica <strong>riscos jurídicos e oportunidades de otimização</strong> e apresenta <strong>alternativas viáveis</strong> — sempre sem induzir a uma decisão específica. O parecer entrega ao cliente um panorama claro sobre os caminhos possíveis e suas implicações, mantendo a autonomia decisória da empresa parceira.</>,
+    detail: <>Dois cenários: análise da <strong>estrutura societária atual</strong> do cliente ou avaliação de <strong>uma ideia ainda no papel</strong> — neste segundo, na maioria das vezes a análise vem <strong>embarcada em outro escopo</strong> (uma viabilidade societária dentro de uma análise mercadológica, por exemplo). Em ambos, identificamos riscos e apresentamos <strong>alternativas viáveis</strong>, sem induzir a decisão do cliente.</>,
     bullets: [
       "Análise da estrutura societária atual",
       "Identificação de riscos e gargalos jurídicos",
       "Comparativo entre modelos societários",
-      "Parecer fundamentado com recomendações",
+      "Parecer fundamentado + apresentação executiva",
     ],
     tags: ["Direito Societário", "Parecer", "LTDA", "S.A."],
   },
   {
     num: "03",
     tab: "Planejamento Consultivo de Propriedade Industrial",
-    title: <>Marcas, patentes e <i>desenhos industriais</i>.</>,
+    title: <><i>Pesquisa estratégica</i> de marcas, patentes e desenhos industriais.</>,
     lede: <>Análise técnica e estratégica relacionada a <strong>registros de marca, patente ou desenho industrial</strong>, com foco na avaliação de viabilidade, alternativas e melhores caminhos perante o <strong>INPI</strong>.</>,
     side: {
       eyebrow: "Ficha do escopo",
       rows: [
         { key: "Entregável", val: <><strong>Parecer consultivo</strong> sobre viabilidade e caminhos no INPI</> },
         { key: "Objetos", val: <>Marca, patente, desenho industrial</> },
-        { key: "Aplicações", val: <>Avaliação de viabilidade, alternativas e requisitos legais</> },
-        { key: "Parceria", val: <>Trilha técnica com escritório <strong>Gusmão &amp; Labrunie</strong></> },
+        { key: "Aplicações", val: <>Análise de <strong>viabilidade, estratégia e custos</strong> das alternativas perante o INPI</> },
+        { key: "Supervisão", val: <>Banca técnica com professores especialistas em propriedade industrial</> },
         { key: "Limites", val: <>Não inclui execução direta de procedimentos no INPI</> },
       ],
       quote: "Análise técnica antes do registro — caminho certo, menos retrabalho.",
     },
-    detail: <>O escopo orienta o cliente sobre <strong>viabilidade de registro</strong>, <strong>requisitos legais</strong> e <strong>implicações estratégicas</strong> perante o INPI. A atuação é consultiva: mapeamos os caminhos disponíveis (registro, oposição, manutenção, alternativas defensivas) e apresentamos um parecer que orienta a decisão. Conta com supervisão técnica de escritórios parceiros como o <strong>Gusmão &amp; Labrunie</strong>.</>,
+    detail: <>O escopo orienta o cliente sobre <strong>viabilidade de registro</strong>, <strong>requisitos legais</strong> e <strong>implicações estratégicas</strong> perante o INPI. Além de <strong>mapear os caminhos possíveis</strong> (registro, oposição, manutenção, alternativas defensivas), fazemos <strong>análise de viabilidade, estratégia e custos</strong> de cada alternativa — entregando um parecer que orienta a decisão. Conta com supervisão técnica de bancas com professores especialistas em propriedade industrial.</>,
     bullets: [
       "Análise de viabilidade de registro de marca",
       "Estudo de patenteabilidade",
@@ -272,13 +272,13 @@ const SCOPES: Scope[] = [
       rows: [
         { key: "Entregáveis", val: <><strong>Simulações</strong> em planilha + memorando jurídico + apresentação executiva</> },
         { key: "Foco", val: <>Comparativo de regimes tributários e impactos financeiros</> },
-        { key: "Aplicações", val: <>Adequação tributária dentro da legislação, suporte a M&amp;A e reestruturações</> },
-        { key: "Parceria", val: <>Trilha técnica com escritório <strong>Machado Meyer</strong></> },
-        { key: "Supervisão", val: <>Banca técnica + professora Vanessa (tributário)</> },
+        { key: "Aplicações", val: <>Adequação tributária dentro da legislação e reestruturações</> },
+        { key: "Cenário legal", val: <>Análise sob a legislação vigente + impactos da <strong>reforma tributária</strong> em curso</> },
+        { key: "Supervisão", val: <>Banca técnica com professores especialistas em tributário</> },
       ],
       quote: "Decisões mais eficientes e juridicamente seguras.",
     },
-    detail: <>O escopo combina <strong>simulações em planilha</strong>, <strong>memorando jurídico</strong> e, quando pertinente, <strong>apresentação executiva</strong>. Analisamos a situação tributária atual, comparamos cenários alternativos dentro da legislação vigente e apoiamos o cliente em decisões que envolvam adequação fiscal, escolha de regime ou reestruturação. Conta com trilha de conhecimento estruturada em parceria com o <strong>Machado Meyer</strong>.</>,
+    detail: <>O escopo combina <strong>simulações em planilha</strong>, <strong>memorando jurídico</strong> e, quando pertinente, <strong>apresentação executiva</strong>. Analisamos a situação tributária atual, comparamos cenários alternativos dentro da legislação vigente e apoiamos o cliente em decisões que envolvam adequação fiscal, escolha de regime ou reestruturação — sempre considerando os <strong>impactos da reforma tributária em curso</strong>.</>,
     bullets: [
       "Comparativo entre regimes tributários (Simples, Presumido, Real)",
       "Simulações de impacto financeiro",
@@ -555,7 +555,7 @@ function Direito() {
           <OpeningDivider />
         </SectionHeader>
         <SectionSubtitle>
-          Três projetos que exemplificam a forma como a frente de Direito atua — do primeiro contrato pro-bono à assessoria continuada e à atuação multi-escopo.
+          Três projetos que exemplificam a forma como a frente de Direito atua — do primeiro contrato firmado à assessoria continuada e à atuação multi-escopo.
         </SectionSubtitle>
         <HighlightGrid>
           <HighlightCard to="/direito/pe-direito" aria-label="Ver case Pé Direito I">
@@ -592,7 +592,7 @@ function Direito() {
             Atuação jurídica <span>integrada às demais frentes</span> da empresa
           </IntegrationTitle>
           <IntegrationLede>
-            A frente de Direito não opera isolada: trabalha em conjunto com Business e Engenharia, vende seus serviços pelo mesmo núcleo comercial e atua transversalmente em demandas institucionais — sempre com supervisão de professores e escritórios parceiros como Machado Meyer e Gusmão &amp; Labrunie.
+            A frente de Direito não opera isolada: trabalha em conjunto com Business e Engenharia, vende seus serviços pelo mesmo núcleo comercial e atua transversalmente em demandas institucionais — sempre com supervisão de professores e bancas técnicas especializadas em cada um dos escopos.
           </IntegrationLede>
         </IntegrationInner>
       </Integration>
@@ -624,7 +624,7 @@ function Direito() {
             <PillarNum>02 — Supervisionada</PillarNum>
             <PillarTitle>Professores e escritórios parceiros</PillarTitle>
             <PillarText>
-              Atuação validada por <strong>bancas técnicas</strong> com professores especialistas e parcerias com escritórios como <strong>Machado Meyer</strong> (tributário) e <strong>Gusmão &amp; Labrunie</strong> (propriedade industrial).
+              Atuação validada por <strong>bancas técnicas</strong> com professores especialistas em cada um dos escopos jurídicos.
             </PillarText>
           </Pillar>
           <Pillar>
@@ -668,7 +668,7 @@ function Direito() {
             <DifAccent />
             <DifNum>02</DifNum>
             <DifTitle>Supervisão técnica robusta</DifTitle>
-            <DifText>Trilhas de conhecimento estruturadas em parceria com escritórios de referência (Machado Meyer, Gusmão &amp; Labrunie) e bancas técnicas com professores garantem qualidade jurídica nos entregáveis.</DifText>
+            <DifText>Trilhas de conhecimento estruturadas e bancas técnicas com professores especialistas garantem qualidade jurídica em cada entregável.</DifText>
           </DifCard>
           <DifCard data-dif-card>
             <DifAccent />
