@@ -243,7 +243,7 @@ function ShippingDetail({ onBack, savedScroll }: { onBack: () => void; savedScro
         {/* Topbar: não scrollável, sempre visível */}
         <OverlayTopBar>
           <BackBtn onClick={onBack} aria-label="Voltar para processos">
-            ← Voltar para Processos
+            ← Voltar 
           </BackBtn>
         </OverlayTopBar>
 

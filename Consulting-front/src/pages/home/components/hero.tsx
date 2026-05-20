@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import styled, { keyframes, css } from "styled-components";
-import TechImg     from "../../../assets/hero/tech.jpg";
+import TechImg     from "../../../assets/hero/tech3.png";
 import BussinesImg from "../../../assets/hero/business2.png";
 import LawImg      from "../../../assets/hero/law2.png";
 import ProcessImg  from "../../../assets/hero/process6.webp";
@@ -61,6 +61,7 @@ const Hero = () => {
       ctaTo: "/overview",
       gradient: "linear-gradient(135deg, #0e0404 0%, #0d1520 55%, #152035 100%)",
       image: TechImg,
+      overlayOpacity: 0.4,
     },
     
     {

@@ -393,8 +393,8 @@ export default function AboutTeamAndPartners() {
             <Title>Um time multidisciplinar, formado para entregar</Title>
             <Divider />
             <Body>
-              A Insper Jr. reúne 7 frentes de atuação que colaboram de
-              forma integrada. Business, Tecnologia, Direito e Processos
+              A Insper Jr. reúne 4 frentes de atuação que colaboram de
+              forma integrada. Business, Direito e Engenharia (Tech e de Processos)
               atuam juntos no mesmo projeto, entregando soluções completas
               a partir de diferentes perspectivas.
             </Body>
@@ -407,7 +407,7 @@ export default function AboutTeamAndPartners() {
           </TitleBlock>
 
           <CourseList ref={listRef}>
-            <SynergyTag>sinergia entre as 7 frentes de atuação</SynergyTag>
+            <SynergyTag>sinergia entre os 8 cursos de graduação no Insper</SynergyTag>
             {COURSES.map((c, i) => (
               <CourseItem key={c} $delay={0.2 + i * 0.08} $visible={listVisible}>
                 <CourseDot />
