@@ -35,7 +35,7 @@ const SCOPES: Scope[] = [
     caseTitle: <>Expansão para <i>Novo Mercado</i></>,
     caseLede: (
       <>
-        Empresa do setor de saúde buscava crescimento em segmento inexplorado —
+        Empresa do setor de saúde buscava crescimento em segmento inexplorado
         sem visibilidade sobre o tamanho do mercado, os concorrentes ou o perfil
         do cliente ideal. O risco de entrar errado era alto.
       </>
@@ -67,7 +67,7 @@ const SCOPES: Scope[] = [
     caseLede: (
       <>
         Startup de healthtech precisava posicionar seu produto em mercado competitivo
-        — sem budget para erro e sem clareza sobre quem era realmente o cliente
+       sem budget para erro e sem clareza sobre quem era realmente o cliente
         prioritário. Uma entrada errada significaria meses perdidos.
       </>
     ),
@@ -97,7 +97,7 @@ const SCOPES: Scope[] = [
     caseTitle: <>Estrutura Financeira <i>para Captação</i></>,
     caseLede: (
       <>
-        Startup em crescimento acelerado com faturamento em alta — mas sem DRE
+        Startup em crescimento acelerado com faturamento em alta mas sem DRE
         organizado, queima de caixa mal dimensionada e sem modelagem para apresentar
         a investidores com credibilidade.
       </>
@@ -127,7 +127,7 @@ const SCOPES: Scope[] = [
     caseTitle: <>Operação Pronta <i>para Escalar</i></>,
     caseLede: (
       <>
-        Empresa com crescimento acelerado mas operação inteiramente manual — processos
+        Empresa com crescimento acelerado mas operação inteiramente manual processos
         sem documentação, gargalos não mapeados e time sobrecarregado com tarefas
         repetitivas que consumiam tempo sem gerar valor.
       </>

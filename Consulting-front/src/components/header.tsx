@@ -24,7 +24,7 @@ const Header = () => {
   ] as const;
 
   const FRENTES: Frente[] = [
-    { label: t("frentes.business"), to: "/overview?frente=business" },
+    { label: t("frentes.business"), to: "/business" },
     { label: t("frentes.direito"),  to: "/direito"  },
     {
       label: t("frentes.engenharia"),
