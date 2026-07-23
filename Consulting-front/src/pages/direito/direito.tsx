@@ -1,0 +1,1866 @@
+import React, { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
+import styled, { createGlobalStyle, keyframes, css } from "styled-components";
+import Header from "../../components/header";
+import Footer from "../../components/footerNovo";
+import WppButton from "../../components/wppButton";
+import ContactSection from "../../components/sectionContact";
+import DireitoCTA from "./components/direitoCTA";
+
+// ── Color tokens (mirror tech) ─────────────────────────────────────────────
+const COLORS = {
+  redTitle: "#A10F23",
+  redCTA:   "#C02121",
+  redDark:  "#691212",
+  black:    "#0e0404",
+  ink:      "#1a1a1a",
+  bg:       "#ffffff",
+  cream:    "#FAF2EA",
+  lightCream: "#faf6f1",
+};
+
+const FONT_TITLE = `"Montserrat", Helvetica, sans-serif`;
+const FONT_BODY  = `"Inter", Helvetica, sans-serif`;
+const FONT_MONO  = `ui-monospace, "SF Mono", Menlo, monospace`;
+
+// ── Global Style: import fonts ─────────────────────────────────────────────
+const DireitoGlobal = createGlobalStyle`
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap');
+  html { scroll-behavior: smooth; }
+`;
+
+// ── Particle Network (canvas) hook ─────────────────────────────────────────
+type NetOpts = {
+  count?: number;
+  dotColor?: string;
+  lineColor?: (c: number) => string;
+  glowEl?: HTMLElement | null;
+  maxDist?: number;
+  repel?: number;
+  deadZone?: (W: number, H: number) => { x: number; y: number; w: number; h: number };
+};
+
+function useParticleNetwork(
+  canvasRef: React.RefObject<HTMLCanvasElement | null>,
+  wrapperRef: React.RefObject<HTMLElement | null>,
+  opts: NetOpts = {}
+) {
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const wrap = wrapperRef.current;
+    if (!canvas || !wrap) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    const dpr = window.devicePixelRatio || 1;
+    const mouse = { x: -9999, y: -9999 };
+    const o = {
+      count: 80,
+      dotColor: "rgba(192,33,33,0.55)",
+      lineColor: (c: number) => `rgba(192,33,33,${0.18 * c})`,
+      maxDist: 140,
+      repel: 100,
+      ...opts,
+    };
+
+    let W = 0, H = 0;
+    type Particle = { x: number; y: number; vx: number; vy: number; r: number };
+    let particles: Particle[] = [];
+
+    const resize = () => {
+      const r = wrap.getBoundingClientRect();
+      W = r.width; H = r.height;
+      canvas.width = W * dpr; canvas.height = H * dpr;
+      canvas.style.width = `${W}px`;
+      canvas.style.height = `${H}px`;
+    };
+
+    const makeP = (): Particle => {
+      let x = 0, y = 0, tries = 0;
+      do {
+        x = Math.random() * W;
+        y = Math.random() * H;
+        tries++;
+        if (!o.deadZone) break;
+        const dz = o.deadZone(W, H);
+        if (x < dz.x || x > dz.x + dz.w || y < dz.y || y > dz.y + dz.h) break;
+      } while (tries < 12);
+      return {
+        x, y,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        r: Math.random() * 2 + 1,
+      };
+    };
+
+    const init = () => {
+      resize();
+      particles = Array.from({ length: o.count }, makeP);
+    };
+
+    const update = (p: Particle) => {
+      p.vx += (Math.random() - 0.5) * 0.06;
+      p.vy += (Math.random() - 0.5) * 0.06;
+      const sp = Math.hypot(p.vx, p.vy), max = 0.8;
+      if (sp > max) { p.vx = (p.vx / sp) * max; p.vy = (p.vy / sp) * max; }
+      const dx = p.x - mouse.x, dy = p.y - mouse.y, d = Math.hypot(dx, dy);
+      if (d < o.repel && d > 0) {
+        const f = ((o.repel - d) / o.repel) * 1.2;
+        p.vx += (dx / d) * f * 0.3;
+        p.vy += (dy / d) * f * 0.3;
+      }
+      p.vx *= 0.99; p.vy *= 0.99;
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
+      if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
+    };
+
+    let raf = 0;
+    let running = true;
+    const draw = () => {
+      if (!running) return;
+      ctx.save();
+      ctx.scale(dpr, dpr);
+      ctx.clearRect(0, 0, W, H);
+      for (let i = 0; i < particles.length; i++) {
+        update(particles[i]);
+        ctx.beginPath();
+        ctx.arc(particles[i].x, particles[i].y, particles[i].r, 0, Math.PI * 2);
+        ctx.fillStyle = o.dotColor;
+        ctx.fill();
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const d = Math.hypot(dx, dy);
+          if (d < o.maxDist) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = o.lineColor(1 - d / o.maxDist);
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+          }
+        }
+      }
+      ctx.restore();
+      raf = requestAnimationFrame(draw);
+    };
+
+    const onMove = (e: MouseEvent) => {
+      const r = wrap.getBoundingClientRect();
+      mouse.x = e.clientX - r.left;
+      mouse.y = e.clientY - r.top;
+      if (o.glowEl) {
+        o.glowEl.style.left = `${mouse.x}px`;
+        o.glowEl.style.top = `${mouse.y}px`;
+      }
+    };
+    const onLeave = () => { mouse.x = -9999; mouse.y = -9999; };
+
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseleave", onLeave);
+    window.addEventListener("resize", resize);
+
+    init();
+    draw();
+
+    return () => {
+      running = false;
+      cancelAnimationFrame(raf);
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseleave", onLeave);
+      window.removeEventListener("resize", resize);
+    };
+  }, [canvasRef, wrapperRef, opts]);
+}
+
+// ── Scopes data ────────────────────────────────────────────────────────────
+type Scope = {
+  num: string;
+  tab: string;
+  title: React.ReactNode;
+  lede: React.ReactNode;
+  side: { eyebrow: string; rows: { key: string; val: React.ReactNode }[]; quote: string };
+  detail: React.ReactNode;
+  bullets: string[];
+  tags: string[];
+};
+
+const SCOPES: Scope[] = [
+  {
+    num: "01",
+    tab: "Elaboração e/ou Revisão Contratual",
+    title: <>Contratos <i>sob medida</i>.</>,
+    lede: <>Escopo voltado à <strong>elaboração do zero</strong> ou à <strong>revisão estratégica de contratos já existentes</strong>. Na revisão, partimos de um instrumento que o cliente já utiliza e propomos <strong>mudanças e adequações</strong> que enderecem a dor do cliente sem perder de vista a lei aplicável — entregando, ao fim, um material juridicamente consistente e alinhado às necessidades do negócio.</>,
+    side: {
+      eyebrow: "Ficha do escopo",
+      rows: [
+        { key: "Entregáveis", val: <><strong>Contrato finalizado</strong> + memorando explicativo (em revisões) + apresentação executiva</> },
+        { key: "Aplicações", val: <>Contratos personalizados conforme a necessidade do cliente, envolvendo diferentes áreas do Direito</> },
+        { key: "Abordagem", val: <>Elaboração do zero <strong>ou</strong> revisão de material existente do cliente — sempre mirando a dor do negócio + a lei aplicável</> },
+        { key: "Sinergia", val: <>Apoio direto a Business e Engenharia em demandas contratuais</> },
+        { key: "Supervisão", val: <>Banca técnica com professores e escritórios parceiros</> },
+      ],
+      quote: "Cada contrato é desenhado para o cliente — não modelo de prateleira.",
+    },
+    detail: <>Trabalhamos com <strong>elaboração de contratos do zero</strong> e <strong>revisão estratégica</strong> de instrumentos existentes. Em casos de revisão, entregamos um <strong>memorando explicativo</strong> que justifica cada alteração realizada e uma <strong>apresentação executiva</strong> que sintetiza os pontos críticos da revisão para a tomada de decisão. A atuação combina análise técnica das necessidades do cliente, parâmetros legais aplicáveis e revisão por bancas com professores e escritórios parceiros.</>,
+    bullets: [
+      "Contratos personalizados conforme a necessidade do cliente",
+      "Cobertura ampla — diferentes áreas e ramos do Direito",
+      "Elaboração do zero ou revisão estratégica de instrumentos",
+      "Memorando + apresentação executiva (em revisões)",
+    ],
+    tags: ["Direito Civil", "Direito Empresarial", "Contratos"],
+  },
+  {
+    num: "02",
+    tab: "Planejamento Consultivo Societário",
+    title: <>Estrutura <i>societária</i> sob análise.</>,
+    lede: <>Serviço de <strong>análise estratégica da estrutura societária</strong> do cliente, com identificação de riscos, oportunidades de melhoria e alternativas possíveis. Escopo consultivo, <strong>sem envolver emissão de documentos em cartório</strong> — entrega de <strong>parecer fundamentado</strong> e <strong>apresentação executiva</strong> com os caminhos recomendados.</>,
+    side: {
+      eyebrow: "Ficha do escopo",
+      rows: [
+        { key: "Entregáveis", val: <><strong>Parecer consultivo</strong> + apresentação executiva com caminhos e recomendações</> },
+        { key: "Natureza", val: <>Consultivo — <strong>não envolve emissão de documentos em cartório</strong>; apresenta alternativas sem induzir decisões</> },
+        { key: "Aplicações", val: <>Análise societária, identificação de riscos, modelos jurídicos comparados</> },
+        { key: "Limites", val: <>Sem execução direta de procedimentos cartorários ou registrais</> },
+        { key: "Supervisão", val: <>Banca com professores especialistas em societário</> },
+      ],
+      quote: "Recomendações fundamentadas — a decisão final é do cliente.",
+    },
+    detail: <>Dois cenários: análise da <strong>estrutura societária atual</strong> do cliente ou avaliação de <strong>uma ideia ainda no papel</strong> — neste segundo, na maioria das vezes a análise vem <strong>embarcada em outro escopo</strong> (uma viabilidade societária dentro de uma análise mercadológica, por exemplo). Em ambos, identificamos riscos e apresentamos <strong>alternativas viáveis</strong>, sem induzir a decisão do cliente.</>,
+    bullets: [
+      "Análise da estrutura societária atual",
+      "Identificação de riscos e gargalos jurídicos",
+      "Comparativo entre modelos societários",
+      "Parecer fundamentado + apresentação executiva",
+    ],
+    tags: ["Direito Societário", "Parecer", "LTDA", "S.A."],
+  },
+  {
+    num: "03",
+    tab: "Planejamento Consultivo de Propriedade Industrial",
+    title: <><i>Pesquisa estratégica</i> de marcas, patentes e desenhos industriais.</>,
+    lede: <>Análise técnica e estratégica relacionada a <strong>registros de marca, patente ou desenho industrial</strong>, com foco na avaliação de viabilidade, alternativas e melhores caminhos perante o <strong>INPI</strong>.</>,
+    side: {
+      eyebrow: "Ficha do escopo",
+      rows: [
+        { key: "Entregável", val: <><strong>Parecer consultivo</strong> sobre viabilidade e caminhos no INPI</> },
+        { key: "Objetos", val: <>Marca, patente, desenho industrial</> },
+        { key: "Aplicações", val: <>Análise de <strong>viabilidade, estratégia e custos</strong> das alternativas perante o INPI</> },
+        { key: "Supervisão", val: <>Banca técnica com professores especialistas em propriedade industrial</> },
+        { key: "Limites", val: <>Não inclui execução direta de procedimentos no INPI</> },
+      ],
+      quote: "Análise técnica antes do registro — caminho certo, menos retrabalho.",
+    },
+    detail: <>O escopo orienta o cliente sobre <strong>viabilidade de registro</strong>, <strong>requisitos legais</strong> e <strong>implicações estratégicas</strong> perante o INPI. Além de <strong>mapear os caminhos possíveis</strong> (registro, oposição, manutenção, alternativas defensivas), fazemos <strong>análise de viabilidade, estratégia e custos</strong> de cada alternativa — entregando um parecer que orienta a decisão. Conta com supervisão técnica de bancas com professores especialistas em propriedade industrial.</>,
+    bullets: [
+      "Análise de viabilidade de registro de marca",
+      "Estudo de patenteabilidade",
+      "Avaliação de desenho industrial",
+      "Parecer estratégico sobre caminhos no INPI",
+    ],
+    tags: ["INPI", "Marca", "Patente", "Desenho Industrial", "Propriedade Intelectual"],
+  },
+  {
+    num: "04",
+    tab: "Planejamento e Análise Tributária",
+    title: <>Tributos com <i>simulação</i> e parecer.</>,
+    lede: <>Estudo da <strong>situação tributária atual</strong> do cliente, com foco na <strong>comparação de regimes</strong>, impactos financeiros e possibilidades de adequação dentro da legislação vigente.</>,
+    side: {
+      eyebrow: "Ficha do escopo",
+      rows: [
+        { key: "Entregáveis", val: <><strong>Simulações</strong> em planilha + memorando jurídico + apresentação executiva</> },
+        { key: "Foco", val: <>Comparativo de regimes tributários e impactos financeiros</> },
+        { key: "Aplicações", val: <>Adequação tributária dentro da legislação e reestruturações</> },
+        { key: "Cenário legal", val: <>Análise sob a legislação vigente + impactos da <strong>reforma tributária</strong> em curso</> },
+        { key: "Supervisão", val: <>Banca técnica com professores especialistas em tributário</> },
+      ],
+      quote: "Decisões mais eficientes e juridicamente seguras.",
+    },
+    detail: <>O escopo combina <strong>simulações em planilha</strong>, <strong>memorando jurídico</strong> e, quando pertinente, <strong>apresentação executiva</strong>. Analisamos a situação tributária atual, comparamos cenários alternativos dentro da legislação vigente e apoiamos o cliente em decisões que envolvam adequação fiscal, escolha de regime ou reestruturação — sempre considerando os <strong>impactos da reforma tributária em curso</strong>.</>,
+    bullets: [
+      "Comparativo entre regimes tributários (Simples, Presumido, Real)",
+      "Simulações de impacto financeiro",
+      "Memorando jurídico fundamentado",
+      "Apresentação executiva para decisão",
+    ],
+    tags: ["Direito Tributário", "Simples Nacional", "Lucro Presumido", "Lucro Real", "Planejamento Fiscal"],
+  },
+];
+
+// ── Page ────────────────────────────────────────────────────────────────────
+function Direito() {
+  const heroIntroRef = useRef<HTMLDivElement>(null);
+  const sharedCanvasRef = useRef<HTMLCanvasElement>(null);
+  const heroGlowRef = useRef<HTMLDivElement>(null);
+
+  const heroRef = useRef<HTMLElement>(null);
+  const heroCanvasRef = useRef<HTMLCanvasElement>(null);
+
+  const integrationRef = useRef<HTMLElement>(null);
+  const synergyCanvasRef = useRef<HTMLCanvasElement>(null);
+  const integrationGlowRef = useRef<HTMLDivElement>(null);
+
+  useParticleNetwork(sharedCanvasRef, heroIntroRef, {
+    count: 75,
+    maxDist: 120,
+    dotColor: "rgba(230,90,90,0.63)",
+    lineColor: (c: number) => `rgba(230,90,90,${0.252 * c})`,
+    deadZone: (W, H) => ({ x: W * 0.22, y: H * 0.18, w: W * 0.56, h: H * 0.64 }),
+  });
+
+  useEffect(() => {
+    const wrap = heroIntroRef.current;
+    const glow = heroGlowRef.current;
+    if (!wrap || !glow) return;
+    let raf = 0;
+    const onEnter = () => { glow.style.opacity = "1"; };
+    const onLeave = () => { glow.style.opacity = "0"; };
+    const onMove = (e: MouseEvent) => {
+      const rect = wrap.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        glow.style.left = `${x}px`;
+        glow.style.top = `${y}px`;
+      });
+    };
+    wrap.addEventListener("mouseenter", onEnter);
+    wrap.addEventListener("mouseleave", onLeave);
+    wrap.addEventListener("mousemove", onMove);
+    return () => {
+      wrap.removeEventListener("mouseenter", onEnter);
+      wrap.removeEventListener("mouseleave", onLeave);
+      wrap.removeEventListener("mousemove", onMove);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+
+  useParticleNetwork(heroCanvasRef, heroRef, {
+    count: 75,
+    maxDist: 120,
+    dotColor: "rgba(230,90,90,0.63)",
+    lineColor: (c: number) => `rgba(230,90,90,${0.252 * c})`,
+    deadZone: (W, H) => ({ x: W * 0.22, y: H * 0.18, w: W * 0.56, h: H * 0.64 }),
+  });
+
+  useParticleNetwork(synergyCanvasRef, integrationRef, {
+    count: 60,
+    dotColor: "rgba(230,90,90,0.38)",
+    lineColor: (c: number) => `rgba(230,90,90,${0.15 * c})`,
+    maxDist: 110,
+    repel: 90,
+    deadZone: (W, H) => ({ x: W * 0.22, y: H * 0.18, w: W * 0.56, h: H * 0.64 }),
+  });
+
+  useEffect(() => {
+    const sec = integrationRef.current;
+    const glow = integrationGlowRef.current;
+    if (!sec || !glow) return;
+    let raf = 0;
+    const onEnter = () => { glow.style.opacity = "1"; };
+    const onLeave = () => { glow.style.opacity = "0"; };
+    const onMove = (e: MouseEvent) => {
+      const rect = sec.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        glow.style.left = `${x}px`;
+        glow.style.top = `${y}px`;
+      });
+    };
+    sec.addEventListener("mouseenter", onEnter);
+    sec.addEventListener("mouseleave", onLeave);
+    sec.addEventListener("mousemove", onMove);
+    return () => {
+      sec.removeEventListener("mouseenter", onEnter);
+      sec.removeEventListener("mouseleave", onLeave);
+      sec.removeEventListener("mousemove", onMove);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+
+  const difCardsRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const root = difCardsRef.current;
+    if (!root) return;
+    const cards = Array.from(root.querySelectorAll("[data-dif-card]"));
+    if (!("IntersectionObserver" in window)) {
+      cards.forEach(c => c.classList.add("in-view"));
+      return;
+    }
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add("in-view");
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    cards.forEach(c => io.observe(c));
+    return () => io.disconnect();
+  }, []);
+
+  const heroWords: { text: string; accent?: boolean; delay: string }[] = [
+    { text: "Direito", delay: "0.55s" },
+    { text: "que",     delay: "0.7s" },
+    { text: "traduz",  accent: true, delay: "0.85s" },
+    { text: "negócio", accent: true, delay: "1.0s" },
+    { text: "em",      delay: "1.15s" },
+    { text: "segurança", accent: true, delay: "1.3s" },
+    { text: "jurídica.", accent: true, delay: "1.45s" },
+  ];
+
+  return (
+    <PageWrap>
+      <DireitoGlobal />
+      <WppButton />
+      <Header />
+
+      {/* Hero + Intro shared canvas */}
+      <HeroIntroWrap ref={heroIntroRef}>
+        <SharedCanvas ref={sharedCanvasRef} />
+        <HeroGlow ref={heroGlowRef} />
+
+        {/* Hero */}
+        <Hero ref={heroRef}>
+          <HeroCanvas ref={heroCanvasRef} />
+          <HeroVignette />
+          <HeroCenter>
+            <HeroEyebrow>Frente de Direito</HeroEyebrow>
+            <HeroTitle>
+              {heroWords.map((w, i) => (
+                <Word key={i} $accent={!!w.accent} style={{ animationDelay: w.delay }}>
+                  {w.text}
+                </Word>
+              ))}
+            </HeroTitle>
+            <HeroLine />
+            <HeroSub>
+              Atuação consultiva e contratual conduzida por alunos de Direito do Insper, com supervisão técnica de professores e escritórios parceiros — entregando pareceres fundamentados, contratos sob medida e análises estratégicas para empresas e organizações.
+            </HeroSub>
+          </HeroCenter>
+          <HeroScroll>
+            <HeroScrollDot />
+            <HeroScrollLine />
+          </HeroScroll>
+        </Hero>
+
+      </HeroIntroWrap>
+
+      {/* Red animated bar above Nossos Escopos */}
+      <RedBarWrap><RedBar /></RedBarWrap>
+
+      {/* Section opening: Nossos Escopos */}
+      <ScopesOpening>
+        <OpeningEyebrow>Frentes de atuação</OpeningEyebrow>
+        <OpeningTitle>Nossos Escopos</OpeningTitle>
+        <OpeningDivider />
+        <OpeningSubtitle>
+          Quatro escopos jurídicos delimitados — consultivos e contratuais — que se combinam à atuação das frentes de Business e Engenharia dentro da Insper Jr.
+        </OpeningSubtitle>
+
+        <OpeningIndex>
+          {SCOPES.map((s) => (
+            <IndexCard
+              key={s.num}
+              href={`#escopo-${s.num}`}
+              onClick={(e) => {
+                e.preventDefault();
+                const target = document.getElementById(`escopo-${s.num}`);
+                if (target) {
+                  target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  history.replaceState(null, '', `#escopo-${s.num}`);
+                }
+              }}
+            >
+              <IndexBadge>ESCOPO {s.num}</IndexBadge>
+              <IndexTitle>{s.tab}</IndexTitle>
+              <IndexCTA>
+                <span>Explorar</span>
+                <IndexArrow aria-hidden="true">→</IndexArrow>
+              </IndexCTA>
+            </IndexCard>
+          ))}
+        </OpeningIndex>
+      </ScopesOpening>
+
+      {SCOPES.map((s) => (
+        <ScopeSection key={s.num} id={`escopo-${s.num}`}>
+          <ScopesWrap>
+            <ScopePanel role="tabpanel">
+              <ScopeHeader>
+                <ScopeCounter>
+                  <CounterNum>ESCOPO {s.num}</CounterNum>
+                  <ScopeName>{s.tab}</ScopeName>
+                </ScopeCounter>
+                <PanelTags>
+                  <TagsLabel>Temas</TagsLabel>
+                  {s.tags.map(t => <Tag key={t}>{t}</Tag>)}
+                </PanelTags>
+              </ScopeHeader>
+
+              <ScopeGrid>
+                <ScopeMain>
+                  <ScopeIntro>
+                    <ScopeTitleH3>{s.title}</ScopeTitleH3>
+                    <Accent />
+                    <ScopeLede>{s.lede}</ScopeLede>
+                  </ScopeIntro>
+
+                  <PanelBody>
+                    <PanelCol>
+                      <ColLabel>Como atuamos</ColLabel>
+                      <ScopeDetail>{s.detail}</ScopeDetail>
+                    </PanelCol>
+                    <PanelCol>
+                      <ColLabel>Principais aplicações</ColLabel>
+                      <Bullets>
+                        {s.bullets.map((b, j) => <li key={j}>{b}</li>)}
+                      </Bullets>
+                    </PanelCol>
+                  </PanelBody>
+                </ScopeMain>
+
+                <PanelSide>
+                  <SideCorner />
+                  <SideEyebrow>{s.side.eyebrow}</SideEyebrow>
+                  <SideRows>
+                    {s.side.rows.map((r, j) => (
+                      <SideRow key={j}>
+                        <SideKey>{r.key}</SideKey>
+                        <SideVal>{r.val}</SideVal>
+                      </SideRow>
+                    ))}
+                  </SideRows>
+                  <SideQuote>{s.side.quote}</SideQuote>
+                </PanelSide>
+              </ScopeGrid>
+            </ScopePanel>
+          </ScopesWrap>
+        </ScopeSection>
+      ))}
+
+      {/* Red animated bar above Cases de Destaque */}
+      <RedBarWrap><RedBar /></RedBarWrap>
+
+      {/* Cases de Destaque — overview com links para páginas dedicadas */}
+      <HighlightCases>
+        <SectionHeader>
+          <OpeningEyebrow>Projetos em destaque</OpeningEyebrow>
+          <SectionTitle>Cases de Destaque</SectionTitle>
+          <OpeningDivider />
+        </SectionHeader>
+        <SectionSubtitle>
+          Três projetos que exemplificam a forma como a frente de Direito atua — do primeiro contrato firmado à assessoria continuada e à atuação multi-escopo.
+        </SectionSubtitle>
+        <HighlightGrid>
+          <HighlightCard to="/direito/pe-direito" aria-label="Ver case Pé Direito I">
+            <HighlightCardTitle>Pé Direito I</HighlightCardTitle>
+            <HighlightCardPlaceholder aria-label="Imagem a ser definida">
+              <span>Imagem em breve</span>
+            </HighlightCardPlaceholder>
+            <HighlightCardSubtitle>Escopo · Contratos</HighlightCardSubtitle>
+          </HighlightCard>
+          <HighlightCard to="/direito/society" aria-label="Ver case Society I">
+            <HighlightCardTitle>Society I</HighlightCardTitle>
+            <HighlightCardPlaceholder aria-label="Imagem a ser definida">
+              <span>Imagem em breve</span>
+            </HighlightCardPlaceholder>
+            <HighlightCardSubtitle>Escopo · Societário</HighlightCardSubtitle>
+          </HighlightCard>
+          <HighlightCard to="/direito/print" aria-label="Ver case Print I">
+            <HighlightCardTitle>Print I</HighlightCardTitle>
+            <HighlightCardPlaceholder aria-label="Imagem a ser definida">
+              <span>Imagem em breve</span>
+            </HighlightCardPlaceholder>
+            <HighlightCardSubtitle>Escopo · Contratos · Tributário · PI</HighlightCardSubtitle>
+          </HighlightCard>
+        </HighlightGrid>
+      </HighlightCases>
+
+      {/* Integration band — Sinergia entre Escopos */}
+      <Integration ref={integrationRef}>
+        <SynergyCanvas ref={synergyCanvasRef} />
+        <CursorGlow ref={integrationGlowRef} />
+        <IntegrationInner>
+          <Kicker>Direito no contexto da Insper Jr.</Kicker>
+          <IntegrationTitle>
+            Atuação jurídica <span>integrada às demais frentes</span> da empresa
+          </IntegrationTitle>
+          <IntegrationLede>
+            A frente de Direito não opera isolada: trabalha em conjunto com Business e Engenharia, vende seus serviços pelo mesmo núcleo comercial e atua transversalmente em demandas institucionais — sempre com supervisão de professores e bancas técnicas especializadas em cada um dos escopos.
+          </IntegrationLede>
+        </IntegrationInner>
+      </Integration>
+
+      {/* Red animated bar above Sobre a frente */}
+      <RedBarWrap><RedBar /></RedBarWrap>
+
+      {/* Sobre a frente */}
+      <Intro id="sobre-frente">
+        <SectionHeader>
+          <OpeningEyebrow>Quem somos</OpeningEyebrow>
+          <SectionTitle>Sobre a frente</SectionTitle>
+          <OpeningDivider />
+        </SectionHeader>
+
+        <FrenteLede>
+          A frente de Direito da Insper Jr. nasceu da <strong>46ª gestão</strong>, com o objetivo de ampliar o papel da empresa como centro de desenvolvimento para todos os alunos do Insper. Estruturada ao longo de um ciclo de diagnóstico, mapeamento e estruturação, hoje atua de forma integrada com Business e Engenharia, oferecendo serviços jurídicos delimitados, supervisionados por professores e escritórios parceiros.
+        </FrenteLede>
+
+        <PillarsGrid>
+          <Pillar>
+            <PillarNum>01 — Estruturada</PillarNum>
+            <PillarTitle>Escopos delimitados</PillarTitle>
+            <PillarText>
+              Quatro escopos consultivos e contratuais — <strong>Contratos, Societário, Propriedade Industrial e Tributário</strong> — desenhados para respeitar os limites regulatórios da OAB e maximizar o valor entregue.
+            </PillarText>
+          </Pillar>
+          <Pillar>
+            <PillarNum>02 — Supervisionada</PillarNum>
+            <PillarTitle>Professores e escritórios parceiros</PillarTitle>
+            <PillarText>
+              Atuação validada por <strong>bancas técnicas</strong> com professores especialistas em cada um dos escopos jurídicos.
+            </PillarText>
+          </Pillar>
+          <Pillar>
+            <PillarNum>03 — Integrada</PillarNum>
+            <PillarTitle>Conversa com Business e Engenharia</PillarTitle>
+            <PillarText>
+              A venda dos serviços jurídicos é <strong>integrada ao núcleo comercial</strong> da Insper Jr., permitindo combinar Direito com projetos de outras frentes em um mesmo ecossistema de soluções.
+            </PillarText>
+          </Pillar>
+        </PillarsGrid>
+
+        <StatsBar>
+          <Stat><StatValue>4</StatValue><StatLabel>Escopos jurídicos</StatLabel></Stat>
+          <Stat><StatValue>2+</StatValue><StatLabel>Escritórios parceiros</StatLabel></Stat>
+          <Stat><StatValue>49ª</StatValue><StatLabel>Gestão atual</StatLabel></Stat>
+          <Stat><StatValue>24+</StatValue><StatLabel>Anos de Insper Jr.</StatLabel></Stat>
+        </StatsBar>
+      </Intro>
+
+      {/* Red animated bar above Diferenciais */}
+      <RedBarWrap><RedBar /></RedBarWrap>
+
+      {/* Diferenciais */}
+      <Diferenciais>
+        <SectionHeader>
+          <OpeningEyebrow>O que nos diferencia</OpeningEyebrow>
+          <SectionTitle>Diferenciais</SectionTitle>
+          <OpeningDivider />
+        </SectionHeader>
+        <SectionSubtitle>
+          O que faz a frente de Direito da Insper Jr. se destacar no ecossistema de empresas juniores jurídicas.
+        </SectionSubtitle>
+        <DifGrid ref={difCardsRef}>
+          <DifCard data-dif-card>
+            <DifAccent />
+            <DifNum>01</DifNum>
+            <DifTitle>Escopos pensados para o cliente</DifTitle>
+            <DifText>Diferente de outras EJs jurídicas, organizamos os escopos a partir do objetivo do cliente — não da categoria jurídica. Cada serviço entrega clareza sobre o que será produzido e o porquê.</DifText>
+          </DifCard>
+          <DifCard data-dif-card>
+            <DifAccent />
+            <DifNum>02</DifNum>
+            <DifTitle>Supervisão técnica robusta</DifTitle>
+            <DifText>Trilhas de conhecimento estruturadas e bancas técnicas com professores especialistas garantem qualidade jurídica em cada entregável.</DifText>
+          </DifCard>
+          <DifCard data-dif-card>
+            <DifAccent />
+            <DifNum>03</DifNum>
+            <DifTitle>Integração com Business e Engenharia</DifTitle>
+            <DifText>O Direito conversa diretamente com as outras frentes da Insper Jr., permitindo entregas combinadas — de um contrato vinculado a um projeto de software a uma análise tributária dentro de uma reestruturação.</DifText>
+          </DifCard>
+        </DifGrid>
+      </Diferenciais>
+
+      {/* Closing CTA + Contact */}
+      <DireitoCTA />
+      <ContactSection />
+
+      <Footer />
+    </PageWrap>
+  );
+}
+
+export default Direito;
+
+// ── Styled Components ──────────────────────────────────────────────────────
+
+const heroFadeIn = keyframes`
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+`;
+const heroWordIn = keyframes`
+  from { opacity: 0; transform: translateY(28px); filter: blur(6px); }
+  to   { opacity: 1; transform: translateY(0); filter: blur(0); }
+`;
+const heroLineGrow = keyframes`
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+`;
+const heroScrollBounce = keyframes`
+  0%,100% { transform: translateY(0); }
+  50%     { transform: translateY(6px); }
+`;
+const accentGrow = keyframes`
+  to { transform: scaleX(1); }
+`;
+const redbarGrow = keyframes`
+  to { transform: scaleX(1); }
+`;
+const PageWrap = styled.div`
+  font-family: ${FONT_BODY};
+  color: ${COLORS.ink};
+  background: ${COLORS.bg};
+  -webkit-font-smoothing: antialiased;
+  width: 100%;
+  overflow-x: hidden;
+`;
+
+const HeroIntroWrap = styled.div`
+  position: relative;
+  overflow: hidden;
+  background: #ffffff;
+`;
+
+const SharedCanvas = styled.canvas`
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+`;
+
+const HeroGlow = styled.div`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(192,33,33,0.18) 0%, transparent 65%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  mix-blend-mode: screen;
+  z-index: 1;
+  will-change: left, top, opacity;
+`;
+
+const Hero = styled.section`
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: ${COLORS.black};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+`;
+
+const HeroCanvas = styled.canvas`
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+`;
+
+const HeroVignette = styled.div`
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(14,4,4,0.85) 100%);
+  pointer-events: none;
+  z-index: 1;
+`;
+
+const HeroCenter = styled.div`
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  padding: 0 24px;
+  text-align: center;
+  max-width: 760px;
+`;
+
+const HeroEyebrow = styled.span`
+  font-family: ${FONT_TITLE};
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: ${COLORS.redCTA};
+  opacity: 0;
+  animation: ${heroFadeIn} 0.6s cubic-bezier(0.16,1,0.3,1) 0.2s forwards;
+`;
+
+const HeroTitle = styled.h1`
+  font-family: ${FONT_TITLE};
+  font-size: 56px;
+  font-weight: 700;
+  color: ${COLORS.cream};
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin: 0;
+
+  @media (max-width: 1300px) { font-size: 44px; }
+  @media (max-width: 600px) { font-size: 30px; }
+`;
+
+const Word = styled.span<{ $accent?: boolean }>`
+  display: inline-block;
+  margin-right: 0.22em;
+  opacity: 0;
+  transform: translateY(28px);
+  filter: blur(6px);
+  animation: ${heroWordIn} 0.85s cubic-bezier(0.16,1,0.3,1) forwards;
+  ${p => p.$accent && css`color: ${COLORS.redCTA};`}
+  &:last-child { margin-right: 0; }
+`;
+
+const HeroLine = styled.div`
+  width: 64px;
+  height: 3px;
+  background: ${COLORS.redCTA};
+  transform-origin: left center;
+  transform: scaleX(0);
+  animation: ${heroLineGrow} 0.7s cubic-bezier(0.16,1,0.3,1) 1.4s forwards;
+`;
+
+const HeroSub = styled.p`
+  font-family: ${FONT_BODY};
+  font-size: 16px;
+  font-weight: 400;
+  color: ${COLORS.cream};
+  line-height: 1.5;
+  max-width: 560px;
+  margin: 0;
+  opacity: 0;
+  animation: ${heroFadeIn} 0.75s cubic-bezier(0.16,1,0.3,1) 1.55s forwards;
+
+  @media (max-width: 600px) { font-size: 14px; }
+`;
+
+const HeroScroll = styled.div`
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  animation: ${heroFadeIn} 0.6s cubic-bezier(0.16,1,0.3,1) 2.1s forwards;
+`;
+
+const HeroScrollDot = styled.div`
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: ${COLORS.redCTA};
+  animation: ${heroScrollBounce} 1.8s ease-in-out 2.5s infinite;
+`;
+
+const HeroScrollLine = styled.div`
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, rgba(105,18,18,0.45), transparent);
+`;
+
+const Intro = styled.section`
+  padding: 0 2rem 4rem;
+  width: 80%;
+  max-width: 1240px;
+  margin: 0 auto;
+  position: relative;
+
+  @media (max-width: 768px) {
+    width: 90%;
+    padding: 0 1rem 2.5rem;
+  }
+`;
+
+const SectionHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 5rem auto 0;
+  max-width: 1100px;
+  padding: 0 2rem;
+  text-align: center;
+`;
+
+const SectionTitle = styled.h2`
+  font-family: ${FONT_TITLE};
+  font-size: 32px;
+  font-weight: 700;
+  color: #080F0F;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0;
+
+  @media (max-width: 600px) { font-size: 26px; }
+`;
+
+const SectionSubtitle = styled.p`
+  font-family: ${FONT_BODY};
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  max-width: 700px;
+  margin: 0 auto 3rem;
+  text-align: center;
+  color: #444;
+  padding: 0 1rem;
+
+  @media (max-width: 600px) { font-size: 14px; }
+`;
+
+const ScopesOpening = styled.section`
+  max-width: 1240px;
+  margin: 5rem auto 0;
+  padding: 0 2rem;
+  text-align: center;
+
+  @media (max-width: 768px) {
+    margin: 3.5rem auto 0;
+    padding: 0 1rem;
+  }
+`;
+
+const OpeningEyebrow = styled.p`
+  font-family: ${FONT_TITLE};
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #C02121;
+  margin: 0 0 0.9rem;
+`;
+
+const OpeningTitle = styled.h2`
+  font-family: ${FONT_TITLE};
+  font-size: 32px;
+  font-weight: 700;
+  color: #080F0F;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0;
+`;
+
+const OpeningDivider = styled.div`
+  width: 3rem;
+  height: 3px;
+  background: #C02121;
+  border-radius: 2px;
+  margin: 1rem auto 1.6rem;
+`;
+
+const OpeningSubtitle = styled.p`
+  font-family: ${FONT_BODY};
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #444;
+  max-width: 700px;
+  margin: 0 auto 3rem;
+
+  @media (max-width: 600px) { font-size: 14px; }
+`;
+
+const OpeningIndex = styled.nav`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(26,26,24,0.08);
+
+  @media (max-width: 1100px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+`;
+
+const IndexArrow = styled.span`
+  display: inline-block;
+  font-family: ${FONT_TITLE};
+  font-size: 15px;
+  line-height: 1;
+  color: ${COLORS.redTitle};
+  transition: transform 0.28s cubic-bezier(0.16,1,0.3,1);
+`;
+
+const IndexCard = styled.a`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+  padding: 0.5rem 0;
+  background: transparent;
+  border: none;
+  text-decoration: none;
+  color: ${COLORS.ink};
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.28s cubic-bezier(0.16,1,0.3,1);
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  &:hover ${IndexArrow} {
+    transform: translateX(5px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${COLORS.redTitle};
+    outline-offset: 4px;
+  }
+`;
+
+const IndexBadge = styled.span`
+  font-family: ${FONT_MONO};
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: ${COLORS.redTitle};
+  text-transform: uppercase;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid rgba(161,15,35,0.4);
+  border-radius: 2px;
+`;
+
+const IndexTitle = styled.span`
+  font-family: ${FONT_TITLE};
+  font-size: 19px;
+  font-weight: 700;
+  color: ${COLORS.ink};
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  position: relative;
+  padding-bottom: 0.6rem;
+  max-width: 240px;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 32px;
+    height: 2px;
+    background: ${COLORS.redTitle};
+    transform: translateX(-50%);
+  }
+
+  @media (max-width: 700px) { font-size: 17px; }
+`;
+
+const IndexCTA = styled.span`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: ${FONT_TITLE};
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: ${COLORS.redTitle};
+  margin-top: 0.15rem;
+`;
+
+
+const FrenteLede = styled.p`
+  max-width: 920px;
+  margin: 0 auto 3rem;
+  text-align: center;
+  font-family: ${FONT_BODY};
+  font-size: 19px;
+  line-height: 1.7;
+  color: #2a2a2a;
+  strong { font-weight: 600; color: ${COLORS.ink}; }
+
+  @media (max-width: 900px) { font-size: 17px; }
+`;
+
+const PillarsGrid = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+
+  @media (max-width: 900px) { grid-template-columns: 1fr; }
+`;
+
+const Pillar = styled.div`
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 12px;
+  padding: 1.75rem 1.5rem;
+  position: relative;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.06);
+    border-color: rgba(161,15,35,0.25);
+  }
+`;
+
+const PillarNum = styled.span`
+  font-family: ${FONT_TITLE};
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: ${COLORS.redTitle};
+  margin-bottom: 0.6rem;
+  display: block;
+`;
+
+const PillarTitle = styled.h4`
+  font-family: ${FONT_TITLE};
+  font-size: 19px;
+  font-weight: 700;
+  color: #111;
+  margin: 0 0 0.6rem;
+  line-height: 1.25;
+`;
+
+const PillarText = styled.p`
+  font-family: ${FONT_BODY};
+  font-size: 15px;
+  line-height: 1.55;
+  color: #4a4a4a;
+  margin: 0;
+  strong { font-weight: 600; color: ${COLORS.ink}; }
+`;
+
+const StatsBar = styled.div`
+  margin-top: 4rem;
+  display: flex;
+  justify-content: space-around;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  padding-top: 2.5rem;
+  border-top: 1px solid rgba(0,0,0,0.08);
+`;
+
+const Stat = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const StatValue = styled.div`
+  font-family: ${FONT_TITLE};
+  font-size: 32px;
+  font-weight: 700;
+  color: #000;
+
+  @media (max-width: 600px) { font-size: 24px; }
+`;
+
+const StatLabel = styled.div`
+  font-family: ${FONT_BODY};
+  font-size: 16px;
+  text-align: center;
+  color: #555;
+
+  @media (max-width: 600px) { font-size: 13px; }
+`;
+
+const RedBarWrap = styled.div`
+  max-width: 1200px;
+  margin: 4rem auto 0;
+  padding: 0 2rem;
+`;
+
+const RedBar = styled.div`
+  height: 2px;
+  width: 100%;
+  background: rgba(0,0,0,0.08);
+  position: relative;
+  overflow: hidden;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, ${COLORS.redTitle} 0%, ${COLORS.redCTA} 50%, ${COLORS.redTitle} 100%);
+    transform-origin: left center;
+    transform: scaleX(0);
+    animation: ${redbarGrow} 1.6s cubic-bezier(0.16,1,0.3,1) 0.2s forwards;
+  }
+`;
+
+const ScopeSection = styled.section`
+  min-height: 100vh;
+  padding: 2rem;
+  scroll-margin-top: 80px;
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border-top: 1px solid rgba(26,26,24,0.06);
+
+  &:nth-of-type(even) { background: ${COLORS.lightCream}; }
+
+  @media (max-width: 900px) {
+    min-height: auto;
+    padding: 3rem 1rem;
+  }
+`;
+
+const ScopesWrap = styled.div`
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+`;
+
+const ScopePanel = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+`;
+
+const ScopeHeader = styled.div`
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+
+  @media (max-width: 900px) {
+    align-items: flex-start;
+    gap: 1rem;
+  }
+`;
+
+const ScopeCounter = styled.p`
+  font-family: ${FONT_TITLE};
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.55rem;
+  line-height: 1;
+`;
+
+const CounterNum = styled.span`
+  font-family: ${FONT_MONO};
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: ${COLORS.redTitle};
+  opacity: 1;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid rgba(161,15,35,0.4);
+  border-radius: 2px;
+`;
+
+const ScopeName = styled.span`
+  font-family: ${FONT_TITLE};
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  text-transform: none;
+  color: ${COLORS.ink};
+  line-height: 1.05;
+  position: relative;
+  padding-bottom: 0.5rem;
+  display: inline-block;
+  max-width: 720px;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 56px;
+    height: 3px;
+    background: ${COLORS.redTitle};
+  }
+
+  @media (max-width: 1100px) { font-size: 32px; }
+  @media (max-width: 700px) { font-size: 26px; }
+`;
+
+const ScopeGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1.55fr 1fr;
+  gap: 2.5rem;
+  align-items: stretch;
+
+  @media (max-width: 1024px) { gap: 1.75rem; }
+  @media (max-width: 900px) { grid-template-columns: 1fr; gap: 1.5rem; }
+`;
+
+const ScopeMain = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+  min-width: 0;
+  height: 100%;
+`;
+
+const ScopeIntro = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const ScopeTitleH3 = styled.h3`
+  color: ${COLORS.ink};
+  font-family: ${FONT_TITLE};
+  font-size: 40px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+
+  i {
+    font-style: italic;
+    font-weight: 400;
+    color: ${COLORS.redTitle};
+  }
+
+  @media (max-width: 900px) { font-size: 28px; }
+`;
+
+const Accent = styled.div`
+  width: 56px;
+  height: 3px;
+  background: ${COLORS.redTitle};
+  margin: 0.9rem 0 1.2rem;
+  transform-origin: left center;
+  transform: scaleX(0);
+  animation: ${accentGrow} 0.9s cubic-bezier(0.16,1,0.3,1) 0.3s forwards;
+`;
+
+const ScopeLede = styled.p`
+  font-family: ${FONT_BODY};
+  font-size: 16.5px;
+  line-height: 1.6;
+  color: #5a5550;
+  margin: 0;
+  strong { color: ${COLORS.ink}; font-weight: 600; }
+
+  @media (max-width: 600px) { font-size: 14px; }
+`;
+
+const PanelSide = styled.aside`
+  display: flex;
+  flex-direction: column;
+  background: rgba(161, 15, 35, 0.035);
+  border: 1px solid rgba(26,26,24,0.08);
+  border-left: 3px solid ${COLORS.redTitle};
+  padding: 1.5rem 1.75rem 1.4rem;
+  position: relative;
+`;
+
+const SideCorner = styled.div`
+  content: "";
+  position: absolute;
+  top: 1.1rem;
+  right: 1.1rem;
+  width: 26px;
+  height: 26px;
+  border-top: 2px solid rgba(161,15,35,0.25);
+  border-right: 2px solid rgba(161,15,35,0.25);
+`;
+
+const SideEyebrow = styled.p`
+  font-family: ${FONT_TITLE};
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: ${COLORS.redTitle};
+  margin: 0 0 0.85rem;
+`;
+
+const SideRows = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-evenly;
+`;
+
+const SideRow = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.25rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(26,26,24,0.08);
+  &:first-of-type { padding-top: 0.35rem; }
+  &:last-of-type { border-bottom: none; padding-bottom: 0.35rem; }
+`;
+
+const SideKey = styled.span`
+  font-family: ${FONT_MONO};
+  font-size: 10.5px;
+  color: rgba(26,26,24,0.5);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+`;
+
+const SideVal = styled.span`
+  font-family: ${FONT_BODY};
+  font-size: 14px;
+  color: ${COLORS.ink};
+  line-height: 1.45;
+  font-weight: 500;
+  strong { color: ${COLORS.redTitle}; font-weight: 700; }
+`;
+
+const SideQuote = styled.p`
+  margin: 1.1rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(26,26,24,0.08);
+  font-family: ${FONT_BODY};
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: #5a5550;
+  font-style: italic;
+  &::before {
+    content: "\\201C";
+    font-family: ${FONT_TITLE};
+    font-size: 26px;
+    color: ${COLORS.redTitle};
+    line-height: 0;
+    position: relative;
+    top: 6px;
+    margin-right: 4px;
+  }
+`;
+
+const PanelBody = styled.div`
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  border-top: 1px solid rgba(26,26,24,0.12);
+  border-bottom: 1px solid rgba(26,26,24,0.12);
+  flex: 1;
+  align-content: center;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    flex: 0 1 auto;
+  }
+`;
+
+const PanelCol = styled.div`
+  padding: 1.5rem 2rem 1.5rem 0;
+  & + & {
+    padding: 1.5rem 0 1.5rem 2.25rem;
+    border-left: 1px solid rgba(26,26,24,0.12);
+  }
+
+  @media (max-width: 900px) {
+    padding: 1.1rem 0;
+    & + & {
+      padding: 1.1rem 0;
+      border-left: none;
+      border-top: 1px solid rgba(26,26,24,0.12);
+    }
+  }
+`;
+
+const ColLabel = styled.p`
+  font-family: ${FONT_TITLE};
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: ${COLORS.redTitle};
+  margin: 0 0 0.85rem;
+`;
+
+const ScopeDetail = styled.p`
+  font-family: ${FONT_BODY};
+  font-size: 15px;
+  line-height: 1.65;
+  color: #3a3530;
+  margin: 0;
+  strong { color: ${COLORS.ink}; font-weight: 600; }
+`;
+
+const Bullets = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  counter-reset: entrega;
+
+  li {
+    font-family: ${FONT_BODY};
+    font-size: 14.5px;
+    line-height: 1.4;
+    padding: 0.6rem 0 0.6rem 2rem;
+    position: relative;
+    color: ${COLORS.ink};
+    border-bottom: 1px solid rgba(26,26,24,0.07);
+    counter-increment: entrega;
+    &:last-child { border-bottom: none; }
+    &::before {
+      content: counter(entrega, decimal-leading-zero);
+      position: absolute;
+      left: 0;
+      top: 0.75em;
+      font-family: ${FONT_TITLE};
+      font-size: 10.5px;
+      font-weight: 700;
+      color: ${COLORS.redTitle};
+      letter-spacing: 0.05em;
+    }
+  }
+`;
+
+const PanelTags = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  flex: 1;
+  min-width: 0;
+
+  @media (max-width: 900px) {
+    flex: 0 1 auto;
+    justify-content: flex-start;
+  }
+`;
+
+const TagsLabel = styled.span`
+  font-family: ${FONT_TITLE};
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #7a746e;
+  margin-right: 0.3rem;
+`;
+
+const Tag = styled.span`
+  font-family: ${FONT_MONO};
+  font-size: 11.5px;
+  font-weight: 500;
+  color: ${COLORS.ink};
+  background: transparent;
+  border: 1px solid rgba(26,26,24,0.18);
+  padding: 0.4rem 0.75rem;
+  border-radius: 2px;
+  transition: border-color 0.2s ease, color 0.2s ease;
+  &:hover { border-color: ${COLORS.redTitle}; color: ${COLORS.redTitle}; }
+`;
+
+const HighlightCases = styled.section`
+  padding: 0 2rem 5rem;
+  max-width: 1240px;
+  margin: 0 auto;
+  width: 100%;
+
+  @media (max-width: 900px) {
+    padding: 0 1rem 3.5rem;
+  }
+`;
+
+const HighlightGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+  margin-top: 2rem;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+`;
+
+const HighlightCard = styled(Link)`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid rgba(26,26,24,0.08);
+  border-top: 3px solid ${COLORS.redTitle};
+  border-radius: 4px;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+
+  & > img {
+    border-radius: 0;
+  }
+
+  &::before {
+    content: "Clique aqui";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-bottom: 0.6rem;
+    background: ${COLORS.redTitle};
+    color: #fff;
+    font-family: ${FONT_TITLE};
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 0.45rem 0.85rem;
+    border-radius: 999px;
+    box-shadow: 0 6px 14px rgba(161, 15, 35, 0.32);
+    opacity: 0;
+    transform: translate(-50%, 8px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    pointer-events: none;
+    z-index: 2;
+    white-space: nowrap;
+  }
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 32px rgba(0,0,0,0.12);
+    border-color: rgba(161,15,35,0.35);
+
+    &::before {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${COLORS.redTitle};
+    outline-offset: 3px;
+
+    &::before {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+  }
+`;
+
+const HighlightCardTitle = styled.h3`
+  font-family: ${FONT_TITLE};
+  font-size: 22px;
+  font-weight: 700;
+  color: ${COLORS.ink};
+  margin: 0;
+  padding: 1.25rem 1.5rem 1rem;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+
+  @media (max-width: 900px) { font-size: 20px; padding: 1rem 1.25rem 0.85rem; }
+`;
+
+const HighlightCardPlaceholder = styled.div`
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: repeating-linear-gradient(
+    45deg,
+    ${COLORS.lightCream},
+    ${COLORS.lightCream} 12px,
+    rgba(161,15,35,0.05) 12px,
+    rgba(161,15,35,0.05) 24px
+  );
+  border-top: 1px solid rgba(26,26,24,0.06);
+  border-bottom: 1px solid rgba(26,26,24,0.06);
+
+  span {
+    font-family: ${FONT_MONO};
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: ${COLORS.redTitle};
+    padding: 0.5rem 0.85rem;
+    background: rgba(255,255,255,0.85);
+    border: 1px solid rgba(161,15,35,0.25);
+    border-radius: 2px;
+  }
+`;
+
+const HighlightCardSubtitle = styled.p`
+  font-family: ${FONT_MONO};
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: ${COLORS.redTitle};
+  margin: 0;
+  padding: 1rem 1.5rem 1.25rem;
+
+  @media (max-width: 900px) { padding: 0.85rem 1.25rem 1rem; }
+`;
+
+const Integration = styled.section`
+  margin-top: 4rem;
+  background: ${COLORS.black};
+  color: #fff;
+  padding: 5rem 2rem;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+`;
+
+const SynergyCanvas = styled.canvas`
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+`;
+
+const CursorGlow = styled.div`
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(192,33,33,0.156) 0%, transparent 65%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  left: 50%;
+  top: 50%;
+  will-change: left, top, opacity;
+`;
+
+const IntegrationInner = styled.div`
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+`;
+
+const Kicker = styled.div`
+  font-family: ${FONT_TITLE};
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  color: ${COLORS.redCTA};
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+`;
+
+const IntegrationTitle = styled.h2`
+  font-family: ${FONT_TITLE};
+  font-size: 38px;
+  margin: 0 0 1rem;
+  line-height: 1.15;
+  color: #fff;
+  font-weight: 700;
+  span { color: ${COLORS.redCTA}; }
+
+  @media (max-width: 800px) { font-size: 28px; }
+`;
+
+const IntegrationLede = styled.p`
+  font-family: ${FONT_BODY};
+  font-size: 18px;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.78);
+  max-width: 820px;
+  margin: 0 auto 2.5rem;
+`;
+
+const Diferenciais = styled.section`
+  padding: 0 2rem 5rem;
+  max-width: 1240px;
+  margin: 0 auto;
+`;
+
+const DifGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(26,26,24,0.08);
+  border: 1px solid rgba(26,26,24,0.08);
+  margin-top: 2.5rem;
+
+  @media (max-width: 800px) { grid-template-columns: 1fr; }
+`;
+
+const DifCard = styled.div`
+  background: #fff;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+  border: 1px solid transparent;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: background 0.25s ease, border-color 0.25s ease,
+              opacity 0.7s cubic-bezier(0.16,1,0.3,1),
+              transform 0.7s cubic-bezier(0.16,1,0.3,1);
+
+  &.in-view { opacity: 1; transform: translateY(0); }
+  &:nth-child(1).in-view { transition-delay: 0s, 0s, 0.10s, 0.10s; }
+  &:nth-child(2).in-view { transition-delay: 0s, 0s, 0.18s, 0.18s; }
+  &:nth-child(3).in-view { transition-delay: 0s, 0s, 0.26s, 0.26s; }
+
+  &:hover {
+    background: rgba(192,33,33,0.05);
+    border-color: rgba(192,33,33,0.45);
+  }
+`;
+
+const DifAccent = styled.div`
+  width: 20px;
+  height: 2px;
+  background: ${COLORS.redCTA};
+  transition: width 0.3s cubic-bezier(0.16,1,0.3,1);
+  ${DifCard}:hover & { width: 40px; }
+`;
+
+const DifNum = styled.div`
+  font-family: ${FONT_TITLE};
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: ${COLORS.redCTA};
+  text-transform: uppercase;
+  margin: 0;
+`;
+
+const DifTitle = styled.h3`
+  font-family: ${FONT_TITLE};
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+  color: ${COLORS.ink};
+  letter-spacing: 0.02em;
+`;
+
+const DifText = styled.p`
+  font-family: ${FONT_BODY};
+  font-size: 13px;
+  line-height: 1.55;
+  color: #7a746e;
+  margin: 0;
+`;

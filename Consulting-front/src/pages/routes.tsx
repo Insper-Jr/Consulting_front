@@ -15,6 +15,13 @@ import Overview from "./overview/overview"
 import Strategy from "./strategy/strategy"
 import Protection from "./protection/protection"
 import Tech from "./tech/tech"
+import GamificacaoPage from "./tech/cases/gamificacaoPage"
+import MedicinaPage from "./tech/cases/medicinaPage"
+import WallePage from "./tech/cases/wallePage"
+import Direito from "./direito/direito"
+import PeDireitoPage from "./direito/cases/peDireitoPage"
+import SocietyPage from "./direito/cases/societyPage"
+import PrintPage from "./direito/cases/printPage"
 import Processos from "./processos/processos"
 import Alumni from "./alumni/alumni"
 
@@ -82,6 +89,34 @@ const routes: RouteObject[] = [{
 {
     path: "/tech",
     element: <Tech />,
+},
+{
+    path: "/tech/gamificacao",
+    element: <GamificacaoPage />,
+},
+{
+    path: "/tech/medicina",
+    element: <MedicinaPage />,
+},
+{
+    path: "/tech/wall-e",
+    element: <WallePage />,
+},
+{
+    path: "/direito",
+    element: <Direito />,
+},
+{
+    path: "/direito/pe-direito",
+    element: <PeDireitoPage />,
+},
+{
+    path: "/direito/society",
+    element: <SocietyPage />,
+},
+{
+    path: "/direito/print",
+    element: <PrintPage />,
 },
 {
     path: "/processos",

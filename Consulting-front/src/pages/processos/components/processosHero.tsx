@@ -51,6 +51,9 @@ const GradientOverlay = styled.div`
     rgba(14, 4, 4, 0.45) 65%,
     rgba(14, 4, 4, 0.15) 100%
   );
+  position: relative; width: 100%; height: 100vh; height: 100dvh;
+  background: ${BG}; overflow: hidden;
+  display: flex; align-items: stretch; isolation: isolate;
 `;
 
 /* Gradiente vertical sutil para escurecer topo e rodapé */
@@ -86,6 +89,13 @@ const Inner = styled.div`
   margin: 0 auto;
   padding: 0 56px;
   @media (max-width: 960px) { padding: 0 28px; }
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: 48px;
+  align-items: center;
+
+  @media (max-width: 960px) { grid-template-columns: 1fr; padding: 0 28px; gap: 0; }
+  @media (max-width: 480px) { padding: 0 20px; }
 `;
 
 /* ── Left ── */
@@ -107,6 +117,7 @@ const Title = styled.h1`
   font-family: ${FONT_TITLE}; font-size: 48px; font-weight: 700;
   line-height: 1.05; letter-spacing: -0.03em; color: ${CREAM}; margin: 0 0 28px;
   @media (max-width: 960px) { font-size: 42px; }
+  @media (max-width: 480px) { font-size: 32px; margin: 0 0 20px; }
 `;
 
 const Word = styled.span<{ $d: number; $v: boolean }>`
@@ -140,6 +151,7 @@ const BtnPrimary = styled.a`
   font-size: 15px; font-weight: 700; padding: 15px 30px;
   border-radius: 3px; text-decoration: none; transition: .2s;
   &:hover { background: #a01b1b; transform: translateY(-1px); }
+  @media (max-width: 480px) { width: 100%; justify-content: center; padding: 16px 24px; }
 `;
 
 const BtnGhost = styled.a`
@@ -154,6 +166,7 @@ const Right = styled.div`
   padding: 88px 0 48px 0;
   display: flex; align-items: center; justify-content: center; position: relative;
   @media (max-width: 960px) { padding: 0 0 64px; }
+  @media (max-width: 480px) { display: none; }
 `;
 
 const Flow = styled.div<{ $v: boolean }>`

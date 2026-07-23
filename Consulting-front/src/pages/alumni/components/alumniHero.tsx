@@ -131,6 +131,8 @@ const HeroOuter = styled.div`
   position: relative;
   width: 100%;
   min-height: 100vh;
+  height: 100vh;
+  height: 100dvh;
   background: ${BG_DARK};
   display: flex;
   align-items: center;
@@ -155,6 +157,32 @@ const Center = styled.div`
   gap: 32px;
   padding: 0 24px;
   text-align: center;
+  width: 100%;
+  display: flex;
+  align-items: center;
+`;
+
+const Inner = styled.div`
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 ${SPACING.innerPaddingX};
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 960px) { padding: 0 28px; }
+  @media (max-width: 480px) { padding: 0 20px; }
+`;
+
+const Left = styled.div`
+  padding: 88px 0 48px;
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  @media (max-width: 960px) { padding: 100px 0 48px; }
+  @media (max-width: 480px) { padding: 90px 0 40px; }
 `;
 
 const Eyebrow = styled.span`
@@ -178,6 +206,7 @@ const Title = styled.h1`
   margin: 0;
 
   @media (max-width: 960px) { font-size: 38px; }
+  @media (max-width: 480px) { font-size: 32px; }
 `;
 
 const Word = styled.span<{ $delay: number }>`
@@ -222,6 +251,9 @@ const ScrollHint = styled.div`
   gap: 8px;
   opacity: 0;
   animation: ${fadeIn} 0.6s cubic-bezier(0.16,1,0.3,1) 2.1s forwards;
+  animation: ${fadeIn} 0.6s ${SPRING} 2.1s forwards;
+
+  @media (max-width: 480px) { display: none; }
 `;
 
 const ScrollDot = styled.div`

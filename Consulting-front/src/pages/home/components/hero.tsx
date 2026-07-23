@@ -196,6 +196,9 @@ const HeroContent = styled.div`
   @media (max-width: 768px) {
     padding: 0 1.5rem 9rem;
   }
+  @media (max-width: 480px) {
+    padding: 0 1.25rem 7rem;
+  }
 `;
 
 const ContentInner = styled.div`
@@ -226,6 +229,9 @@ const HeroTitle = styled.h1`
   margin-bottom: 1.25rem;
   animation: ${fadeInUp} 0.55s ease both;
   animation-delay: 0.15s;
+
+  @media (max-width: 768px) { font-size: 36px; }
+  @media (max-width: 480px) { font-size: 30px; }
 `;
 
 /* Body — Inter Regular 16px */
@@ -261,6 +267,8 @@ const HeroCTA = styled(Link)`
     background: #fff;
     color: #0e0404;
   }
+
+  @media (max-width: 480px) { padding: 0.9rem 1.5rem; }
 `;
 
 const SlideIndicators = styled.div`
@@ -272,9 +280,10 @@ const SlideIndicators = styled.div`
   display: flex;
   gap: 2.5rem;
   align-items: flex-start;
+  max-width: calc(100% - 32px);
 
   @media (max-width: 600px) {
-    gap: 1.25rem;
+    gap: 0.75rem;
     bottom: 1.5rem;
   }
 `;
@@ -289,6 +298,9 @@ const SlideIndicator = styled.button`
   align-items: center;
   gap: 0.45rem;
   min-width: 90px;
+  flex: 1;
+
+  @media (max-width: 600px) { min-width: 0; }
 `;
 
 const ProgressTrack = styled.div`

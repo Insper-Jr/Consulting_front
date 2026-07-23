@@ -257,6 +257,7 @@ const Left = styled.div<{ $visible: boolean }>`
   min-width: 0;
   opacity: 0;
   ${p => p.$visible && css`animation: ${slideLeft} 1s ${SPRING} 0s forwards;`}
+  @media (max-width: 480px) { padding: 32px 20px; gap: 20px; }
 `;
 
 const Right = styled.div<{ $visible: boolean }>`
@@ -269,6 +270,7 @@ const Right = styled.div<{ $visible: boolean }>`
   min-width: 0;
   opacity: 0;
   ${p => p.$visible && css`animation: ${slideRight} 1s ${SPRING} 0.15s forwards;`}
+  @media (max-width: 480px) { padding: 32px 20px; gap: 20px; }
 `;
 
 const Eyebrow = styled.div`
@@ -301,6 +303,7 @@ const TitleMain = styled.h2`
   letter-spacing: -0.02em;
   line-height: 1.05;
   margin: 0;
+  @media (max-width: 480px) { font-size: 26px; }
 `;
 
 const TitleMuted = styled.span`
