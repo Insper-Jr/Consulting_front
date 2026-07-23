@@ -200,7 +200,7 @@ export default function BusinessAbout() {
         </SectionHeader>
 
         <FrenteLede>
-          Desde 2013, a frente de Business da Insper Jr. desenvolve soluções estratégicas
+          Desde 2001, a frente de Business da Insper Jr. desenvolve soluções estratégicas
           que geram crescimento, estruturam operações e abrem novos mercados. Nossa atuação
           evolui constantemente em metodologias e práticas — sempre buscando a solução mais
           adequada para cada desafio.
