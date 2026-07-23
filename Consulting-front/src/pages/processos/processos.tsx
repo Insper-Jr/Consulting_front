@@ -6,7 +6,8 @@ import Footer              from "@/components/footerNovo";
 import ContactSection from "../../components/sectionContact";
 import ProcessosHero    from "./components/processosHero";
 import ProcessosScope   from "./components/processosScope";
-import ProcessosWhy     from "./components/processosWhy";
+// import ProcessosWhy     from "./components/processosWhy";
+import ProcessosCase from "./components/processosCase";
 import ProcessosCTA     from "./components/processosCTA";
 
 
@@ -17,7 +18,7 @@ function Processos() {
       <Header />
       <ProcessosHero />
       <ProcessosScope />
-      <ProcessosWhy />
+      <ProcessosCase />
       <ProcessosCTA />
       <ContactSection />
       <Footer />

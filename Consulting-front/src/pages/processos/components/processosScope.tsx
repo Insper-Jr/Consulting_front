@@ -1,5 +1,5 @@
 import React, { useRef, useState, useCallback } from "react";
-import styled, { keyframes, css } from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useInView } from "../../../hooks/useInView";
 import { useParticles } from "../../../hooks/useParticleBackground";
 
@@ -15,8 +15,11 @@ const SPRING     = "cubic-bezier(0.16,1,0.3,1)";
 
 /* ─── Animations ─────────────────────────────────────── */
 const fadeUp   = keyframes`from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}`;
-const fadeIn   = keyframes`from{opacity:0}to{opacity:1}`;
 const lineGrow = keyframes`from{transform:scaleX(0)}to{transform:scaleX(1)}`;
+const dotTravel = keyframes`
+  0%   { left: -3.5px; }
+  100% { left: calc(100% - 3.5px); }
+`;
 
 /* ─── Scope Data ─────────────────────────────────────── */
 interface Scope {
@@ -101,7 +104,7 @@ const OUTCOME_ITEMS = [
       </svg>
     ),
     title: "Visibilidade total da operação",
-    body:  "Entenda exatamente como cada etapa do seu processo funciona, quanto tempo leva e onde a performance se perde — com dados coletados diretamente na sua operação.",
+    body: "Entenda exatamente como cada etapa do seu processo funciona, quanto tempo leva e onde a performance se perde — com dados coletados diretamente na sua operação.",
   },
   {
     icon: (
@@ -112,7 +115,7 @@ const OUTCOME_ITEMS = [
       </svg>
     ),
     title: "Gargalos identificados com precisão",
-    body:  "Com um modelo computacional da sua operação, os pontos de estrangulamento deixam de ser suposições e passam a ser evidências mensuráveis e rastreáveis.",
+    body: "Com um modelo computacional da sua operação, os pontos de estrangulamento deixam de ser suposições e passam a ser evidências mensuráveis e rastreáveis.",
   },
   {
     icon: (
@@ -122,14 +125,14 @@ const OUTCOME_ITEMS = [
       </svg>
     ),
     title: "Decisão embasada em cenários",
-    body:  "Simulamos múltiplas alternativas de melhoria antes de qualquer mudança real, entregando a você a melhor opção com respaldo técnico e quantitativo.",
+    body: "Simulamos múltiplas alternativas de melhoria antes de qualquer mudança real, entregando a você a melhor opção com respaldo técnico e quantitativo.",
   },
 ];
 
 /* ─── Component ──────────────────────────────────────── */
 export default function ProcessosScope() {
-  const [active,    setActive]    = useState<number | null>(null);
-  const [panelVis,  setPanelVis]  = useState(false);
+  const [active,   setActive]   = useState<number | null>(null);
+  const [panelVis, setPanelVis] = useState(false);
 
   const darkRef   = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -161,8 +164,7 @@ export default function ProcessosScope() {
       setTimeout(() => {
         if (darkRef.current) {
           const top = darkRef.current.getBoundingClientRect().top
-            + window.scrollY
-            - 80; // ← offset do header fixo
+            + window.scrollY - 80;
           window.scrollTo({ top, behavior: "smooth" });
         }
       }, 120);
@@ -174,7 +176,6 @@ export default function ProcessosScope() {
   return (
     <Wrapper id="escopos">
 
-      {/* ── Cream: header + pipeline ── */}
       <ScopeSection>
         <Inner>
           <ScopeHeader ref={hRef} $v={hV}>
@@ -191,6 +192,11 @@ export default function ProcessosScope() {
             ref={pRef as React.RefObject<HTMLDivElement>}
             style={{ opacity: pV ? 1 : 0, transition: "opacity .55s" }}
           >
+            {/* Linha tracejada vermelha com bolinha animada */}
+            <Track>
+              <Dot />
+            </Track>
+
             {SCOPES.map((s, i) => {
               const isActive = active === i;
               return (
@@ -213,7 +219,6 @@ export default function ProcessosScope() {
         </Inner>
       </ScopeSection>
 
-      {/* ── Dark: detail panel + outcome (canvas compartilhado) ── */}
       <DarkSection
         ref={darkRef}
         onMouseMove={onMove}
@@ -228,7 +233,6 @@ export default function ProcessosScope() {
         <Blueprint />
         <Glow $on={hov} $x={g.x} $y={g.y} />
 
-        {/* Detail panel */}
         <DetailContent $open={active !== null}>
           {cur && (
             <DetailInner $v={panelVis}>
@@ -257,10 +261,8 @@ export default function ProcessosScope() {
           )}
         </DetailContent>
 
-        {/* Divisor entre as duas sub-seções escuras */}
         <SectionDivider />
 
-        {/* Outcome */}
         <OutcomeInner>
           <OutcomeHeader ref={ohRef} $v={ohV}>
             <Eyebrow>O que você ganha</Eyebrow>
@@ -294,10 +296,9 @@ export default function ProcessosScope() {
 
 const Wrapper = styled.div``;
 
-/* ── Cream section ── */
 const ScopeSection = styled.section`
   background: ${CREAM};
-  padding: 96px 0 64px;  // ← adicionar bottom padding
+  padding: 96px 0 64px;
   @media (max-width: 960px) { padding: 72px 0 48px; }
   @media (max-width: 480px) { padding: 52px 0 36px; }
 `;
@@ -339,22 +340,46 @@ const Lead = styled.p`
   color: ${MUTED}; max-width: 540px; margin: 0;
 `;
 
-/* ── Pipeline ── */
 const Pipeline = styled.div`
-  display: flex; justify-content: center; position: relative;
-  &::before {
-    content: ""; position: absolute; top: 34px;
-    left: calc(100% / 6); right: calc(100% / 6);
-    height: 1px;
-    background: repeating-linear-gradient(
-      to right, rgba(26,26,24,.25) 0 6px, transparent 6px 12px
-    );
-    z-index: 0;
-  }
-  @media (max-width: 960px) {
-    flex-direction: column; gap: 32px;
-    &::before { display: none; }
-  }
+  display: flex;
+  justify-content: center;
+  position: relative;
+  overflow: visible;
+  @media (max-width: 960px) { flex-direction: column; gap: 32px; }
+`;
+
+/* ── Linha tracejada: de centro do nó 1 a centro do nó 3 ── */
+const Track = styled.div`
+  position: absolute;
+  top: 33px;                          /* centro dos nós (68px/2 = 34px) - 1px */
+  left: calc(100% / 6);               /* centro do nó 1 */
+  right: calc(100% / 6);              /* centro do nó 3 */
+  height: 2px;
+  background: repeating-linear-gradient(
+    to right,
+    rgba(192,33,33,.5) 0px,
+    rgba(192,33,33,.5) 4px,
+    transparent 4px,
+    transparent 10px
+  );
+  overflow: visible;
+  pointer-events: none;
+  z-index: 0;                         /* atrás dos nós */
+
+  @media (max-width: 960px) { display: none; }
+`;
+
+/* ── Bolinha animada ── */
+const Dot = styled.div`
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: ${RED};
+  box-shadow: 0 0 8px ${RED};   /* ← só um box-shadow, igual ao hero */
+  top: 50%;
+  transform: translateY(-50%);
+  animation: ${dotTravel} 12s linear infinite;
 `;
 
 const Stage = styled.div<{ $active: boolean }>`
@@ -412,7 +437,6 @@ const PlusIcon = () => (
   </svg>
 );
 
-/* ── Dark section (shared) ── */
 const DarkSection = styled.div`
   position: relative;
   background: ${BG_DARK};
@@ -439,7 +463,6 @@ const Glow = styled.div<{ $on: boolean; $x: number; $y: number }>`
   opacity: ${p => p.$on ? 1 : 0}; transition: opacity .35s ease;
 `;
 
-/* ── Detail panel ── */
 const DetailContent = styled.div<{ $open: boolean }>`
   overflow: hidden;
   max-height: ${p => p.$open ? "800px" : "0"};
@@ -477,29 +500,29 @@ const PanelClose = styled.button`
   &:hover { color: rgba(250,242,234,.7); }
 `;
 
-const ExpectList   = styled.div`display: flex; flex-direction: column; gap: 12px;`;
-const ExpectLabel  = styled.div`
+const ExpectList  = styled.div`display: flex; flex-direction: column; gap: 12px;`;
+const ExpectLabel = styled.div`
   font-family: ${FONT_BODY}; font-size: 11px; font-weight: 700;
   letter-spacing: .18em; text-transform: uppercase;
   color: rgba(250,242,234,.35); margin-bottom: 20px;
   display: flex; align-items: center; gap: 10px;
   &::before { content: ""; display: block; width: 18px; height: 2px; background: ${RED}; }
 `;
-const ExpectItem   = styled.div`
+const ExpectItem  = styled.div`
   background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07);
   border-top: 2px solid ${RED}; border-radius: 4px; padding: 20px 20px 18px;
   transition: background .2s;
   &:hover { background: rgba(255,255,255,.07); }
 `;
-const ExpectIndex  = styled.span`
+const ExpectIndex = styled.span`
   font-family: ${FONT_BODY}; font-size: 11px; font-weight: 700;
   letter-spacing: .1em; color: ${RED}; opacity: .7; display: block; margin-bottom: 8px;
 `;
-const ExpectTitle  = styled.div`
+const ExpectTitle = styled.div`
   font-family: ${FONT_TITLE}; font-size: 14px; font-weight: 700;
   color: ${CREAM}; margin-bottom: 6px; letter-spacing: -0.01em; line-height: 1.3;
 `;
-const ExpectText   = styled.div`
+const ExpectText  = styled.div`
   font-family: ${FONT_BODY}; font-size: 13px; line-height: 1.6;
   color: rgba(250,242,234,.45);
 `;
@@ -511,7 +534,6 @@ const ChevUp = () => (
   </svg>
 );
 
-/* ── Divisor sutil entre detail e outcome ── */
 const SectionDivider = styled.div`
   height: 1px;
   background: rgba(255, 255, 255, 0.06);
@@ -520,7 +542,6 @@ const SectionDivider = styled.div`
   z-index: 2;
 `;
 
-/* ── Outcome ── */
 const OutcomeInner = styled.div`
   position: relative; z-index: 2;
   max-width: 1240px; margin: 0 auto; padding: 56px 56px;

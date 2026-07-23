@@ -9,16 +9,30 @@ import {
 
 // ── Animations ────────────────────────────────────────────────────────────
 
-const fadeIn   = keyframes`from{opacity:0}to{opacity:1}`;
-const fadeUp   = keyframes`from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}`;
-const wordIn   = keyframes`from{opacity:0;transform:translateY(28px);filter:blur(6px)}to{opacity:1;transform:translateY(0);filter:blur(0)}`;
-const lineGrow = keyframes`from{transform:scaleX(0)}to{transform:scaleX(1)}`;
-const bounce   = keyframes`0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}`;
+const wordIn = keyframes`
+  from { opacity: 0; transform: translateY(28px); filter: blur(6px); }
+  to   { opacity: 1; transform: translateY(0);    filter: blur(0);   }
+`;
+
+const lineGrow = keyframes`
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+`;
+
+const fadeIn = keyframes`
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0);    }
+`;
+
+const bounce = keyframes`
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(6px); }
+`;
 
 // ── Word splits ───────────────────────────────────────────────────────────
 
-const WORDS   = ["A Insper Jr", "foi o começo."];
-const DELAYS  = [0.55, 0.78];
+const WORDS  = ["Ex-membros"];
+const DELAYS = [0.55];
 
 // ── Component ─────────────────────────────────────────────────────────────
 
@@ -27,110 +41,122 @@ export default function AlumniHero() {
   const canvasRef  = useRef<HTMLCanvasElement>(null);
   useParticles(wrapperRef, canvasRef);
 
-  const [v, setV] = useState(false);
-  useEffect(() => {
-    const t = setTimeout(() => setV(true), 80);
-    return () => clearTimeout(t);
+  const [glowPos, setGlowPos] = useState({ x: 0, y: 0 });
+  const [hovered, setHovered] = useState(false);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = wrapperRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    setGlowPos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
   }, []);
 
-  const [g,   setG]   = useState({ x: 0, y: 0 });
-  const [hov, setHov] = useState(false);
-
-  const onMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    const r = wrapperRef.current?.getBoundingClientRect();
-    if (!r) return;
-    setG({ x: e.clientX - r.left, y: e.clientY - r.top });
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    canvas.dataset.particleColor  = "rgba(105,18,18,0.55)";
+    canvas.dataset.particleColor2 = "rgba(250,242,234,0.12)";
   }, []);
 
   return (
-    <Outer
+    <HeroOuter
       ref={wrapperRef}
-      onMouseMove={onMove}
-      onMouseEnter={() => setHov(true)}
-      onMouseLeave={() => setHov(false)}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
-      <canvas ref={canvasRef} style={{
-        position: "absolute", inset: 0, width: "100%", height: "100%",
-        pointerEvents: "none", zIndex: 0,
-      }} />
-
-      <Blueprint />
-
       {/* Cursor glow */}
       <div style={{
-        position: "absolute", width: 500, height: 500, borderRadius: "50%",
+        position: "absolute",
+        width: 500,
+        height: 500,
+        borderRadius: "50%",
         background: "radial-gradient(circle, rgba(192,33,33,0.12) 0%, transparent 65%)",
-        left: g.x, top: g.y, transform: "translate(-50%,-50%)",
-        opacity: hov ? 1 : 0, transition: "opacity .35s ease",
-        pointerEvents: "none", zIndex: 1, mixBlendMode: "screen",
+        left: glowPos.x,
+        top: glowPos.y,
+        transform: "translate(-50%, -50%)",
+        opacity: hovered ? 1 : 0,
+        transition: "opacity 0.35s ease",
+        pointerEvents: "none",
+        zIndex: 0,
+        mixBlendMode: "screen",
       }} />
+
+      {/* Partículas */}
+      <canvas
+        ref={canvasRef}
+        style={{
+          position: "absolute", inset: 0,
+          width: "100%", height: "100%",
+          pointerEvents: "none", zIndex: 0,
+        }}
+      />
 
       <Vignette />
 
-      <Grid>
-        <Inner>
-          <Left>
-            <Eyebrow $v={v}>Ex-membros</Eyebrow>
+      {/* Conteúdo centralizado */}
+      <Center>
+        <Eyebrow>Ex-membros</Eyebrow>
 
-            <Title>
-              {WORDS.map((w, i) => (
-                <Word key={w} $d={DELAYS[i]} $v={v}>{w}</Word>
-              ))}
-              <br />
-              <Word $d={1.02} $v={v}><Accent>Veja onde chegaram.</Accent></Word>
-            </Title>
+        <Title>
+          {WORDS.map((word, i) => (
+            <Word key={word} $delay={DELAYS[i]}>{word}</Word>
+          ))}
+          {" "}
+          <Word $delay={0.78}>da</Word>
+          {" "}
+          <Word $delay={1.02}>Insper Jr</Word>
+        </Title>
 
-            <Divider $v={v} />
+        <AccentLine />
 
-            <Sub $v={v}>
-              Nossa maior conquista são as trajetórias que ajudamos a construir.
-              Conheça os profissionais que passaram pela Insper Jr e seguiram
-              transformando o mercado.
-            </Sub>
-          </Left>
-        </Inner>
-      </Grid>
+        <Subtitle>
+          Nossa maior conquista são as trajetórias que ajudamos a construir.
+          Conheça os profissionais que passaram pela Insper Jr e seguiram
+          transformando o mercado.
+        </Subtitle>
+      </Center>
 
+      {/* Scroll hint */}
       <ScrollHint>
         <ScrollDot />
         <ScrollLine />
       </ScrollHint>
-    </Outer>
+    </HeroOuter>
   );
 }
 
 // ── Styled Components ─────────────────────────────────────────────────────
 
-const Outer = styled.div`
+const HeroOuter = styled.div`
   position: relative;
   width: 100%;
+  min-height: 100vh;
   height: 100vh;
   height: 100dvh;
   background: ${BG_DARK};
-  overflow: hidden;
   display: flex;
-  align-items: stretch;
-  isolation: isolate;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 `;
 
 const Vignette = styled.div`
-  position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background: radial-gradient(ellipse at center, transparent 35%, rgba(14,4,4,0.92) 100%);
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(14,4,4,0.85) 100%);
+  pointer-events: none;
+  z-index: 1;
 `;
 
-const Blueprint = styled.div`
-  position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: .35;
-  background-image:
-    linear-gradient(rgba(192,33,33,.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(192,33,33,.06) 1px, transparent 1px);
-  background-size: 64px 64px;
-  -webkit-mask-image: radial-gradient(ellipse at center, #000 25%, transparent 75%);
-          mask-image: radial-gradient(ellipse at center, #000 25%, transparent 75%);
-`;
-
-const Grid = styled.div`
+const Center = styled.div`
   position: relative;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  padding: 0 24px;
+  text-align: center;
   width: 100%;
   display: flex;
   align-items: center;
@@ -159,16 +185,15 @@ const Left = styled.div`
   @media (max-width: 480px) { padding: 90px 0 40px; }
 `;
 
-const Eyebrow = styled.span<{ $v: boolean }>`
+const Eyebrow = styled.span`
   font-family: ${FONT_TITLE};
-  font-size: ${TYPE.eyebrow.size};
-  font-weight: ${TYPE.eyebrow.weight};
-  letter-spacing: ${TYPE.eyebrow.ls};
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: ${RED};
-  margin-bottom: 28px;
   opacity: 0;
-  animation: ${({ $v }) => $v ? fadeIn : "none"} .6s .15s ${SPRING} forwards;
+  animation: ${fadeIn} 0.6s cubic-bezier(0.16,1,0.3,1) 0.2s forwards;
 `;
 
 const Title = styled.h1`
@@ -178,47 +203,41 @@ const Title = styled.h1`
   line-height: ${TYPE.hero.lh};
   letter-spacing: ${TYPE.hero.ls};
   color: ${CREAM};
-  margin: 0 0 28px;
+  margin: 0;
 
   @media (max-width: 960px) { font-size: 38px; }
   @media (max-width: 480px) { font-size: 32px; }
 `;
 
-const Word = styled.span<{ $d: number; $v: boolean }>`
+const Word = styled.span<{ $delay: number }>`
   display: inline-block;
-  margin-right: .22em;
+  margin-right: 0.22em;
   opacity: 0;
-  animation: ${({ $v }) => $v ? wordIn : "none"} .85s ${({ $d }) => $d}s ${SPRING} forwards;
+  animation: ${wordIn} 0.85s cubic-bezier(0.16,1,0.3,1) ${p => p.$delay}s forwards;
+
+  &:last-child { margin-right: 0; }
 `;
 
-const Accent = styled.em`
-  font-style: italic;
-  font-weight: 400;
-  color: ${RED};
-`;
-
-const Divider = styled.div<{ $v: boolean }>`
-  width: ${SPACING.dividerWidth};
-  height: ${SPACING.dividerHeight};
+const AccentLine = styled.div`
+  width: 64px;
+  height: 3px;
   background: ${RED};
-  transform-origin: left;
-  margin-bottom: 28px;
+  transform-origin: left center;
   transform: scaleX(0);
-  animation: ${({ $v }) => $v ? lineGrow : "none"} .7s 1.4s ${SPRING} forwards;
+  animation: ${lineGrow} 0.7s cubic-bezier(0.16,1,0.3,1) 1.4s forwards;
 `;
 
-const Sub = styled.p<{ $v: boolean }>`
+const Subtitle = styled.p`
   font-family: ${FONT_BODY};
   font-size: ${TYPE.body.size};
+  font-weight: 400;
   line-height: 1.65;
-  color: rgba(250, 242, 234, 0.6);
-  max-width: 480px;
+  color: ${CREAM};
+  max-width: 560px;
   margin: 0;
   opacity: 0;
-  animation: ${({ $v }) => $v ? fadeUp : "none"} .75s 1.55s ${SPRING} forwards;
+  animation: ${fadeIn} 0.75s cubic-bezier(0.16,1,0.3,1) 1.55s forwards;
 `;
-
-// ── Scroll hint ───────────────────────────────────────────────────────────
 
 const ScrollHint = styled.div`
   position: absolute;
@@ -231,6 +250,7 @@ const ScrollHint = styled.div`
   align-items: center;
   gap: 8px;
   opacity: 0;
+  animation: ${fadeIn} 0.6s cubic-bezier(0.16,1,0.3,1) 2.1s forwards;
   animation: ${fadeIn} 0.6s ${SPRING} 2.1s forwards;
 
   @media (max-width: 480px) { display: none; }
