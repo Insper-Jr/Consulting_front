@@ -15,7 +15,7 @@ export default function PeDireitoPage() {
         bigName={<>Pé Direito I</>}
         sub={
           <>
-            O <strong>Pé Direito I</strong> foi o <strong>primeiro projeto executado pela frente de Direito</strong> da Insper Jr., conduzido em modelo <strong>pró-bono</strong> para uma ONG cliente. Mais do que uma entrega, o projeto serviu como <strong>teste de viabilidade do escopo de Contratos</strong> recém-estruturado — e validou o modelo de atuação consultiva da frente.
+            O <strong>Pé Direito I</strong> foi o <strong>primeiro projeto executado pela frente de Direito</strong> da Insper Jr., conduzido para uma ONG cliente. Mais do que uma entrega, o projeto serviu como <strong>teste de viabilidade do escopo de Contratos</strong> recém-estruturado — e validou o modelo de atuação consultiva da frente.
           </>
         }
         intro={{
@@ -39,7 +39,7 @@ export default function PeDireitoPage() {
         }}
         meta={[
           { label: "Setor", value: "Terceiro Setor · ONG" },
-          { label: "Modelo", value: "Pró-bono" },
+          { label: "Contexto", value: "Doações com contrapartida" },
           { label: "Escopo", value: "Contratos" },
         ]}
         steps={[
