@@ -33,6 +33,11 @@ const scrollBounce = keyframes`
   50%      { transform:translateY(6px); }
 `;
 
+const btnPulse = keyframes`
+  0%, 100% { box-shadow: 0 8px 24px -10px rgba(192,33,33,0.7); }
+  50%       { box-shadow: 0 12px 32px -8px rgba(192,33,33,0.9), 0 0 0 5px rgba(192,33,33,0.12); }
+`;
+
 // Wrappers
 const HeroOuter = styled.div`
   position: relative;
@@ -118,6 +123,57 @@ const Subtitle = styled.p`
   margin: 0;
   opacity: 0;
   animation: ${subtitleIn} 0.75s ${SPRING} 1.55s forwards;
+`;
+
+// CTA Button
+const HeroBtn = styled.a`
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 36px;
+  border-radius: 4px;
+  background: ${RED};
+  color: ${CREAM};
+  font-family: ${FONT_BODY};
+  font-weight: 600;
+  font-size: 16px;
+  text-decoration: none;
+  line-height: 1;
+  opacity: 0;
+  animation: ${subtitleIn} 0.75s ${SPRING} 1.8s forwards, ${btnPulse} 3s ease-in-out 2.5s infinite;
+  transition: background 0.2s, transform 0.2s;
+
+  .arrow { transition: transform 0.25s; }
+
+  &:hover {
+    background: #a81b1b;
+    transform: translateY(-1px);
+    animation-play-state: paused;
+  }
+  &:hover .arrow { transform: translateX(4px); }
+
+  @media (max-width: 640px) {
+    padding: 16px 28px;
+    font-size: 15px;
+  }
+`;
+
+// Insper-only badge
+const InsperBadge = styled.span`
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(250,242,234,0.45);
+  font-family: ${FONT_BODY};
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  opacity: 0;
+  animation: ${subtitleIn} 0.75s ${SPRING} 2s forwards;
+
+  svg { color: rgba(250,242,234,0.3); flex-shrink: 0; }
+
+  @media (max-width: 640px) { font-size: 11px; }
 `;
 
 // Scroll hint
@@ -264,9 +320,24 @@ export default function AboutHero() {
         <AccentLine />
 
         <Subtitle>
-          Trabalhe em projetos reais,
-        com clientes reais, ao lado de pessoas que querem crescer junto.
+          Enquanto a maioria espera se formar para ter experiência,
+          os membros da Insper Jr. já estão construindo. Clientes reais.
+          Decisões reais. Um portfólio que começa agora.
         </Subtitle>
+
+
+        <HeroBtn href="#inscricao">
+          Inscreva-se no processo seletivo <span className="arrow">→</span>
+        </HeroBtn>
+
+        <InsperBadge>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8" x2="12" y2="12" />
+            <line x1="12" y1="16" x2="12.01" y2="16" />
+          </svg>
+          Exclusivo para alunos Insper
+        </InsperBadge>
       </Center>
 
       {/* Hint de scroll */}

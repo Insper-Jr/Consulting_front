@@ -76,6 +76,14 @@ const InscricaoCTA = () => {
             </p>
             <div className="actions">
               <Cta href="#">Inscreva-se no Processo Seletivo <span className="arrow">→</span></Cta>
+              <InsperNote>
+                <svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                  <circle cx="10" cy="10" r="9" stroke="currentColor" strokeWidth="1.6"/>
+                  <path d="M10 9v5M10 6.5v.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+                </svg>
+                Exclusivo para <strong>alunos Insper</strong> — use seu e-mail institucional
+                <span className="email">@al.insper.edu.br</span>
+              </InsperNote>
             </div>
           </div>
 
@@ -237,5 +245,36 @@ const ImageBlock = styled.div`
     .num { font-size: 18px; }
     .lbl { font-size: 10px; }
     .badge-row { left: 14px; right: 14px; bottom: 14px; gap: 10px; }
+  }
+`;
+
+const InsperNote = styled.p`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  font-size: 13px;
+  color: rgba(8,15,15,0.55);
+  font-family: ${FONT};
+  line-height: 1.4;
+
+  strong { color: rgba(8,15,15,0.80); font-weight: 600; }
+
+  .email {
+    font-family: ${MONO};
+    font-size: 12px;
+    background: rgba(192,33,33,0.08);
+    color: #C02121;
+    padding: 1px 6px;
+    border-radius: 3px;
+    border: 1px solid rgba(192,33,33,0.18);
+  }
+
+  svg { flex-shrink: 0; color: rgba(8,15,15,0.40); }
+
+  @media (max-width: 640px) {
+    font-size: 12px;
+    .email { font-size: 11px; }
   }
 `;
