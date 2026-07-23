@@ -931,12 +931,12 @@ const SectionSubtitle = styled.p`
 const ScopesOpening = styled.section`
   max-width: 1240px;
   margin: 5rem auto 0;
-  padding: 0 2rem;
+  padding: 0 2rem 4rem;
   text-align: center;
 
   @media (max-width: 768px) {
     margin: 3.5rem auto 0;
-    padding: 0 1rem;
+    padding: 0 1rem 3rem;
   }
 `;
 
