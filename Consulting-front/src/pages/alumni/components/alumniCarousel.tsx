@@ -16,6 +16,8 @@ import MariaFernandaMelo from "../../../assets/alumni/MariaFernandaMelo.png";
 import TomasMiele from "../../../assets/alumni/TomasMiele.png";
 import JoaoFaraco from "../../../assets/alumni/JoaoFaraco.png";
 import HenriqueManequini from "../../../assets/alumni/HenriqueManequini.png"
+import FernandoThome from "../../../assets/alumni/FernandoThome.png"
+import GuilhermeLMazer from "../../../assets/alumni/GuilhermeLMazer.png"
 
 
 // ── Constants ──────────────────────────────────────────────────────────────
@@ -140,6 +142,26 @@ const MEMBERS: Member[] = [
     linkedin: "https://www.linkedin.com/in/jo%C3%A3o-gabriel-faraco-871a8628a/",
     quote:    "Fazer parte da Insper Junior foi uma experiência muito importante na minha trajetória no Insper. Além de representar meu primeiro contato com o mercado de trabalho, foi um período de grande aprendizado e desenvolvimento profissional. Também tive a oportunidade de construir conexões e trabalhar com pessoas que contribuíram bastante para minha formação.",
   },
+  {
+    id: 12,
+    name:     "Fernando Thomé",
+    role:     "Business Analyst",
+    area: "Cartão de Crédito",
+    company:  "McKinsey & Company",
+    photo:    FernandoThome,
+    linkedin: "https://www.linkedin.com/in/fernando-ferreira-thome/",
+    quote:    "Minha experiência na Insper Jr. foi fundamental para que pudesse estar na posição onde estou hoje. Foi um período de muito aprendizado ao lado de colegas fora da curva, atuando diretamente com clientes e solucionando desafios reais.",
+  },
+  {
+    id: 13,
+    name:     "Guilherme Mazer",
+    role:     "Consultor de Estratégia e Transação",
+    area: "Cartão de Crédito",
+    company:  "EY-Parthenon",
+    photo:    GuilhermeLMazer,
+    linkedin: "https://www.linkedin.com/in/guilherme-l-mazer-2b6843250/",
+    quote:    "Minha passagem pela Insper Jr. foi determinante para a minha carreira. Buscava aprender através de projetos reais e encontrei um ambiente que acelerou meu amadurecimento profissional. Saí com vivências únicas, habilidades consolidadas e uma rede de contatos e amigos que formei durante meu período na empresa.",
+  },    
   // {
   //   id: 6,
   //   name:     "Charlize Suarez",
