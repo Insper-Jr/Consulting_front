@@ -158,7 +158,7 @@ export default function BusinessOpening() {
           <OpenBody>
             Não trabalhamos com pacotes prontos. Entendemos o problema, montamos
             a equipe certa e definimos a abordagem. O resultado é uma solução
-            construída para o contexto específico do seu negócio — sem fórmula,
+            construída para o contexto específico do seu negócio sem fórmula,
             sem atalho.
           </OpenBody>
         </OpenRight>
@@ -170,14 +170,14 @@ export default function BusinessOpening() {
           <PrincipleTitle>Diagnóstico antes de solução</PrincipleTitle>
           <PrincipleText>
             Mergulhamos no contexto do cliente antes de propor qualquer coisa.
-            Mercado, finanças e operação — entendemos tudo antes de recomendar.
+            Mercado, finanças e operação entendemos tudo antes de recomendar.
           </PrincipleText>
         </Principle>
         <Principle>
           <PrincipleNum>02</PrincipleNum>
           <PrincipleTitle>Abordagem adaptada ao problema</PrincipleTitle>
           <PrincipleText>
-            Usamos as ferramentas que o projeto exige — em qualquer combinação.
+            Usamos as ferramentas que o projeto exige em qualquer combinação.
             Nenhum projeto tem formato pré-definido.
           </PrincipleText>
         </Principle>

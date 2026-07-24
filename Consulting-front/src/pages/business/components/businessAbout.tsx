@@ -202,7 +202,7 @@ export default function BusinessAbout() {
         <FrenteLede>
           Desde 2001, a frente de Business da Insper Jr. desenvolve soluções estratégicas
           que geram crescimento, estruturam operações e abrem novos mercados. Nossa atuação
-          evolui constantemente em metodologias e práticas — sempre buscando a solução mais
+          evolui constantemente em metodologias e práticas sempre buscando a solução mais
           adequada para cada desafio.
         </FrenteLede>
 
@@ -219,7 +219,7 @@ export default function BusinessAbout() {
             <PillarNum>02 — Orientada para resultado</PillarNum>
             <PillarTitle>Entregáveis que gestores usam</PillarTitle>
             <PillarText>
-              Cada projeto termina com recomendações claras e acionáveis — não com
+              Cada projeto termina com recomendações claras e acionáveis não com
               relatórios que ficam na gaveta.
             </PillarText>
           </Pillar>
@@ -236,7 +236,7 @@ export default function BusinessAbout() {
         <StatsBar>
           <Stat><StatValue>25+</StatValue><StatLabel>Anos de atuação</StatLabel></Stat>
           <Stat><StatValue>500+</StatValue><StatLabel>Projetos entregues</StatLabel></Stat>
-          <Stat><StatValue>8</StatValue><StatLabel>Frentes de Business</StatLabel></Stat>
+          <Stat><StatValue>3</StatValue><StatLabel>Áreas parceiras</StatLabel></Stat>
         </StatsBar>
       </Intro>
     </>
