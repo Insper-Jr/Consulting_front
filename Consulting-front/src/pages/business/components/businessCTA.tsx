@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { keyframes, css } from "styled-components";
+import { useTranslation } from "react-i18next";
 import { useInView } from "../../../hooks/useInView";
 
 const RED        = "#C02121";
@@ -81,20 +82,20 @@ const BtnPrimary = styled.a`
 `;
 
 export default function BusinessCTA() {
+  const { t } = useTranslation();
   const { ref, visible } = useInView();
   return (
     <Section>
       <Inner ref={ref} $visible={!!visible}>
-        <Eyebrow>Próximo passo</Eyebrow>
+        <Eyebrow>{t("business.cta.eyebrow")}</Eyebrow>
         <Title>
-          Pronto para transformar<br />
-          sua estratégia de negócio?
+          {t("business.cta.titleLine1")}<br />
+          {t("business.cta.titleLine2")}
         </Title>
         <Sub>
-          Entre em contato com a Insper Jr. e descubra como podemos ajudar sua
-          empresa a crescer com clareza, dados e planejamento sólido.
+          {t("business.cta.subtitle")}
         </Sub>
-        <BtnPrimary href="/contact">Fazer diagnóstico gratuito</BtnPrimary>
+        <BtnPrimary href="/contact">{t("business.cta.button")}</BtnPrimary>
       </Inner>
     </Section>
   );

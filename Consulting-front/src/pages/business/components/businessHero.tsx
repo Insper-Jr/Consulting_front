@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
+import { useTranslation } from "react-i18next";
 import { useParticles } from "../../../hooks/useParticleBackground";
 
 const RED        = "#C02121";
@@ -243,6 +244,7 @@ const ChevD = () => (
 );
 
 export default function BusinessHero() {
+  const { t } = useTranslation();
   const wrapperRef = useRef<HTMLDivElement>(null);
   const canvasRef  = useRef<HTMLCanvasElement>(null);
   useParticles(wrapperRef as React.RefObject<HTMLDivElement | null>, canvasRef as React.RefObject<HTMLCanvasElement | null>);
@@ -289,26 +291,25 @@ export default function BusinessHero() {
       <Grid>
         <Inner>
           <Left>
-            <Eyebrow $v={v}>Frente de Business</Eyebrow>
+            <Eyebrow $v={v}>{t("business.hero.eyebrow")}</Eyebrow>
 
             <Title>
-              <Word $d={0.55} $v={v}>Estratégia</Word>
+              <Word $d={0.55} $v={v}>{t("business.hero.titleWord1")}</Word>
               <br />
-              <Word $d={0.78} $v={v}>que</Word>
+              <Word $d={0.78} $v={v}>{t("business.hero.titleWord2")}</Word>
               <br />
-              <Word $d={1.02} $v={v}><Accent>gera resultado</Accent></Word>
+              <Word $d={1.02} $v={v}><Accent>{t("business.hero.titleWord3")}</Accent></Word>
             </Title>
 
             <Divider $v={v} />
 
             <Sub $v={v}>
-              Combinamos análise de mercado, planejamento financeiro e execução
-              operacional para transformar a visão da sua empresa em crescimento real.
+              {t("business.hero.subtitle")}
             </Sub>
 
             <Actions $v={v}>
-              <BtnPrimary href="/contact">Solicitar Diagnóstico <ArrowR /></BtnPrimary>
-              <BtnGhost href="#cases">Ver nossos cases <ChevD /></BtnGhost>
+              <BtnPrimary href="/contact">{t("business.hero.ctaPrimary")} <ArrowR /></BtnPrimary>
+              <BtnGhost href="#cases">{t("business.hero.ctaSecondary")} <ChevD /></BtnGhost>
             </Actions>
           </Left>
 
@@ -351,15 +352,15 @@ export default function BusinessHero() {
                 {/* metric chips */}
                 <g className="chip chip-1" transform="translate(95, 212)">
                   <rect className="chip-rect" x="0" y="0" width="96" height="22" rx="3" />
-                  <text className="chip-text" x="8" y="15">Novo Segmento</text>
+                  <text className="chip-text" x="8" y="15">{t("business.hero.chip1")}</text>
                 </g>
                 <g className="chip chip-2" transform="translate(228, 142)">
                   <rect className="chip-rect" x="0" y="0" width="84" height="22" rx="3" />
-                  <text className="chip-text" x="8" y="15">+28% Receita</text>
+                  <text className="chip-text" x="8" y="15">{t("business.hero.chip2")}</text>
                 </g>
                 <g className="chip chip-3" transform="translate(340, 62)">
                   <rect className="chip-rect" x="0" y="0" width="78" height="22" rx="3" />
-                  <text className="chip-text" x="8" y="15">ROI Positivo</text>
+                  <text className="chip-text" x="8" y="15">{t("business.hero.chip3")}</text>
                 </g>
 
                 {/* x-axis labels */}

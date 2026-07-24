@@ -1,19 +1,20 @@
 import styled from "styled-components";
 import backgroundImage from "@/assets/creation/creation-background.png";
 import DiagnosticForm from "@/components/forms";
+import { useTranslation } from "react-i18next";
 
 
 const Hero = () => {
+  const { t } = useTranslation();
+
   return (
     <HeroSection>
       <Content>
-        <Title>Criação e Estruturação</Title>
+        <Title>{t("creation.hero.title")}</Title>
         <Description>
-        Oferecemos suporte completo para estruturar juridicamente seu projeto. Cuidamos do planejamento societário, emissão do CNPJ e elaboração dos documentos essenciais, como estatuto e regimento. Sua organização começa com base sólida e segura.
+          {t("creation.hero.description")}
         </Description>
-        <CallToAction>
-          Quer tirar seu projeto do papel com <strong>segurança e agilidade? Solicite um diagnóstico gratuito</strong> e descubra como podemos estruturar sua empresa desde o início!
-        </CallToAction>
+        <CallToAction dangerouslySetInnerHTML={{ __html: t("creation.hero.cta") }} />
       </Content>
       <DiagnosticForm/>
     </HeroSection>

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import styled, { keyframes, css } from "styled-components";
+import { useTranslation } from "react-i18next";
 import { useParticles } from "../../../../hooks/useParticleBackground";
 
 // Tokens
@@ -169,11 +170,12 @@ const WaveBottom = styled.div`
 `;
 
 // Component
-const TITLE_WORDS = ["A", "Insper", "Jr."];
 // Delay escalonado para cada palavra
 const WORD_DELAYS = [0.55, 0.78, 1.02];
 
 export default function AboutHero() {
+  const { t } = useTranslation();
+  const titleWords = t("about.hero.titleWords", { returnObjects: true }) as string[];
   const wrapperRef = useRef<HTMLDivElement>(null);
   const canvasRef  = useRef<HTMLCanvasElement>(null);
 
@@ -248,10 +250,10 @@ export default function AboutHero() {
 
       {/* Conteúdo centralizado */}
       <Center>
-        <Eyebrow>Quem somos</Eyebrow>
+        <Eyebrow>{t("about.hero.eyebrow")}</Eyebrow>
 
         <Title>
-          {TITLE_WORDS.map((word, i) => (
+          {titleWords.map((word, i) => (
             <Word key={word} $delay={WORD_DELAYS[i]}>
               {word}
             </Word>
@@ -261,9 +263,7 @@ export default function AboutHero() {
         <AccentLine />
 
         <Subtitle>
-          Empresa júnior do Insper, formada por estudantes que entregam
-          soluções reais para negócios reais, com rigor acadêmico,
-          comprometimento e impacto mensurável.
+          {t("about.hero.subtitle")}
         </Subtitle>
       </Center>
 

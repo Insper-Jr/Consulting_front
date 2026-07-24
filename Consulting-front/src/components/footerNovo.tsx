@@ -1,4 +1,5 @@
 import styled, { createGlobalStyle } from "styled-components";
+import { useTranslation } from "react-i18next";
 import LogoWR from "../assets/ijr/insperjr-white-red.png";
 
 const GlobalFonts = createGlobalStyle`
@@ -194,8 +195,6 @@ interface LegalLinkItem {
   href: string;
 }
 
-const areas: string[] = ["Business", "Engenharia & Tecnologia", "Direito", "Processos"];
-
 const contacts: ContactItem[] = [
   { label: "pedrodp@insperjr.com", href: "mailto:pedrodp@insperjr.com", icon: icons.email },
   { label: "LinkedIn", href: "https://br.linkedin.com/company/insper-jr-consulting", icon: icons.linkedin },
@@ -203,12 +202,21 @@ const contacts: ContactItem[] = [
   { label: "(11) 99898-3364", href: "https://api.whatsapp.com/send/?phone=5511998983364&text&type=phone_number&app_absent=0", icon: icons.whatsapp },
 ];
 
-const legalLinks: LegalLinkItem[] = [
-  { label: "Política de privacidade", href: "#" },
-  { label: "Termos de uso", href: "#" },
-];
-
 export default function Footer(): React.ReactElement {
+  const { t } = useTranslation();
+
+  const areas: string[] = [
+    t("shared.footerNovo.areas.business"),
+    t("shared.footerNovo.areas.engenhariaTecnologia"),
+    t("shared.footerNovo.areas.direito"),
+    t("shared.footerNovo.areas.processos"),
+  ];
+
+  const legalLinks: LegalLinkItem[] = [
+    { label: t("shared.footerNovo.legal.privacyPolicy"), href: "#" },
+    { label: t("shared.footerNovo.legal.termsOfUse"), href: "#" },
+  ];
+
   return (
     <>
       <GlobalFonts />
@@ -216,11 +224,11 @@ export default function Footer(): React.ReactElement {
         <Grid>
           <div>
             <BrandLogo src={LogoWR} alt="Insper Jr." />
-            <BrandDesc>Transformando realidades com soluções inovadoras</BrandDesc>
+            <BrandDesc>{t("shared.footerNovo.brandDesc")}</BrandDesc>
           </div>
           <Divider />
           <div>
-            <Label>Nossas Áreas</Label>
+            <Label>{t("shared.footerNovo.areasLabel")}</Label>
             <NavList>
               {areas.map((area) => (
                 <li key={area}>
@@ -231,7 +239,7 @@ export default function Footer(): React.ReactElement {
           </div>
           <Divider />
           <div>
-            <Label>Contato</Label>
+            <Label>{t("shared.footerNovo.contactLabel")}</Label>
             <ContactList>
               {contacts.map((contact) => (
                 <ContactLink key={contact.label} href={contact.href}>
@@ -243,7 +251,7 @@ export default function Footer(): React.ReactElement {
           </div>
         </Grid>
         <BottomBar>
-          <LegalText>© 2026 Insper Jr. Todos os direitos reservados.</LegalText>
+          <LegalText>{t("shared.footerNovo.copyright")}</LegalText>
           <div style={{ display: "flex", gap: "24px" }}>
             {legalLinks.map((link) => (
               <LegalLink key={link.label} href={link.href}>

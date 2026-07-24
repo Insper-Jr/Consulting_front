@@ -1,5 +1,6 @@
 import { useState, useRef, useCallback } from "react";
 import styled, { keyframes } from "styled-components";
+import { useTranslation } from "react-i18next";
 import { useParticles } from "../../../hooks/useParticleBackground";
 import {
   RED, RED_DEEP, BG_DARK,
@@ -21,6 +22,7 @@ const INITIAL_STATE: FormData = {
 };
 
 const AlumniForm = () => {
+  const { t } = useTranslation();
   const wrapperRef = useRef<HTMLDivElement>(null);
   const canvasRef  = useRef<HTMLCanvasElement>(null);
   useParticles(wrapperRef, canvasRef);
@@ -79,41 +81,39 @@ const AlumniForm = () => {
 
       <Inner>
         <FormWrap>
-          <Eyebrow>Comunidade</Eyebrow>
+          <Eyebrow>{t("alumni.form.eyebrow")}</Eyebrow>
           <Title>
-            Fez parte da Insper Jr?<br />
-            Reconecte-se.
+            {t("alumni.form.title.line1")}<br />
+            {t("alumni.form.title.line2")}
           </Title>
           <Subtitle>
-            Preencha abaixo para solicitar entrada na nossa comunidade de
-            ex-membros. Nossa equipe entrará em contato em até 3 dias úteis.
+            {t("alumni.form.subtitle")}
           </Subtitle>
 
           {submitted ? (
             <SuccessBox>
               <SuccessIcon aria-hidden="true">✓</SuccessIcon>
-              <SuccessTitle>Solicitação enviada!</SuccessTitle>
+              <SuccessTitle>{t("alumni.form.success.title")}</SuccessTitle>
               <SuccessText>
-                Recebemos seus dados. O diretor institucional entrará em
-                contato em breve para confirmar sua entrada no grupo.
+                {t("alumni.form.success.text")}
               </SuccessText>
             </SuccessBox>
           ) : (
             <Form>
               <Row>
                 <Field>
-                  <Label htmlFor="name">Nome completo</Label>
+                  <Label htmlFor="name">{t("alumni.form.fields.name.label")}</Label>
                   <Input
                     id="name" name="name" type="text"
-                    placeholder="Seu nome" value={form.name}
+                    placeholder={t("alumni.form.fields.name.placeholder")} value={form.name}
                     onChange={handleChange} autoComplete="name"
                   />
                 </Field>
                 <Field>
-                  <Label htmlFor="year">Ano de saída</Label>
+                  <Label htmlFor="year">{t("alumni.form.fields.year.label")}</Label>
                   <Input
                     id="year" name="year" type="text"
-                    placeholder="Ex: 2022" value={form.year}
+                    placeholder={t("alumni.form.fields.year.placeholder")} value={form.year}
                     onChange={handleChange} maxLength={4}
                   />
                 </Field>
@@ -121,52 +121,51 @@ const AlumniForm = () => {
 
               <Row>
                 <Field>
-                  <Label htmlFor="role">Cargo atual</Label>
+                  <Label htmlFor="role">{t("alumni.form.fields.role.label")}</Label>
                   <Input
                     id="role" name="role" type="text"
-                    placeholder="Ex: Analista" value={form.role}
+                    placeholder={t("alumni.form.fields.role.placeholder")} value={form.role}
                     onChange={handleChange}
                   />
                 </Field>
                 <Field>
-                  <Label htmlFor="company">Empresa</Label>
+                  <Label htmlFor="company">{t("alumni.form.fields.company.label")}</Label>
                   <Input
                     id="company" name="company" type="text"
-                    placeholder="Onde você está hoje" value={form.company}
+                    placeholder={t("alumni.form.fields.company.placeholder")} value={form.company}
                     onChange={handleChange}
                   />
                 </Field>
               </Row>
 
               <Field>
-                <Label htmlFor="linkedin">LinkedIn</Label>
+                <Label htmlFor="linkedin">{t("alumni.form.fields.linkedin.label")}</Label>
                 <Input
                   id="linkedin" name="linkedin" type="text"
-                  placeholder="linkedin.com/in/seuperfil" value={form.linkedin}
+                  placeholder={t("alumni.form.fields.linkedin.placeholder")} value={form.linkedin}
                   onChange={handleChange} autoComplete="url"
                 />
               </Field>
 
               <Field>
-                <Label htmlFor="contact">WhatsApp ou e-mail</Label>
+                <Label htmlFor="contact">{t("alumni.form.fields.contact.label")}</Label>
                 <Input
                   id="contact" name="contact" type="text"
-                  placeholder="Para entrarmos em contato" value={form.contact}
+                  placeholder={t("alumni.form.fields.contact.placeholder")} value={form.contact}
                   onChange={handleChange}
                 />
               </Field>
 
               <Notice>
-                As solicitações passam por uma etapa de validação pelo
-                diretor institucional antes da adição ao grupo.
+                {t("alumni.form.notice")}
               </Notice>
 
               <SubmitBtn
                 onClick={handleSubmit}
                 disabled={!isValid || loading}
-                aria-label="Enviar solicitação"
+                aria-label={t("alumni.form.submitButton")}
               >
-                {loading ? <Spinner /> : "Enviar solicitação"}
+                {loading ? <Spinner /> : t("alumni.form.submitButton")}
               </SubmitBtn>
             </Form>
           )}

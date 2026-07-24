@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled, { createGlobalStyle } from "styled-components";
 import { CaretLeft } from "phosphor-react";
+import { useTranslation } from "react-i18next";
 import Footer from "../../../components/footerNovo";
 import WppButton from "../../../components/wppButton";
 
@@ -28,6 +29,7 @@ type CaseLayoutProps = {
 };
 
 export default function CaseLayout({ children }: CaseLayoutProps) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -49,9 +51,9 @@ export default function CaseLayout({ children }: CaseLayoutProps) {
       <WppButton />
 
       <BackButtonWrap>
-        <BackButton type="button" onClick={handleBack} aria-label="Voltar para a página de Direito">
+        <BackButton type="button" onClick={handleBack} aria-label={t("direito.caseCommon.backAria")}>
           <CaretLeft size={16} weight="bold" />
-          <span>Voltar</span>
+          <span>{t("direito.caseCommon.back")}</span>
         </BackButton>
       </BackButtonWrap>
 

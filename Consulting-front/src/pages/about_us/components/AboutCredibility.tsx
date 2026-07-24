@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styled, { keyframes, css } from "styled-components";
+import { useTranslation } from "react-i18next";
 import { useInView } from "@/hooks/useInView";
 import FeiraFoto1 from "../../../assets/feira/imagem1.png";
 import FeiraFoto2 from "../../../assets/feira/imagem2.png";
@@ -18,26 +19,11 @@ const FONT_BODY  = `'Inter', Helvetica, sans-serif`;
 const SPRING     = "cubic-bezier(0.16,1,0.3,1)";
 
 /* ─── Data ───────────────────────────────────────────── */
-const LEADERS = [
-  { name: "Thiago Maffra",    role: "CEO · XP Inc." },
-  { name: "Milton Maluhy",    role: "CEO · Itaú Unibanco" },
-  { name: "Luiza H. Trajano", role: "Chairwoman · Magazine Luiza" },
-  { name: "Marcelo Noronha",  role: "CEO · Bradesco" },
-  { name: "R. Campos Neto",   role: "Presidente · Banco Central" },
-];
-
-const FAIR_STATS = [
-  { value: "29",     label: "empresas presentes"   },
-  { value: "1.700+", label: "alunos participantes" },
-  { value: "R$525k", label: "movimentados"         },
-];
+type Leader = { name: string; role: string };
+type FairStat = { value: string; label: string };
 
 type Foto = { id: string; src: string; alt: string };
-const FEIRA_FOTOS: Foto[] = [
-  { id: "f1", src: FeiraFoto1, alt: "Feira de Carreiras IJR – 1" },
-  { id: "f2", src: FeiraFoto2, alt: "Feira de Carreiras IJR – 2" },
-  { id: "f3", src: FeiraFoto3, alt: "Feira de Carreiras IJR – 3" },
-];
+const FEIRA_IMGS = [FeiraFoto1, FeiraFoto2, FeiraFoto3];
 
 /* ─── Animations ─────────────────────────────────────── */
 const slideLeft = keyframes`
@@ -363,6 +349,16 @@ const NavArrow = styled.button`
 
 /* ══════════════════════════════════════════════════════ */
 export default function AboutCredibility() {
+  const { t } = useTranslation();
+  const LEADERS = t("about.credibility.leaders", { returnObjects: true }) as Leader[];
+  const FAIR_STATS = t("about.credibility.fairStats", { returnObjects: true }) as FairStat[];
+  const photoAlts = t("about.credibility.photos", { returnObjects: true }) as { alt: string }[];
+  const FEIRA_FOTOS: Foto[] = FEIRA_IMGS.map((src, i) => ({
+    id: `f${i + 1}`,
+    src,
+    alt: photoAlts[i].alt,
+  }));
+
   const { ref: sectionRef, visible } = useInView();
   const [idx, setIdx] = useState(0);
   const total = FEIRA_FOTOS.length;
@@ -382,27 +378,26 @@ export default function AboutCredibility() {
     <Section ref={sectionRef}>
       {/* LEFT */}
       <Left $visible={visible}>
-        <Eyebrow>Posicionamento &amp; Rede</Eyebrow>
+        <Eyebrow>{t("about.credibility.eyebrow")}</Eyebrow>
 
         <TitleBlock>
           <TitleMain>
-            <TitleMuted>O que nos posiciona</TitleMuted>
-            <TitleItalic>no mercado</TitleItalic>
+            <TitleMuted>{t("about.credibility.titleMuted")}</TitleMuted>
+            <TitleItalic>{t("about.credibility.titleItalic")}</TitleItalic>
           </TitleMain>
           <TitleAccent $visible={visible} />
           <BodyText>
-            Nosso ecossistema vai além dos projetos. Conectamos o Insper a alguns
-            dos maiores líderes do Brasil e geramos impacto institucional real.
+            {t("about.credibility.body")}
           </BodyText>
         </TitleBlock>
 
         <RankInline>
-          <RankTag><em>Top 10</em></RankTag>
-          <RankText>entre as melhores do Brasil · <span>ranking nacional 2025</span></RankText>
+          <RankTag><em>{t("about.credibility.rankTag")}</em></RankTag>
+          <RankText>{t("about.credibility.rankTextPre")}<span>{t("about.credibility.rankTextSpan")}</span></RankText>
         </RankInline>
 
         <LeadersBlock>
-          <LeadersLabel>Alguns dos líderes presentes em eventos da IJR</LeadersLabel>
+          <LeadersLabel>{t("about.credibility.leadersLabel")}</LeadersLabel>
           <MarqueeWrapper>
             <MarqueeTrack>
               {loopItems.map((e, i) => (
@@ -419,20 +414,19 @@ export default function AboutCredibility() {
 
       {/* RIGHT */}
       <Right $visible={visible}>
-        <RightEyebrow>Credibilidade em números</RightEyebrow>
+        <RightEyebrow>{t("about.credibility.rightEyebrow")}</RightEyebrow>
         <RightTitle>
-          <RightTitleMuted>Impacto que se</RightTitleMuted>
-          traduz em presença
+          <RightTitleMuted>{t("about.credibility.rightTitleMuted")}</RightTitleMuted>
+          {t("about.credibility.rightTitle")}
         </RightTitle>
         <RightAccent />
 
         <FeiraWrap>
           <FeiraInfo>
-            <FeiraEyebrow>Evento próprio</FeiraEyebrow>
-            <FeiraTitle>Feira de Carreiras</FeiraTitle>
+            <FeiraEyebrow>{t("about.credibility.feiraEyebrow")}</FeiraEyebrow>
+            <FeiraTitle>{t("about.credibility.feiraTitle")}</FeiraTitle>
             <FeiraDesc>
-              Evento anual organizado pela IJR que conecta o ecossistema Insper
-              ao mercado de trabalho.
+              {t("about.credibility.feiraDesc")}
             </FeiraDesc>
             <FeiraStats>
               {FAIR_STATS.map(s => (
@@ -461,16 +455,16 @@ export default function AboutCredibility() {
                 {FEIRA_FOTOS.map((f, i) => (
                   <Dot key={f.id} $active={i === idx}
                     onClick={() => setIdx(i)}
-                    aria-label={`Foto ${i + 1}`} />
+                    aria-label={t("about.credibility.ariaPhoto", { n: i + 1 })} />
                 ))}
               </Dots>
               <ArrowGroup>
-                <NavArrow onClick={prev} aria-label="Foto anterior">
+                <NavArrow onClick={prev} aria-label={t("about.credibility.ariaPrevPhoto")}>
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                     <path d="M9 2L4 7l5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </NavArrow>
-                <NavArrow onClick={next} aria-label="Próxima foto">
+                <NavArrow onClick={next} aria-label={t("about.credibility.ariaNextPhoto")}>
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                     <path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>

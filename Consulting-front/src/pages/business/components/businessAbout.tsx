@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
+import { useTranslation } from "react-i18next";
 
 const COLORS = {
   redTitle: "#A10F23",
@@ -189,54 +190,49 @@ const StatLabel = styled.div`
 `;
 
 export default function BusinessAbout() {
+  const { t } = useTranslation();
   return (
     <>
       <RedBarWrap><RedBar /></RedBarWrap>
       <Intro id="sobre-frente">
         <SectionHeader>
-          <OpeningEyebrow>Quem somos</OpeningEyebrow>
-          <SectionTitle>Sobre a frente</SectionTitle>
+          <OpeningEyebrow>{t("business.about.eyebrow")}</OpeningEyebrow>
+          <SectionTitle>{t("business.about.title")}</SectionTitle>
           <OpeningDivider />
         </SectionHeader>
 
         <FrenteLede>
-          Desde 2001, a frente de Business da Insper Jr. desenvolve soluções estratégicas
-          que geram crescimento, estruturam operações e abrem novos mercados. Nossa atuação
-          evolui constantemente em metodologias e práticas — sempre buscando a solução mais
-          adequada para cada desafio.
+          {t("business.about.lede")}
         </FrenteLede>
 
         <PillarsGrid>
           <Pillar>
-            <PillarNum>01 — Multidisciplinar</PillarNum>
-            <PillarTitle>Alunos de diversas graduações</PillarTitle>
+            <PillarNum>{t("business.about.pillars.p1.num")}</PillarNum>
+            <PillarTitle>{t("business.about.pillars.p1.title")}</PillarTitle>
             <PillarText>
-              Reunimos estudantes de Administração, Economia e Engenharia, garantindo
-              visão ampla sobre cada projeto.
+              {t("business.about.pillars.p1.text")}
             </PillarText>
           </Pillar>
           <Pillar>
-            <PillarNum>02 — Orientada para resultado</PillarNum>
-            <PillarTitle>Entregáveis que gestores usam</PillarTitle>
+            <PillarNum>{t("business.about.pillars.p2.num")}</PillarNum>
+            <PillarTitle>{t("business.about.pillars.p2.title")}</PillarTitle>
             <PillarText>
-              Cada projeto termina com recomendações claras e acionáveis — não com
-              relatórios que ficam na gaveta.
+              {t("business.about.pillars.p2.text")}
             </PillarText>
           </Pillar>
           <Pillar>
-            <PillarNum>03 — Sob medida</PillarNum>
-            <PillarTitle>Nenhum projeto é igual ao anterior</PillarTitle>
+            <PillarNum>{t("business.about.pillars.p3.num")}</PillarNum>
+            <PillarTitle>{t("business.about.pillars.p3.title")}</PillarTitle>
             <PillarText>
-              Não temos modelo padrão. Entendemos o problema e definimos a abordagem
-              certa para aquele contexto específico.
+              {t("business.about.pillars.p3.text")}
             </PillarText>
           </Pillar>
         </PillarsGrid>
 
         <StatsBar>
-          <Stat><StatValue>25+</StatValue><StatLabel>Anos de atuação</StatLabel></Stat>
-          <Stat><StatValue>500+</StatValue><StatLabel>Projetos entregues</StatLabel></Stat>
-          <Stat><StatValue>8</StatValue><StatLabel>Frentes de Business</StatLabel></Stat>
+          <Stat><StatValue>25+</StatValue><StatLabel>{t("business.about.stats.years")}</StatLabel></Stat>
+          <Stat><StatValue>500+</StatValue><StatLabel>{t("business.about.stats.projects")}</StatLabel></Stat>
+          <Stat><StatValue>8</StatValue><StatLabel>{t("business.about.stats.fronts")}</StatLabel></Stat>
         </StatsBar>
       </Intro>
     </>

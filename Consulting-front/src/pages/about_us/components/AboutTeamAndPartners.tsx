@@ -1,5 +1,6 @@
 import React, { useRef, useState, useCallback } from "react";
 import styled, { keyframes, css } from "styled-components";
+import { useTranslation } from "react-i18next";
 import { useParticles } from "../../../hooks/useParticleBackground";
 import { useInView } from "@/hooks/useInView";
 import accenture   from "../../../assets/partners/accenture.png";
@@ -28,23 +29,7 @@ const FONT_TITLE = `'Montserrat', Helvetica, sans-serif`;
 const FONT_BODY  = `'Inter', Helvetica, sans-serif`;
 const SPRING     = "cubic-bezier(0.16,1,0.3,1)";
 
-const COURSES = [
-  "Administração",
-  "Economia",
-  "Direito",
-  "Ciência da Computação",
-  "Engenharia da Computação",
-  "Engenharia Mecânica",
-  "Engenharia Mecatrônica",
-  "Engenharia de Produção",
-];
-
-const STATS = [
-  { value: "60",    label: "Membros ativos"           },
-  { value: "7",     label: "Frentes de atuação"       },
-  { value: "200h+", label: "de capacitação"           },
-  { value: "4",     label: "Fases no processo seletivo"},
-];
+type Stat = { value: string; label: string };
 
 const PARTNERS = [
   { name: "PEERS",              logo: peers      },
@@ -327,7 +312,7 @@ const LogoPlaceholder = styled.div`
 `;
 
 // ── StatBox com tracking de mouse ─────────────────────────────────────────────
-function StatCard({ stat }: { stat: typeof STATS[number] }) {
+function StatCard({ stat }: { stat: Stat }) {
   return (
     <StatBox>
       <StatAccent />
@@ -339,6 +324,10 @@ function StatCard({ stat }: { stat: typeof STATS[number] }) {
 
 // ── Component ─────────────────────────────────────────────────────────────────
 export default function AboutTeamAndPartners() {
+  const { t } = useTranslation();
+  const COURSES = t("about.teamPartners.courses", { returnObjects: true }) as string[];
+  const STATS = t("about.teamPartners.stats", { returnObjects: true }) as Stat[];
+
   const wrapperRef = useRef<HTMLElement>(null);
   const canvasRef  = useRef<HTMLCanvasElement>(null);
 
@@ -392,25 +381,19 @@ export default function AboutTeamAndPartners() {
         {/* ── Team ── */}
         <Top ref={topRef} $visible={topVisible}>
           <TitleBlock>
-            <Eyebrow>Nosso Time</Eyebrow>
-            <Title>Um time multidisciplinar, formado para entregar</Title>
+            <Eyebrow>{t("about.teamPartners.eyebrow")}</Eyebrow>
+            <Title>{t("about.teamPartners.title")}</Title>
             <Divider />
             <Body>
-              A Insper Jr. reúne 4 frentes de atuação que colaboram de
-              forma integrada. Business, Direito e Engenharia (Tech e de Processos)
-              atuam juntos no mesmo projeto, entregando soluções completas
-              a partir de diferentes perspectivas.
+              {t("about.teamPartners.body1")}
             </Body>
             <Body>
-              Nossos membros passam por quatro fases de seleção e mais de
-              200 horas de capacitação antes do primeiro projeto, com
-              treinamentos conduzidos em parceria com BCG, Bain, McKinsey,
-              Accenture e Stone.
+              {t("about.teamPartners.body2")}
             </Body>
           </TitleBlock>
 
           <CourseList ref={listRef}>
-            <SynergyTag>sinergia entre os 8 cursos de graduação no Insper</SynergyTag>
+            <SynergyTag>{t("about.teamPartners.synergyTag")}</SynergyTag>
             {COURSES.map((c, i) => (
               <CourseItem key={c} $delay={0.2 + i * 0.08} $visible={listVisible}>
                 <CourseDot />
@@ -428,7 +411,7 @@ export default function AboutTeamAndPartners() {
         {/* ── Partners — sem seção separada, apenas divider ── */}
         <PartnersDivider ref={partnerRef} $visible={partnerVisible}>
           <Line />
-          <Label>Nossos parceiros</Label>
+          <Label>{t("about.teamPartners.partnersLabel")}</Label>
           <Line />
         </PartnersDivider>
 

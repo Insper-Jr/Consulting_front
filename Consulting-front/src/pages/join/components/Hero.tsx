@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import styled, { keyframes, css } from "styled-components";
+import { useTranslation } from "react-i18next";
 import { useParticles } from "../../../hooks/useParticleBackground";
 
 // Tokens
@@ -228,11 +229,12 @@ const WaveBottom = styled.div`
 `;
 
 // Component
-const TITLE_WORDS = ["Faça", "parte"];
 // Delay escalonado para cada palavra
 const WORD_DELAYS = [0.55, 0.78, 1.02];
 
 export default function AboutHero() {
+  const { t } = useTranslation();
+  const titleWords = t("join.hero.titleWords", { returnObjects: true }) as string[];
   const wrapperRef = useRef<HTMLDivElement>(null);
   const canvasRef  = useRef<HTMLCanvasElement>(null);
 
@@ -307,10 +309,10 @@ export default function AboutHero() {
 
       {/* Conteúdo centralizado */}
       <Center>
-        <Eyebrow>Processo seletivo</Eyebrow>
+        <Eyebrow>{t("join.hero.eyebrow")}</Eyebrow>
 
         <Title>
-          {TITLE_WORDS.map((word, i) => (
+          {titleWords.map((word, i) => (
             <Word key={word} $delay={WORD_DELAYS[i]}>
               {word}
             </Word>
@@ -320,14 +322,12 @@ export default function AboutHero() {
         <AccentLine />
 
         <Subtitle>
-          Enquanto a maioria espera se formar para ter experiência,
-          os membros da Insper Jr. já estão construindo. Clientes reais.
-          Decisões reais. Um portfólio que começa agora.
+          {t("join.hero.subtitle")}
         </Subtitle>
 
 
         <HeroBtn href="#inscricao">
-          Inscreva-se no processo seletivo <span className="arrow">→</span>
+          {t("join.hero.button")} <span className="arrow">→</span>
         </HeroBtn>
 
         <InsperBadge>
@@ -336,7 +336,7 @@ export default function AboutHero() {
             <line x1="12" y1="8" x2="12" y2="12" />
             <line x1="12" y1="16" x2="12.01" y2="16" />
           </svg>
-          Exclusivo para alunos Insper
+          {t("join.hero.insperBadge")}
         </InsperBadge>
       </Center>
 

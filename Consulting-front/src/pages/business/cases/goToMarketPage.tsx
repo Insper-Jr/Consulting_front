@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 import Header from "../../../components/header";
 import Footer from "../../../components/footerNovo";
 import WppButton from "../../../components/wppButton";
@@ -79,16 +80,17 @@ const BackLink = styled(Link)`
 `;
 
 export default function GoToMarketPage() {
+  const { t } = useTranslation();
   return (
     <PageWrap>
       <WppButton />
       <Header />
       <Main>
-        <Eyebrow>Estratégia de Marketing</Eyebrow>
-        <Title>Go-to-Market para Lançamento</Title>
-        <Badge>Em breve</Badge>
-        <Body>Este case está sendo documentado e estará disponível em breve.</Body>
-        <BackLink to="/business">← Voltar para Business</BackLink>
+        <Eyebrow>{t("business.casePages.goToMarket.eyebrow")}</Eyebrow>
+        <Title>{t("business.casePages.goToMarket.title")}</Title>
+        <Badge>{t("business.casePages.comingSoonBadge")}</Badge>
+        <Body>{t("business.casePages.description")}</Body>
+        <BackLink to="/business">{t("business.casePages.backLink")}</BackLink>
       </Main>
       <Footer />
     </PageWrap>

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import styled, { keyframes } from "styled-components";
+import { useTranslation, Trans } from "react-i18next";
 
 import {
   RED, BG_CREAM, DARK, MUTED,
@@ -34,31 +35,13 @@ import slide20 from "../../../assets/shipping/slide-20.png";
 import slide21 from "../../../assets/shipping/slide-21.png";
 import slide22 from "../../../assets/shipping/slide-22.png";
 
-const SLIDES = [
-  { img: slide01, cap: "01 · Agenda"                          },
-  { img: slide02, cap: "02 · Objetivos do Plano"              },
-  { img: slide03, cap: "03 · Variáveis Operacionais"          },
-  { img: slide04, cap: "04 · Critérios Competitivos"          },
-  { img: slide05, cap: "05 · Layout Operacional — Noite"      },
-  { img: slide06, cap: "06 · Operação da Noite"               },
-  { img: slide07, cap: "07 · Gaps: Triagem e Separação"       },
-  { img: slide08, cap: "08 · Gaps: Rebipagem e Espaço"        },
-  { img: slide09, cap: "09 · Gaps Gerais da Noite"            },
-  { img: slide10, cap: "10 · Layout Operacional — Manhã"      },
-  { img: slide11, cap: "11 · Operação da Manhã"               },
-  { img: slide12, cap: "12 · Todos os 14 Gaps"                },
-  { img: slide13, cap: "13 · Soluções: Descarregamento"       },
-  { img: slide14, cap: "14 · Soluções: Na Prática"            },
-  { img: slide15, cap: "15 · Soluções: Separação"             },
-  { img: slide16, cap: "16 · Soluções: Rebipagem"             },
-  { img: slide17, cap: "17 · Soluções: Chegada Entregadores"  },
-  { img: slide18, cap: "18 · Soluções: Rastreabilidade"       },
-  { img: slide19, cap: "19 · Soluções: Gaps Gerais"           },
-  { img: slide20, cap: "20 · Soluções: Espaço e Gaiolas"      },
-  { img: slide21, cap: "21 · Conclusão — Próximos Passos I"   },
-  { img: slide22, cap: "22 · Conclusão — Próximos Passos II"  },
+/* Imagens fixas — as legendas (cap) vêm da tradução (i18n) */
+const SLIDE_IMAGES = [
+  slide01, slide02, slide03, slide04, slide05, slide06, slide07,
+  slide08, slide09, slide10, slide11, slide12, slide13, slide14,
+  slide15, slide16, slide17, slide18, slide19, slide20, slide21, slide22,
 ];
-const TOTAL = SLIDES.length;
+const TOTAL = SLIDE_IMAGES.length;
 
 /* ── Keyframes ───────────────────────────────────────────────────────────── */
 const fadeUp = keyframes`
@@ -104,18 +87,19 @@ export default function ProcessosCases() {
    ════════════════════════════════════════════════════════════════════════ */
 
 function CasesSection({ onOpen }: { onOpen: () => void }) {
+  const { t } = useTranslation();
+
   return (
     <Section id="cases">
       <Inner>
         <SectionHeader>
-          <Eyebrow>Cases de sucesso</Eyebrow>
+          <Eyebrow>{t("processos.case.eyebrow")}</Eyebrow>
           <SectionH2>
-            Resultados que já <em>entregamos</em>
+            {t("processos.case.headingPre")} <em>{t("processos.case.headingItalic")}</em>
           </SectionH2>
           <RedBar />
           <SectionLead>
-            Projetos reais, com diagnóstico rigoroso e soluções aplicáveis —
-            clique para ver o case completo.
+            {t("processos.case.lead")}
           </SectionLead>
         </SectionHeader>
 
@@ -125,30 +109,28 @@ function CasesSection({ onOpen }: { onOpen: () => void }) {
             role="button"
             tabIndex={0}
             onKeyDown={e => e.key === "Enter" && onOpen()}
-            aria-label="Abrir case Shipping I"
+            aria-label={t("processos.case.openAriaLabel")}
           >
             <CardCover>
               <CardImg
                 src={capa}
-                alt="Shipping I — todos os 14 gaps mapeados"
+                alt={t("processos.case.coverAlt")}
                 loading="lazy"
               />
               <CardOverlay />
-              <CardBadge>Processos</CardBadge>
+              <CardBadge>{t("processos.case.badge")}</CardBadge>
               <CardArrow aria-hidden="true">→</CardArrow>
             </CardCover>
 
             <CardBody>
-              <CardTag>Engenharia de Processos · Plano Operacional</CardTag>
-              <CardTitle>Shipping I</CardTitle>
+              <CardTag>{t("processos.case.tag")}</CardTag>
+              <CardTitle>{t("processos.case.title")}</CardTitle>
               <CardDesc>
-                Diagnóstico completo de um centro de distribuição logístico —
-                14 gaps mapeados em dois turnos, soluções detalhadas e
-                estimativas de investimento.
+                {t("processos.case.desc")}
               </CardDesc>
               <CardFooter>
-                <CardMeta>22 slides</CardMeta>
-                <CardCta>Ver case completo →</CardCta>
+                <CardMeta>{t("processos.case.meta")}</CardMeta>
+                <CardCta>{t("processos.case.cta")}</CardCta>
               </CardFooter>
             </CardBody>
           </CaseCard>
@@ -165,6 +147,10 @@ function CasesSection({ onOpen }: { onOpen: () => void }) {
    ════════════════════════════════════════════════════════════════════════ */
 
 function ShippingDetail({ onBack, savedScroll }: { onBack: () => void; savedScroll: number }) {
+  const { t } = useTranslation();
+  const slideCaptions = t("processos.case.slides", { returnObjects: true }) as string[];
+  const SLIDES = SLIDE_IMAGES.map((img, i) => ({ img, cap: slideCaptions[i] }));
+
   const [idx,  setIdx]  = useState(0);
   const [full, setFull] = useState(false);
   const thumbRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -228,11 +214,11 @@ function ShippingDetail({ onBack, savedScroll }: { onBack: () => void; savedScro
       {full && (
         <Fullscreen onClick={() => setFull(false)}>
           <FullImg src={SLIDES[idx].img} alt={SLIDES[idx].cap} />
-          <FullClose onClick={() => setFull(false)} aria-label="Fechar">✕</FullClose>
+          <FullClose onClick={() => setFull(false)} aria-label={t("processos.case.fullCloseAria")}>✕</FullClose>
           <FullNav onClick={e => e.stopPropagation()}>
-            <FullNavBtn onClick={goPrev} disabled={idx === 0} aria-label="Anterior">←</FullNavBtn>
+            <FullNavBtn onClick={goPrev} disabled={idx === 0} aria-label={t("processos.case.prevAria")}>←</FullNavBtn>
             <FullCounter>{pad(idx + 1)} / {pad(TOTAL)}</FullCounter>
-            <FullNavBtn onClick={goNext} disabled={idx === TOTAL - 1} aria-label="Próximo">→</FullNavBtn>
+            <FullNavBtn onClick={goNext} disabled={idx === TOTAL - 1} aria-label={t("processos.case.nextAria")}>→</FullNavBtn>
           </FullNav>
         </Fullscreen>
       )}
@@ -242,8 +228,8 @@ function ShippingDetail({ onBack, savedScroll }: { onBack: () => void; savedScro
 
         {/* Topbar: não scrollável, sempre visível */}
         <OverlayTopBar>
-          <BackBtn onClick={onBack} aria-label="Voltar para processos">
-            ← Voltar 
+          <BackBtn onClick={onBack} aria-label={t("processos.case.backAriaLabel")}>
+            {t("processos.case.backBtn")}
           </BackBtn>
         </OverlayTopBar>
 
@@ -253,18 +239,12 @@ function ShippingDetail({ onBack, savedScroll }: { onBack: () => void; savedScro
 
             {/* Cabeçalho */}
             <DetailHeader>
-              <DetailBadge>Case em destaque</DetailBadge>
+              <DetailBadge>{t("processos.case.detailBadge")}</DetailBadge>
               <DetailTitle>
-                Shipping I<TitleDot>.</TitleDot>
+                {t("processos.case.title")}<TitleDot>.</TitleDot>
               </DetailTitle>
               <DetailIntro>
-                Para mostrar como entregamos{" "}
-                <strong>planos operacionais de alto impacto</strong> dentro do
-                escopo de <strong>Engenharia de Processos</strong>: o projeto{" "}
-                <strong>Shipping I</strong> — diagnóstico completo de um centro
-                de distribuição logístico, com mapeamento de{" "}
-                <strong>14 gaps operacionais</strong> em dois turnos e propostas
-                estruturadas de solução com estimativas de custo.
+                <Trans i18nKey="processos.case.detailIntro" components={{ strong: <strong /> }} />
               </DetailIntro>
             </DetailHeader>
 
@@ -272,50 +252,38 @@ function ShippingDetail({ onBack, savedScroll }: { onBack: () => void; savedScro
             <DetailSplit>
 
               <TextCol>
-                <CtEyebrow>O projeto</CtEyebrow>
-                <CtTitle>Por que Shipping I?</CtTitle>
+                <CtEyebrow>{t("processos.case.ctEyebrow")}</CtEyebrow>
+                <CtTitle>{t("processos.case.ctTitle")}</CtTitle>
                 <CtBody>
-                  O cliente, do setor de <strong>logística de última milha</strong>,
-                  operava seu CD com alto volume de pacotes diários, mas enfrentava
-                  gargalos críticos — do descarregamento dos caminhões até a saída
-                  dos entregadores — com processos manuais e sem delimitação física
-                  dos espaços operacionais.
+                  <Trans i18nKey="processos.case.ctBody1" components={{ strong: <strong /> }} />
                 </CtBody>
 
-                <CtLabel>Como foi feito</CtLabel>
+                <CtLabel>{t("processos.case.ctLabelHow")}</CtLabel>
                 <CtBody>
-                  Mapeamos toda a operação em dois turnos (noite e manhã),
-                  identificando <strong>14 gaps operacionais</strong> em
-                  descarregamento, triagem, separação, chegada de entregadores e
-                  entrega final. A análise partiu de observação direta, entrevistas
-                  e cronoanálise in loco.
+                  <Trans i18nKey="processos.case.ctBody2" components={{ strong: <strong /> }} />
                 </CtBody>
                 <CtBody>
-                  Para cada gap desenvolvemos soluções concretas com opções de
-                  implementação, estimativas de custo e descrição detalhada da
-                  operação na prática — desde esteiras telescópicas e leitores
-                  inteligentes até sistemas de agendamento e padronização visual
-                  de gaiolas.
+                  {t("processos.case.ctBody3")}
                 </CtBody>
 
-                <CtLabel>Resultados entregues</CtLabel>
+                <CtLabel>{t("processos.case.ctLabelResults")}</CtLabel>
                 <CtList>
-                  <li><strong>14 gaps mapeados</strong> — turnos noturno e matinal cobertos integralmente.</li>
-                  <li><strong>Soluções com custo estimado</strong> — do baixo investimento à automação completa.</li>
-                  <li><strong>Layout proposto</strong> — remapeamento físico do galpão com áreas por etapa.</li>
-                  <li><strong>Sistema de agendamento</strong> — fluxo de chegada de entregadores com vagas dedicadas.</li>
-                  <li><strong>Padronização de gaiolas</strong> — identificação visual por cor, placa e destino.</li>
+                  <li><Trans i18nKey="processos.case.ctListItem1" components={{ strong: <strong /> }} /></li>
+                  <li><Trans i18nKey="processos.case.ctListItem2" components={{ strong: <strong /> }} /></li>
+                  <li><Trans i18nKey="processos.case.ctListItem3" components={{ strong: <strong /> }} /></li>
+                  <li><Trans i18nKey="processos.case.ctListItem4" components={{ strong: <strong /> }} /></li>
+                  <li><Trans i18nKey="processos.case.ctListItem5" components={{ strong: <strong /> }} /></li>
                 </CtList>
 
-                <CtTagLine>14 gaps · 2 turnos · operação escalável e rastreável.</CtTagLine>
+                <CtTagLine>{t("processos.case.ctTagLine")}</CtTagLine>
               </TextCol>
 
               {/* Deck: largura fixa, sticky dentro do scroll do overlay */}
               <DeckCol>
                 <DeckFrame
                   onClick={() => setFull(true)}
-                  title="Clique para ampliar"
-                  aria-label="Clique para abrir em tela cheia"
+                  title={t("processos.case.deckFrameTitle")}
+                  aria-label={t("processos.case.deckFrameAria")}
                 >
                   <DeckStack>
                     {SLIDES.map((s, i) => (
@@ -329,19 +297,19 @@ function ShippingDetail({ onBack, savedScroll }: { onBack: () => void; savedScro
                       </DeckSlide>
                     ))}
                   </DeckStack>
-                  <ExpandHint aria-hidden="true">⛶ ampliar</ExpandHint>
+                  <ExpandHint aria-hidden="true">{t("processos.case.expandHint")}</ExpandHint>
                 </DeckFrame>
 
                 <DeckControls>
-                  <NavBtn onClick={goPrev} disabled={idx === 0} aria-label="Anterior">←</NavBtn>
+                  <NavBtn onClick={goPrev} disabled={idx === 0} aria-label={t("processos.case.prevAria")}>←</NavBtn>
                   <ProgressBar>
                     <ProgressFill style={{ width: `${((idx + 1) / TOTAL) * 100}%` }} />
                   </ProgressBar>
                   <SlideCounter>{pad(idx + 1)} / {pad(TOTAL)}</SlideCounter>
-                  <NavBtn onClick={goNext} disabled={idx === TOTAL - 1} aria-label="Próximo">→</NavBtn>
+                  <NavBtn onClick={goNext} disabled={idx === TOTAL - 1} aria-label={t("processos.case.nextAria")}>→</NavBtn>
                 </DeckControls>
 
-                <ThumbStrip role="list" aria-label="Miniaturas dos slides">
+                <ThumbStrip role="list" aria-label={t("processos.case.thumbStripAria")}>
                   {SLIDES.map((s, i) => (
                     <ThumbBtn
                       key={i}

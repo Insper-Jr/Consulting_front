@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { keyframes, css } from "styled-components";
+import { useTranslation } from "react-i18next";
 import { useInView } from "@/hooks/useInView";
 
 /* ─── Tokens ─────────────────────────────────────────── */
@@ -86,21 +87,22 @@ const Tag = styled.span`
 
 /* ══════════════════════════════════════════════════════ */
 export default function AboutJuniorMovement() {
+  const { t } = useTranslation();
   const { ref, visible } = useInView();
 
   return (
     <Strip ref={ref} $visible={visible}>
       <Inner>
-        <Eyebrow>O que é uma EJ</Eyebrow>
+        <Eyebrow>{t("about.juniorMovement.eyebrow")}</Eyebrow>
         <Body>
-          <strong>Empresas Juniores</strong> são consultorias formadas por
-          estudantes universitários, sem fins lucrativos e supervisionadas por
-          professores. Fazemos parte de um movimento nacional de <strong>+600 EJs</strong>.
+          <strong>{t("about.juniorMovement.strong1")}</strong>
+          {t("about.juniorMovement.bodyMiddle")}
+          <strong>{t("about.juniorMovement.strong2")}</strong>.
         </Body>
         <Tags>
-          <Tag>Sem fins lucrativos</Tag>
-          <Tag>Supervisionados</Tag>
-          <Tag>+600 EJs no Brasil</Tag>
+          <Tag>{t("about.juniorMovement.tag1")}</Tag>
+          <Tag>{t("about.juniorMovement.tag2")}</Tag>
+          <Tag>{t("about.juniorMovement.tag3")}</Tag>
         </Tags>
       </Inner>
     </Strip>

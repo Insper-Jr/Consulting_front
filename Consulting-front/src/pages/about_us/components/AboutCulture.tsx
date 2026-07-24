@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import styled, { keyframes, css, createGlobalStyle } from "styled-components";
+import { useTranslation } from "react-i18next";
 import { useInView } from "@/hooks/useInView";
 import Gestao44 from "../../../assets/gestoes/44a.jpg";
 import Gestao45 from "../../../assets/gestoes/45a.png";
@@ -61,14 +62,14 @@ type Gestao = {
   image: string;
 };
 
-const GESTOES: Gestao[] = [
-  { id: "g44", label: "44ª Gestão", year: "2023.1", image: Gestao44 },
-  { id: "g45", label: "45ª Gestão", year: "2023.2", image: Gestao45 },
-  { id: "g46", label: "46ª Gestão", year: "2024.1", image: Gestao46 },
-  { id: "g47", label: "47ª Gestão", year: "2024.2", image: Gestao47 },
-  { id: "g48", label: "48ª Gestão", year: "2025.1", image: Gestao48 },
-  { id: "g49", label: "49ª Gestão", year: "2025.2", image: Gestao49 },
-  { id: "g50", label: "50ª Gestão", year: "2026.1", image: Gestao50 },
+const GESTAO_META: { id: string; n: number; year: string; image: string }[] = [
+  { id: "g44", n: 44, year: "2023.1", image: Gestao44 },
+  { id: "g45", n: 45, year: "2023.2", image: Gestao45 },
+  { id: "g46", n: 46, year: "2024.1", image: Gestao46 },
+  { id: "g47", n: 47, year: "2024.2", image: Gestao47 },
+  { id: "g48", n: 48, year: "2025.1", image: Gestao48 },
+  { id: "g49", n: 49, year: "2025.2", image: Gestao49 },
+  { id: "g50", n: 50, year: "2026.1", image: Gestao50 },
 ];
 
 type Pilar = {
@@ -80,21 +81,14 @@ type Pilar = {
   cy: number;
 };
 
-const PILARES: Pilar[] = [
-  { id: "superacao",    label: "Superação",       title: "Superação",       description: "Buscar sair da zona de conforto, crescer, lidar de maneira construtiva com as dificuldades e assumir novas responsabilidades.", cx: 50, cy: 28 },
-  { id: "parceria",     label: "Parceria",         title: "Parceria",        description: "Estar disponível para ajudar, estar engajado e compartilhando conhecimento com o grupo, além de demonstrar quando precisa de ajuda.", cx: 28, cy: 50 },
-  { id: "proatividade", label: "Proatividade",     title: "Proatividade",    description: "Correr atrás, ser presente, se motivar diante de desafios e ter iniciativa para transformar ideias em entregas.", cx: 72, cy: 50 },
-  { id: "geracao",      label: "Geração de Valor", title: "Geração de Valor",description: "Mudar realidades, buscar trazer e explorar novos insumos, estar One Step Ahead em tudo que entregamos.", cx: 50, cy: 72 },
-];
+const PILAR_COORDS: Record<string, { cx: number; cy: number }> = {
+  superacao:    { cx: 50, cy: 28 },
+  parceria:     { cx: 28, cy: 50 },
+  proatividade: { cx: 72, cy: 50 },
+  geracao:      { cx: 50, cy: 72 },
+};
 
 type Valor = { label: string; description: string };
-
-const VALORES: Valor[] = [
-  { label: "Colaboração",     description: "Construir junto e reconhecer que os melhores resultados nascem do trabalho coletivo." },
-  { label: "Inconformismo",   description: "Questionar o que existe e buscar sempre entregar além do esperado." },
-  { label: "Comprometimento", description: "Honrar os compromissos com clientes e com o time, entregando com consistência." },
-  { label: "Excelência",      description: "Elevar o padrão em tudo que fazemos dentro de cada contexto." },
-];
 
 /* ─── Lightbox ───────────────────────────────────────────────────── */
 
@@ -704,6 +698,7 @@ interface LightboxProps {
 }
 
 function Lightbox({ gestoes, initialIndex, onClose }: LightboxProps) {
+  const { t } = useTranslation();
   const [idx, setIdx] = useState(initialIndex);
   const total = gestoes.length;
 
@@ -726,13 +721,13 @@ function Lightbox({ gestoes, initialIndex, onClose }: LightboxProps) {
   return (
     <>
       <GlobalLockScroll />
-      <LightboxOverlay onClick={onClose} role="dialog" aria-modal="true" aria-label={`Foto da ${g.label}`}>
+      <LightboxOverlay onClick={onClose} role="dialog" aria-modal="true" aria-label={t("about.culture.ariaDialog", { label: g.label })}>
         <LightboxContent onClick={e => e.stopPropagation()}>
-          <LightboxClose onClick={onClose} aria-label="Fechar">
+          <LightboxClose onClick={onClose} aria-label={t("about.culture.ariaClose")}>
             <IconClose />
           </LightboxClose>
 
-          <LightboxImage src={g.image} alt={`Foto da ${g.label} – ${g.year}`} />
+          <LightboxImage src={g.image} alt={t("about.culture.photoAlt", { label: g.label, year: g.year })} />
 
           <LightboxFooter>
             <LightboxInfo>
@@ -741,11 +736,11 @@ function Lightbox({ gestoes, initialIndex, onClose }: LightboxProps) {
             </LightboxInfo>
 
             <LightboxNavGroup>
-              <LightboxNav onClick={prev} aria-label="Gestão anterior">
+              <LightboxNav onClick={prev} aria-label={t("about.culture.ariaPrev")}>
                 <IconArrowLeft />
               </LightboxNav>
               <LightboxCounter>{idx + 1} / {total}</LightboxCounter>
-              <LightboxNav onClick={next} aria-label="Próxima gestão">
+              <LightboxNav onClick={next} aria-label={t("about.culture.ariaNext")}>
                 <IconArrowRight />
               </LightboxNav>
             </LightboxNavGroup>
@@ -758,7 +753,30 @@ function Lightbox({ gestoes, initialIndex, onClose }: LightboxProps) {
 
 /* ─── Main component ─────────────────────────────────────────────── */
 
+type PilarTranslation = { id: string; label: string; description: string };
+
 export default function CulturaSection() {
+  const { t } = useTranslation();
+
+  const GESTOES: Gestao[] = GESTAO_META.map(g => ({
+    id: g.id,
+    label: t("about.culture.gestaoLabel", { n: g.n }),
+    year: g.year,
+    image: g.image,
+  }));
+
+  const pilarTranslations = t("about.culture.pilares", { returnObjects: true }) as PilarTranslation[];
+  const PILARES: Pilar[] = pilarTranslations.map(p => ({
+    id: p.id,
+    label: p.label,
+    title: p.label,
+    description: p.description,
+    cx: PILAR_COORDS[p.id].cx,
+    cy: PILAR_COORDS[p.id].cy,
+  }));
+
+  const VALORES = t("about.culture.values", { returnObjects: true }) as Valor[];
+
   const { ref: sectionRef, visible } = useInView();
   const [gestaoIdx, setGestaoIdx] = useState(GESTOES.length - 2);
   const [pilarId, setPilarId] = useState<string>(PILARES[0].id);
@@ -799,23 +817,23 @@ export default function CulturaSection() {
         {/* ── LEFT ────────────────────────────────────────────── */}
         <Left $visible={visible}>
           <Eyebrow>
-            <EyebrowLabel>As Gestões</EyebrowLabel>
+            <EyebrowLabel>{t("about.culture.eyebrow")}</EyebrowLabel>
           </Eyebrow>
 
           <TitleBlock>
             <TitleMain>
-              <TitleMuted>Quem fez</TitleMuted>
-              <TitleItalic>história</TitleItalic>
+              <TitleMuted>{t("about.culture.titleMuted")}</TitleMuted>
+              <TitleItalic>{t("about.culture.titleItalic")}</TitleItalic>
             </TitleMain>
             <TitleAccent $visible={visible} />
             <BodyText>
-              Conheça quem moldou a empresa nos últimos anos.
+              {t("about.culture.body")}
             </BodyText>
           </TitleBlock>
 
           <ExpandHint>
             <IconExpand />
-            Clique na foto em destaque para ver os membros
+            {t("about.culture.expandHint")}
           </ExpandHint>
 
           <Carousel3D>
@@ -838,7 +856,7 @@ export default function CulturaSection() {
                           setGestaoIdx(i);
                         }
                       }}
-                      aria-label={active ? `Ampliar foto da ${g.label}` : `Ver ${g.label}`}
+                      aria-label={active ? t("about.culture.ariaEnlarge", { label: g.label }) : t("about.culture.ariaView", { label: g.label })}
                     >
                       <CardImage src={g.image} alt={g.label} />
                       <CardOverlay>
@@ -849,7 +867,7 @@ export default function CulturaSection() {
                       <ExpandBtn
                         $visible={active}
                         onClick={e => { e.stopPropagation(); setLightboxIdx(i); }}
-                        aria-label={`Ampliar foto da ${g.label}`}
+                        aria-label={t("about.culture.ariaEnlarge", { label: g.label })}
                         tabIndex={active ? 0 : -1}
                       >
                         <IconExpand />
@@ -868,17 +886,17 @@ export default function CulturaSection() {
                     key={g.id}
                     $active={i === gestaoIdx}
                     onClick={() => setGestaoIdx(i)}
-                    aria-label={`Ir para ${g.label}`}
+                    aria-label={t("about.culture.ariaGoTo", { label: g.label })}
                   />
                 ))}
               </Dots>
               <ArrowGroup>
-                <NavArrow onClick={prev} aria-label="Gestão anterior">
+                <NavArrow onClick={prev} aria-label={t("about.culture.ariaPrev")}>
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                     <path d="M9 2L4 7l5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </NavArrow>
-                <NavArrow onClick={next} aria-label="Próxima gestão">
+                <NavArrow onClick={next} aria-label={t("about.culture.ariaNext")}>
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                     <path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
@@ -891,12 +909,12 @@ export default function CulturaSection() {
         {/* ── RIGHT ───────────────────────────────────────────── */}
         <Right $visible={visible}>
           <RightHeader>
-            <RightEyebrow>Identidade</RightEyebrow>
+            <RightEyebrow>{t("about.culture.rightEyebrow")}</RightEyebrow>
             <RightTitle>
-              <RightTitleMuted>Nossa</RightTitleMuted>
-              Cultura
+              <RightTitleMuted>{t("about.culture.rightTitleMuted")}</RightTitleMuted>
+              {t("about.culture.rightTitle")}
             </RightTitle>
-            <Hint>Clique em um pilar para ver sua descrição.</Hint>
+            <Hint>{t("about.culture.hint")}</Hint>
           </RightHeader>
 
           <VennWrap>

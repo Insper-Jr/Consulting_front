@@ -1,21 +1,23 @@
 import styled from "styled-components";
 import carwash from "../../../assets/protection/carwash.png";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const SuccessCase = () => {
   const [hovered, setHovered] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <Wrapper>
-    <Intro>CASE DE SUCESSO</Intro>
+    <Intro>{t("protection.successCase.label")}</Intro>
     <Container hovered={hovered} onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
-      <Image src={carwash} alt="Consultoria estratégica" />
+      <Image src={carwash} alt={t("protection.successCase.imageAlt")} />
       <TextContent>
         <Title>
-          CARWASH I
+          {t("protection.successCase.title")}
         </Title>
         <Description>
-        No projeto de expansão da Prime Car Wash via franquias, estruturamos juridicamente e logisticamente a distribuição de insumos às unidades. Iniciamos com a elaboração de um manual do franqueado, padronizando o processo de abertura e formalização da PJ, garantindo segurança jurídica. Em seguida, analisamos dois modelos para fornecimento de insumos: (i) revenda direta pela franqueadora, com análise de ICMS, inscrição estadual e riscos fiscais; e (ii) comissão sobre vendas diretas da fornecedora aos franqueados, com menor complexidade e foco em intermediação comercial.
+        {t("protection.successCase.description")}
         </Description>
       </TextContent>
     </Container>

@@ -1,5 +1,7 @@
 import React from "react";
 import styled, { keyframes, css } from "styled-components";
+import { useTranslation } from "react-i18next";
+import type { TFunction } from "i18next";
 import { useInView } from "../../../hooks/useInView";
 
 const RED        = "#C02121";
@@ -16,10 +18,11 @@ const fadeUp = keyframes`
 `;
 const lineGrow = keyframes`from { transform: scaleX(0); } to { transform: scaleX(1); }`;
 
-const ITEMS = [
+const getItems = (t: TFunction) => [
   {
-    title: "Visão de mercado fundamentada",
-    body: "Análises construídas sobre dados reais e metodologias reconhecidas pelo mercado e pela academia. Nada de intuição sem embasamento.",
+    key: "marketVision",
+    title: t("business.why.items.marketVision.title"),
+    body: t("business.why.items.marketVision.body"),
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="11" cy="11" r="8"/>
@@ -30,8 +33,9 @@ const ITEMS = [
     ),
   },
   {
-    title: "Supervisão acadêmica do Insper",
-    body: "Equipes treinadas e orientadas por professores com sólida experiência de mercado. Rigor técnico com olhar prático.",
+    key: "academicSupervision",
+    title: t("business.why.items.academicSupervision.title"),
+    body: t("business.why.items.academicSupervision.body"),
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
@@ -40,8 +44,9 @@ const ITEMS = [
     ),
   },
   {
-    title: "Entregáveis acionáveis",
-    body: "Relatórios feitos para gestores, não para consultores. Conclusões claras, linguagem objetiva e recomendações prontas para executar.",
+    key: "actionableDeliverables",
+    title: t("business.why.items.actionableDeliverables.title"),
+    body: t("business.why.items.actionableDeliverables.body"),
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
@@ -51,8 +56,9 @@ const ITEMS = [
     ),
   },
   {
-    title: "Custo-benefício sem precedentes",
-    body: "Qualidade de consultoria estratégica a um investimento acessível. O melhor momento para estruturar o negócio sem comprometer o caixa.",
+    key: "costBenefit",
+    title: t("business.why.items.costBenefit.title"),
+    body: t("business.why.items.costBenefit.body"),
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <line x1="12" y1="1" x2="12" y2="23"/>
@@ -195,6 +201,8 @@ const CardText = styled.p`
 `;
 
 export default function BusinessWhy() {
+  const { t } = useTranslation();
+  const ITEMS = getItems(t);
   const { ref: hRef, visible: hV } = useInView();
   const { ref: gRef, visible: gV } = useInView();
 
@@ -202,19 +210,17 @@ export default function BusinessWhy() {
     <Section>
       <Inner>
         <Header ref={hRef} $v={hV}>
-          <Eyebrow>Por que a Insper Jr. ?</Eyebrow>
-          <H2>Estratégia com <i>rigor e respaldo acadêmico</i></H2>
+          <Eyebrow>{t("business.why.eyebrow")}</Eyebrow>
+          <H2>{t("business.why.titleMain")} <i>{t("business.why.titleItalic")}</i></H2>
           <Divider $v={hV} />
           <Lead>
-            Contrate uma consultoria com metodologia sólida, dados reais e o respaldo
-            do Insper. Projetos conduzidos por quem está dentro da instituição
-            e do mercado ao mesmo tempo.
+            {t("business.why.lead")}
           </Lead>
         </Header>
 
         <Grid ref={gRef}>
           {ITEMS.map((it, i) => (
-            <Card key={it.title} $v={gV} $delay={0.1 + i * 0.08}>
+            <Card key={it.key} $v={gV} $delay={0.1 + i * 0.08}>
               <CardAccent />
               <IconWrap>{it.icon}</IconWrap>
               <CardBody>

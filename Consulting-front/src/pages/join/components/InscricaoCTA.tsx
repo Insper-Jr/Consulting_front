@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import styled, { keyframes } from "styled-components";
+import { useTranslation } from "react-i18next";
 
 const useCountUp = (target: number, duration: number, trigger: boolean, delay = 0) => {
   const [count, setCount] = useState(0);
@@ -46,6 +47,7 @@ const dotPulse = keyframes`
 `;
 
 const InscricaoCTA = () => {
+  const { t } = useTranslation();
   const innerRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -68,20 +70,19 @@ const InscricaoCTA = () => {
       <Inner ref={innerRef} data-visible={String(visible)}>
         <Grid>
           <div>
-            <span className="eyebrow">04 · Inscrição</span>
-            <h2>Pronto para construir<br />algo <em>real</em>?</h2>
+            <span className="eyebrow">{t("join.inscricaoCta.eyebrow")}</span>
+            <h2>{t("join.inscricaoCta.titleLine1")}<br />{t("join.inscricaoCta.titleLine2Pre")}<em>{t("join.inscricaoCta.titleEm")}</em>?</h2>
             <p className="sub">
-              A inscrição leva menos de cinco minutos. Depois, é com a gente: você recebe
-              tudo o que precisa saber por e-mail.
+              {t("join.inscricaoCta.sub")}
             </p>
             <div className="actions">
-              <Cta href="#">Inscreva-se no Processo Seletivo <span className="arrow">→</span></Cta>
+              <Cta href="#">{t("join.inscricaoCta.cta")} <span className="arrow">→</span></Cta>
               <InsperNote>
                 <svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true">
                   <circle cx="10" cy="10" r="9" stroke="currentColor" strokeWidth="1.6"/>
                   <path d="M10 9v5M10 6.5v.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
                 </svg>
-                Exclusivo para <strong>alunos Insper</strong> — use seu e-mail institucional
+                {t("join.inscricaoCta.insperNotePre")}<strong>{t("join.inscricaoCta.insperNoteStrong")}</strong>{t("join.inscricaoCta.insperNoteMid")}
                 <span className="email">@al.insper.edu.br</span>
               </InsperNote>
             </div>
@@ -90,20 +91,20 @@ const InscricaoCTA = () => {
           <ImageBlock data-visible={String(visible)}>
             <img
               src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80"
-              alt="Membros da Insper Jr colaborando"
+              alt={t("join.inscricaoCta.imgAlt")}
             />
             <div className="overlay" />
             <div className="live-tag">
-              <span className="dot" /> Processo aberto
+              <span className="dot" /> {t("join.inscricaoCta.liveTag")}
             </div>
             <div className="badge-row">
               <div className="badge">
                 <span className="num">{projetos}+</span>
-                <span className="lbl">Projetos entregues</span>
+                <span className="lbl">{t("join.inscricaoCta.badge1Label")}</span>
               </div>
               <div className="badge">
-                <span className="num">{anos} anos</span>
-                <span className="lbl">De experiência</span>
+                <span className="num">{anos} {t("join.inscricaoCta.yearsUnit")}</span>
+                <span className="lbl">{t("join.inscricaoCta.badge2Label")}</span>
               </div>
             </div>
           </ImageBlock>

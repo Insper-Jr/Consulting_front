@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import styled, { keyframes, css } from "styled-components";
+import { useTranslation } from "react-i18next";
 
 import accenture from "../../../assets/partners/accenture.png";
 import ambev from "../../../assets/partners/ambev.png";
@@ -24,29 +25,6 @@ import xp from "../../../assets/partners/xp.png";
 type Supporter = { name: string; src: string; boost?: number };
 
 type Testimonial = { name: string; role: string; text: string };
-
-const TESTIMONIALS: Testimonial[] = [
-  {
-    name: "Rafaela Lima",
-    role: "Fundadora",
-    text: "Como empreendedor de primeira viagem, eu tinha uma ideia com muito potencial, mas precisava de apoio para estruturá-la. A Insper Jr. me ajudou a transformar essa ideia em um modelo de negócio viável e bem fundamentado. A análise de mercado trouxe dados valiosos sobre o setor, o plano estratégico de marketing definiu com precisão como e para quem comunicar minha proposta, e os planos operacional e financeiro me deram segurança para tirar o projeto do papel. Foi um divisor de águas para minha jornada empreendedora.",
-  },
-  {
-    name: "Mariana Torres",
-    role: "Diretora de Expansão",
-    text: "Estávamos prontos para expandir nossa atuação para uma nova região, mas faltava clareza sobre onde e como começar. O plano de negócios desenvolvido pela Insper Jr. foi essencial para tomar essa decisão com segurança. A análise de mercado identificou tendências e lacunas importantes, enquanto o plano estratégico de marketing nos ajudou a definir nosso posicionamento. O projeto foi além das nossas expectativas.",
-  },
-  {
-    name: "Felipe Rocha",
-    role: "Co-Fundador e CEO",
-    text: "Estávamos nos preparando para captar investimento, mas sabíamos que precisávamos profissionalizar nossa apresentação e embasar melhor nosso plano de crescimento. A Insper Jr. nos ajudou justamente com isso. O material final não só impressionou os investidores, como também nos deu mais clareza interna. Foi um marco na nossa trajetória.",
-  },
-  {
-    name: "André Campos",
-    role: "Ex-CEO e Fundador",
-    text: "Depois de anos empreendendo, decidi vender meu negócio, mas não sabia como definir um valor justo nem como apresentar isso para o mercado. A Insper Jr. foi essencial nesse processo. O trabalho foi técnico, profissional e realmente fez a diferença no desfecho da venda.",
-  },
-];
 
 const TESTIMONIAL_DURATION = 8000;
 
@@ -97,6 +75,9 @@ const FLING_DECAY_RATE = 1.6;
 const FLING_SETTLE_THRESHOLD = 0.4;
 
 const PartnersRows = () => {
+  const { t } = useTranslation();
+  const TESTIMONIALS = t("home.partnersRows.testimonials", { returnObjects: true }) as Testimonial[];
+
   const [angle, setAngle] = useState(0);
   const [tilt, setTilt] = useState(INITIAL_TILT);
   const [isDragging, setIsDragging] = useState(false);
@@ -437,8 +418,8 @@ const PartnersRows = () => {
       <Layout>
       <LeftCol>
         <TitleBlock>
-          <Label>PARCEIROS</Label>
-          <Title>Nossos Parceiros</Title>
+          <Label>{t("home.partnersRows.label")}</Label>
+          <Title>{t("home.partnersRows.title")}</Title>
           <RedLine />
         </TitleBlock>
         <Stage>
@@ -533,8 +514,8 @@ const PartnersRows = () => {
 
       <TestimonialPane>
         <TestimonialTitleBlock>
-          <TestimonialLabel>DEPOIMENTOS</TestimonialLabel>
-          <TestimonialTitle>O que eles dizem</TestimonialTitle>
+          <TestimonialLabel>{t("home.partnersRows.testimonialsLabel")}</TestimonialLabel>
+          <TestimonialTitle>{t("home.partnersRows.testimonialsTitle")}</TestimonialTitle>
           <TestimonialRedLine />
         </TestimonialTitleBlock>
 

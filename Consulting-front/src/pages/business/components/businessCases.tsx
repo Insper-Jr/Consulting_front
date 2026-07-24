@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
+import { useTranslation } from "react-i18next";
+import type { TFunction } from "i18next";
 
 const RED        = "#A10F23";
 const RED_CTA    = "#C02121";
@@ -20,135 +22,52 @@ type Scope = {
   num: string;
   tab: string;
   caseSlug: string;
-  caseTitle: React.ReactNode;
-  caseLede: React.ReactNode;
-  detail: React.ReactNode;
+  caseTitle: string;
+  caseLede: string;
+  detail: string;
   bullets: string[];
   pattern: "grid" | "radial" | "diagonal" | "dots";
 };
 
-const SCOPES: Scope[] = [
+const getScopes = (t: TFunction): Scope[] => [
   {
     num: "01",
-    tab: "Análise Mercadológica",
+    tab: t("business.cases.items.expansaoMercado.tab"),
     caseSlug: "expansao-mercado",
-    caseTitle: <>Expansão para <i>Novo Mercado</i></>,
-    caseLede: (
-      <>
-        Empresa do setor de saúde buscava crescimento em segmento inexplorado —
-        sem visibilidade sobre o tamanho do mercado, os concorrentes ou o perfil
-        do cliente ideal. O risco de entrar errado era alto.
-      </>
-    ),
-    detail: (
-      <>
-        Conduzimos um estudo de mercado completo, combinando{" "}
-        <strong>pesquisa primária com consumidores</strong> e análise de dados
-        secundários. Dimensionamos o TAM/SAM/SOM do segmento, mapeamos os principais
-        players e identificamos lacunas estratégicas não atendidas. O resultado foi
-        um <strong>relatório de viabilidade com três cenários de entrada</strong> e uma
-        recomendação clara com critérios de decisão.
-      </>
-    ),
-    bullets: [
-      "Dimensionamento de TAM / SAM / SOM",
-      "Benchmarking de concorrentes e posicionamento",
-      "Pesquisa com consumidores (qualitativa + quantitativa)",
-      "Relatório de viabilidade com cenários de entrada",
-      "Identificação de oportunidades e riscos estratégicos",
-    ],
+    caseTitle: t("business.cases.items.expansaoMercado.caseTitle"),
+    caseLede: t("business.cases.items.expansaoMercado.caseLede"),
+    detail: t("business.cases.items.expansaoMercado.detail"),
+    bullets: t("business.cases.items.expansaoMercado.bullets", { returnObjects: true }) as string[],
     pattern: "grid",
   },
   {
     num: "02",
-    tab: "Estratégia de Marketing",
+    tab: t("business.cases.items.goToMarket.tab"),
     caseSlug: "go-to-market",
-    caseTitle: <>Go-to-Market para <i>Lançamento</i></>,
-    caseLede: (
-      <>
-        Startup de healthtech precisava posicionar seu produto em mercado competitivo
-        — sem budget para erro e sem clareza sobre quem era realmente o cliente
-        prioritário. Uma entrada errada significaria meses perdidos.
-      </>
-    ),
-    detail: (
-      <>
-        Definimos as personas de maior potencial, construímos o{" "}
-        <strong>posicionamento e a proposta de valor</strong> da marca e estruturamos
-        o plano de canais com estimativas de CPL. Criamos o{" "}
-        <strong>calendário editorial e as diretrizes de comunicação</strong> para
-        os primeiros 90 dias de lançamento, com métricas de acompanhamento e
-        critérios para ajuste de rota.
-      </>
-    ),
-    bullets: [
-      "Definição de personas e ICP (Ideal Customer Profile)",
-      "Posicionamento e proposta de valor",
-      "Plano de canais e alocação de verba",
-      "Calendário editorial dos primeiros 90 dias",
-      "Projeção de métricas de aquisição (CPL, CAC)",
-    ],
+    caseTitle: t("business.cases.items.goToMarket.caseTitle"),
+    caseLede: t("business.cases.items.goToMarket.caseLede"),
+    detail: t("business.cases.items.goToMarket.detail"),
+    bullets: t("business.cases.items.goToMarket.bullets", { returnObjects: true }) as string[],
     pattern: "radial",
   },
   {
     num: "03",
-    tab: "Planejamento Financeiro",
+    tab: t("business.cases.items.estruturaFinanceira.tab"),
     caseSlug: "estrutura-financeira",
-    caseTitle: <>Estrutura Financeira <i>para Captação</i></>,
-    caseLede: (
-      <>
-        Startup em crescimento acelerado com faturamento em alta — mas sem DRE
-        organizado, queima de caixa mal dimensionada e sem modelagem para apresentar
-        a investidores com credibilidade.
-      </>
-    ),
-    detail: (
-      <>
-        Reestruturamos o DRE, mapeamos a queima de caixa real mês a mês e
-        construímos um <strong>modelo de projeção financeira para 18 meses</strong>.
-        Calculamos os unit economics (LTV, CAC, payback) e preparamos a{" "}
-        <strong>tese financeira completa</strong> para a próxima rodada de captação,
-        com análise de sensibilidade por cenário de crescimento.
-      </>
-    ),
-    bullets: [
-      "Estruturação de DRE e balanço patrimonial",
-      "Projeção de fluxo de caixa (18 meses)",
-      "Modelagem financeira para captação",
-      "Cálculo de unit economics (LTV, CAC, Payback)",
-      "Análise de burn rate e runway",
-    ],
+    caseTitle: t("business.cases.items.estruturaFinanceira.caseTitle"),
+    caseLede: t("business.cases.items.estruturaFinanceira.caseLede"),
+    detail: t("business.cases.items.estruturaFinanceira.detail"),
+    bullets: t("business.cases.items.estruturaFinanceira.bullets", { returnObjects: true }) as string[],
     pattern: "diagonal",
   },
   {
     num: "04",
-    tab: "Plano Operacional",
+    tab: t("business.cases.items.operacaoParaEscalar.tab"),
     caseSlug: "operacao-para-escalar",
-    caseTitle: <>Operação Pronta <i>para Escalar</i></>,
-    caseLede: (
-      <>
-        Empresa com crescimento acelerado mas operação inteiramente manual — processos
-        sem documentação, gargalos não mapeados e time sobrecarregado com tarefas
-        repetitivas que consumiam tempo sem gerar valor.
-      </>
-    ),
-    detail: (
-      <>
-        Mapeamos os fluxos internos, identificamos os gargalos de maior impacto e
-        priorizamos melhorias por esforço vs. retorno. Criamos{" "}
-        <strong>playbooks operacionais detalhados</strong> para os processos críticos
-        e um plano de implementação com responsáveis, prazos e{" "}
-        <strong>métricas de acompanhamento</strong>. A operação saiu do caos para
-        uma estrutura replicável.
-      </>
-    ),
-    bullets: [
-      "Mapeamento de processos internos (AS-IS)",
-      "Identificação e priorização de gargalos",
-      "Proposta de melhoria (TO-BE) com quick wins",
-      "Playbooks e SOPs para o time",
-      "Plano de implementação com KPIs de acompanhamento",
-    ],
+    caseTitle: t("business.cases.items.operacaoParaEscalar.caseTitle"),
+    caseLede: t("business.cases.items.operacaoParaEscalar.caseLede"),
+    detail: t("business.cases.items.operacaoParaEscalar.detail"),
+    bullets: t("business.cases.items.operacaoParaEscalar.bullets", { returnObjects: true }) as string[],
     pattern: "dots",
   },
 ];
@@ -552,6 +471,8 @@ const CaseCardCTA = styled.span`
 /* ── Component ── */
 
 export default function BusinessCases() {
+  const { t } = useTranslation();
+  const SCOPES = getScopes(t);
   return (
     <>
       {SCOPES.map(s => (
@@ -570,18 +491,18 @@ export default function BusinessCases() {
                 <ScopeGrid>
                   <ScopeMain>
                     <ScopeIntro>
-                      <ScopeTitleH3>{s.caseTitle}</ScopeTitleH3>
+                      <ScopeTitleH3 dangerouslySetInnerHTML={{ __html: s.caseTitle }} />
                       <ScopeAccent />
                       <ScopeLede>{s.caseLede}</ScopeLede>
                     </ScopeIntro>
 
                     <PanelBody>
                       <PanelCol>
-                        <ColLabel>Como atuamos</ColLabel>
-                        <ScopeDetail>{s.detail}</ScopeDetail>
+                        <ColLabel>{t("business.cases.labels.howWeWork")}</ColLabel>
+                        <ScopeDetail dangerouslySetInnerHTML={{ __html: s.detail }} />
                       </PanelCol>
                       <PanelCol>
-                        <ColLabel>O que entregamos</ColLabel>
+                        <ColLabel>{t("business.cases.labels.whatWeDeliver")}</ColLabel>
                         <Bullets>
                           {s.bullets.map((b, i) => <li key={i}>{b}</li>)}
                         </Bullets>
@@ -593,13 +514,13 @@ export default function BusinessCases() {
                     <CaseCardHeader>
                       {PATTERN_SVG[s.pattern]}
                       <CaseCardNum>{s.num}</CaseCardNum>
-                      <ComingSoonBadge>Em breve</ComingSoonBadge>
+                      <ComingSoonBadge>{t("business.cases.labels.comingSoon")}</ComingSoonBadge>
                     </CaseCardHeader>
                     <CaseCardBody>
-                      <CaseCardScope>Escopo · {s.tab}</CaseCardScope>
-                      <CaseCardTitle>{s.caseTitle}</CaseCardTitle>
+                      <CaseCardScope>{t("business.cases.labels.scopePrefix")} · {s.tab}</CaseCardScope>
+                      <CaseCardTitle dangerouslySetInnerHTML={{ __html: s.caseTitle }} />
                       <CaseCardCTA>
-                        Ver case completo
+                        {t("business.cases.labels.viewFullCase")}
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                           <line x1="5" y1="12" x2="19" y2="12"/>
                           <polyline points="12 5 19 12 12 19"/>

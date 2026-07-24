@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import { useTranslation, Trans } from "react-i18next";
+import type { TFunction } from "i18next";
 
 import slideProblema   from "../../../assets/gamificacao/slides/01-problema.png";
 import slideSolucao    from "../../../assets/gamificacao/slides/02-solucao.png";
@@ -31,12 +33,14 @@ const FONT_BODY  = `"Inter", Helvetica, sans-serif`;
 const FONT_MONO  = `ui-monospace, "SF Mono", Menlo, monospace`;
 
 // ── Slide deck data ─────────────────────────────────────────────────────────
-const SLIDES = [
-  { id: "problema",   img: slideProblema,   alt: "Baixa Produtividade e Falta de Engajamento em Obras", cap: "01 · Problema" },
-  { id: "solucao",    img: slideSolucao,    alt: "Aumento da Produtividade Através de Gamificação",     cap: "02 · Solução" },
-  { id: "plataforma", img: slidePlataforma, alt: "Nossa Solução: Plataforma de Gamificação Para Obras", cap: "03 · Plataforma" },
-];
-const TOTAL_SLIDES = SLIDES.length;
+function buildSlides(t: TFunction) {
+  return [
+    { id: "problema",   img: slideProblema,   alt: t("tech.cases.gamificacao.slides.problema.alt"),   cap: t("tech.cases.gamificacao.slides.problema.cap") },
+    { id: "solucao",    img: slideSolucao,    alt: t("tech.cases.gamificacao.slides.solucao.alt"),    cap: t("tech.cases.gamificacao.slides.solucao.cap") },
+    { id: "plataforma", img: slidePlataforma, alt: t("tech.cases.gamificacao.slides.plataforma.alt"), cap: t("tech.cases.gamificacao.slides.plataforma.cap") },
+  ];
+}
+const TOTAL_SLIDES = 3;
 
 // ── Shots data (painel do gestor — 10 telas) ───────────────────────────────
 // Blurs sobre o slide "Gestão de Obras" (4 cards: 3 no topo + 1 abaixo).
@@ -242,24 +246,42 @@ const TOP20_BLURS: Array<{ top: string; left: string; width?: string; height?: s
   { top: "80.93%", left: "66.52%", width: "6.94%", height: "1.40%" }, // 18 — Luis Chaves Freitas
 ];
 
-const SHOTS = [
-  { id: "visao",        label: "Visão",      bar: "painel-do-gestor · visao-geral",         img: painel01Visao,        alt: "Painel do Gestor — Visão Consolidada",            capH: "Visão consolidada",      capT: "todas as obras em um só lugar" },
-  { id: "acomp",        label: "Acomp.",     bar: "painel-do-gestor · acompanhamento",      img: painel02Acomp,        alt: "Painel do Gestor — Acompanhamento de Obras",      capH: "Acompanhamento",         capT: "status, progresso e alertas" },
-  { id: "gestao",       label: "Obras",      bar: "painel-do-gestor · gestao-obras",        img: painel03Gestao,       alt: "Painel do Gestor — Gestão de Obras",              capH: "Gestão de obras",        capT: "crie, organize e monitore" },
-  { id: "equipes",      label: "Equipes",    bar: "painel-do-gestor · gestao-equipes",      img: painel04Equipes,      alt: "Painel do Gestor — Gestão de Equipes",            capH: "Gestão de equipes",      capT: "monte e gerencia times" },
-  { id: "funcionarios", label: "Func.",      bar: "painel-do-gestor · gestao-funcionarios", img: painel05Funcionarios, alt: "Painel do Gestor — Gestão de Funcionários",       capH: "Gestão de funcionários", capT: "lista por cargo e matrícula" },
-  { id: "validacoes",   label: "Validações", bar: "painel-do-gestor · validacoes",          img: painel06Validacoes,   alt: "Painel do Gestor — Validação de Tarefas",         capH: "Validação de tarefas",   capT: "aprovações antes de pontuar" },
-  { id: "cargos",       label: "Cargos",     bar: "painel-do-gestor · gestao-cargos",       img: painel07Cargos,       alt: "Painel do Gestor — Gestão de Cargos",             capH: "Gestão de cargos",       capT: "funcionários por categoria" },
-  { id: "dash1",        label: "Dashboard",  bar: "painel-do-gestor · dashboard-obra",      img: painel08Dashboard,    alt: "Painel do Gestor — Dashboard de Desempenho",      capH: "Dashboard de desempenho",capT: "avanço, presença, pontuação" },
-  { id: "dash2",        label: "Ranking",    bar: "painel-do-gestor · dashboard-ranking",   img: painel09Dashboard2,   alt: "Painel do Gestor — Ranking e Alertas",            capH: "Ranking e alertas",      capT: "equipes, pontuação e atrasos" },
-  { id: "operario",     label: "Operário",   bar: "painel-gamificado · selecione-obra",     img: painel10Operario,     alt: "Visão do Operário — Seleção de Obra (8-bit)",     capH: "Visão do operário",      capT: "interface gamificada 8-bit" },
-  { id: "ranking_op",   label: "Ranking",    bar: "painel-gamificado · ranking-equipes",    img: painel11Ranking,      alt: "Visão do Operário — Ranking de Equipes (8-bit)",  capH: "Ranking de equipes",     capT: "competição em tempo real" },
-  { id: "top20",        label: "Top 20",     bar: "painel-gamificado · top-20-funcionarios",img: painel12Top20,        alt: "Visão do Operário — Top 20 Funcionários (8-bit)", capH: "Top 20 funcionários",    capT: "pódio e ranking individual" },
-];
-const TOTAL_SHOTS = SHOTS.length;
+function buildShots(t: TFunction) {
+  const ids = [
+    "visao", "acomp", "gestao", "equipes", "funcionarios", "validacoes",
+    "cargos", "dash1", "dash2", "operario", "ranking_op", "top20",
+  ] as const;
+  const imgs: Record<(typeof ids)[number], string> = {
+    visao: painel01Visao,
+    acomp: painel02Acomp,
+    gestao: painel03Gestao,
+    equipes: painel04Equipes,
+    funcionarios: painel05Funcionarios,
+    validacoes: painel06Validacoes,
+    cargos: painel07Cargos,
+    dash1: painel08Dashboard,
+    dash2: painel09Dashboard2,
+    operario: painel10Operario,
+    ranking_op: painel11Ranking,
+    top20: painel12Top20,
+  };
+  return ids.map((id) => ({
+    id,
+    label: t(`tech.cases.gamificacao.shots.${id}.label`),
+    bar: t(`tech.cases.gamificacao.shots.${id}.bar`),
+    img: imgs[id],
+    alt: t(`tech.cases.gamificacao.shots.${id}.alt`),
+    capH: t(`tech.cases.gamificacao.shots.${id}.capH`),
+    capT: t(`tech.cases.gamificacao.shots.${id}.capT`),
+  }));
+}
+const TOTAL_SHOTS = 12;
 
 // ── Component ──────────────────────────────────────────────────────────────
 export default function GamifCase() {
+  const { t } = useTranslation();
+  const SLIDES = buildSlides(t);
+  const SHOTS = buildShots(t);
   const [idx, setIdx] = useState(0);
   const [sIdx, setSIdx] = useState(0);
   const deckRef = useRef<HTMLElement>(null);
@@ -314,42 +336,41 @@ export default function GamifCase() {
     <CaseSection id="case-gamificacao">
       <CaseInner>
         <CaseCounter>
-          <CaseBadge>CASE EM DESTAQUE</CaseBadge>
-          <CaseBigName>Gamificação<Dot>.</Dot></CaseBigName>
+          <CaseBadge>{t("tech.cases.common.badge")}</CaseBadge>
+          <CaseBigName>{t("tech.cases.gamificacao.name")}<Dot>.</Dot></CaseBigName>
         </CaseCounter>
 
         <CaseSub>
-          Para mostrar como entregamos <strong>plataformas digitais completas</strong> dentro do escopo de <strong>Desenvolvimento Web</strong>: o projeto <strong>Gamificação</strong> — uma plataforma fullstack que centraliza toda a operação de uma empresa de construção civil em um único lugar e, no mesmo sistema, engaja a equipe de campo com pontos, ranking e KPIs de segurança.
+          <Trans i18nKey="tech.cases.gamificacao.sub" components={{ strong: <strong /> }} />
         </CaseSub>
 
         <CaseSplit>
           <CaseText>
-            <CtEye>O projeto</CtEye>
-            <CtH>Por que Gamificação?</CtH>
+            <CtEye>{t("tech.cases.common.project")}</CtEye>
+            <CtH>{t("tech.cases.gamificacao.why")}</CtH>
             <CtP>
-              O cliente, do setor de <strong>construção civil</strong>, tinha sua operação espalhada — obras, validações, cargos e usuários em planilhas e sistemas paralelos — e dificuldade em <strong>engajar a equipe de campo</strong> (pedreiros, eletricistas, bombeiros e carpinteiros) no dia a dia da obra.
+              <Trans i18nKey="tech.cases.gamificacao.p1" components={{ strong: <strong /> }} />
             </CtP>
 
-            <CtSub>Como foi feito</CtSub>
+            <CtSub>{t("tech.cases.common.howMade")}</CtSub>
             <CtP>
-              Construímos uma <strong>plataforma fullstack</strong> com dois lados conectados: um <strong>painel corporativo</strong> para a gestão (visão geral, obras, validações, dashboards) e um <strong>painel gamificado</strong> em estética 8-bit para o operário — com ranking de equipes, top funcionários e quadro de pontos.
+              <Trans i18nKey="tech.cases.gamificacao.p2" components={{ strong: <strong /> }} />
             </CtP>
             <CtP>
-              Stack <strong>React + Vite</strong> no front, <strong>FastAPI</strong> no back com migrações <strong>Alembic</strong>, e <strong>Supabase</strong> como base — Postgres com <strong>triggers</strong> e funções internas para automatizar pontuação, validações e cálculo de progresso em tempo real.
+              <Trans i18nKey="tech.cases.gamificacao.p3" components={{ strong: <strong /> }} />
             </CtP>
 
-            <CtSub>Estratégia</CtSub>
+            <CtSub>{t("tech.cases.common.strategy")}</CtSub>
             <CtList>
-              <li><strong>Operação centralizada</strong> — obras, pacotes, blocos e atividades em um único lugar, com progresso real por obra.</li>
-              <li><strong>Engajamento por gamificação</strong> — pontos por atividade concluída, ranking de equipes e top de funcionários atualizado em tempo real.</li>
-              <li><strong>Triggers no banco</strong> — atribuição de pontos, cálculo de progresso e validações disparadas direto pelo Postgres.</li>
-              <li><strong>Dois mundos, uma base</strong> — gestão e campo enxergam a mesma fonte de verdade, em UIs desenhadas para cada contexto.</li>
+              {(t("tech.cases.gamificacao.list", { returnObjects: true }) as string[]).map((_item, i) => (
+                <li key={i}><Trans i18nKey={`tech.cases.gamificacao.list.${i}`} components={{ strong: <strong /> }} /></li>
+              ))}
             </CtList>
 
-            <CtFinal>Uma plataforma · dois públicos · operação e engajamento no mesmo lugar.</CtFinal>
+            <CtFinal>{t("tech.cases.gamificacao.final")}</CtFinal>
           </CaseText>
 
-          <CaseDeck ref={deckRef} aria-label="Apresentação do projeto Gamificação">
+          <CaseDeck ref={deckRef} aria-label={t("tech.cases.gamificacao.deckAriaLabel")}>
             <CdFrame>
               <CdStack>
                 {SLIDES.map((s, i) => (
@@ -362,18 +383,18 @@ export default function GamifCase() {
             </CdFrame>
 
             <CdControls>
-              <CdBtn onClick={goPrev} disabled={idx === 0} aria-label="Anterior">←</CdBtn>
+              <CdBtn onClick={goPrev} disabled={idx === 0} aria-label={t("tech.cases.common.prev")}>←</CdBtn>
               <CdProgress>
                 <CdFill style={{ width: `${((idx + 1) / TOTAL_SLIDES) * 100}%` }} />
               </CdProgress>
               <CdCounter>{pad(idx + 1)} / {pad(TOTAL_SLIDES)}</CdCounter>
-              <CdBtn onClick={goNext} disabled={idx === TOTAL_SLIDES - 1} aria-label="Próximo">→</CdBtn>
+              <CdBtn onClick={goNext} disabled={idx === TOTAL_SLIDES - 1} aria-label={t("tech.cases.common.next")}>→</CdBtn>
             </CdControls>
 
             {/* Mini deck · telas reais */}
-            <ShotsMini ref={shotsRef} aria-label="Telas reais da plataforma Gamificação">
+            <ShotsMini ref={shotsRef} aria-label={t("tech.cases.gamificacao.shotsAriaLabel")}>
               <ShotsMiniHead>
-                <ShotsMiniH>Como aparece <em>no canteiro.</em></ShotsMiniH>
+                <ShotsMiniH><Trans i18nKey="tech.cases.gamificacao.shotsHeading" components={{ em: <em /> }} /></ShotsMiniH>
               </ShotsMiniHead>
               <ShotsMiniFrame>
                 <ShotsMiniStack>
@@ -447,21 +468,21 @@ export default function GamifCase() {
                 </ShotsMiniStack>
               </ShotsMiniFrame>
               <ShotsMiniControls>
-                <CdBtn onClick={sPrev} disabled={sIdx === 0} aria-label="Anterior">←</CdBtn>
+                <CdBtn onClick={sPrev} disabled={sIdx === 0} aria-label={t("tech.cases.common.prev")}>←</CdBtn>
                 <ShotsMiniDots>
                   {SHOTS.map((s, i) => (
                     <ShotsMiniDot
                       key={s.id}
                       $active={sIdx === i}
                       onClick={() => setSIdx(i)}
-                      aria-label={`Tela ${i + 1}`}
+                      aria-label={t("tech.cases.common.screenAriaLabel", { n: i + 1 })}
                     >
                       {s.label}
                     </ShotsMiniDot>
                   ))}
                 </ShotsMiniDots>
                 <CdCounter>{pad(sIdx + 1)} / {pad(TOTAL_SHOTS)}</CdCounter>
-                <CdBtn onClick={sNext} disabled={sIdx === TOTAL_SHOTS - 1} aria-label="Próximo">→</CdBtn>
+                <CdBtn onClick={sNext} disabled={sIdx === TOTAL_SHOTS - 1} aria-label={t("tech.cases.common.next")}>→</CdBtn>
               </ShotsMiniControls>
             </ShotsMini>
           </CaseDeck>

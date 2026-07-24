@@ -1,19 +1,20 @@
 import styled from "styled-components";
 import backgroundImage from "@/assets/protection/protection-background.png";
 import DiagnosticForm from "@/components/forms";
+import { useTranslation } from "react-i18next";
 
 
 const Hero = () => {
+  const { t } = useTranslation();
+
   return (
     <HeroSection>
       <Content>
-        <Title>Proteção e Regularização</Title>
+        <Title>{t("protection.hero.title")}</Title>
         <Description>
-        Protegemos juridicamente ativos intangíveis como textos, vídeos e imagens, por meio do registro de direitos autorais e da garantia dos direitos do autor. Também atuamos na adequação à LGPD, mapeando fluxos de dados, identificando riscos e estruturando políticas de conformidade.
+          {t("protection.hero.description")}
         </Description>
-        <CallToAction>
-          Quer proteger seus ativos e garantir conformidade com a legislação? Solicite um diagnóstico gratuito e descubra como podemos apoiar juridicamente o crescimento do seu negócio.
-        </CallToAction>
+        <CallToAction dangerouslySetInnerHTML={{ __html: t("protection.hero.cta") }} />
       </Content>
       <DiagnosticForm/>
     </HeroSection>

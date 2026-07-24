@@ -1,5 +1,6 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Fragment } from "react";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 
 const FONT = `'Inter', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif`;
 const MONO = `'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace`;
@@ -38,46 +39,23 @@ const IconRede = () => (
   </svg>
 );
 
-const TABS = [
-  {
-    num: "01",
-    title: "Projetos com clientes reais",
-    category: "Experiência",
-    Icon: IconProjetos,
-    description: "Desde o primeiro dia, você está dentro de um projeto real — com cliente, prazo e entrega que importam de verdade. Sem simulação. Sem case fictício. Só trabalho de verdade.",
-    bullets: [
-      "4 frentes de atuação em consultoria",
-      "Entrega com impacto mensurável no cliente",
-      "Experiência de mercado ainda na faculdade",
-    ],
-  },
-  {
-    num: "02",
-    title: "Capacitação contínua",
-    category: "Formação",
-    Icon: IconCapacitacao,
-    description: "Mais de 50 aulas por ano em estratégia, finanças, dados e gestão — mais um trainee de 3 meses com mentoria de quem já passou por isso. Você cresce enquanto entrega.",
-    bullets: [
-      "50+ aulas de capacitação por ano",
-      "3 meses de programa trainee estruturado",
-      "Mentoria com profissionais de mercado",
-    ],
-  },
-  {
-    num: "03",
-    title: "Rede no ecossistema Insper",
-    category: "Networking",
-    Icon: IconRede,
-    description: "Entrar na Insper Jr é entrar numa rede que levaria anos para construir sozinho. Alumni nas maiores empresas do país, professores engajados e ex-membros que abrem portas.",
-    bullets: [
-      "Alumni nas maiores empresas do Brasil",
-      "Acesso direto a professores e mentores",
-      "Comunidade ativa de ex-membros",
-    ],
-  },
+const TAB_META = [
+  { num: "01", Icon: IconProjetos },
+  { num: "02", Icon: IconCapacitacao },
+  { num: "03", Icon: IconRede },
 ];
 
+type TabT = { title: string; category: string; description: string; bullets: string[] };
+
 const Benefits = () => {
+  const { t } = useTranslation();
+  const TABS = (t("join.benefits.tabs", { returnObjects: true }) as TabT[]).map((tab, i) => ({
+    ...tab,
+    num: TAB_META[i].num,
+    Icon: TAB_META[i].Icon,
+  }));
+  const statsT = t("join.benefits.stats", { returnObjects: true }) as { value: string; label: string }[];
+
   const [active, setActive] = useState(0);
   const [fading, setFading] = useState(false);
   const innerRef = useRef<HTMLDivElement>(null);
@@ -107,12 +85,11 @@ const Benefits = () => {
       <Inner ref={innerRef} data-visible={String(visible)}>
         <Head>
           <div className="left">
-            <span className="eyebrow">02 · Por que fazer parte?</span>
-            <h2>Três coisas que você<br />não aprende em sala.</h2>
+            <span className="eyebrow">{t("join.benefits.eyebrow")}</span>
+            <h2>{t("join.benefits.titleLine1")}<br />{t("join.benefits.titleLine2")}</h2>
           </div>
           <p className="lead">
-            A Insper Jr é onde a teoria vira prática antes do diploma. Você sai daqui
-            com portfólio, formação e uma rede que a maioria só constrói anos depois de formado.
+            {t("join.benefits.lead")}
           </p>
         </Head>
 
@@ -146,20 +123,15 @@ const Benefits = () => {
         </TabsWrapper>
 
         <StatsRow>
-          <Stat $idx={0}>
-            <span className="val">50+</span>
-            <span className="lbl">aulas de capacitação por ano</span>
-          </Stat>
-          <StatDivider />
-          <Stat $idx={1}>
-            <span className="val">3 meses</span>
-            <span className="lbl">de programa trainee</span>
-          </Stat>
-          <StatDivider />
-          <Stat $idx={2}>
-            <span className="val">4 frentes</span>
-            <span className="lbl">de atuação em consultoria</span>
-          </Stat>
+          {statsT.map((s, i) => (
+            <Fragment key={s.label}>
+              <Stat $idx={i}>
+                <span className="val">{s.value}</span>
+                <span className="lbl">{s.label}</span>
+              </Stat>
+              {i < statsT.length - 1 && <StatDivider />}
+            </Fragment>
+          ))}
         </StatsRow>
       </Inner>
     </Section>

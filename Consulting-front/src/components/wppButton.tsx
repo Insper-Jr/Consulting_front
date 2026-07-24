@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 import whatsIcon from "../assets/whatsappIcon.png";
 import bg from "../assets/backgrounds/wpp-background.png";
 
@@ -12,6 +13,7 @@ declare global {
 }
 
 const WhatsAppWidget = () => {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({ name: "", message: ""});
 
@@ -21,7 +23,7 @@ const WhatsAppWidget = () => {
 
   const handleStartChat = () => {
     if (!formData.name || !formData.message) {
-      toast.error("Por favor, preencha todos os campos obrigatórios.");
+      toast.error(t("shared.wppButton.requiredFieldsError"));
       return;
     }
     window.dataLayer = window.dataLayer || [];
@@ -32,8 +34,8 @@ const WhatsAppWidget = () => {
       label: "whatsapp_button"
     });
 
-    const message = `Olá, me chamo ${formData.name}.\n Gostaria de saber se vocês podem me ajudar com: ${formData.message}`;
-    
+    const message = t("shared.wppButton.prefilledMessage", { name: formData.name, message: formData.message });
+
     const whatsappURL = `https://api.whatsapp.com/send?phone=5511998983364&text=${encodeURIComponent(message)}`;
     window.open(whatsappURL, "_blank");
     setIsOpen(!isOpen);
@@ -46,23 +48,23 @@ const WhatsAppWidget = () => {
         <FormContainer>
           <FormBody>
             <Greeting>
-              Olá! Interessado em alavancar seu negócio? <br />
-              Mande sua mensagem abaixo que um vendedor entrará em contato para sugerir as melhores soluções!
+              {t("shared.wppButton.greeting.line1")} <br />
+              {t("shared.wppButton.greeting.line2")}
             </Greeting>
             <Input
               name="name"
-              placeholder="Nome *"
+              placeholder={t("shared.wppButton.namePlaceholder")}
               value={formData.name}
               onChange={handleChange}
             />
             <InputMessage
               name="message"
-              placeholder="Como podemos ajudar? *"
+              placeholder={t("shared.wppButton.messagePlaceholder")}
               maxLength={100}
               value={formData.message}
               onChange={handleChange}
             />
-            <SendButton onClick={handleStartChat}>Iniciar conversa</SendButton>
+            <SendButton onClick={handleStartChat}>{t("shared.wppButton.startChatButton")}</SendButton>
           </FormBody>
         </FormContainer>
       )}

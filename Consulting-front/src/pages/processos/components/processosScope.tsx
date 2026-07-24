@@ -1,5 +1,6 @@
 import React, { useRef, useState, useCallback } from "react";
 import styled, { keyframes } from "styled-components";
+import { useTranslation } from "react-i18next";
 import { useInView } from "../../../hooks/useInView";
 import { useParticles } from "../../../hooks/useParticleBackground";
 
@@ -30,107 +31,50 @@ interface Scope {
   icon: React.ReactNode;
 }
 
-const SCOPES: Scope[] = [
-  {
-    title: "Mapeamento e Diagnóstico de Processos",
-    short: "Entendemos e estruturamos seus processos, identificando gargalos, oportunidades de melhoria e organizando fluxos de trabalho para aumentar a eficiência operacional.",
-    full: [
-      "Atuamos na coleta e análise de informações da operação, mapeando fluxos, atividades e interdependências entre etapas produtivas ou administrativas.",
-      "Realizamos o levantamento detalhado das operações por meio de entrevistas, observação e análise de dados, construindo fluxogramas que representam fielmente o funcionamento atual do sistema. Além disso, aplicamos técnicas de diagnóstico para identificar gargalos, retrabalhos e desperdícios, gerando hipóteses iniciais de melhoria.",
-      "Esse processo permite ao cliente ter maior visibilidade sobre sua operação, facilitando o controle, a padronização e a tomada de decisões estratégicas baseadas em dados e não apenas em percepção.",
-    ],
-    expect: [
-      { title: "Visibilidade Operacional",        body: "Clareza sobre como seus processos realmente funcionam, com identificação de gargalos, retrabalhos e ineficiências ocultas." },
-      { title: "Estruturação de Processos",       body: "Organização dos fluxos de trabalho por meio de fluxogramas e padronizações que facilitam a gestão e o controle da operação." },
-      { title: "Base para Decisões Estratégicas", body: "Diagnósticos fundamentados em dados que permitem priorizar melhorias e direcionar esforços com maior assertividade." },
-    ],
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 6h18M3 12h12M3 18h18"/>
-        <circle cx="6" cy="6" r="1.2" fill="currentColor"/>
-        <circle cx="6" cy="12" r="1.2" fill="currentColor"/>
-        <circle cx="6" cy="18" r="1.2" fill="currentColor"/>
-      </svg>
-    ),
-  },
-  {
-    title: "Simulação de Processos",
-    short: "Construímos modelos computacionais da sua operação para simular cenários, testar mudanças e prever impactos antes da implementação.",
-    full: [
-      "A simulação de processos permite analisar sistemas complexos de forma segura e eficiente, sem a necessidade de intervenções diretas na operação real. Neste escopo, desenvolvemos modelos computacionais que representam fielmente o funcionamento do sistema mapeado.",
-      "A partir da coleta e análise de dados, como tempos operacionais (cronoanálise), capacidades e variabilidades, construímos simulações que possibilitam testar diferentes cenários e estratégias. Isso inclui mudanças em recursos, layout, demanda ou fluxo de atividades.",
-      "Com isso, conseguimos identificar gargalos ocultos, prever comportamentos do sistema e avaliar o impacto de decisões antes de sua implementação, reduzindo riscos e aumentando a assertividade das escolhas.",
-    ],
-    expect: [
-      { title: "Teste de Cenários sem Risco",       body: "Avaliação de mudanças na operação sem necessidade de implementação real, reduzindo custos e riscos." },
-      { title: "Identificação de Gargalos Ocultos", body: "Análise aprofundada do comportamento do sistema, revelando limitações que não são visíveis no dia a dia." },
-      { title: "Apoio Quantitativo à Decisão",      body: "Insights baseados em modelos computacionais que aumentam a precisão e segurança na tomada de decisão." },
-    ],
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 12h3l3-7 4 14 3-7h5"/>
-      </svg>
-    ),
-  },
-  {
-    title: "Otimização de Processos e Operações",
-    short: "Analisamos cenários e propomos melhorias para aumentar eficiência, reduzir custos e otimizar o desempenho da sua operação.",
-    full: [
-      "Após o entendimento e a simulação da operação, avançamos para a etapa de otimização, onde transformamos análises em soluções práticas e aplicáveis.",
-      "Nossa equipe avalia diferentes cenários operacionais e propõe melhorias que podem envolver redistribuição de recursos, ajustes de fluxo, mudanças de layout ou redefinição de processos. O foco está sempre em maximizar eficiência, reduzir desperdícios e aumentar a produtividade.",
-      "As recomendações são construídas com base em dados e validadas por meio de simulação, garantindo maior segurança na tomada de decisão. Ao final, entregamos um plano estruturado com sugestões claras e priorizadas, permitindo ao cliente implementar melhorias de forma estratégica e sustentável.",
-    ],
-    expect: [
-      { title: "Aumento da Eficiência Operacional",   body: "Redução de desperdícios, melhor uso de recursos e aumento da produtividade da operação." },
-      { title: "Recomendações Estratégicas Claras",   body: "Propostas estruturadas de melhoria com base em análises e simulações validadas." },
-      { title: "Implementação Orientada a Resultado", body: "Direcionamento prático para execução das melhorias, com foco em impacto real e crescimento sustentável." },
-    ],
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M4 20V10M10 20V4M16 20V14M22 20V8"/>
-        <path d="M2 20h22"/>
-      </svg>
-    ),
-  },
+/* Ícones fixos — o texto de cada escopo vem da tradução (i18n) */
+const SCOPE_ICONS: React.ReactNode[] = [
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M3 6h18M3 12h12M3 18h18"/>
+    <circle cx="6" cy="6" r="1.2" fill="currentColor"/>
+    <circle cx="6" cy="12" r="1.2" fill="currentColor"/>
+    <circle cx="6" cy="18" r="1.2" fill="currentColor"/>
+  </svg>,
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M3 12h3l3-7 4 14 3-7h5"/>
+  </svg>,
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M4 20V10M10 20V4M16 20V14M22 20V8"/>
+    <path d="M2 20h22"/>
+  </svg>,
 ];
 
-/* ─── Outcome Data ───────────────────────────────────── */
-const OUTCOME_ITEMS = [
-  {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/>
-        <path d="M11 8v6M8 11h6" opacity=".4"/>
-      </svg>
-    ),
-    title: "Visibilidade total da operação",
-    body: "Entenda exatamente como cada etapa do seu processo funciona, quanto tempo leva e onde a performance se perde — com dados coletados diretamente na sua operação.",
-  },
-  {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7" opacity=".5"/>
-        <circle cx="9" cy="11" r="1.4" fill="currentColor"/>
-        <circle cx="13" cy="15" r="1.4" fill="currentColor"/>
-      </svg>
-    ),
-    title: "Gargalos identificados com precisão",
-    body: "Com um modelo computacional da sua operação, os pontos de estrangulamento deixam de ser suposições e passam a ser evidências mensuráveis e rastreáveis.",
-  },
-  {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M4 21V9M10 21V4M16 21V13M22 21V7"/>
-        <path d="M3 21h20" opacity=".5"/>
-      </svg>
-    ),
-    title: "Decisão embasada em cenários",
-    body: "Simulamos múltiplas alternativas de melhoria antes de qualquer mudança real, entregando a você a melhor opção com respaldo técnico e quantitativo.",
-  },
+/* Ícones fixos dos resultados — o texto vem da tradução (i18n) */
+const OUTCOME_ICONS: React.ReactNode[] = [
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/>
+    <path d="M11 8v6M8 11h6" opacity=".4"/>
+  </svg>,
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7" opacity=".5"/>
+    <circle cx="9" cy="11" r="1.4" fill="currentColor"/>
+    <circle cx="13" cy="15" r="1.4" fill="currentColor"/>
+  </svg>,
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M4 21V9M10 21V4M16 21V13M22 21V7"/>
+    <path d="M3 21h20" opacity=".5"/>
+  </svg>,
 ];
 
 /* ─── Component ──────────────────────────────────────── */
 export default function ProcessosScope() {
+  const { t } = useTranslation();
+
+  const scopeItems = t("processos.scope.items", { returnObjects: true }) as Omit<Scope, "icon">[];
+  const SCOPES: Scope[] = scopeItems.map((item, i) => ({ ...item, icon: SCOPE_ICONS[i] }));
+
+  const outcomeItems = t("processos.scope.outcomeItems", { returnObjects: true }) as { title: string; body: string }[];
+  const OUTCOME_ITEMS = outcomeItems.map((item, i) => ({ ...item, icon: OUTCOME_ICONS[i] }));
+
   const [active,   setActive]   = useState<number | null>(null);
   const [panelVis, setPanelVis] = useState(false);
 
@@ -179,12 +123,11 @@ export default function ProcessosScope() {
       <ScopeSection>
         <Inner>
           <ScopeHeader ref={hRef} $v={hV}>
-            <Eyebrow>Nossos escopos</Eyebrow>
-            <H2>O que podemos fazer pela sua <i>operação</i></H2>
+            <Eyebrow>{t("processos.scope.eyebrowScopes")}</Eyebrow>
+            <H2>{t("processos.scope.headingPre")} <i>{t("processos.scope.headingItalic")}</i></H2>
             <HDivider $v={hV} />
             <Lead>
-              Três escopos complementares que cobrem desde o entendimento inicial
-              dos seus processos até a recomendação de melhorias validadas por simulação.
+              {t("processos.scope.leadScopes")}
             </Lead>
           </ScopeHeader>
 
@@ -208,7 +151,7 @@ export default function ProcessosScope() {
                     <StageTitle>{s.title}</StageTitle>
                     <StageText>{s.short}</StageText>
                     <VerMais $active={isActive} onClick={() => toggle(i)}>
-                      {isActive ? "Fechar" : "Ver mais"}
+                      {isActive ? t("processos.scope.close") : t("processos.scope.seeMore")}
                       <PlusIcon />
                     </VerMais>
                   </StageBody>
@@ -242,11 +185,11 @@ export default function ProcessosScope() {
                   {cur.full.map((p, i) => <p key={i}>{p}</p>)}
                 </PanelBody>
                 <PanelClose onClick={() => setActive(null)}>
-                  <ChevUp /> Fechar detalhes
+                  <ChevUp /> {t("processos.scope.closeDetails")}
                 </PanelClose>
               </div>
               <div>
-                <ExpectLabel>O que esperar do projeto</ExpectLabel>
+                <ExpectLabel>{t("processos.scope.expectLabel")}</ExpectLabel>
                 <ExpectList>
                   {cur.expect.map((e, i) => (
                     <ExpectItem key={e.title}>
@@ -265,14 +208,13 @@ export default function ProcessosScope() {
 
         <OutcomeInner>
           <OutcomeHeader ref={ohRef} $v={ohV}>
-            <Eyebrow>O que você ganha</Eyebrow>
+            <Eyebrow>{t("processos.scope.eyebrowOutcome")}</Eyebrow>
             <H2 style={{ color: CREAM }}>
-              Resultados <i>concretos</i>,<br />não relatórios genéricos
+              {t("processos.scope.outcomeHeadingPre")} <i>{t("processos.scope.outcomeHeadingItalic")}</i>,<br />{t("processos.scope.outcomeHeadingSuffix")}
             </H2>
             <HDivider $v={ohV} />
             <Lead style={{ color: "rgba(250,242,234,.45)" }}>
-              Cada projeto entrega insights acionáveis, com evidências quantitativas
-              que suportam as decisões da sua gestão.
+              {t("processos.scope.outcomeLead")}
             </Lead>
           </OutcomeHeader>
 

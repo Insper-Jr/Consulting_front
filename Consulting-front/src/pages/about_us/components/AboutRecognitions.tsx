@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { keyframes, css } from "styled-components";
+import { useTranslation } from "react-i18next";
 import BrasilJunior from "../../../assets/awards/brasil_junior.png";
 import Falconi      from "../../../assets/awards/falconi.png";
 import Fejesp       from "../../../assets/awards/fejesp.png";
@@ -14,28 +15,9 @@ const FONT_TITLE = `'Montserrat', Helvetica, sans-serif`;
 const FONT_BODY  = `'Inter', Helvetica, sans-serif`;
 const SPRING     = "cubic-bezier(0.16,1,0.3,1)";
 
-const RECOGNITIONS = [
-  {
-    logo: BrasilJunior,
-    name: "Brasil Júnior",
-    description: "Confederação nacional do Movimento Empresa Júnior, que certifica empresas de alto impacto em todo o Brasil.",
-  },
-  {
-    logo: Falconi,
-    name: "Falconi",
-    description: "Prêmio concedido a organizações que demonstram excelência em gestão e comprometimento com resultados.",
-  },
-  {
-    logo: Fejesp,
-    name: "FEJESP",
-    description: "Federação das Empresas Juniores do Estado de São Paulo, que fomenta padrões de qualidade e representa o MEJ paulista.",
-  },
-  {
-    logo: Enej,
-    name: "ENEJ",
-    description: "Encontro Nacional de Empresas Juniores, maior evento do MEJ no Brasil, onde participamos e nos destacamos.",
-  },
-];
+const LOGOS = [BrasilJunior, Falconi, Fejesp, Enej];
+
+type Recognition = { name: string; description: string };
 
 const fadeUp = keyframes`
   from { opacity: 0; transform: translateY(16px); }
@@ -185,6 +167,10 @@ const CardText = styled.p`
 `;
 
 export default function AboutRecognitions() {
+  const { t } = useTranslation();
+  const RECOGNITIONS = (t("about.recognitions.items", { returnObjects: true }) as Recognition[])
+    .map((r, i) => ({ ...r, logo: LOGOS[i] }));
+
   const { ref: headerRef, visible: headerVisible } = useInView();
   const { ref: gridRef,   visible: gridVisible   } = useInView();
 
@@ -192,8 +178,8 @@ export default function AboutRecognitions() {
     <Section>
       <Inner>
         <Header ref={headerRef} $visible={headerVisible}>
-          <Eyebrow>Credibilidade</Eyebrow>
-          <Title>Reconhecimentos que importam</Title>
+          <Eyebrow>{t("about.recognitions.eyebrow")}</Eyebrow>
+          <Title>{t("about.recognitions.title")}</Title>
           <Divider />
         </Header>
 

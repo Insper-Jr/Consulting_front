@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import styled, { keyframes } from "styled-components";
+import { useTranslation } from "react-i18next";
 
 const FONT = `'Inter', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif`;
 
@@ -39,16 +40,18 @@ const IconInconformismo = () => (
   </svg>
 );
 
-const VALORES = [
-  { title: "Inconformismo",   desc: 'Nunca aceitamos o "está bom assim". Existe sempre uma forma melhor de fazer, e ela é nossa responsabilidade.', Icon: IconInconformismo },
-  { title: "Excelência",      desc: "Entregamos com rigor e profundidade. Qualidade não é o que mostramos: é o padrão silencioso por trás de cada decisão.", Icon: IconExcelencia },
-  { title: "Colaboração",     desc: "Crescemos juntos. O resultado individual não vale se a equipe não chegou junto, e ninguém aprende sozinho.", Icon: IconColaboracao },
-  { title: "Comprometimento", desc: "Assumimos o que entregamos. Quando dizemos sim, vamos até o fim, e o cliente sente isso desde o primeiro contato.", Icon: IconComprometimento },
-];
+const VALOR_ICONS = [IconInconformismo, IconExcelencia, IconColaboracao, IconComprometimento];
+
+type ValorItemT = { title: string; desc: string };
 
 const drawIn = keyframes`to { stroke-dashoffset: 0; }`;
 
 const Valores = () => {
+  const { t } = useTranslation();
+  const VALORES = (t("join.valores.items", { returnObjects: true }) as ValorItemT[]).map(
+    (v, i) => ({ ...v, Icon: VALOR_ICONS[i] })
+  );
+
   const innerRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -68,12 +71,12 @@ const Valores = () => {
       <Inner ref={innerRef} data-visible={String(visible)}>
         <Head>
           <div className="left">
-            <span className="eyebrow">01 · Nossos valores</span>
-            <h2>O que nos<br />move por dentro.</h2>
+            <span className="eyebrow">{t("join.valores.eyebrow")}</span>
+            <h2>{t("join.valores.titleLine1")}<br />{t("join.valores.titleLine2")}</h2>
           </div>
           <div className="lead-block">
             <p className="lead-sub">
-              Princípios que guiam como decidimos, como entregamos e como crescemos todos os dias.
+              {t("join.valores.leadSub")}
             </p>
           </div>
         </Head>

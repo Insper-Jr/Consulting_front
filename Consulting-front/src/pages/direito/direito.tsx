@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import styled, { createGlobalStyle, keyframes, css } from "styled-components";
+import { useTranslation } from "react-i18next";
 import Header from "../../components/header";
 import Footer from "../../components/footerNovo";
 import WppButton from "../../components/wppButton";
@@ -178,119 +179,22 @@ function useParticleNetwork(
 type Scope = {
   num: string;
   tab: string;
-  title: React.ReactNode;
-  lede: React.ReactNode;
-  side: { eyebrow: string; rows: { key: string; val: React.ReactNode }[]; quote: string };
-  detail: React.ReactNode;
+  title: string;
+  lede: string;
+  detail: string;
+  rows: { key: string; val: string }[];
+  quote: string;
   bullets: string[];
   tags: string[];
 };
 
-const SCOPES: Scope[] = [
-  {
-    num: "01",
-    tab: "Elaboração e/ou Revisão Contratual",
-    title: <>Contratos <i>sob medida</i>.</>,
-    lede: <>Escopo voltado à <strong>elaboração do zero</strong> ou à <strong>revisão estratégica de contratos já existentes</strong>. Na revisão, partimos de um instrumento que o cliente já utiliza e propomos <strong>mudanças e adequações</strong> que enderecem a dor do cliente sem perder de vista a lei aplicável — entregando, ao fim, um material juridicamente consistente e alinhado às necessidades do negócio.</>,
-    side: {
-      eyebrow: "Ficha do escopo",
-      rows: [
-        { key: "Entregáveis", val: <><strong>Contrato finalizado</strong> + memorando explicativo (em revisões) + apresentação executiva</> },
-        { key: "Aplicações", val: <>Contratos personalizados conforme a necessidade do cliente, envolvendo diferentes áreas do Direito</> },
-        { key: "Abordagem", val: <>Elaboração do zero <strong>ou</strong> revisão de material existente do cliente — sempre mirando a dor do negócio + a lei aplicável</> },
-        { key: "Sinergia", val: <>Apoio direto a Business e Engenharia em demandas contratuais</> },
-        { key: "Supervisão", val: <>Banca técnica com professores e escritórios parceiros</> },
-      ],
-      quote: "Cada contrato é desenhado para o cliente — não modelo de prateleira.",
-    },
-    detail: <>Trabalhamos com <strong>elaboração de contratos do zero</strong> e <strong>revisão estratégica</strong> de instrumentos existentes. Em casos de revisão, entregamos um <strong>memorando explicativo</strong> que justifica cada alteração realizada e uma <strong>apresentação executiva</strong> que sintetiza os pontos críticos da revisão para a tomada de decisão. A atuação combina análise técnica das necessidades do cliente, parâmetros legais aplicáveis e revisão por bancas com professores e escritórios parceiros.</>,
-    bullets: [
-      "Contratos personalizados conforme a necessidade do cliente",
-      "Cobertura ampla — diferentes áreas e ramos do Direito",
-      "Elaboração do zero ou revisão estratégica de instrumentos",
-      "Memorando + apresentação executiva (em revisões)",
-    ],
-    tags: ["Direito Civil", "Direito Empresarial", "Contratos"],
-  },
-  {
-    num: "02",
-    tab: "Planejamento Consultivo Societário",
-    title: <>Estrutura <i>societária</i> sob análise.</>,
-    lede: <>Serviço de <strong>análise estratégica da estrutura societária</strong> do cliente, com identificação de riscos, oportunidades de melhoria e alternativas possíveis. Escopo consultivo, <strong>sem envolver emissão de documentos em cartório</strong> — entrega de <strong>parecer fundamentado</strong> e <strong>apresentação executiva</strong> com os caminhos recomendados.</>,
-    side: {
-      eyebrow: "Ficha do escopo",
-      rows: [
-        { key: "Entregáveis", val: <><strong>Parecer consultivo</strong> + apresentação executiva com caminhos e recomendações</> },
-        { key: "Natureza", val: <>Consultivo — <strong>não envolve emissão de documentos em cartório</strong>; apresenta alternativas sem induzir decisões</> },
-        { key: "Aplicações", val: <>Análise societária, identificação de riscos, modelos jurídicos comparados</> },
-        { key: "Limites", val: <>Sem execução direta de procedimentos cartorários ou registrais</> },
-        { key: "Supervisão", val: <>Banca com professores especialistas em societário</> },
-      ],
-      quote: "Recomendações fundamentadas — a decisão final é do cliente.",
-    },
-    detail: <>Dois cenários: análise da <strong>estrutura societária atual</strong> do cliente ou avaliação de <strong>uma ideia ainda no papel</strong> — neste segundo, na maioria das vezes a análise vem <strong>embarcada em outro escopo</strong> (uma viabilidade societária dentro de uma análise mercadológica, por exemplo). Em ambos, identificamos riscos e apresentamos <strong>alternativas viáveis</strong>, sem induzir a decisão do cliente.</>,
-    bullets: [
-      "Análise da estrutura societária atual",
-      "Identificação de riscos e gargalos jurídicos",
-      "Comparativo entre modelos societários",
-      "Parecer fundamentado + apresentação executiva",
-    ],
-    tags: ["Direito Societário", "Parecer", "LTDA", "S.A."],
-  },
-  {
-    num: "03",
-    tab: "Planejamento Consultivo de Propriedade Industrial",
-    title: <><i>Pesquisa estratégica</i> de marcas, patentes e desenhos industriais.</>,
-    lede: <>Análise técnica e estratégica relacionada a <strong>registros de marca, patente ou desenho industrial</strong>, com foco na avaliação de viabilidade, alternativas e melhores caminhos perante o <strong>INPI</strong>.</>,
-    side: {
-      eyebrow: "Ficha do escopo",
-      rows: [
-        { key: "Entregável", val: <><strong>Parecer consultivo</strong> sobre viabilidade e caminhos no INPI</> },
-        { key: "Objetos", val: <>Marca, patente, desenho industrial</> },
-        { key: "Aplicações", val: <>Análise de <strong>viabilidade, estratégia e custos</strong> das alternativas perante o INPI</> },
-        { key: "Supervisão", val: <>Banca técnica com professores especialistas em propriedade industrial</> },
-        { key: "Limites", val: <>Não inclui execução direta de procedimentos no INPI</> },
-      ],
-      quote: "Análise técnica antes do registro — caminho certo, menos retrabalho.",
-    },
-    detail: <>O escopo orienta o cliente sobre <strong>viabilidade de registro</strong>, <strong>requisitos legais</strong> e <strong>implicações estratégicas</strong> perante o INPI. Além de <strong>mapear os caminhos possíveis</strong> (registro, oposição, manutenção, alternativas defensivas), fazemos <strong>análise de viabilidade, estratégia e custos</strong> de cada alternativa — entregando um parecer que orienta a decisão. Conta com supervisão técnica de bancas com professores especialistas em propriedade industrial.</>,
-    bullets: [
-      "Análise de viabilidade de registro de marca",
-      "Estudo de patenteabilidade",
-      "Avaliação de desenho industrial",
-      "Parecer estratégico sobre caminhos no INPI",
-    ],
-    tags: ["INPI", "Marca", "Patente", "Desenho Industrial", "Propriedade Intelectual"],
-  },
-  {
-    num: "04",
-    tab: "Planejamento e Análise Tributária",
-    title: <>Tributos com <i>simulação</i> e parecer.</>,
-    lede: <>Estudo da <strong>situação tributária atual</strong> do cliente, com foco na <strong>comparação de regimes</strong>, impactos financeiros e possibilidades de adequação dentro da legislação vigente.</>,
-    side: {
-      eyebrow: "Ficha do escopo",
-      rows: [
-        { key: "Entregáveis", val: <><strong>Simulações</strong> em planilha + memorando jurídico + apresentação executiva</> },
-        { key: "Foco", val: <>Comparativo de regimes tributários e impactos financeiros</> },
-        { key: "Aplicações", val: <>Adequação tributária dentro da legislação e reestruturações</> },
-        { key: "Cenário legal", val: <>Análise sob a legislação vigente + impactos da <strong>reforma tributária</strong> em curso</> },
-        { key: "Supervisão", val: <>Banca técnica com professores especialistas em tributário</> },
-      ],
-      quote: "Decisões mais eficientes e juridicamente seguras.",
-    },
-    detail: <>O escopo combina <strong>simulações em planilha</strong>, <strong>memorando jurídico</strong> e, quando pertinente, <strong>apresentação executiva</strong>. Analisamos a situação tributária atual, comparamos cenários alternativos dentro da legislação vigente e apoiamos o cliente em decisões que envolvam adequação fiscal, escolha de regime ou reestruturação — sempre considerando os <strong>impactos da reforma tributária em curso</strong>.</>,
-    bullets: [
-      "Comparativo entre regimes tributários (Simples, Presumido, Real)",
-      "Simulações de impacto financeiro",
-      "Memorando jurídico fundamentado",
-      "Apresentação executiva para decisão",
-    ],
-    tags: ["Direito Tributário", "Simples Nacional", "Lucro Presumido", "Lucro Real", "Planejamento Fiscal"],
-  },
-];
-
 // ── Page ────────────────────────────────────────────────────────────────────
 function Direito() {
+  const { t } = useTranslation();
+
+  const scopeItems = t("direito.scopes.items", { returnObjects: true }) as Omit<Scope, "num">[];
+  const SCOPES: Scope[] = scopeItems.map((s, i) => ({ ...s, num: String(i + 1).padStart(2, "0") }));
+
   const heroIntroRef = useRef<HTMLDivElement>(null);
   const sharedCanvasRef = useRef<HTMLCanvasElement>(null);
   const heroGlowRef = useRef<HTMLDivElement>(null);
@@ -405,13 +309,13 @@ function Direito() {
   }, []);
 
   const heroWords: { text: string; accent?: boolean; delay: string }[] = [
-    { text: "Direito", delay: "0.55s" },
-    { text: "que",     delay: "0.7s" },
-    { text: "traduz",  accent: true, delay: "0.85s" },
-    { text: "negócio", accent: true, delay: "1.0s" },
-    { text: "em",      delay: "1.15s" },
-    { text: "segurança", accent: true, delay: "1.3s" },
-    { text: "jurídica.", accent: true, delay: "1.45s" },
+    { text: t("direito.hero.words.word1"), delay: "0.55s" },
+    { text: t("direito.hero.words.word2"), delay: "0.7s" },
+    { text: t("direito.hero.words.word3"), accent: true, delay: "0.85s" },
+    { text: t("direito.hero.words.word4"), accent: true, delay: "1.0s" },
+    { text: t("direito.hero.words.word5"), delay: "1.15s" },
+    { text: t("direito.hero.words.word6"), accent: true, delay: "1.3s" },
+    { text: t("direito.hero.words.word7"), accent: true, delay: "1.45s" },
   ];
 
   return (
@@ -430,7 +334,7 @@ function Direito() {
           <HeroCanvas ref={heroCanvasRef} />
           <HeroVignette />
           <HeroCenter>
-            <HeroEyebrow>Frente de Direito</HeroEyebrow>
+            <HeroEyebrow>{t("direito.hero.eyebrow")}</HeroEyebrow>
             <HeroTitle>
               {heroWords.map((w, i) => (
                 <Word key={i} $accent={!!w.accent} style={{ animationDelay: w.delay }}>
@@ -440,7 +344,7 @@ function Direito() {
             </HeroTitle>
             <HeroLine />
             <HeroSub>
-              Atuação consultiva e contratual conduzida por alunos de Direito do Insper, com supervisão técnica de professores e escritórios parceiros — entregando pareceres fundamentados, contratos sob medida e análises estratégicas para empresas e organizações.
+              {t("direito.hero.sub")}
             </HeroSub>
           </HeroCenter>
           <HeroScroll>
@@ -456,11 +360,11 @@ function Direito() {
 
       {/* Section opening: Nossos Escopos */}
       <ScopesOpening>
-        <OpeningEyebrow>Frentes de atuação</OpeningEyebrow>
-        <OpeningTitle>Nossos Escopos</OpeningTitle>
+        <OpeningEyebrow>{t("direito.scopesOpening.eyebrow")}</OpeningEyebrow>
+        <OpeningTitle>{t("direito.scopesOpening.title")}</OpeningTitle>
         <OpeningDivider />
         <OpeningSubtitle>
-          Quatro escopos jurídicos delimitados — consultivos e contratuais — que se combinam à atuação das frentes de Business e Engenharia dentro da Insper Jr.
+          {t("direito.scopesOpening.subtitle")}
         </OpeningSubtitle>
 
         <OpeningIndex>
@@ -477,10 +381,10 @@ function Direito() {
                 }
               }}
             >
-              <IndexBadge>ESCOPO {s.num}</IndexBadge>
+              <IndexBadge>{t("direito.scopes.badgeLabel")} {s.num}</IndexBadge>
               <IndexTitle>{s.tab}</IndexTitle>
               <IndexCTA>
-                <span>Explorar</span>
+                <span>{t("direito.scopesOpening.explore")}</span>
                 <IndexArrow aria-hidden="true">→</IndexArrow>
               </IndexCTA>
             </IndexCard>
@@ -494,30 +398,30 @@ function Direito() {
             <ScopePanel role="tabpanel">
               <ScopeHeader>
                 <ScopeCounter>
-                  <CounterNum>ESCOPO {s.num}</CounterNum>
+                  <CounterNum>{t("direito.scopes.badgeLabel")} {s.num}</CounterNum>
                   <ScopeName>{s.tab}</ScopeName>
                 </ScopeCounter>
                 <PanelTags>
-                  <TagsLabel>Temas</TagsLabel>
-                  {s.tags.map(t => <Tag key={t}>{t}</Tag>)}
+                  <TagsLabel>{t("direito.scopes.themesLabel")}</TagsLabel>
+                  {s.tags.map(tag => <Tag key={tag}>{tag}</Tag>)}
                 </PanelTags>
               </ScopeHeader>
 
               <ScopeGrid>
                 <ScopeMain>
                   <ScopeIntro>
-                    <ScopeTitleH3>{s.title}</ScopeTitleH3>
+                    <ScopeTitleH3 dangerouslySetInnerHTML={{ __html: s.title }} />
                     <Accent />
-                    <ScopeLede>{s.lede}</ScopeLede>
+                    <ScopeLede dangerouslySetInnerHTML={{ __html: s.lede }} />
                   </ScopeIntro>
 
                   <PanelBody>
                     <PanelCol>
-                      <ColLabel>Como atuamos</ColLabel>
-                      <ScopeDetail>{s.detail}</ScopeDetail>
+                      <ColLabel>{t("direito.scopes.howWeWork")}</ColLabel>
+                      <ScopeDetail dangerouslySetInnerHTML={{ __html: s.detail }} />
                     </PanelCol>
                     <PanelCol>
-                      <ColLabel>Principais aplicações</ColLabel>
+                      <ColLabel>{t("direito.scopes.mainApplications")}</ColLabel>
                       <Bullets>
                         {s.bullets.map((b, j) => <li key={j}>{b}</li>)}
                       </Bullets>
@@ -527,16 +431,16 @@ function Direito() {
 
                 <PanelSide>
                   <SideCorner />
-                  <SideEyebrow>{s.side.eyebrow}</SideEyebrow>
+                  <SideEyebrow>{t("direito.scopes.fichaLabel")}</SideEyebrow>
                   <SideRows>
-                    {s.side.rows.map((r, j) => (
+                    {s.rows.map((r, j) => (
                       <SideRow key={j}>
                         <SideKey>{r.key}</SideKey>
-                        <SideVal>{r.val}</SideVal>
+                        <SideVal dangerouslySetInnerHTML={{ __html: r.val }} />
                       </SideRow>
                     ))}
                   </SideRows>
-                  <SideQuote>{s.side.quote}</SideQuote>
+                  <SideQuote>{s.quote}</SideQuote>
                 </PanelSide>
               </ScopeGrid>
             </ScopePanel>
@@ -550,34 +454,34 @@ function Direito() {
       {/* Cases de Destaque — overview com links para páginas dedicadas */}
       <HighlightCases>
         <SectionHeader>
-          <OpeningEyebrow>Projetos em destaque</OpeningEyebrow>
-          <SectionTitle>Cases de Destaque</SectionTitle>
+          <OpeningEyebrow>{t("direito.cases.eyebrow")}</OpeningEyebrow>
+          <SectionTitle>{t("direito.cases.title")}</SectionTitle>
           <OpeningDivider />
         </SectionHeader>
         <SectionSubtitle>
-          Três projetos que exemplificam a forma como a frente de Direito atua — do primeiro contrato firmado à assessoria continuada e à atuação multi-escopo.
+          {t("direito.cases.subtitle")}
         </SectionSubtitle>
         <HighlightGrid>
-          <HighlightCard to="/direito/pe-direito" aria-label="Ver case Pé Direito I">
-            <HighlightCardTitle>Pé Direito I</HighlightCardTitle>
-            <HighlightCardPlaceholder aria-label="Imagem a ser definida">
-              <span>Imagem em breve</span>
+          <HighlightCard to="/direito/pe-direito" aria-label={t("direito.cases.peDireito.ariaLabel")}>
+            <HighlightCardTitle>{t("direito.cases.peDireito.title")}</HighlightCardTitle>
+            <HighlightCardPlaceholder aria-label={t("direito.cases.imagePlaceholderAria")}>
+              <span>{t("direito.cases.imagePlaceholderText")}</span>
             </HighlightCardPlaceholder>
-            <HighlightCardSubtitle>Escopo · Contratos</HighlightCardSubtitle>
+            <HighlightCardSubtitle>{t("direito.cases.peDireito.subtitle")}</HighlightCardSubtitle>
           </HighlightCard>
-          <HighlightCard to="/direito/society" aria-label="Ver case Society I">
-            <HighlightCardTitle>Society I</HighlightCardTitle>
-            <HighlightCardPlaceholder aria-label="Imagem a ser definida">
-              <span>Imagem em breve</span>
+          <HighlightCard to="/direito/society" aria-label={t("direito.cases.society.ariaLabel")}>
+            <HighlightCardTitle>{t("direito.cases.society.title")}</HighlightCardTitle>
+            <HighlightCardPlaceholder aria-label={t("direito.cases.imagePlaceholderAria")}>
+              <span>{t("direito.cases.imagePlaceholderText")}</span>
             </HighlightCardPlaceholder>
-            <HighlightCardSubtitle>Escopo · Societário</HighlightCardSubtitle>
+            <HighlightCardSubtitle>{t("direito.cases.society.subtitle")}</HighlightCardSubtitle>
           </HighlightCard>
-          <HighlightCard to="/direito/print" aria-label="Ver case Print I">
-            <HighlightCardTitle>Print I</HighlightCardTitle>
-            <HighlightCardPlaceholder aria-label="Imagem a ser definida">
-              <span>Imagem em breve</span>
+          <HighlightCard to="/direito/print" aria-label={t("direito.cases.print.ariaLabel")}>
+            <HighlightCardTitle>{t("direito.cases.print.title")}</HighlightCardTitle>
+            <HighlightCardPlaceholder aria-label={t("direito.cases.imagePlaceholderAria")}>
+              <span>{t("direito.cases.imagePlaceholderText")}</span>
             </HighlightCardPlaceholder>
-            <HighlightCardSubtitle>Escopo · Contratos · Tributário · PI</HighlightCardSubtitle>
+            <HighlightCardSubtitle>{t("direito.cases.print.subtitle")}</HighlightCardSubtitle>
           </HighlightCard>
         </HighlightGrid>
       </HighlightCases>
@@ -587,12 +491,10 @@ function Direito() {
         <SynergyCanvas ref={synergyCanvasRef} />
         <CursorGlow ref={integrationGlowRef} />
         <IntegrationInner>
-          <Kicker>Direito no contexto da Insper Jr.</Kicker>
-          <IntegrationTitle>
-            Atuação jurídica <span>integrada às demais frentes</span> da empresa
-          </IntegrationTitle>
+          <Kicker>{t("direito.integration.kicker")}</Kicker>
+          <IntegrationTitle dangerouslySetInnerHTML={{ __html: t("direito.integration.title") }} />
           <IntegrationLede>
-            A frente de Direito não opera isolada: trabalha em conjunto com Business e Engenharia, vende seus serviços pelo mesmo núcleo comercial e atua transversalmente em demandas institucionais — sempre com supervisão de professores e bancas técnicas especializadas em cada um dos escopos.
+            {t("direito.integration.lede")}
           </IntegrationLede>
         </IntegrationInner>
       </Integration>
@@ -603,44 +505,27 @@ function Direito() {
       {/* Sobre a frente */}
       <Intro id="sobre-frente">
         <SectionHeader>
-          <OpeningEyebrow>Quem somos</OpeningEyebrow>
-          <SectionTitle>Sobre a frente</SectionTitle>
+          <OpeningEyebrow>{t("direito.about.eyebrow")}</OpeningEyebrow>
+          <SectionTitle>{t("direito.about.title")}</SectionTitle>
           <OpeningDivider />
         </SectionHeader>
 
-        <FrenteLede>
-          A frente de Direito da Insper Jr. nasceu da <strong>46ª gestão</strong>, com o objetivo de ampliar o papel da empresa como centro de desenvolvimento para todos os alunos do Insper. Estruturada ao longo de um ciclo de diagnóstico, mapeamento e estruturação, hoje atua de forma integrada com Business e Engenharia, oferecendo serviços jurídicos delimitados, supervisionados por professores e escritórios parceiros.
-        </FrenteLede>
+        <FrenteLede dangerouslySetInnerHTML={{ __html: t("direito.about.lede") }} />
 
         <PillarsGrid>
-          <Pillar>
-            <PillarNum>01 — Estruturada</PillarNum>
-            <PillarTitle>Escopos delimitados</PillarTitle>
-            <PillarText>
-              Quatro escopos consultivos e contratuais — <strong>Contratos, Societário, Propriedade Industrial e Tributário</strong> — desenhados para respeitar os limites regulatórios da OAB e maximizar o valor entregue.
-            </PillarText>
-          </Pillar>
-          <Pillar>
-            <PillarNum>02 — Supervisionada</PillarNum>
-            <PillarTitle>Professores e escritórios parceiros</PillarTitle>
-            <PillarText>
-              Atuação validada por <strong>bancas técnicas</strong> com professores especialistas em cada um dos escopos jurídicos.
-            </PillarText>
-          </Pillar>
-          <Pillar>
-            <PillarNum>03 — Integrada</PillarNum>
-            <PillarTitle>Conversa com Business e Engenharia</PillarTitle>
-            <PillarText>
-              A venda dos serviços jurídicos é <strong>integrada ao núcleo comercial</strong> da Insper Jr., permitindo combinar Direito com projetos de outras frentes em um mesmo ecossistema de soluções.
-            </PillarText>
-          </Pillar>
+          {(t("direito.about.pillars", { returnObjects: true }) as { num: string; title: string; text: string }[]).map((p, i) => (
+            <Pillar key={i}>
+              <PillarNum>{p.num}</PillarNum>
+              <PillarTitle>{p.title}</PillarTitle>
+              <PillarText dangerouslySetInnerHTML={{ __html: p.text }} />
+            </Pillar>
+          ))}
         </PillarsGrid>
 
         <StatsBar>
-          <Stat><StatValue>4</StatValue><StatLabel>Escopos jurídicos</StatLabel></Stat>
-          <Stat><StatValue>2+</StatValue><StatLabel>Escritórios parceiros</StatLabel></Stat>
-          <Stat><StatValue>49ª</StatValue><StatLabel>Gestão atual</StatLabel></Stat>
-          <Stat><StatValue>24+</StatValue><StatLabel>Anos de Insper Jr.</StatLabel></Stat>
+          {(t("direito.about.stats", { returnObjects: true }) as { value: string; label: string }[]).map((s, i) => (
+            <Stat key={i}><StatValue>{s.value}</StatValue><StatLabel>{s.label}</StatLabel></Stat>
+          ))}
         </StatsBar>
       </Intro>
 
@@ -650,32 +535,22 @@ function Direito() {
       {/* Diferenciais */}
       <Diferenciais>
         <SectionHeader>
-          <OpeningEyebrow>O que nos diferencia</OpeningEyebrow>
-          <SectionTitle>Diferenciais</SectionTitle>
+          <OpeningEyebrow>{t("direito.differentiators.eyebrow")}</OpeningEyebrow>
+          <SectionTitle>{t("direito.differentiators.title")}</SectionTitle>
           <OpeningDivider />
         </SectionHeader>
         <SectionSubtitle>
-          O que faz a frente de Direito da Insper Jr. se destacar no ecossistema de empresas juniores jurídicas.
+          {t("direito.differentiators.subtitle")}
         </SectionSubtitle>
         <DifGrid ref={difCardsRef}>
-          <DifCard data-dif-card>
-            <DifAccent />
-            <DifNum>01</DifNum>
-            <DifTitle>Escopos pensados para o cliente</DifTitle>
-            <DifText>Diferente de outras EJs jurídicas, organizamos os escopos a partir do objetivo do cliente — não da categoria jurídica. Cada serviço entrega clareza sobre o que será produzido e o porquê.</DifText>
-          </DifCard>
-          <DifCard data-dif-card>
-            <DifAccent />
-            <DifNum>02</DifNum>
-            <DifTitle>Supervisão técnica robusta</DifTitle>
-            <DifText>Trilhas de conhecimento estruturadas e bancas técnicas com professores especialistas garantem qualidade jurídica em cada entregável.</DifText>
-          </DifCard>
-          <DifCard data-dif-card>
-            <DifAccent />
-            <DifNum>03</DifNum>
-            <DifTitle>Integração com Business e Engenharia</DifTitle>
-            <DifText>O Direito conversa diretamente com as outras frentes da Insper Jr., permitindo entregas combinadas — de um contrato vinculado a um projeto de software a uma análise tributária dentro de uma reestruturação.</DifText>
-          </DifCard>
+          {(t("direito.differentiators.cards", { returnObjects: true }) as { num: string; title: string; text: string }[]).map((c, i) => (
+            <DifCard data-dif-card key={i}>
+              <DifAccent />
+              <DifNum>{c.num}</DifNum>
+              <DifTitle>{c.title}</DifTitle>
+              <DifText>{c.text}</DifText>
+            </DifCard>
+          ))}
         </DifGrid>
       </Diferenciais>
 

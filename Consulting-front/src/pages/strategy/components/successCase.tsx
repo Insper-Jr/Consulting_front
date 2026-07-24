@@ -1,21 +1,23 @@
 import styled from "styled-components";
 import substituicao from "../../../assets/strategy/substituicao.png";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const SuccessCase = () => {
   const [hovered, setHovered] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <Wrapper>
-    <Intro>CASE DE SUCESSO</Intro>
+    <Intro>{t("strategy.successCase.label")}</Intro>
     <Container hovered={hovered} onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
-      <Image src={substituicao} alt="Consultoria estratégica" />
+      <Image src={substituicao} alt={t("strategy.successCase.imageAlt")} />
       <TextContent>
         <Title>
-          SUBSTITUIÇÃO I
+          {t("strategy.successCase.title")}
         </Title>
         <Description>
-        O projeto tinha como objetivo fortalecer a estrutura jurídica interna da organização, substituindo processos pouco integrados por soluções mais estratégicas e eficientes. Para isso, desenvolvemos contratos personalizados, modelos padronizados e pareceres jurídicos sob demanda, garantindo agilidade e segurança nas decisões. Também estruturamos documentos voltados ao cumprimento de exigências institucionais, promovendo conformidade e previsibilidade. A entrega proporcionou mais autonomia, redução de custos e fortalecimento da governança jurídica da organização.
+        {t("strategy.successCase.description")}
         </Description>
       </TextContent>
     </Container>

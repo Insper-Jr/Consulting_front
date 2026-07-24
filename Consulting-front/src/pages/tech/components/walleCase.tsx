@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import styled, { keyframes } from "styled-components";
+import { useTranslation, Trans } from "react-i18next";
 
 // ── Tokens (mirrors parent page) ──────────────────────────────────────────
 const C = {
@@ -17,6 +18,7 @@ const TOTAL_SLIDES = 6;
 
 // ── Component ──────────────────────────────────────────────────────────────
 export default function WalleCase() {
+  const { t } = useTranslation();
   const [idx, setIdx] = useState(0);
   const deckRef = useRef<HTMLElement>(null);
   const inViewRef = useRef(false);
@@ -50,42 +52,41 @@ export default function WalleCase() {
     <CaseSection id="case-walle">
       <CaseInner>
         <CaseCounter>
-          <CaseBadge>CASE EM DESTAQUE</CaseBadge>
-          <CaseBigName>Wall-E<Dot>.</Dot></CaseBigName>
+          <CaseBadge>{t("tech.cases.common.badge")}</CaseBadge>
+          <CaseBigName>{t("tech.cases.walle.name")}<Dot>.</Dot></CaseBigName>
         </CaseCounter>
 
         <CaseSub>
-          O <strong>Wall-E</strong> nasceu de uma <strong>atuação integrada entre frentes</strong>: antes da camada tecnológica, conduzimos um <strong>estudo operacional dos fluxos de venda e SAC</strong> do cliente para assegurar a experiência ponta a ponta. Só com a jornada mapeada e refinada, o escopo de <strong>Automação</strong> construiu o <strong>ecossistema multi-agente</strong> — quatro IAs especialistas, coordenadas por um classificador inteligente, que cobrem todo o atendimento de um cliente do setor de saúde.
+          <Trans i18nKey="tech.cases.walle.sub" components={{ strong: <strong /> }} />
         </CaseSub>
 
         <CaseSplit>
           <CaseText>
-            <CtEye>O projeto</CtEye>
-            <CtH>Por que Wall-E?</CtH>
+            <CtEye>{t("tech.cases.common.project")}</CtEye>
+            <CtH>{t("tech.cases.walle.why")}</CtH>
             <CtP>
-              O cliente, do setor de saúde B2B, atendia em um único canal de WhatsApp três públicos completamente diferentes — <strong>leads em prospecção</strong>, <strong>clientes ativos com dúvidas operacionais</strong> e <strong>clientes aguardando entrega</strong>. Com um time enxuto, o atendimento era reativo, leads esfriavam e dúvidas simples consumiam horas.
+              <Trans i18nKey="tech.cases.walle.p1" components={{ strong: <strong /> }} />
             </CtP>
 
-            <CtSub>Como foi feito</CtSub>
+            <CtSub>{t("tech.cases.common.howMade")}</CtSub>
             <CtP>
-              A solução foi um <strong>ecossistema de quatro IAs especialistas</strong>, cada uma com prompt, base de conhecimento e escopo próprios — coordenadas por um classificador interno que observa cada mensagem, identifica a intenção e direciona para o agente certo, em tempo real.
+              <Trans i18nKey="tech.cases.walle.p2" components={{ strong: <strong /> }} />
             </CtP>
             <CtP>
-              Construído inteiramente sobre <strong>n8n</strong>, integrando <strong>LLMs</strong> e APIs internas do cliente, sem dependência de plataformas SaaS de chatbot. Cada agente atua só dentro da própria especialidade — fora dela, transfere para humano.
+              <Trans i18nKey="tech.cases.walle.p3" components={{ strong: <strong /> }} />
             </CtP>
 
-            <CtSub>Estratégia</CtSub>
+            <CtSub>{t("tech.cases.common.strategy")}</CtSub>
             <CtList>
-              <li><strong>Especialização por agente</strong> — separar prompt, base e escopo reduz alucinação e mantém cada conversa coerente.</li>
-              <li><strong>Roteamento contínuo</strong> — a IA de Classificação re-avalia a cada turno, inclusive quando o assunto muda.</li>
-              <li><strong>Humano no momento certo</strong> — premissa: em dúvida, transfere. Sem suposição.</li>
-              <li><strong>Quatro camadas de barreira</strong> — anti-prompt injection, escopo estrito, controle de alucinação e compliance do setor saúde.</li>
+              {(t("tech.cases.walle.list", { returnObjects: true }) as string[]).map((_item, i) => (
+                <li key={i}><Trans i18nKey={`tech.cases.walle.list.${i}`} components={{ strong: <strong /> }} /></li>
+              ))}
             </CtList>
 
-            <CtFinal>Quatro IAs · três jornadas cobertas · 24/7 · um canal único.</CtFinal>
+            <CtFinal>{t("tech.cases.walle.final")}</CtFinal>
           </CaseText>
 
-          <CaseDeck ref={deckRef} aria-label="Apresentação do projeto walle">
+          <CaseDeck ref={deckRef} aria-label={t("tech.cases.walle.deckAriaLabel")}>
             <CdFrame>
               <CdStack>
                 <SlideCover  active={idx === 0} />
@@ -98,12 +99,12 @@ export default function WalleCase() {
             </CdFrame>
 
             <CdControls>
-              <CdBtn onClick={goPrev} disabled={idx === 0} aria-label="Anterior">←</CdBtn>
+              <CdBtn onClick={goPrev} disabled={idx === 0} aria-label={t("tech.cases.common.prev")}>←</CdBtn>
               <CdProgress>
                 <CdFill style={{ width: `${((idx + 1) / TOTAL_SLIDES) * 100}%` }} />
               </CdProgress>
               <CdCounter>{pad(idx + 1)} / {pad(TOTAL_SLIDES)}</CdCounter>
-              <CdBtn onClick={goNext} disabled={idx === TOTAL_SLIDES - 1} aria-label="Próximo">→</CdBtn>
+              <CdBtn onClick={goNext} disabled={idx === TOTAL_SLIDES - 1} aria-label={t("tech.cases.common.next")}>→</CdBtn>
             </CdControls>
           </CaseDeck>
         </CaseSplit>
@@ -114,22 +115,23 @@ export default function WalleCase() {
 
 // ── Slides ─────────────────────────────────────────────────────────────────
 function SlideCover({ active }: { active: boolean }) {
+  const { t } = useTranslation();
   return (
     <CdSlide $active={active}>
       <CdiCover>
         <CdiGrid />
         <CdiCoverOrbit />
         <CdiCoverDot />
-        <CdiCorner>Live · 2025</CdiCorner>
+        <CdiCorner>{t("tech.cases.walle.slides.cover.corner")}</CdiCorner>
         <CdiCoverContent>
-          <CdiPill>Case · Automação</CdiPill>
-          <CdiBigName>Wall-E<Dot>.</Dot></CdiBigName>
-          <CdiTag>Ecossistema multi-agente sobre <strong>WhatsApp Business</strong> — quatro IAs especialistas, um único canal.</CdiTag>
+          <CdiPill>{t("tech.cases.walle.slides.cover.pill")}</CdiPill>
+          <CdiBigName>{t("tech.cases.walle.name")}<Dot>.</Dot></CdiBigName>
+          <CdiTag><Trans i18nKey="tech.cases.walle.slides.cover.tag" components={{ strong: <strong /> }} /></CdiTag>
           <CdiMeta>
-            <div><span>Setor</span>Saúde · B2B</div>
-            <div><span>Canal</span>WhatsApp</div>
-            <div><span>Stack</span>n8n · LLMs</div>
-            <div><span>Agentes</span>4 IAs</div>
+            <div><span>{t("tech.cases.walle.slides.cover.meta.setor.label")}</span>{t("tech.cases.walle.slides.cover.meta.setor.value")}</div>
+            <div><span>{t("tech.cases.walle.slides.cover.meta.canal.label")}</span>{t("tech.cases.walle.slides.cover.meta.canal.value")}</div>
+            <div><span>{t("tech.cases.walle.slides.cover.meta.stack.label")}</span>{t("tech.cases.walle.slides.cover.meta.stack.value")}</div>
+            <div><span>{t("tech.cases.walle.slides.cover.meta.agentes.label")}</span>{t("tech.cases.walle.slides.cover.meta.agentes.value")}</div>
           </CdiMeta>
         </CdiCoverContent>
       </CdiCover>
@@ -138,12 +140,14 @@ function SlideCover({ active }: { active: boolean }) {
 }
 
 function SlideArch({ active }: { active: boolean }) {
+  const { t } = useTranslation();
+  const spokes = t("tech.cases.walle.slides.arch.spokes", { returnObjects: true }) as { num: string; name: string; tag: string }[];
   return (
     <CdSlide $active={active}>
       <CdiArch>
-        <CdiCorner>Hub &amp; Spoke</CdiCorner>
-        <CdiEye>Arquitetura</CdiEye>
-        <CdiH>Um <em>orquestrador,</em> três especialistas.</CdiH>
+        <CdiCorner>{t("tech.cases.walle.slides.arch.corner")}</CdiCorner>
+        <CdiEye>{t("tech.cases.walle.slides.arch.eye")}</CdiEye>
+        <CdiH><Trans i18nKey="tech.cases.walle.slides.arch.title" components={{ em: <em /> }} /></CdiH>
         <CdiArchStage>
           <CdiArchSvg viewBox="0 0 300 160" preserveAspectRatio="none" aria-hidden="true">
             <path d="M150 30 C150 60, 60 70, 50 130" />
@@ -151,14 +155,14 @@ function SlideArch({ active }: { active: boolean }) {
             <path d="M150 30 C150 60, 240 70, 250 130" />
           </CdiArchSvg>
           <CdiOrch>
-            <CdiOrchPill>Orquestrador</CdiOrchPill>
-            <CdiOrchName>IA de Classificação</CdiOrchName>
-            <CdiOrchTag>Roteia · Observa · Transfere</CdiOrchTag>
+            <CdiOrchPill>{t("tech.cases.walle.slides.arch.orchPill")}</CdiOrchPill>
+            <CdiOrchName>{t("tech.cases.walle.slides.arch.orchName")}</CdiOrchName>
+            <CdiOrchTag>{t("tech.cases.walle.slides.arch.orchTag")}</CdiOrchTag>
           </CdiOrch>
           <CdiSpokes>
-            <CdiSp><CdiSpNum>01</CdiSpNum><CdiSpName>IA de Vendas</CdiSpName><CdiSpTag>funil &amp; qualificação</CdiSpTag></CdiSp>
-            <CdiSp><CdiSpNum>02</CdiSpNum><CdiSpName>IA de SAC</CdiSpName><CdiSpTag>suporte operacional</CdiSpTag></CdiSp>
-            <CdiSp><CdiSpNum>03</CdiSpNum><CdiSpName>IA de Rastreio</CdiSpName><CdiSpTag>status &amp; logística</CdiSpTag></CdiSp>
+            {spokes.map((s, i) => (
+              <CdiSp key={i}><CdiSpNum>{s.num}</CdiSpNum><CdiSpName>{s.name}</CdiSpName><CdiSpTag>{s.tag}</CdiSpTag></CdiSp>
+            ))}
           </CdiSpokes>
         </CdiArchStage>
       </CdiArch>
@@ -167,29 +171,16 @@ function SlideArch({ active }: { active: boolean }) {
 }
 
 function SlideSpecs({ active }: { active: boolean }) {
-  const cards = [
-    {
-      num: "01", eye: "Vendas", name: "Conduz o lead.",
-      desc: "Qualifica, responde sobre produtos e prepara o handoff humano no momento certo.",
-      tags: ["Funil ToFu → BoFu", "Catálogo & preço", "Agendamento humano"],
-    },
-    {
-      num: "02", eye: "SAC", name: "Resolve dúvidas.",
-      desc: "Suporte operacional sobre uso, integrações e plataforma. Em dúvida, transfere.",
-      tags: ["Base de conhecimento", "Triagem inicial", "Fallback humano"],
-    },
-    {
-      num: "03", eye: "Rastreio", name: "Devolve status.",
-      desc: "Consulta sistemas internos e retorna o estado consolidado do pedido em tempo real.",
-      tags: ["Integração via API", "5 fases logísticas", "ETA & nota fiscal"],
-    },
-  ];
+  const { t } = useTranslation();
+  const cards = t("tech.cases.walle.slides.specs.cards", { returnObjects: true }) as {
+    num: string; eye: string; name: string; desc: string; tags: string[];
+  }[];
   return (
     <CdSlide $active={active}>
       <CdiSpecs>
-        <CdiCorner>Especialização</CdiCorner>
-        <CdiEye>Especialistas</CdiEye>
-        <CdiH>Cada agente, <em>uma especialidade.</em></CdiH>
+        <CdiCorner>{t("tech.cases.walle.slides.specs.corner")}</CdiCorner>
+        <CdiEye>{t("tech.cases.walle.slides.specs.eye")}</CdiEye>
+        <CdiH><Trans i18nKey="tech.cases.walle.slides.specs.title" components={{ em: <em /> }} /></CdiH>
         <CdiSpecsGrid>
           {cards.map(c => (
             <CdiCard key={c.num}>
@@ -198,7 +189,7 @@ function SlideSpecs({ active }: { active: boolean }) {
               <CdiCardName>{c.name}</CdiCardName>
               <CdiCardDesc>{c.desc}</CdiCardDesc>
               <CdiCardTags>
-                {c.tags.map(t => <CdiCardTag key={t}>{t}</CdiCardTag>)}
+                {c.tags.map(tag => <CdiCardTag key={tag}>{tag}</CdiCardTag>)}
               </CdiCardTags>
             </CdiCard>
           ))}
@@ -209,55 +200,48 @@ function SlideSpecs({ active }: { active: boolean }) {
 }
 
 function SlidePrat({ active }: { active: boolean }) {
-  const chats = [
-    { msg: "Quanto custa esse produto?", route: "Vendas" },
-    { msg: "Como integro com meu ERP?", route: "SAC" },
-    { msg: "Cadê meu pedido?", route: "Rastreio" },
-  ];
+  const { t } = useTranslation();
+  const chats = t("tech.cases.walle.slides.prat.chats", { returnObjects: true }) as { msg: string; route: string }[];
   return (
     <CdSlide $active={active}>
       <CdiPrat>
-        <CdiCorner>Demo · 04</CdiCorner>
-        <CdiEye>Na prática</CdiEye>
-        <CdiH>Resposta certa, <em>no agente certo.</em></CdiH>
+        <CdiCorner>{t("tech.cases.walle.slides.prat.corner")}</CdiCorner>
+        <CdiEye>{t("tech.cases.walle.slides.prat.eye")}</CdiEye>
+        <CdiH><Trans i18nKey="tech.cases.walle.slides.prat.title" components={{ em: <em /> }} /></CdiH>
         <CdiChats>
           {chats.map((c, i) => (
             <CdiChat key={i}>
               <CdiChatBubble>"{c.msg}"</CdiChatBubble>
               <CdiArrow>
                 <svg viewBox="0 0 24 8" aria-hidden="true"><path d="M2 4 L22 4 M18 1 L22 4 L18 7" /></svg>
-                <div>ROTEIA</div>
+                <div>{t("tech.cases.walle.slides.prat.routeArrow")}</div>
               </CdiArrow>
-              <CdiRoute><span>IA de</span>{c.route}</CdiRoute>
+              <CdiRoute><span>{t("tech.cases.walle.slides.prat.routePrefix")}</span>{c.route}</CdiRoute>
             </CdiChat>
           ))}
         </CdiChats>
-        <CdiPratFoot>premissa <strong>·</strong> em dúvida, transfere para humano <strong>·</strong> sem alucinação</CdiPratFoot>
+        <CdiPratFoot><Trans i18nKey="tech.cases.walle.slides.prat.foot" components={{ strong: <strong /> }} /></CdiPratFoot>
       </CdiPrat>
     </CdSlide>
   );
 }
 
 function SlideBarr({ active }: { active: boolean }) {
-  const layers = [
-    { n: "01", h: "Anti-prompt injection", t: "Sanitiza entrada e isola instruções do usuário do prompt-sistema." },
-    { n: "02", h: "Escopo estrito", t: "Cada agente só responde dentro da sua especialidade declarada." },
-    { n: "03", h: "Anti-alucinação", t: "Sem informação na base, escala para humano em vez de inventar." },
-    { n: "04", h: "Compliance", t: "Tratamento adequado de dados sensíveis no contexto da saúde." },
-  ];
+  const { t } = useTranslation();
+  const layers = t("tech.cases.walle.slides.barr.layers", { returnObjects: true }) as { n: string; h: string; t: string }[];
   return (
     <CdSlide $active={active}>
       <CdiBarr>
-        <CdiCorner>Defense-in-depth · 4 camadas</CdiCorner>
-        <CdiEye>Barreiras</CdiEye>
-        <CdiH>Quatro camadas, <em>em todos os agentes.</em></CdiH>
+        <CdiCorner>{t("tech.cases.walle.slides.barr.corner")}</CdiCorner>
+        <CdiEye>{t("tech.cases.walle.slides.barr.eye")}</CdiEye>
+        <CdiH><Trans i18nKey="tech.cases.walle.slides.barr.title" components={{ em: <em /> }} /></CdiH>
         <CdiBarrStage>
           <CdiBarrVis>
             <CdiBarrRing $level={1}><span>01</span></CdiBarrRing>
             <CdiBarrRing $level={2}><span>02</span></CdiBarrRing>
             <CdiBarrRing $level={3}><span>03</span></CdiBarrRing>
             <CdiBarrRing $level={4}><span>04</span></CdiBarrRing>
-            <CdiBarrCore>Wall-E</CdiBarrCore>
+            <CdiBarrCore>{t("tech.cases.walle.slides.barr.core")}</CdiBarrCore>
           </CdiBarrVis>
           <CdiBarrList>
             {layers.map(l => (
@@ -274,22 +258,24 @@ function SlideBarr({ active }: { active: boolean }) {
 }
 
 function SlideRes({ active }: { active: boolean }) {
+  const { t } = useTranslation();
+  const stats = t("tech.cases.walle.slides.res.stats", { returnObjects: true }) as { value: string; label: string }[];
   return (
     <CdSlide $active={active}>
       <CdiRes>
-        <CdiCorner>Resultado · 06</CdiCorner>
-        <CdiEye>Resultado</CdiEye>
-        <CdiH>Uma solução completa, <em>em um único canal.</em></CdiH>
+        <CdiCorner>{t("tech.cases.walle.slides.res.corner")}</CdiCorner>
+        <CdiEye>{t("tech.cases.walle.slides.res.eye")}</CdiEye>
+        <CdiH><Trans i18nKey="tech.cases.walle.slides.res.title" components={{ em: <em /> }} /></CdiH>
         <CdiResStage>
           <CdiResHero>
-            <CdiResHeroNum>24<sup>/7</sup></CdiResHeroNum>
-            <CdiResHeroLab>disponibilidade contínua,<br />sem fila de espera.</CdiResHeroLab>
+            <CdiResHeroNum><Trans i18nKey="tech.cases.walle.slides.res.heroNum" components={{ sup: <sup /> }} /></CdiResHeroNum>
+            <CdiResHeroLab><Trans i18nKey="tech.cases.walle.slides.res.heroLabel" components={{ br: <br /> }} /></CdiResHeroLab>
             <CdiResHeroRule />
           </CdiResHero>
           <CdiStats>
-            <div><strong>4</strong><span>agentes especialistas operando em paralelo</span></div>
-            <div><strong>3</strong><span>jornadas cobertas <br />(vendas · suporte · pós)</span></div>
-            <div><strong>1</strong><span>canal único — sem mudança no comportamento do cliente</span></div>
+            {stats.map((s, i) => (
+              <div key={i}><strong>{s.value}</strong><span><Trans i18nKey={`tech.cases.walle.slides.res.stats.${i}.label`} components={{ br: <br /> }} /></span></div>
+            ))}
           </CdiStats>
         </CdiResStage>
       </CdiRes>

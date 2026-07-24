@@ -1,5 +1,6 @@
 // src/pages/contact/components/hero.tsx
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 import Header from "../../../components/header";
 import DiagnosticForm from "../../../components/forms";
 
@@ -10,17 +11,19 @@ import falconi from "../../../assets/awards/falconi.png";
 import fejesp from "../../../assets/awards/fejesp.png";
 
 const Hero = () => {
+  const { t } = useTranslation();
+
   const stats = [
-    { n: "+1.500", l: "PROJETOS" },
-    { n: "26", l: "ANOS" },
-    { n: "NPS 90+", l: "SATISFAÇÃO" },
+    { n: t("contact.hero.stats.projects.number"), l: t("contact.hero.stats.projects.label") },
+    { n: t("contact.hero.stats.years.number"), l: t("contact.hero.stats.years.label") },
+    { n: t("contact.hero.stats.satisfaction.number"), l: t("contact.hero.stats.satisfaction.label") },
   ];
 
   const awards = [
-    { src: brasilJunior, alt: "Brasil Junior", height: 44 },
-    { src: enej, alt: "ENEJ", height: 70 },
-    { src: falconi, alt: "Falconi", height: 44 },
-    { src: fejesp, alt: "Fejesp", height: 44 },
+    { src: brasilJunior, alt: t("contact.hero.awards.brasilJunior"), height: 44 },
+    { src: enej, alt: t("contact.hero.awards.enej"), height: 70 },
+    { src: falconi, alt: t("contact.hero.awards.falconi"), height: 44 },
+    { src: fejesp, alt: t("contact.hero.awards.fejesp"), height: 44 },
   ];
 
   return (
@@ -34,14 +37,13 @@ const Hero = () => {
       <Content>
         <Left>
           <Headline>
-            Seu desafio é<br />
-            a nossa<br />
-            <Highlight>inspiração.</Highlight>
+            {t("contact.hero.headline.line1")}<br />
+            {t("contact.hero.headline.line2")}<br />
+            <Highlight>{t("contact.hero.headline.highlight")}</Highlight>
           </Headline>
 
           <Lead>
-            Preencha o formulário e um dos nossos especialistas entrará em contato
-            em até 24h para entender seu desafio.
+            {t("contact.hero.lead")}
           </Lead>
 
           <Stats>

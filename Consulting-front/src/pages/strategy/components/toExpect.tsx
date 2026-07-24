@@ -1,62 +1,44 @@
 import styled from "styled-components";
 import { MagnifyingGlass,PencilSimple, Target  } from "phosphor-react";
+import { useTranslation } from "react-i18next";
 
 interface WhatToExpectProps {
   selectedTab: number;
 }
 
+interface CardText {
+  title: string;
+  description: string;
+}
+
 const WhatToExpect = ({ selectedTab }: WhatToExpectProps) => {
-  const cardData = [
+  const { t } = useTranslation();
+
+  const iconData = [
     [
-      {
-        icon: <MagnifyingGlass size={28} color="white" weight="bold" />,
-        title: "Formalize relações com segurança e clareza",
-        description:
-          "Elaboramos e revisamos contratos que definem direitos, deveres e previnem conflitos em todas as fases do seu negócio.",
-      },
-      {
-        icon: <PencilSimple size={28} color="white" weight="bold" />,
-        title: "Alinhe documentos aos seus objetivos estratégicos",
-        description:
-          "Criamos instrumentos sob medida como: Contrato de Prestação de Serviços, Acordo de Sócios, Vesting, Termo de Voluntariado entre outros; ajustando-os à sua realidade.",
-      },
-      {
-        icon: <Target size={28} color="white" weight="bold" />,
-        title: "Garanta validade e conformidade legal",
-        description:
-          "As minutas seguem a legislação vigente e refletem boas práticas de governança, contribuindo para decisões seguras e escaláveis.",
-      },
+      <MagnifyingGlass size={28} color="white" weight="bold" />,
+      <PencilSimple size={28} color="white" weight="bold" />,
+      <Target size={28} color="white" weight="bold" />,
     ],
     [
-      {
-        icon: <PencilSimple size={28} color="white" weight="bold" />,
-        title: "Reduza custos com inteligência fiscal",
-        description:
-          "Estudamos os regimes tributários disponíveis e identificamos a estrutura mais econômica e segura para sua operação.",
-      },
-      {
-        icon: <Target size={28} color="white" weight="bold" />,
-        title: "Aproveite benefícios legais com segurança",
-        description:
-          "Analisamos a possibilidade de imunidades e isenções previstas em lei, de acordo com a natureza da sua atividade.",
-      },
-      {
-        icon: <MagnifyingGlass size={28} color="white" weight="bold" />,
-        title: "Ganhe previsibilidade e sustentabilidade",
-        description:
-          "Estruturamos seu planejamento fiscal com foco em regularidade jurídica, controle financeiro e crescimento saudável.",
-      },
+      <PencilSimple size={28} color="white" weight="bold" />,
+      <Target size={28} color="white" weight="bold" />,
+      <MagnifyingGlass size={28} color="white" weight="bold" />,
     ],
-  
   ];
 
-  const cards = cardData[selectedTab];
+  const tabsText = t("strategy.toExpect.tabs", { returnObjects: true }) as CardText[][];
+
+  const cards = tabsText[selectedTab].map((card, index) => ({
+    ...card,
+    icon: iconData[selectedTab][index],
+  }));
 
   return (
     <Section>
       <Header>
         <StyledHR />
-        <h2>O que esperar</h2>
+        <h2>{t("strategy.toExpect.heading")}</h2>
         <StyledHR />
       </Header>
 

@@ -4,28 +4,16 @@ import img2 from "@/assets/protection/property-img2.png";
 import img3 from "@/assets/protection/data-img1.png";
 import img4 from "@/assets/protection/data-img2.png";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
-const options = [
-  {
-    title: "Propriedade Intelectual",
-    imageBack: img1,
-    imageFront: img2,
-    content: [
-      "A proteção das criações da sua empresa é essencial para <strong>preservar sua originalidade e evitar uso indevido.</strong>",
-      "Atuamos no registro de obras intelectuais como textos, vídeos, imagens e materiais institucionais, garantindo ao autor seus direitos morais e patrimoniais. Com isso, sua empresa pode <strong>divulgar, licenciar ou comercializar seus conteúdos com segurança jurídica.</strong>",
-      "Quer proteger as criações da sua empresa? <strong>Solicite um diagnóstico gratuito e garanta seus direitos autorais com segurança!</strong>",
-    ]
-  },
-  {
-    title: "Conformidade com a Lei Geral de Proteção de Dados (LGPD)",
-    imageBack: img3,
-    imageFront: img4,
-    content: [
-      "Com a LGPD em vigor, empresas que lidam com dados pessoais precisam estar em conformidade para <strong>evitar sanções e preservar a confiança do público.</strong>",
-      "Mapeamos o ciclo de vida dos dados, identificamos riscos e implementamos soluções jurídicas como políticas internas e cláusulas contratuais. Assim, <strong>garantimos transparência, adequação legal e segurança informacional para sua organização.</strong>",
-      "Quer adequar sua empresa à LGPD e proteger os dados que você coleta? <strong>Peça um diagnóstico gratuito e comece sua jornada de conformidade agora mesmo!</strong>"
-    ]
-  },
+interface OptionText {
+  title: string;
+  content: string[];
+}
+
+const imageData = [
+  { imageBack: img1, imageFront: img2 },
+  { imageBack: img3, imageFront: img4 },
 ];
 
 interface EscoposTabsProps {
@@ -34,6 +22,17 @@ interface EscoposTabsProps {
 }
 
 export const EscoposTabs = ({ selectedTab, setSelectedTab }: EscoposTabsProps) => {
+  const { t } = useTranslation();
+  const optionsText = t("protection.escoposTabs.options", { returnObjects: true }) as OptionText[];
+  const altBack = t("protection.escoposTabs.altBack");
+  const altFront = t("protection.escoposTabs.altFront");
+
+  const options = optionsText.map((opt, index) => ({
+    ...opt,
+    imageBack: imageData[index].imageBack,
+    imageFront: imageData[index].imageFront,
+  }));
+
   const [prevSelected, setPrevSelected] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [direction, setDirection] = useState<"left" | "right">("right");
@@ -73,8 +72,8 @@ export const EscoposTabs = ({ selectedTab, setSelectedTab }: EscoposTabsProps) =
               ))}
             </TextBox>
             <ImagesBox>
-              <ImageBack src={options[prevSelected].imageBack} alt="Imagem de fundo" />
-              <ImageFront src={options[prevSelected].imageFront} alt="Imagem sobreposta" />
+              <ImageBack src={options[prevSelected].imageBack} alt={altBack} />
+              <ImageFront src={options[prevSelected].imageFront} alt={altFront} />
             </ImagesBox>
           </ContentSlider>
         )}
@@ -87,8 +86,8 @@ export const EscoposTabs = ({ selectedTab, setSelectedTab }: EscoposTabsProps) =
             ))}
           </TextBox>
           <ImagesBox>
-            <ImageBack src={options[selectedTab].imageBack} alt="Imagem de fundo" />
-            <ImageFront src={options[selectedTab].imageFront} alt="Imagem sobreposta" />
+            <ImageBack src={options[selectedTab].imageBack} alt={altBack} />
+            <ImageFront src={options[selectedTab].imageFront} alt={altFront} />
           </ImagesBox>
         </ContentSlider>
       </ContentWrapper>

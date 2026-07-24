@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import styled, { keyframes } from "styled-components";
+import { useTranslation } from "react-i18next";
 
 const COLORS = {
   redCTA: "#C02121",
@@ -247,6 +248,7 @@ const IntegrationLede = styled.p`
 `;
 
 export default function BusinessIntegration() {
+  const { t } = useTranslation();
   const sectionRef = useRef<HTMLElement>(null);
   const canvasRef  = useRef<HTMLCanvasElement>(null);
   const glowRef    = useRef<HTMLDivElement>(null);
@@ -295,14 +297,12 @@ export default function BusinessIntegration() {
         <SynergyCanvas ref={canvasRef} />
         <CursorGlow ref={glowRef} />
         <IntegrationInner>
-          <Kicker>Sinergia entre frentes</Kicker>
+          <Kicker>{t("business.integration.kicker")}</Kicker>
           <IntegrationTitle>
-            Estratégia, tecnologia e direito <span>no mesmo projeto</span>
+            {t("business.integration.titleMain")} <span>{t("business.integration.titleAccent")}</span>
           </IntegrationTitle>
           <IntegrationLede>
-            Business não atua sozinho. Quando o projeto exige, trabalhamos lado a lado com
-            as frentes de Tech e Direito combinando análise estratégica, desenvolvimento
-            tecnológico e suporte jurídico para entregar uma solução completa ao cliente.
+            {t("business.integration.lede")}
           </IntegrationLede>
         </IntegrationInner>
       </Integration>

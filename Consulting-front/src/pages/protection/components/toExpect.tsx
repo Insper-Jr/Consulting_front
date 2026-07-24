@@ -1,62 +1,44 @@
 import styled from "styled-components";
 import { MagnifyingGlass,PencilSimple, Target  } from "phosphor-react";
+import { useTranslation } from "react-i18next";
 
 interface WhatToExpectProps {
   selectedTab: number;
 }
 
+interface CardText {
+  title: string;
+  description: string;
+}
+
 const WhatToExpect = ({ selectedTab }: WhatToExpectProps) => {
-  const cardData = [
+  const { t } = useTranslation();
+
+  const iconData = [
     [
-      {
-        icon: <MagnifyingGlass size={28} color="white" weight="bold" />,
-        title: "Garanta a titularidade da sua obra",
-        description:
-          "Registramos e formalizamos a autoria de conteúdos como textos, vídeos, ilustrações e materiais institucionais.",
-      },
-      {
-        icon: <PencilSimple size={28} color="white" weight="bold" />,
-        title: "Evite uso indevido e plágio",
-        description:
-          "Protegemos seus direitos morais e patrimoniais, prevenindo cópias não autorizadas e conflitos sobre propriedade intelectual",
-      },
-      {
-        icon: <Target size={28} color="white" weight="bold" />,
-        title: "Atue com segurança em divulgações e licenciamento",
-        description:
-          "Estruturamos a proteção jurídica necessária para o uso, comercialização ou compartilhamento de suas criações.",
-      },
+      <MagnifyingGlass size={28} color="white" weight="bold" />,
+      <PencilSimple size={28} color="white" weight="bold" />,
+      <Target size={28} color="white" weight="bold" />,
     ],
     [
-      {
-        icon: <PencilSimple size={28} color="white" weight="bold" />,
-        title: "Mapeie e adeque o uso de dados pessoais",
-        description:
-          "Identificamos os fluxos de coleta, uso e armazenamento de dados para garantir conformidade com a LGPD.",
-      },
-      {
-        icon: <Target size={28} color="white" weight="bold" />,
-        title: "Evite riscos legais e reputacionais",
-        description:
-          "Estruturamos políticas internas e cláusulas contratuais que reduzem vulnerabilidades e aumentam a segurança jurídica.",
-      },
-      {
-        icon: <MagnifyingGlass size={28} color="white" weight="bold" />,
-        title: "Comunique com transparência e responsabilidade",
-        description:
-          "Alinhamos suas práticas às exigências da lei, reforçando a confiança de clientes, parceiros e colaboradores.",
-      },
+      <PencilSimple size={28} color="white" weight="bold" />,
+      <Target size={28} color="white" weight="bold" />,
+      <MagnifyingGlass size={28} color="white" weight="bold" />,
     ],
-  
   ];
 
-  const cards = cardData[selectedTab];
+  const tabsText = t("protection.toExpect.tabs", { returnObjects: true }) as CardText[][];
+
+  const cards = tabsText[selectedTab].map((card, index) => ({
+    ...card,
+    icon: iconData[selectedTab][index],
+  }));
 
   return (
     <Section>
       <Header>
         <StyledHR />
-        <h2>O que esperar</h2>
+        <h2>{t("protection.toExpect.heading")}</h2>
         <StyledHR />
       </Header>
 
