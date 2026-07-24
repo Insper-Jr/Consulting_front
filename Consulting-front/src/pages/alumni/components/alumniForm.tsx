@@ -1,6 +1,8 @@
 import { useState, useRef, useCallback } from "react";
 import styled, { keyframes } from "styled-components";
+import toast from "react-hot-toast";
 import { useParticles } from "../../../hooks/useParticleBackground";
+import { config } from "../../../config/config";
 import {
   RED, RED_DEEP, BG_DARK,
   FONT_TITLE, FONT_BODY, TYPE, SPACING, SPRING,
@@ -13,11 +15,12 @@ interface FormData {
   role:     string;
   company:  string;
   linkedin: string;
-  contact:  string;
+  email:    string;
+  whatsapp: string;
 }
 
 const INITIAL_STATE: FormData = {
-  name: "", year: "", role: "", company: "", linkedin: "", contact: "",
+  name: "", year: "", role: "", company: "", linkedin: "", email: "", whatsapp: "",
 };
 
 const AlumniForm = () => {
@@ -38,19 +41,51 @@ const AlumniForm = () => {
   const [submitted, setSubmitted] = useState(false);
   const [loading,   setLoading]   = useState(false);
 
+  // Honeypot: fica fora do FormData de proposito, senao o isValid (que exige
+  // todos os campos preenchidos) travaria o botao para sempre.
+  const [honeypot, setHoneypot] = useState("");
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const isValid = Object.values(form).every((v) => v.trim() !== "");
 
+  const validateForm = () => {
+    if (!form.email.includes("@") || !form.email.includes(".")) {
+      toast.error("Digite um e-mail válido.");
+      return false;
+    }
+    if (form.whatsapp.replace(/\D/g, "").length < 8) {
+      toast.error("Digite um WhatsApp válido.");
+      return false;
+    }
+    return true;
+  };
+
   const handleSubmit = async (e: React.MouseEvent) => {
     e.preventDefault();
     if (!isValid || loading) return;
+    if (!validateForm()) return;
     setLoading(true);
-    await new Promise((res) => setTimeout(res, 1200));
-    setLoading(false);
-    setSubmitted(true);
+
+    try {
+      const response = await fetch(`${config.apiBaseUrl}/api/alumni`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({ ...form, website: honeypot }),
+      });
+      if (!response.ok) throw new Error("Erro no envio");
+      setSubmitted(true);
+    } catch (error) {
+      console.error("Erro na requisição:", error);
+      toast.error("Erro ao enviar a solicitação. Tente novamente mais tarde.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -100,6 +135,15 @@ const AlumniForm = () => {
             </SuccessBox>
           ) : (
             <Form>
+              {/* Isca anti-spam: invisivel para humanos, bots preenchem tudo.
+                  Se chegar preenchido no backend, a solicitacao e descartada. */}
+              <Honeypot
+                type="text" name="website" tabIndex={-1}
+                autoComplete="off" aria-hidden="true"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+              />
+
               <Row>
                 <Field>
                   <Label htmlFor="name">Nome completo</Label>
@@ -147,14 +191,24 @@ const AlumniForm = () => {
                 />
               </Field>
 
-              <Field>
-                <Label htmlFor="contact">WhatsApp ou e-mail</Label>
-                <Input
-                  id="contact" name="contact" type="text"
-                  placeholder="Para entrarmos em contato" value={form.contact}
-                  onChange={handleChange}
-                />
-              </Field>
+              <Row>
+                <Field>
+                  <Label htmlFor="email">E-mail</Label>
+                  <Input
+                    id="email" name="email" type="email"
+                    placeholder="seu@email.com" value={form.email}
+                    onChange={handleChange} autoComplete="email"
+                  />
+                </Field>
+                <Field>
+                  <Label htmlFor="whatsapp">WhatsApp</Label>
+                  <Input
+                    id="whatsapp" name="whatsapp" type="tel"
+                    placeholder="(11) 99999-9999" value={form.whatsapp}
+                    onChange={handleChange} autoComplete="tel"
+                  />
+                </Field>
+              </Row>
 
               <Notice>
                 As solicitações passam por uma etapa de validação pelo
@@ -304,6 +358,19 @@ const Input = styled.input`
   &:focus { border-color: ${RED}; }
 
   @media (max-width: 640px) { font-size: 16px; padding: 13px 14px; }
+`;
+
+/* Isca anti-spam. Nao usa display:none nem visibility:hidden de proposito --
+   sao os primeiros sinais que bots checam para pular o campo. Fica fora da
+   tela, sem foco por teclado e escondido de leitores de tela. */
+const Honeypot = styled.input`
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
 `;
 
 const Notice = styled.p`
