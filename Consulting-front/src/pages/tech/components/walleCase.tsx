@@ -55,7 +55,7 @@ export default function WalleCase() {
         </CaseCounter>
 
         <CaseSub>
-          Para mostrar o nível de complexidade que conseguimos entregar dentro do escopo de <strong>Automação</strong>: o <strong>Wall-E</strong> — um <strong>ecossistema multi-agente</strong> em que quatro IAs especialistas, coordenadas por um classificador inteligente, automatizam ponta a ponta a jornada de atendimento de um cliente do setor de saúde.
+          O <strong>Wall-E</strong> nasceu de uma <strong>atuação integrada entre frentes</strong>: antes da camada tecnológica, conduzimos um <strong>estudo operacional dos fluxos de venda e SAC</strong> do cliente para assegurar a experiência ponta a ponta. Só com a jornada mapeada e refinada, o escopo de <strong>Automação</strong> construiu o <strong>ecossistema multi-agente</strong> — quatro IAs especialistas, coordenadas por um classificador inteligente, que cobrem todo o atendimento de um cliente do setor de saúde.
         </CaseSub>
 
         <CaseSplit>
@@ -310,6 +310,8 @@ const CaseSection = styled.section`
   padding: 5rem 2rem 7rem;
   position: relative;
   margin-top: 0;
+
+  @media (max-width: 700px) { padding: 3rem 1.25rem 4rem; }
 `;
 
 const CaseInner = styled.div`
@@ -361,6 +363,7 @@ const CaseBigName = styled.span`
   }
   @media (max-width: 1100px) { font-size: 64px; }
   @media (max-width: 700px)  { font-size: 48px; }
+  @media (max-width: 400px)  { font-size: 38px; }
 `;
 
 const Dot = styled.span`

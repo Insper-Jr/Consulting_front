@@ -414,6 +414,7 @@ const StickySection = styled.section`
   position: sticky;
   top: 0;
   height: 100vh;
+  height: 100dvh;
   overflow: hidden;
   background: #ffffff;
   display: flex;
@@ -422,6 +423,12 @@ const StickySection = styled.section`
   border-bottom: 1px solid ${BORDER_LIGHT};
 
   @media (max-width: 768px) { padding: 56px 1.5rem 24px; }
+  @media (max-width: 768px) {
+    padding: 56px 1.5rem 24px;
+  }
+  @media (max-width: 480px) {
+    padding: 48px 1rem 20px;
+  }
 `;
 
 const SectionHeader = styled.div`
@@ -484,6 +491,8 @@ const BtnVerTodos = styled.button`
   white-space: nowrap;
   transition: background 0.25s ${SPRING}, color 0.25s ${SPRING};
   &:hover { background: ${RED}; color: #ffffff; }
+
+  @media (max-width: 640px) { padding: 12px 22px; }
 `;
 
 // ── Carousel ───────────────────────────────────────────────────────────────
@@ -905,6 +914,8 @@ const ModalBox = styled.div`
   overflow-y: auto;
   padding: 40px;
   animation: ${slideUp} 0.3s ${SPRING};
+
+  @media (max-width: 640px) { padding: 24px 20px; max-height: 90vh; }
 `;
 
 const ModalHeader = styled.div`
@@ -939,6 +950,12 @@ const ModalGrid = styled.div`
   gap: 16px;
 
   @media (max-width: 768px) { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 420px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const ModalCard = styled.div`

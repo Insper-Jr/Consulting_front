@@ -138,8 +138,9 @@ export default DiagnosticForm;
 /* ================== Styled Components ================== */
 
 const FormCard = styled.div`
-  width: 420px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 420px;
+  box-sizing: border-box;
   background: rgba(8, 15, 15, 0.55);
   backdrop-filter: blur(24px) saturate(150%);
   -webkit-backdrop-filter: blur(24px) saturate(150%);
@@ -151,7 +152,7 @@ const FormCard = styled.div`
   font-family: "Montserrat", sans-serif;
 
   @media (max-width: 600px) {
-    padding: 24px;
+    padding: 24px 20px;
   }
 `;
 

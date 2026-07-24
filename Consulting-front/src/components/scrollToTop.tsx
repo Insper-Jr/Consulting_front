@@ -1,13 +1,17 @@
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigationType } from 'react-router-dom';
 
-// Componente para rolar para o topo da página
+// Rola para o topo em navegações novas (PUSH/REPLACE),
+// mas preserva a posição ao voltar/avançar (POP) — assim o browser
+// restaura o scroll nativo da página anterior.
 const ScrollToTop = () => {
   const { pathname } = useLocation();
+  const navType = useNavigationType();
 
   useEffect(() => {
+    if (navType === 'POP') return;
     window.scrollTo(0, 0);
-  }, [pathname]);
+  }, [pathname, navType]);
 
   return null;
 };
