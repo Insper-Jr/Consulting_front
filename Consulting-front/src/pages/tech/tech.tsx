@@ -202,7 +202,7 @@ const SCOPES: Scope[] = [
         { key: "Stack", val: <>· React no front<br />· Python no back</> },
         { key: "Versionamento", val: <>GitHub — controle de branches e documentação completa</> },
         { key: "Aplicações", val: <>Sistemas web personalizados, plataformas institucionais e operacionais, soluções interativas</> },
-        { key: "Sinergia", val: <>Comunicação direta com Dados, Automação e agentes de IA</> },
+        { key: "Sinergia", val: <>Comunicação direta com Dados, automações e agentes de IA</> },
       ],
       quote: "Do componente isolado ao sistema completo — arquitetura modular e escalável.",
     },
@@ -242,28 +242,29 @@ const SCOPES: Scope[] = [
   },
   {
     num: "03",
-    tab: "Automação",
-    title: <>Processos que <i>se movem</i> sozinhos.</>,
-    lede: <><strong>Fluxos automatizados e agentes inteligentes</strong> que otimizam processos, reduzem atividades repetitivas e integram sistemas. Atuamos com <strong>n8n</strong> e programação customizada, sempre a partir de um mapeamento prévio da operação.</>,
+    tab: "Inteligência Artificial",
+    title: <>Agentes que <i>executam</i> e conversam.</>,
+    lede: <>Desenvolvimento de <strong>automações inteligentes</strong> e de <strong>agentes e chatbots</strong> capazes de executar tarefas e conversar com usuários — integrando sistemas e reduzindo tempo e custo de processos internos e de atendimento.</>,
     side: {
       eyebrow: "Ficha do escopo",
       rows: [
-        { key: "Produto-chave", val: <><strong>Fluxos automatizados</strong> e <strong>agentes inteligentes</strong> (chatbots)</> },
-        { key: "Ferramenta principal", val: <>n8n — com programação customizada</> },
-        { key: "Integrações", val: <>APIs e sistemas externos · canais WhatsApp, plataformas web e sistemas internos</> },
-        { key: "Aplicações", val: <>Processos operacionais, comunicações automáticas, chatbots e execução baseada em inputs</> },
+        { key: "Produto-chave", val: <><strong>Automações inteligentes</strong> e <strong>agentes conversacionais</strong> (chatbots)</> },
+        { key: "Frentes", val: <>· Automação e agentes<br />· Chatbots e assistentes conversacionais</> },
+        { key: "Integrações", val: <>APIs entre plataformas · canais WhatsApp e site · bases de conhecimento próprias (RAG)</> },
+        { key: "Aplicações", val: <>Rotinas repetitivas, triagem de documentos, e-mails e planilhas, atendimento ao cliente final e suporte interno</> },
       ],
-      quote: "Onde há repetição, há um fluxo a ser automatizado.",
+      quote: "Da rotina repetitiva ao atendimento — execução autônoma de ponta a ponta.",
     },
-    detail: <>Desenvolvemos <strong>fluxos baseados em lógica de negócio</strong>, sempre a partir de um mapeamento operacional prévio, e criamos agentes conversacionais inteligentes que integram diretamente com Desenvolvimento Web e Dados. Um exemplo dessa atuação é o <strong>Wall-E</strong>, construído em n8n a partir do mapeamento da equipe de Business — uma das iniciativas sinérgicas entre Engenharia e Business da Insper Jr.</>,
+    detail: <>A atuação se divide em duas frentes. Em <strong>automação e agentes</strong>, integramos plataformas via <strong>APIs</strong>, executamos rotinas repetitivas de forma autônoma e fazemos a triagem de documentos, e-mails e planilhas com <strong>processamento de linguagem natural</strong>. Em <strong>chatbots e assistentes conversacionais</strong>, atendemos o cliente final e o suporte interno com consulta a <strong>bases de conhecimento próprias da empresa (RAG)</strong>, em canais como WhatsApp e site.</>,
     bullets: [
-      "Automação de processos operacionais",
-      "Envio automático de comunicações (e-mails, mensagens)",
-      "Chatbots (WhatsApp, plataformas web, etc.)",
-      "Integração entre sistemas e plataformas",
-      "Execução automática baseada em inputs definidos",
+      "Integração entre plataformas via APIs",
+      "Execução autônoma de rotinas repetitivas",
+      "Triagem de documentos, e-mails e planilhas",
+      "Chatbots de atendimento e suporte interno",
+      "Consulta a bases de conhecimento (RAG)",
+      "Operação em canais como WhatsApp e site",
     ],
-    tags: ["n8n", "APIs", "WhatsApp", "Agentes de IA", "Chatbots"],
+    tags: ["Agentes de IA", "Chatbots", "RAG", "NLP", "APIs", "n8n", "WhatsApp"],
   },
 ];
 
@@ -557,7 +558,7 @@ function Tech() {
             <HighlightCardPlaceholder aria-label="Imagem a ser definida">
               <span>Imagem em breve</span>
             </HighlightCardPlaceholder>
-            <HighlightCardSubtitle>Escopo · Automação</HighlightCardSubtitle>
+            <HighlightCardSubtitle>Escopo · Inteligência Artificial</HighlightCardSubtitle>
           </HighlightCard>
         </HighlightGrid>
       </HighlightCases>
@@ -604,7 +605,7 @@ function Tech() {
             <PillarNum>02 — Integrada</PillarNum>
             <PillarTitle>Três escopos que conversam</PillarTitle>
             <PillarText>
-              A atuação se divide em <strong>Dados, Desenvolvimento Web e Automação</strong>. A divisão é apenas organizacional: os escopos funcionam de forma integrada dentro de uma mesma solução.
+              A atuação se divide em <strong>Dados, Desenvolvimento Web e Inteligência Artificial</strong>. A divisão é apenas organizacional: os escopos funcionam de forma integrada dentro de uma mesma solução.
             </PillarText>
           </Pillar>
           <Pillar>
@@ -654,7 +655,7 @@ function Tech() {
             <DifAccent />
             <DifNum>03</DifNum>
             <DifTitle>Integração entre escopos</DifTitle>
-            <DifText>Dados, Desenvolvimento Web e Automação atuam em conjunto, possibilitando entregas completas em que diferentes soluções conversam dentro de um mesmo ecossistema.</DifText>
+            <DifText>Dados, Desenvolvimento Web e Inteligência Artificial atuam em conjunto, possibilitando entregas completas em que diferentes soluções conversam dentro de um mesmo ecossistema.</DifText>
           </DifCard>
         </DifGrid>
       </Diferenciais>
@@ -1212,14 +1213,19 @@ const RedBar = styled.div`
 // ── Scopes (one section per scope) ──
 const ScopeSection = styled.section`
   min-height: 100vh;
-  padding: 2rem;
-  scroll-margin-top: 80px;
+  /* topo reservado para o header fixo, para o conteúdo caber em uma tela */
+  padding: calc(72px + 1rem) 2rem 1.5rem;
+  scroll-margin-top: 72px;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   background: #ffffff;
   border-top: 1px solid rgba(26,26,24,0.06);
 
   &:nth-of-type(even) { background: ${COLORS.lightCream}; }
+
+  @media (min-width: 901px) and (max-height: 700px) {
+    padding: calc(72px + 0.5rem) 2rem 1rem;
+  }
 
   @media (max-width: 900px) {
     min-height: auto;
@@ -1232,12 +1238,17 @@ const ScopesWrap = styled.div`
   margin: 0 auto;
   padding: 0;
   width: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 const ScopePanel = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  flex: 1;
+  gap: 1.1rem;
+
+  @media (min-width: 901px) and (max-height: 700px) { gap: 0.6rem; }
 `;
 
 const ScopeHeader = styled.div`
@@ -1277,7 +1288,7 @@ const CounterNum = styled.span`
 
 const ScopeName = styled.span`
   font-family: ${FONT_TITLE};
-  font-size: 48px;
+  font-size: 40px;
   font-weight: 800;
   letter-spacing: -0.035em;
   text-transform: none;
@@ -1297,8 +1308,9 @@ const ScopeName = styled.span`
     background: ${COLORS.redTitle};
   }
 
-  @media (max-width: 1100px) { font-size: 40px; }
-  @media (max-width: 700px) { font-size: 32px; }
+  @media (max-width: 1100px) { font-size: 36px; }
+  @media (max-width: 700px) { font-size: 30px; }
+  @media (min-width: 901px) and (max-height: 700px) { font-size: 30px; padding-bottom: 0.35rem; }
 `;
 
 const ScopeGrid = styled.div`
@@ -1306,6 +1318,7 @@ const ScopeGrid = styled.div`
   grid-template-columns: 1.55fr 1fr;
   gap: 2.5rem;
   align-items: stretch;
+  flex: 1;
 
   @media (max-width: 1024px) { gap: 1.75rem; }
   @media (max-width: 900px) { grid-template-columns: 1fr; gap: 1.5rem; }
@@ -1314,9 +1327,11 @@ const ScopeGrid = styled.div`
 const ScopeMain = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 2.25rem;
+  gap: 1.35rem;
   min-width: 0;
   height: 100%;
+
+  @media (min-width: 901px) and (max-height: 700px) { gap: 0.75rem; }
 `;
 
 const ScopeIntro = styled.div`
@@ -1327,7 +1342,7 @@ const ScopeIntro = styled.div`
 const ScopeTitleH3 = styled.h3`
   color: ${COLORS.ink};
   font-family: ${FONT_TITLE};
-  font-size: 40px;
+  font-size: 34px;
   font-weight: 700;
   margin: 0;
   letter-spacing: -0.02em;
@@ -1339,6 +1354,7 @@ const ScopeTitleH3 = styled.h3`
     color: ${COLORS.redTitle};
   }
 
+  @media (min-width: 901px) and (max-height: 700px) { font-size: 25px; }
   @media (max-width: 900px) { font-size: 28px; }
 `;
 
@@ -1346,20 +1362,23 @@ const Accent = styled.div`
   width: 56px;
   height: 3px;
   background: ${COLORS.redTitle};
-  margin: 0.9rem 0 1.2rem;
+  margin: 0.7rem 0 0.85rem;
   transform-origin: left center;
   transform: scaleX(0);
   animation: ${accentGrow} 0.9s cubic-bezier(0.16,1,0.3,1) 0.3s forwards;
+
+  @media (min-width: 901px) and (max-height: 700px) { margin: 0.45rem 0 0.55rem; }
 `;
 
 const ScopeLede = styled.p`
   font-family: ${FONT_BODY};
-  font-size: 16.5px;
-  line-height: 1.6;
+  font-size: 15.5px;
+  line-height: 1.55;
   color: #5a5550;
   margin: 0;
   strong { color: ${COLORS.ink}; font-weight: 600; }
 
+  @media (min-width: 901px) and (max-height: 700px) { font-size: 14.5px; line-height: 1.5; }
   @media (max-width: 600px) { font-size: 14px; }
 `;
 
@@ -1369,8 +1388,10 @@ const PanelSide = styled.aside`
   background: rgba(161, 15, 35, 0.035);
   border: 1px solid rgba(26,26,24,0.08);
   border-left: 3px solid ${COLORS.redTitle};
-  padding: 1.5rem 1.75rem 1.4rem;
+  padding: 1.15rem 1.4rem 1.1rem;
   position: relative;
+
+  @media (min-width: 901px) and (max-height: 700px) { padding: 0.85rem 1.2rem 0.8rem; }
 `;
 
 const SideCorner = styled.div`
@@ -1391,7 +1412,7 @@ const SideEyebrow = styled.p`
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: ${COLORS.redTitle};
-  margin: 0 0 0.85rem;
+  margin: 0 0 0.6rem;
 `;
 
 const SideRows = styled.div`
@@ -1404,11 +1425,11 @@ const SideRows = styled.div`
 const SideRow = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0.25rem;
-  padding: 0.75rem 0;
+  gap: 0.2rem;
+  padding: 0.55rem 0;
   border-bottom: 1px solid rgba(26,26,24,0.08);
-  &:first-of-type { padding-top: 0.35rem; }
-  &:last-of-type { border-bottom: none; padding-bottom: 0.35rem; }
+  &:first-of-type { padding-top: 0.25rem; }
+  &:last-of-type { border-bottom: none; padding-bottom: 0.25rem; }
 `;
 
 const SideKey = styled.span`
@@ -1429,8 +1450,8 @@ const SideVal = styled.span`
 `;
 
 const SideQuote = styled.p`
-  margin: 1.1rem 0 0;
-  padding-top: 1rem;
+  margin: 0.85rem 0 0;
+  padding-top: 0.8rem;
   border-top: 1px solid rgba(26,26,24,0.08);
   font-family: ${FONT_BODY};
   font-size: 13.5px;
@@ -1455,7 +1476,7 @@ const PanelBody = styled.div`
   border-top: 1px solid rgba(26,26,24,0.12);
   border-bottom: 1px solid rgba(26,26,24,0.12);
   flex: 1;
-  align-content: center;
+  align-items: stretch;
 
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
@@ -1464,10 +1485,17 @@ const PanelBody = styled.div`
 `;
 
 const PanelCol = styled.div`
-  padding: 1.5rem 2rem 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  padding: 1.15rem 2rem 1.15rem 0;
   & + & {
-    padding: 1.5rem 0 1.5rem 2.25rem;
+    padding: 1.15rem 0 1.15rem 2.25rem;
     border-left: 1px solid rgba(26,26,24,0.12);
+  }
+
+  @media (min-width: 901px) and (max-height: 700px) {
+    padding: 0.75rem 1.35rem 0.75rem 0;
+    & + & { padding: 0.75rem 0 0.75rem 1.6rem; }
   }
 
   @media (max-width: 900px) {
@@ -1487,16 +1515,20 @@ const ColLabel = styled.p`
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: ${COLORS.redTitle};
-  margin: 0 0 0.85rem;
+  margin: 0 0 0.65rem;
+
+  @media (min-width: 901px) and (max-height: 700px) { margin: 0 0 0.45rem; }
 `;
 
 const ScopeDetail = styled.p`
   font-family: ${FONT_BODY};
-  font-size: 15px;
-  line-height: 1.65;
+  font-size: 14.5px;
+  line-height: 1.55;
   color: #3a3530;
   margin: 0;
   strong { color: ${COLORS.ink}; font-weight: 600; }
+
+  @media (min-width: 901px) and (max-height: 700px) { font-size: 13.5px; line-height: 1.45; }
 `;
 
 const Bullets = styled.ul`
@@ -1505,13 +1537,15 @@ const Bullets = styled.ul`
   margin: 0;
   display: grid;
   grid-template-columns: 1fr;
+  align-content: space-between;
+  flex: 1;
   counter-reset: entrega;
 
   li {
     font-family: ${FONT_BODY};
-    font-size: 14.5px;
+    font-size: 14px;
     line-height: 1.4;
-    padding: 0.6rem 0 0.6rem 2rem;
+    padding: 0.45rem 0 0.45rem 2rem;
     position: relative;
     color: ${COLORS.ink};
     border-bottom: 1px solid rgba(26,26,24,0.07);
@@ -1528,6 +1562,10 @@ const Bullets = styled.ul`
       color: ${COLORS.redTitle};
       letter-spacing: 0.05em;
     }
+  }
+
+  @media (min-width: 901px) and (max-height: 700px) {
+    li { padding: 0.32rem 0 0.32rem 1.6rem; font-size: 13px; line-height: 1.35; }
   }
 `;
 
