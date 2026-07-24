@@ -232,7 +232,7 @@ export default function BusinessAbout() {
         <StatsBar>
           <Stat><StatValue>25+</StatValue><StatLabel>{t("business.about.stats.years")}</StatLabel></Stat>
           <Stat><StatValue>500+</StatValue><StatLabel>{t("business.about.stats.projects")}</StatLabel></Stat>
-          <Stat><StatValue>8</StatValue><StatLabel>{t("business.about.stats.fronts")}</StatLabel></Stat>
+          <Stat><StatValue>3</StatValue><StatLabel>{t("business.about.stats.fronts")}</StatLabel></Stat>
         </StatsBar>
       </Intro>
     </>

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import styled, { keyframes } from "styled-components";
+import { useTranslation } from "react-i18next";
 import { useParticles } from "../../../hooks/useParticleBackground";
 import ProcessImg from "../../../assets/hero/process6.webp"; // ← ajuste o path se necessário
 
@@ -51,9 +52,6 @@ const GradientOverlay = styled.div`
     rgba(14, 4, 4, 0.45) 65%,
     rgba(14, 4, 4, 0.15) 100%
   );
-  position: relative; width: 100%; height: 100vh; height: 100dvh;
-  background: ${BG}; overflow: hidden;
-  display: flex; align-items: stretch; isolation: isolate;
 `;
 
 /* Gradiente vertical sutil para escurecer topo e rodapé */
@@ -231,11 +229,13 @@ const ChevD = () => (
   </svg>
 );
 
-const W = ["Simulação", "&"];
 const D = [0.55, 0.78];
 
 /* ── Component ── */
 export default function ProcessosHero() {
+  const { t } = useTranslation();
+  const W = [t("processos.hero.titleWord1"), t("processos.hero.titleWord2")];
+
   const wrapperRef = useRef<HTMLDivElement>(null);
   const canvasRef  = useRef<HTMLCanvasElement>(null);
   useParticles(wrapperRef, canvasRef);
@@ -264,27 +264,25 @@ export default function ProcessosHero() {
       <Grid>
         <Inner>
           <Left>
-            <Eyebrow $v={v}>Frente de Engenharia</Eyebrow>
+            <Eyebrow $v={v}>{t("processos.hero.eyebrow")}</Eyebrow>
 
             <Title>
               {W.map((w, i) => <Word key={w} $d={D[i]} $v={v}>{w}</Word>)}
               <br />
-              <Word $d={1.02} $v={v}><Accent>Otimização</Accent></Word>
+              <Word $d={1.02} $v={v}><Accent>{t("processos.hero.titleAccent")}</Accent></Word>
               <br />
-              <Word $d={1.22} $v={v}>de Processos</Word>
+              <Word $d={1.22} $v={v}>{t("processos.hero.titleSuffix")}</Word>
             </Title>
 
             <Divider $v={v} />
 
             <Sub $v={v}>
-              Mapeamos sua operação, coletamos dados com precisão e construímos
-              um modelo computacional completo para identificar gargalos e
-              recomendar as melhorias de maior impacto.
+              {t("processos.hero.sub")}
             </Sub>
 
             <Actions $v={v}>
-              <BtnPrimary href="/contact">Solicitar Diagnóstico <ArrowR /></BtnPrimary>
-              <BtnGhost href="#escopos">Nossos escopos <ChevD /></BtnGhost>
+              <BtnPrimary href="/contact">{t("processos.hero.ctaPrimary")} <ArrowR /></BtnPrimary>
+              <BtnGhost href="#escopos">{t("processos.hero.ctaGhost")} <ChevD /></BtnGhost>
             </Actions>
           </Left>
         </Inner>

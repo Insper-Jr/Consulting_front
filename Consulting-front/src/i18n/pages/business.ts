@@ -149,7 +149,7 @@ export const businessTranslations = {
         stats: {
           years: "Anos de atuação",
           projects: "Projetos entregues",
-          fronts: "Frentes de Business",
+          fronts: "Áreas parceiras",
         },
       },
       why: {
@@ -359,7 +359,7 @@ export const businessTranslations = {
         stats: {
           years: "Years in operation",
           projects: "Projects delivered",
-          fronts: "Business fronts",
+          fronts: "Partner areas",
         },
       },
       why: {
