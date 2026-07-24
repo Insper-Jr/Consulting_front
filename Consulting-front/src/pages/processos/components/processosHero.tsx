@@ -51,9 +51,6 @@ const GradientOverlay = styled.div`
     rgba(14, 4, 4, 0.45) 65%,
     rgba(14, 4, 4, 0.15) 100%
   );
-  position: relative; width: 100%; height: 100vh; height: 100dvh;
-  background: ${BG}; overflow: hidden;
-  display: flex; align-items: stretch; isolation: isolate;
 `;
 
 /* Gradiente vertical sutil para escurecer topo e rodapé */
