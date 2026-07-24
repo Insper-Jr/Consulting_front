@@ -244,7 +244,7 @@ const FooterLink = styled(Link)`
   text-decoration: none;
 
   &:hover {
-    color: #a10f23;
+    color: #C02121;
   }
 
   @media (max-width: 1200px) {
@@ -260,11 +260,11 @@ const FooterLink = styled(Link)`
 const ExternalLink = styled.a`
   color: #fff;
   text-decoration: none;
-  display: flex; 
+  display: flex;
   align-items: center;
 
   &:hover {
-    color: #a10f23;
+    color: #C02121;
   }
 
   @media (max-width: 1200px) {
@@ -298,7 +298,7 @@ const SocialIcon = styled.a`
   font-size: 1.2rem;
 
   &:hover {
-    color: #a10f23;
+    color: #C02121;
   }
 
   @media (max-width: 1200px) {

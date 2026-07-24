@@ -82,7 +82,7 @@ const Grid = styled.div`
 
 const Inner = styled.div`
   width: 100%;
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 56px;
   display: grid;

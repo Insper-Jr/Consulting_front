@@ -246,7 +246,7 @@ const ScopeSection = styled.section`
 `;
 
 const Inner = styled.div`
-  max-width: 1240px; margin: 0 auto; padding: 0 56px;
+  max-width: 1200px; margin: 0 auto; padding: 0 56px;
   @media (max-width: 960px) { padding: 0 28px; }
   @media (max-width: 480px) { padding: 0 20px; }
 `;
@@ -413,7 +413,7 @@ const DetailContent = styled.div<{ $open: boolean }>`
 
 const DetailInner = styled.div<{ $v: boolean }>`
   position: relative; z-index: 2;
-  max-width: 1240px; margin: 0 auto; padding: 64px 80px;
+  max-width: 1200px; margin: 0 auto; padding: 64px 80px;
   display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
   align-items: start;
   opacity: ${p => p.$v ? 1 : 0};
@@ -486,7 +486,7 @@ const SectionDivider = styled.div`
 
 const OutcomeInner = styled.div`
   position: relative; z-index: 2;
-  max-width: 1240px; margin: 0 auto; padding: 56px 56px;
+  max-width: 1200px; margin: 0 auto; padding: 56px 56px;
   @media (max-width: 960px) { padding: 48px 28px; }
 `;
 

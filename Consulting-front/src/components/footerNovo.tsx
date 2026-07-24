@@ -32,7 +32,7 @@ const icons: Record<string, React.ReactNode> = {
 
 const Wrap = styled.footer`
   background: #111110;
-  color: #e8e4dc;
+  color: #FAF2EA;
   font-family: 'DM Sans', sans-serif;
   padding: 0 40px;
   box-sizing: border-box;
@@ -63,7 +63,7 @@ const BrandLogo = styled.img`
 
 const BrandDesc = styled.p`
   font-size: 14px;
-  color: rgba(232, 228, 220, 0.48);
+  color: rgba(250, 242, 234, 0.48);
   line-height: 1.55;
   font-weight: 300;
   max-width: 200px;
@@ -74,7 +74,7 @@ const Label = styled.p`
   font-size: 9px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(232, 228, 220, 0.32);
+  color: rgba(250, 242, 234, 0.32);
   font-weight: 500;
   margin: 0 0 10px;
 `;
@@ -90,7 +90,7 @@ const NavList = styled.ul`
 
 const NavLink = styled.a`
   font-size: 12px;
-  color: rgba(232, 228, 220, 0.72);
+  color: rgba(250, 242, 234, 0.72);
   text-decoration: none;
   font-weight: 300;
   transition: color 0.2s, padding-left 0.2s;
@@ -111,7 +111,7 @@ const NavLink = styled.a`
   }
 
   &:hover {
-    color: #e8e4dc;
+    color: #FAF2EA;
     padding-left: 2px;
     &::before { opacity: 1; }
   }
@@ -128,13 +128,13 @@ const ContactLink = styled.a`
   align-items: center;
   gap: 8px;
   text-decoration: none;
-  color: rgba(232, 228, 220, 0.72);
+  color: rgba(250, 242, 234, 0.72);
   font-size: 11.5px;
   font-weight: 300;
   transition: color 0.2s;
 
   &:hover {
-    color: #e8e4dc;
+    color: #FAF2EA;
   }
 
   &:hover span {
@@ -153,7 +153,7 @@ const IconBox = styled.span`
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  color: rgba(232, 228, 220, 0.55);
+  color: rgba(250, 242, 234, 0.55);
   transition: border-color 0.2s, background 0.2s, color 0.2s;
 `;
 
@@ -167,14 +167,14 @@ const BottomBar = styled.div`
 
 const LegalText = styled.span`
   font-size: 10.5px;
-  color: rgba(232, 228, 220, 0.28);
+  color: rgba(250, 242, 234, 0.28);
   font-weight: 300;
   letter-spacing: 0.02em;
 `;
 
 const LegalLink = styled.a`
   font-size: 10.5px;
-  color: rgba(232, 228, 220, 0.28);
+  color: rgba(250, 242, 234, 0.28);
   text-decoration: none;
   letter-spacing: 0.02em;
   transition: color 0.2s;

@@ -103,7 +103,7 @@ const pt = {
   interactiveSelector: {
     titleLine1:        "Como podemos",
     titleLine2:        "te ajudar?",
-    subtitle:          "Diga-nos o que você precisa e nós o conectaremos com a expertise certa — adaptada ao seu setor e objetivos.",
+    subtitle:          "Diga-nos o que você precisa e nós o conectaremos com a expertise certa, adaptada ao seu setor e objetivos.",
     industriesLabel:   "Indústrias",
     capabilitiesLabel: "Capacidades",
     learnMore:         "Saiba mais →",
@@ -146,7 +146,7 @@ const pt = {
       data:           "Extraímos padrões e insights de grandes volumes de dados para orientar decisões mais inteligentes.",
       product:        "Do conceito ao lançamento: estruturamos o ciclo de vida do produto com foco em valor e escalabilidade.",
       web:            "Construímos interfaces e sistemas web robustos, performáticos e pensados para converter.",
-      creation:       "Ajudamos a materializar ideias em estruturas sólidas — societárias, operacionais e de marca.",
+      creation:       "Ajudamos a materializar ideias em estruturas sólidas: societárias, operacionais e de marca.",
       corporate:      "Estruturamos a governança e a participação societária para garantir alinhamento e longevidade.",
       cnpj:           "Simplificamos a abertura da sua empresa com agilidade, segurança e zero burocracia desnecessária.",
       docs:           "Elaboramos contratos sociais, estatutos e atas com precisão jurídica e linguagem clara.",

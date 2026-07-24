@@ -4,11 +4,11 @@ import styled, { keyframes } from "styled-components";
 import { useTranslation } from "react-i18next";
 import type { TFunction } from "i18next";
 
-const RED        = "#A10F23";
+const RED        = "#C02121";
 const RED_CTA    = "#C02121";
-const INK        = "#1a1a1a";
+const INK        = "#1a1a18";
 const BG_DARK    = "#0e0404";
-const LIGHT_CREAM = "#faf6f1";
+const LIGHT_CREAM = "#FAF2EA";
 const FONT_TITLE  = `"Montserrat", Helvetica, sans-serif`;
 const FONT_BODY   = `"Inter", Helvetica, sans-serif`;
 const SPRING      = "cubic-bezier(0.16,1,0.3,1)";
@@ -159,7 +159,7 @@ const ScopeSection = styled.section`
 `;
 
 const ScopesWrap = styled.div`
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
   width: 100%;
 `;
@@ -366,7 +366,7 @@ const CaseCardLink = styled(Link)`
     text-transform: uppercase;
     padding: 0.45rem 0.85rem;
     border-radius: 999px;
-    box-shadow: 0 6px 14px rgba(161,15,35,0.32);
+    box-shadow: 0 6px 14px rgba(192,33,33,0.32);
     opacity: 0;
     transform: translate(-50%, 8px);
     transition: opacity 0.25s ease, transform 0.25s ease;
@@ -378,7 +378,7 @@ const CaseCardLink = styled(Link)`
   &:hover {
     transform: translateY(-4px);
     box-shadow: 0 14px 32px rgba(0,0,0,0.12);
-    border-color: rgba(161,15,35,0.35);
+    border-color: rgba(192,33,33,0.35);
     &::before { opacity: 1; transform: translate(-50%, 0); }
   }
 

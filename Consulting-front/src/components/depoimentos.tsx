@@ -131,9 +131,9 @@ const RightSide = styled.div`
 
 const Title = styled.h2`
   font-family: "Montserrat", sans-serif;
-  font-size: 30px;
+  font-size: 32px;
   font-weight: 700;
-  color: #a10f23;
+  color: #C02121;
   margin-bottom: 16px;
 `;
 
@@ -169,7 +169,7 @@ const Arrows = styled.div`
 `;
 
 const ArrowButton = styled.button<{ disabled?: boolean }>`
-  background-color: ${({ disabled }) => (disabled ? "#5C0E15" : "#a10f23")};
+  background-color: ${({ disabled }) => (disabled ? "#5C0E15" : "#C02121")};
   border: none;
   color: #fff;
   padding: 8px 12px;

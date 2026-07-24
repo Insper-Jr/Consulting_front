@@ -10,14 +10,14 @@ import DireitoCTA from "./components/direitoCTA";
 
 // ── Color tokens (mirror tech) ─────────────────────────────────────────────
 const COLORS = {
-  redTitle: "#A10F23",
+  redTitle: "#C02121",
   redCTA:   "#C02121",
   redDark:  "#691212",
   black:    "#0e0404",
-  ink:      "#1a1a1a",
+  ink:      "#1a1a18",
   bg:       "#ffffff",
   cream:    "#FAF2EA",
-  lightCream: "#faf6f1",
+  lightCream: "#FAF2EA",
 };
 
 const FONT_TITLE = `"Montserrat", Helvetica, sans-serif`;
@@ -683,14 +683,14 @@ const HeroEyebrow = styled.span`
 
 const HeroTitle = styled.h1`
   font-family: ${FONT_TITLE};
-  font-size: 56px;
+  font-size: 48px;
   font-weight: 700;
   color: ${COLORS.cream};
   letter-spacing: -0.03em;
   line-height: 1.1;
   margin: 0;
 
-  @media (max-width: 1300px) { font-size: 44px; }
+  @media (max-width: 1300px) { font-size: 40px; }
   @media (max-width: 600px) { font-size: 30px; }
 `;
 
@@ -759,7 +759,7 @@ const HeroScrollLine = styled.div`
 const Intro = styled.section`
   padding: 0 2rem 4rem;
   width: 80%;
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
   position: relative;
 
@@ -784,7 +784,7 @@ const SectionTitle = styled.h2`
   font-family: ${FONT_TITLE};
   font-size: 32px;
   font-weight: 700;
-  color: #080F0F;
+  color: ${COLORS.ink};
   letter-spacing: -0.02em;
   line-height: 1.1;
   margin: 0;
@@ -800,14 +800,14 @@ const SectionSubtitle = styled.p`
   max-width: 700px;
   margin: 0 auto 3rem;
   text-align: center;
-  color: #444;
+  color: #7a746e;
   padding: 0 1rem;
 
   @media (max-width: 600px) { font-size: 14px; }
 `;
 
 const ScopesOpening = styled.section`
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 5rem auto 0;
   padding: 0 2rem;
   text-align: center;
@@ -832,7 +832,7 @@ const OpeningTitle = styled.h2`
   font-family: ${FONT_TITLE};
   font-size: 32px;
   font-weight: 700;
-  color: #080F0F;
+  color: ${COLORS.ink};
   letter-spacing: -0.02em;
   line-height: 1.1;
   margin: 0;
@@ -851,7 +851,7 @@ const OpeningSubtitle = styled.p`
   font-size: 16px;
   font-weight: 400;
   line-height: 1.5;
-  color: #444;
+  color: #7a746e;
   max-width: 700px;
   margin: 0 auto 3rem;
 
@@ -1016,7 +1016,7 @@ const PillarTitle = styled.h4`
   font-family: ${FONT_TITLE};
   font-size: 19px;
   font-weight: 700;
-  color: #111;
+  color: ${COLORS.ink};
   margin: 0 0 0.6rem;
   line-height: 1.25;
 `;
@@ -1025,7 +1025,7 @@ const PillarText = styled.p`
   font-family: ${FONT_BODY};
   font-size: 15px;
   line-height: 1.55;
-  color: #4a4a4a;
+  color: #7a746e;
   margin: 0;
   strong { font-weight: 600; color: ${COLORS.ink}; }
 `;
@@ -1050,7 +1050,7 @@ const StatValue = styled.div`
   font-family: ${FONT_TITLE};
   font-size: 32px;
   font-weight: 700;
-  color: #000;
+  color: ${COLORS.ink};
 
   @media (max-width: 600px) { font-size: 24px; }
 `;
@@ -1059,7 +1059,7 @@ const StatLabel = styled.div`
   font-family: ${FONT_BODY};
   font-size: 16px;
   text-align: center;
-  color: #555;
+  color: #7a746e;
 
   @media (max-width: 600px) { font-size: 13px; }
 `;
@@ -1105,7 +1105,7 @@ const ScopeSection = styled.section`
 `;
 
 const ScopesWrap = styled.div`
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0;
   width: 100%;
@@ -1234,7 +1234,7 @@ const ScopeLede = styled.p`
   font-family: ${FONT_BODY};
   font-size: 16.5px;
   line-height: 1.6;
-  color: #5a5550;
+  color: #7a746e;
   margin: 0;
   strong { color: ${COLORS.ink}; font-weight: 600; }
 
@@ -1313,7 +1313,7 @@ const SideQuote = styled.p`
   font-family: ${FONT_BODY};
   font-size: 13.5px;
   line-height: 1.55;
-  color: #5a5550;
+  color: #7a746e;
   font-style: italic;
   &::before {
     content: "\\201C";
@@ -1372,7 +1372,7 @@ const ScopeDetail = styled.p`
   font-family: ${FONT_BODY};
   font-size: 15px;
   line-height: 1.65;
-  color: #3a3530;
+  color: #7a746e;
   margin: 0;
   strong { color: ${COLORS.ink}; font-weight: 600; }
 `;
@@ -1449,7 +1449,7 @@ const Tag = styled.span`
 
 const HighlightCases = styled.section`
   padding: 0 2rem 5rem;
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
   width: 100%;
 
@@ -1644,28 +1644,29 @@ const Kicker = styled.div`
 
 const IntegrationTitle = styled.h2`
   font-family: ${FONT_TITLE};
-  font-size: 38px;
+  font-size: 32px;
   margin: 0 0 1rem;
-  line-height: 1.15;
-  color: #fff;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: ${COLORS.cream};
   font-weight: 700;
   span { color: ${COLORS.redCTA}; }
 
-  @media (max-width: 800px) { font-size: 28px; }
+  @media (max-width: 800px) { font-size: 26px; }
 `;
 
 const IntegrationLede = styled.p`
   font-family: ${FONT_BODY};
   font-size: 18px;
   line-height: 1.7;
-  color: rgba(255,255,255,0.78);
+  color: rgba(250,242,234,0.85);
   max-width: 820px;
   margin: 0 auto 2.5rem;
 `;
 
 const Diferenciais = styled.section`
   padding: 0 2rem 5rem;
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
 `;
 

@@ -98,7 +98,7 @@ export default function OfficeMap() {
               <OfficeName>{t("sectionMap.officeName")}</OfficeName>
               <Address>
                 <strong>Insper Jr.</strong>
-                R. Quatá, 200 — 1º Andar<br />
+                R. Quatá, 200, 1º Andar<br />
                 Vila Olímpia<br />
                 04546-042 São Paulo, SP<br />
                 Brasil
@@ -116,7 +116,7 @@ export default function OfficeMap() {
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.0!2d-46.675479!3d-23.5990549!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce5753605b7ef1%3A0xe4a8a4037abb6338!2sR.%20Quat%C3%A1%2C%20200%20-%20Vila%20Ol%C3%ADmpia%2C%20S%C3%A3o+Paulo%20-%20SP%2C%2004546-041!5e0!3m2!1spt-BR!2sbr!4v1680000000000!5m2!1spt-BR!2sbr"
               allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"
-              title="Localização do escritório — Vila Olímpia, São Paulo"
+              title="Localização do escritório em Vila Olímpia, São Paulo"
             />
           </MapFrame>
         </Wrap>

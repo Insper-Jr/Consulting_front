@@ -8,6 +8,7 @@ type StepT = { label: string; desc: string };
 type FrenteT = { id: FrenteId; label: string; steps: StepT[] };
 
 const FONT = `'Inter', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif`;
+const FONT_TITLE = `'Montserrat', Helvetica, sans-serif`;
 const MONO = `'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace`;
 
 const EDITAL_URLS: Record<FrenteId, string> = {
@@ -147,7 +148,7 @@ const Section = styled.section`
 
 const Inner = styled.div`
   position: relative;
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 32px;
   opacity: 0;
@@ -163,8 +164,8 @@ const Head = styled.div`
   gap: 60px; align-items: end; margin-bottom: 48px;
 
   .left { display: flex; flex-direction: column; gap: 18px; }
-  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #691212; }
-  h2 { margin: 0; font-size: clamp(28px, 3.2vw, 40px); line-height: 1.1; letter-spacing: -0.02em; font-weight: 800; }
+  .eyebrow { font-family: ${FONT_TITLE}; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #C02121; }
+  h2 { font-family: ${FONT_TITLE}; margin: 0; font-size: clamp(28px, 3.2vw, 40px); line-height: 1.1; letter-spacing: -0.02em; font-weight: 800; }
 
   @media (max-width: 980px) { grid-template-columns: 1fr; gap: 24px; margin-bottom: 32px; }
 `;
@@ -243,7 +244,7 @@ const StepItem = styled.div`
   position: relative; z-index: 1; padding: 0 14px;
   &:first-child { padding-left: 0; }
   &:last-child  { padding-right: 0; }
-  h4 { margin: 0 0 8px; font-size: 16px; font-weight: 700; letter-spacing: -0.01em; }
+  h4 { font-family: ${FONT_TITLE}; margin: 0 0 8px; font-size: 16px; font-weight: 700; letter-spacing: -0.01em; }
   p  { margin: 0; color: rgba(8,15,15,0.62); font-size: 13px; line-height: 1.55; }
   @media (max-width: 980px) {
     display: grid; grid-template-columns: 56px 1fr;

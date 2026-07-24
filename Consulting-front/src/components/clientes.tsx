@@ -84,7 +84,7 @@ const TitleText = styled.div`
   font-family: "Montserrat", sans-serif;
   font-weight: 700;
   font-size: 34px;
-  color: #A10F23;
+  color: #C02121;
   line-height: 1.1;
 
   span {
@@ -99,7 +99,7 @@ const TitleText = styled.div`
 const RedBar = styled.div`
   width: 4px;
   height: 80px;
-  background-color: #A10F23;
+  background-color: #C02121;
 
   @media (max-width: 600px) {
     height: 45px;

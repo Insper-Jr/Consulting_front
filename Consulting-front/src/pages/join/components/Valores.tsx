@@ -3,6 +3,7 @@ import styled, { keyframes } from "styled-components";
 import { useTranslation } from "react-i18next";
 
 const FONT = `'Inter', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif`;
+const FONT_TITLE = `'Montserrat', Helvetica, sans-serif`;
 
 const IconExcelencia = () => (
   <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
@@ -102,7 +103,7 @@ const Valores = () => {
 export default Valores;
 
 const Section = styled.section`
-  background: #FAF4F0;
+  background: #FAF2EA;
   padding: 120px 0;
   font-family: ${FONT};
   color: #080F0F;
@@ -112,7 +113,7 @@ const Section = styled.section`
 
 const Inner = styled.div`
   position: relative;
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 32px;
   opacity: 0;
@@ -128,8 +129,8 @@ const Head = styled.div`
   gap: 60px; align-items: end; margin-bottom: 64px;
 
   .left { display: flex; flex-direction: column; gap: 18px; }
-  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #691212; }
-  h2 { margin: 0; font-size: clamp(28px, 3.2vw, 40px); line-height: 1.1; letter-spacing: -0.02em; font-weight: 800; }
+  .eyebrow { font-family: ${FONT_TITLE}; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #C02121; }
+  h2 { font-family: ${FONT_TITLE}; margin: 0; font-size: clamp(28px, 3.2vw, 40px); line-height: 1.1; letter-spacing: -0.02em; font-weight: 800; }
   .lead-block { position: relative; padding-left: 16px; border-left: 2px solid #C02121; }
   .lead-sub { margin: 0; color: rgba(8,15,15,0.52); font-size: 15px; line-height: 1.65; max-width: 38ch; }
 
@@ -159,6 +160,7 @@ const IconWrap = styled.div<{ $idx: number }>`
 const TitleWrap = styled.div`
   margin-bottom: 10px;
   h4 {
+    font-family: ${FONT_TITLE};
     margin: 0; display: inline-block; position: relative;
     font-size: 22px; font-weight: 700; letter-spacing: -0.02em; color: #080F0F;
     transition: color 0.2s ease;

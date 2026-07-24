@@ -4,10 +4,10 @@ import { useTranslation, Trans } from "react-i18next";
 
 // ── Tokens (mirrors parent page) ──────────────────────────────────────────
 const C = {
-  redTitle: "#A10F23",
+  redTitle: "#C02121",
   redCTA: "#C02121",
   redDark: "#691212",
-  ink: "#1a1a1a",
+  ink: "#1a1a18",
 };
 
 const FONT_TITLE = `"Montserrat", Helvetica, sans-serif`;
@@ -500,7 +500,7 @@ const CdImgBase = `
   flex-direction: column;
   justify-content: center;
   padding: 2.25rem 2rem;
-  background: linear-gradient(180deg, #fff 0%, #faf6f1 100%);
+  background: linear-gradient(180deg, #fff 0%, #FAF2EA 100%);
   overflow: hidden;
 `;
 

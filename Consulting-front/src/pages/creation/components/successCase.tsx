@@ -48,9 +48,9 @@ const Container = styled.div<{ hovered: boolean }>`
   height: 350px;
   display: flex;
   flex-direction: row;
-  border-top: ${({ hovered }) => (hovered ? "2px solid #A10F23" : "2px solid #929090")};
-  border-bottom: ${({ hovered }) => (hovered ? "2px solid #A10F23" : "2px solid #929090")};
-  border-right: ${({ hovered }) => (hovered ? "2px solid #A10F23" : "0px solid #A10F23")};
+  border-top: ${({ hovered }) => (hovered ? "2px solid #C02121" : "2px solid #929090")};
+  border-bottom: ${({ hovered }) => (hovered ? "2px solid #C02121" : "2px solid #929090")};
+  border-right: ${({ hovered }) => (hovered ? "2px solid #C02121" : "0px solid #C02121")};
   transition: border 0.3s ease, transform 0.3s ease;
 
   &:hover {
@@ -69,7 +69,7 @@ const Container = styled.div<{ hovered: boolean }>`
     gap: 1rem;
   }
   @media (max-width: 500px) {
-      border-right: 0px solid #A10F23;
+      border-right: 0px solid #C02121;
   }
 `;
 
@@ -103,7 +103,7 @@ const Title = styled.h3`
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 1rem;
-  color:#A10F23;
+  color:#C02121;
 
   @media (max-width: 800px) {
     font-size: 20px;

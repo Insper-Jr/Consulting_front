@@ -76,7 +76,7 @@ const Header = styled.div`
   h2 {
     font-family: "Montserrat", sans-serif;
     font-size: 36px;
-    color: #A10F23;
+    color: #C02121;
     white-space: nowrap;
   }
 
@@ -110,7 +110,7 @@ const Card = styled.div`
 `;
 
 const IconWrapper = styled.div`
-  background-color: #A10F23;
+  background-color: #C02121;
   border: 2px solid white;
   padding: 0.7rem;
   display: inline-flex;

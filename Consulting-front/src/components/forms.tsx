@@ -122,7 +122,7 @@ const DiagnosticForm = () => {
           <FieldLabel>{t("shared.forms.fields.description.label")}</FieldLabel>
           <FieldTextArea
             name="cf_description"
-            rows={3}
+            rows={2}
             placeholder={t("shared.forms.fields.description.placeholder")}
             value={form.cf_description}
             onChange={handleChange}
@@ -148,13 +148,13 @@ const FormCard = styled.div`
   -webkit-backdrop-filter: blur(24px) saturate(150%);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
-  padding: 36px;
+  padding: 26px 28px;
   position: relative;
   box-shadow: 0 32px 80px rgba(0, 0, 0, 0.5);
   font-family: "Montserrat", sans-serif;
 
   @media (max-width: 600px) {
-    padding: 24px 20px;
+    padding: 22px 20px;
   }
 `;
 
@@ -192,16 +192,16 @@ const StatusText = styled.span`
 
 const FormTitle = styled.h3`
   color: #fff;
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 600;
-  margin: 0 0 28px;
+  margin: 0 0 18px;
   letter-spacing: -0.01em;
 `;
 
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 12px;
 `;
 
 const Field = styled.div`
@@ -215,7 +215,7 @@ const FieldLabel = styled.label`
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 `;
 
 const inputBase = `
@@ -223,7 +223,7 @@ const inputBase = `
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 4px;
-  padding: 12px 14px;
+  padding: 9px 14px;
   color: #fff;
   font-size: 14px;
   font-family: "Montserrat", sans-serif;

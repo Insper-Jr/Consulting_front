@@ -141,7 +141,7 @@ const TabButton = styled.button<{ active: boolean }>`
   font-family: "Inter", sans-serif;
   font-size: 25px;
   font-weight: 600;
-  color: ${({ active }) => (active ? "#A10F23" : "#1d1d1d")};
+  color: ${({ active }) => (active ? "#C02121" : "#1d1d1d")};
   position: relative;
   cursor: pointer;
   padding-bottom: 0.5rem;
@@ -151,27 +151,27 @@ const TabButton = styled.button<{ active: boolean }>`
     content: "";
     display: block;
     height: 2px;
-    background-color: ${({ active }) => (active ? "#A10F23" : "transparent")};
+    background-color: ${({ active }) => (active ? "#C02121" : "transparent")};
     transition: all 0.3s ease;
     width: 100%;
   }
 
   @media (max-width: 768px) {
-    background-color: ${({ active }) => (active ? "#A10F23" : "#f8f9fa")};
+    background-color: ${({ active }) => (active ? "#C02121" : "#f8f9fa")};
     color: ${({ active }) => (active ? "white" : "#1d1d1d")};
     padding: 1rem;
     margin-bottom: 0.5rem;
     border-radius: 8px;
     font-size: 16px;
     text-align: left;
-    border: 1px solid ${({ active }) => (active ? "#A10F23" : "#e9ecef")};
+    border: 1px solid ${({ active }) => (active ? "#C02121" : "#e9ecef")};
 
     &::after {
       display: none;
     }
 
     &:hover {
-      background-color: ${({ active }) => (active ? "#A10F23" : "#e9ecef")};
+      background-color: ${({ active }) => (active ? "#C02121" : "#e9ecef")};
     }
 
     &:last-child {
@@ -239,7 +239,7 @@ const TextBox = styled.div`
 `;
 
 const Title = styled.h2`
-  color: #A10F23;
+  color: #C02121;
   font-family: "Montserrat", sans-serif;
   font-size: 36px;
   margin-bottom: 1rem;
@@ -318,7 +318,7 @@ const Dots = styled.div`
 const Dot = styled.div<{ active: boolean }>`
   width: 10px;
   height: 10px;
-  background-color: ${({ active }) => (active ? "#A10F23" : "#ccc")};
+  background-color: ${({ active }) => (active ? "#C02121" : "#ccc")};
   border-radius: 50%;
   cursor: pointer;
 

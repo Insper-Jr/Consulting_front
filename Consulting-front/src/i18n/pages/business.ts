@@ -23,17 +23,17 @@ export const businessTranslations = {
         headlineBold: "chega diferente.",
         headlineAccent: "Nós respondemos.",
         body:
-          "Não trabalhamos com pacotes prontos. Entendemos o problema, montamos a equipe certa e definimos a abordagem. O resultado é uma solução construída para o contexto específico do seu negócio — sem fórmula, sem atalho.",
+          "Não trabalhamos com pacotes prontos. Entendemos o problema, montamos a equipe certa e definimos a abordagem. O resultado é uma solução construída para o contexto específico do seu negócio, sem fórmula, sem atalho.",
         principles: {
           p1: {
             title: "Diagnóstico antes de solução",
             text:
-              "Mergulhamos no contexto do cliente antes de propor qualquer coisa. Mercado, finanças e operação — entendemos tudo antes de recomendar.",
+              "Mergulhamos no contexto do cliente antes de propor qualquer coisa. Mercado, finanças e operação: entendemos tudo antes de recomendar.",
           },
           p2: {
             title: "Abordagem adaptada ao problema",
             text:
-              "Usamos as ferramentas que o projeto exige — em qualquer combinação. Nenhum projeto tem formato pré-definido.",
+              "Usamos as ferramentas que o projeto exige, em qualquer combinação. Nenhum projeto tem formato pré-definido.",
           },
           p3: {
             title: "Entrega acionável",
@@ -56,7 +56,7 @@ export const businessTranslations = {
             tab: "Análise Mercadológica",
             caseTitle: "Expansão para <i>Novo Mercado</i>",
             caseLede:
-              "Empresa do setor de saúde buscava crescimento em segmento inexplorado — sem visibilidade sobre o tamanho do mercado, os concorrentes ou o perfil do cliente ideal. O risco de entrar errado era alto.",
+              "Empresa do setor de saúde buscava crescimento em segmento inexplorado, sem visibilidade sobre o tamanho do mercado, os concorrentes ou o perfil do cliente ideal. O risco de entrar errado era alto.",
             detail:
               "Conduzimos um estudo de mercado completo, combinando <strong>pesquisa primária com consumidores</strong> e análise de dados secundários. Dimensionamos o TAM/SAM/SOM do segmento, mapeamos os principais players e identificamos lacunas estratégicas não atendidas. O resultado foi um <strong>relatório de viabilidade com três cenários de entrada</strong> e uma recomendação clara com critérios de decisão.",
             bullets: [
@@ -71,7 +71,7 @@ export const businessTranslations = {
             tab: "Estratégia de Marketing",
             caseTitle: "Go-to-Market para <i>Lançamento</i>",
             caseLede:
-              "Startup de healthtech precisava posicionar seu produto em mercado competitivo — sem budget para erro e sem clareza sobre quem era realmente o cliente prioritário. Uma entrada errada significaria meses perdidos.",
+              "Startup de healthtech precisava posicionar seu produto em mercado competitivo, sem budget para erro e sem clareza sobre quem era realmente o cliente prioritário. Uma entrada errada significaria meses perdidos.",
             detail:
               "Definimos as personas de maior potencial, construímos o <strong>posicionamento e a proposta de valor</strong> da marca e estruturamos o plano de canais com estimativas de CPL. Criamos o <strong>calendário editorial e as diretrizes de comunicação</strong> para os primeiros 90 dias de lançamento, com métricas de acompanhamento e critérios para ajuste de rota.",
             bullets: [
@@ -86,7 +86,7 @@ export const businessTranslations = {
             tab: "Planejamento Financeiro",
             caseTitle: "Estrutura Financeira <i>para Captação</i>",
             caseLede:
-              "Startup em crescimento acelerado com faturamento em alta — mas sem DRE organizado, queima de caixa mal dimensionada e sem modelagem para apresentar a investidores com credibilidade.",
+              "Startup em crescimento acelerado com faturamento em alta, mas sem DRE organizado, queima de caixa mal dimensionada e sem modelagem para apresentar a investidores com credibilidade.",
             detail:
               "Reestruturamos o DRE, mapeamos a queima de caixa real mês a mês e construímos um <strong>modelo de projeção financeira para 18 meses</strong>. Calculamos os unit economics (LTV, CAC, payback) e preparamos a <strong>tese financeira completa</strong> para a próxima rodada de captação, com análise de sensibilidade por cenário de crescimento.",
             bullets: [
@@ -101,7 +101,7 @@ export const businessTranslations = {
             tab: "Plano Operacional",
             caseTitle: "Operação Pronta <i>para Escalar</i>",
             caseLede:
-              "Empresa com crescimento acelerado mas operação inteiramente manual — processos sem documentação, gargalos não mapeados e time sobrecarregado com tarefas repetitivas que consumiam tempo sem gerar valor.",
+              "Empresa com crescimento acelerado mas operação inteiramente manual: processos sem documentação, gargalos não mapeados e time sobrecarregado com tarefas repetitivas que consumiam tempo sem gerar valor.",
             detail:
               "Mapeamos os fluxos internos, identificamos os gargalos de maior impacto e priorizamos melhorias por esforço vs. retorno. Criamos <strong>playbooks operacionais detalhados</strong> para os processos críticos e um plano de implementação com responsáveis, prazos e <strong>métricas de acompanhamento</strong>. A operação saiu do caos para uma estrutura replicável.",
             bullets: [
@@ -125,22 +125,22 @@ export const businessTranslations = {
         eyebrow: "Quem somos",
         title: "Sobre a frente",
         lede:
-          "Desde 2001, a frente de Business da Insper Jr. desenvolve soluções estratégicas que geram crescimento, estruturam operações e abrem novos mercados. Nossa atuação evolui constantemente em metodologias e práticas — sempre buscando a solução mais adequada para cada desafio.",
+          "Desde 2001, a frente de Business da Insper Jr. desenvolve soluções estratégicas que geram crescimento, estruturam operações e abrem novos mercados. Nossa atuação evolui constantemente em metodologias e práticas, sempre buscando a solução mais adequada para cada desafio.",
         pillars: {
           p1: {
-            num: "01 — Multidisciplinar",
+            num: "01. Multidisciplinar",
             title: "Alunos de diversas graduações",
             text:
               "Reunimos estudantes de Administração, Economia e Engenharia, garantindo visão ampla sobre cada projeto.",
           },
           p2: {
-            num: "02 — Orientada para resultado",
+            num: "02. Orientada para resultado",
             title: "Entregáveis que gestores usam",
             text:
-              "Cada projeto termina com recomendações claras e acionáveis — não com relatórios que ficam na gaveta.",
+              "Cada projeto termina com recomendações claras e acionáveis, não com relatórios que ficam na gaveta.",
           },
           p3: {
-            num: "03 — Sob medida",
+            num: "03. Sob medida",
             title: "Nenhum projeto é igual ao anterior",
             text:
               "Não temos modelo padrão. Entendemos o problema e definimos a abordagem certa para aquele contexto específico.",
@@ -233,17 +233,17 @@ export const businessTranslations = {
         headlineBold: "arrives different.",
         headlineAccent: "We respond.",
         body:
-          "We don't work with off-the-shelf packages. We understand the problem, put together the right team and define the approach. The result is a solution built for your business's specific context — no formula, no shortcuts.",
+          "We don't work with off-the-shelf packages. We understand the problem, put together the right team and define the approach. The result is a solution built for your business's specific context, no formula, no shortcuts.",
         principles: {
           p1: {
             title: "Diagnostic before solution",
             text:
-              "We immerse ourselves in the client's context before proposing anything. Market, finance and operations — we understand it all before recommending.",
+              "We immerse ourselves in the client's context before proposing anything. Market, finance and operations: we understand it all before recommending.",
           },
           p2: {
             title: "Approach tailored to the problem",
             text:
-              "We use whatever tools the project requires — in any combination. No project has a pre-defined format.",
+              "We use whatever tools the project requires, in any combination. No project has a pre-defined format.",
           },
           p3: {
             title: "Actionable delivery",
@@ -266,7 +266,7 @@ export const businessTranslations = {
             tab: "Market Analysis",
             caseTitle: "Expansion into a <i>New Market</i>",
             caseLede:
-              "A healthcare company was looking to grow into an unexplored segment — with no visibility into market size, competitors or the ideal customer profile. The risk of getting the entry wrong was high.",
+              "A healthcare company was looking to grow into an unexplored segment, with no visibility into market size, competitors or the ideal customer profile. The risk of getting the entry wrong was high.",
             detail:
               "We conducted a complete market study, combining <strong>primary research with consumers</strong> and secondary data analysis. We sized the segment's TAM/SAM/SOM, mapped the key players and identified unaddressed strategic gaps. The result was a <strong>feasibility report with three entry scenarios</strong> and a clear recommendation with decision criteria.",
             bullets: [
@@ -281,7 +281,7 @@ export const businessTranslations = {
             tab: "Marketing Strategy",
             caseTitle: "Go-to-Market for a <i>Launch</i>",
             caseLede:
-              "A healthtech startup needed to position its product in a competitive market — with no budget for error and no clarity on who the priority customer really was. Getting the entry wrong would mean months lost.",
+              "A healthtech startup needed to position its product in a competitive market, with no budget for error and no clarity on who the priority customer really was. Getting the entry wrong would mean months lost.",
             detail:
               "We defined the highest-potential personas, built the brand's <strong>positioning and value proposition</strong> and structured the channel plan with CPL estimates. We created the <strong>editorial calendar and communication guidelines</strong> for the first 90 days of launch, with tracking metrics and criteria for course correction.",
             bullets: [
@@ -296,7 +296,7 @@ export const businessTranslations = {
             tab: "Financial Planning",
             caseTitle: "Financial Structure <i>for Fundraising</i>",
             caseLede:
-              "A fast-growing startup with rising revenue — but no organized income statement, a poorly sized cash burn and no modeling to present to investors with credibility.",
+              "A fast-growing startup with rising revenue, but no organized income statement, a poorly sized cash burn and no modeling to present to investors with credibility.",
             detail:
               "We restructured the income statement, mapped actual month-by-month cash burn and built an <strong>18-month financial projection model</strong>. We calculated unit economics (LTV, CAC, payback) and prepared the <strong>complete financial thesis</strong> for the next funding round, with sensitivity analysis by growth scenario.",
             bullets: [
@@ -311,7 +311,7 @@ export const businessTranslations = {
             tab: "Operations Plan",
             caseTitle: "Operations Ready <i>to Scale</i>",
             caseLede:
-              "A fast-growing company with an entirely manual operation — undocumented processes, unmapped bottlenecks and a team overloaded with repetitive tasks that consumed time without generating value.",
+              "A fast-growing company with an entirely manual operation: undocumented processes, unmapped bottlenecks and a team overloaded with repetitive tasks that consumed time without generating value.",
             detail:
               "We mapped internal workflows, identified the highest-impact bottlenecks and prioritized improvements by effort versus return. We created detailed <strong>operational playbooks</strong> for critical processes and an implementation plan with owners, deadlines and <strong>tracking metrics</strong>. The operation moved from chaos to a replicable structure.",
             bullets: [
@@ -335,22 +335,22 @@ export const businessTranslations = {
         eyebrow: "Who we are",
         title: "About the front",
         lede:
-          "Since 2001, Insper Jr.'s Business front has developed strategic solutions that drive growth, structure operations and open new markets. Our practice constantly evolves in methodologies and approaches — always seeking the best solution for each challenge.",
+          "Since 2001, Insper Jr.'s Business front has developed strategic solutions that drive growth, structure operations and open new markets. Our practice constantly evolves in methodologies and approaches, always seeking the best solution for each challenge.",
         pillars: {
           p1: {
-            num: "01 — Multidisciplinary",
+            num: "01. Multidisciplinary",
             title: "Students from diverse degree programs",
             text:
               "We bring together students from Business Administration, Economics and Engineering, ensuring a broad view of every project.",
           },
           p2: {
-            num: "02 — Results-oriented",
+            num: "02. Results-oriented",
             title: "Deliverables managers actually use",
             text:
-              "Every project ends with clear, actionable recommendations — not reports that sit in a drawer.",
+              "Every project ends with clear, actionable recommendations, not reports that sit in a drawer.",
           },
           p3: {
-            num: "03 — Tailor-made",
+            num: "03. Tailor-made",
             title: "No project is like the last one",
             text:
               "We have no standard template. We understand the problem and define the right approach for that specific context.",

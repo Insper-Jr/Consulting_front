@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 
 const FONT = `'Inter', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif`;
+const FONT_TITLE = `'Montserrat', Helvetica, sans-serif`;
 const MONO = `'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace`;
 
 const IconProjetos = () => (
@@ -115,7 +116,7 @@ const Benefits = () => {
               <PanelDesc>{b.description}</PanelDesc>
               <BulletList>
                 {b.bullets.map((bullet, i) => (
-                  <BulletItem key={i}><span className="dash" aria-hidden="true">—</span>{bullet}</BulletItem>
+                  <BulletItem key={i}><span className="dash" aria-hidden="true">•</span>{bullet}</BulletItem>
                 ))}
               </BulletList>
             </PanelRight>
@@ -152,7 +153,7 @@ const Section = styled.section`
 
 const Inner = styled.div`
   position: relative;
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 32px;
   opacity: 0;
@@ -174,11 +175,13 @@ const Head = styled.div`
   .left { display: flex; flex-direction: column; gap: 20px; }
 
   .eyebrow {
-    font-size: 11px; font-weight: 600; letter-spacing: 0.22em;
-    text-transform: uppercase; color: #691212 ;
+    font-family: ${FONT_TITLE};
+    font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+    text-transform: uppercase; color: #C02121;
   }
 
   h2 {
+    font-family: ${FONT_TITLE};
     margin: 0;
     font-size: clamp(28px, 3.2vw, 40px);
     line-height: 1.1; letter-spacing: -0.02em; font-weight: 800;
@@ -298,6 +301,7 @@ const PanelIconBox = styled.div`
 `;
 
 const PanelTitle = styled.h4`
+  font-family: ${FONT_TITLE};
   position: relative; z-index: 1; margin: 0;
   font-size: clamp(20px, 2.2vw, 28px); font-weight: 800;
   color: #fff; line-height: 1.18; letter-spacing: -0.02em;

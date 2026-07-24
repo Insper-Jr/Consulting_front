@@ -34,6 +34,7 @@ const useCountUp = (target: number, duration: number, trigger: boolean, delay = 
 };
 
 const FONT = `'Inter', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif`;
+const FONT_TITLE = `'Montserrat', Helvetica, sans-serif`;
 const MONO = `'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace`;
 
 const ctaPulse = keyframes`
@@ -117,7 +118,7 @@ const InscricaoCTA = () => {
 export default InscricaoCTA;
 
 const Section = styled.section`
-  background: #F8EBE0;
+  background: #FAF2EA;
   border-top: 1px solid rgba(8,15,15,0.10);
   border-bottom: 1px solid rgba(8,15,15,0.10);
   padding: 140px 0;
@@ -129,7 +130,7 @@ const Section = styled.section`
 
 const Inner = styled.div`
   position: relative;
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 32px;
   opacity: 0;
@@ -148,11 +149,13 @@ const Grid = styled.div`
 
   .eyebrow {
     display: inline-block;
-    font-size: 12px; font-weight: 700; letter-spacing: 0.18em;
-    text-transform: uppercase; color: #691212; margin-bottom: 18px;
+    font-family: ${FONT_TITLE};
+    font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+    text-transform: uppercase; color: #C02121; margin-bottom: 18px;
   }
 
   h2 {
+    font-family: ${FONT_TITLE};
     margin: 0;
     font-size: clamp(36px, 4.4vw, 56px);
     line-height: 1.04; max-width: 14ch;

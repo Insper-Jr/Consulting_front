@@ -3,10 +3,10 @@ import styled, { keyframes } from "styled-components";
 import { useTranslation } from "react-i18next";
 
 const C = {
-  redTitle: "#A10F23",
+  redTitle: "#C02121",
   redCTA: "#C02121",
   redDark: "#691212",
-  ink: "#1a1a1a",
+  ink: "#1a1a18",
 };
 
 const FONT_TITLE = `"Montserrat", Helvetica, sans-serif`;
@@ -218,7 +218,7 @@ const CaseSub = styled.p`
   max-width: 780px;
   margin: 0 0 3rem;
   text-align: left;
-  color: #333;
+  color: #7a746e;
   line-height: 1.65;
   strong { color: ${C.ink}; font-weight: 600; }
 `;
@@ -272,7 +272,7 @@ const CtSub = styled.p`
 const CtP = styled.p`
   font-size: 14.5px;
   line-height: 1.7;
-  color: #444;
+  color: #7a746e;
   margin: 0 0 0.9rem;
   strong { color: ${C.ink}; font-weight: 600; }
 `;
@@ -286,7 +286,7 @@ const CtList = styled.ul`
   li {
     font-size: 13.5px;
     line-height: 1.55;
-    color: #555;
+    color: #7a746e;
     padding-left: 1.25rem;
     position: relative;
     &::before {

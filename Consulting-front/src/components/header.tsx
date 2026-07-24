@@ -357,6 +357,7 @@ const SidebarOverlay = styled.div`
   inset: 0;
   background: rgba(0, 0, 0, 0.45);
   z-index: 1099;
+  cursor: pointer;
   animation: ${fadeIn} 0.2s ease;
 `;
 

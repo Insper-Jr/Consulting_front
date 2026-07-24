@@ -80,7 +80,7 @@ const Section = styled.section`
 `;
 
 const Inner = styled.div`
-  max-width: 1240px; margin: 0 auto; padding: 0 56px;
+  max-width: 1200px; margin: 0 auto; padding: 0 56px;
   display: flex; flex-direction: column; gap: 36px;
   @media (max-width: 768px) { padding: 0 28px; }
   @media (max-width: 480px) { padding: 0 20px; gap: 28px; }

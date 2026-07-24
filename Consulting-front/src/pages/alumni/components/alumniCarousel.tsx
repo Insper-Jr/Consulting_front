@@ -467,7 +467,7 @@ const Eyebrow = styled.p`
 `;
 
 const SectionTitle = styled.h2`
-  font-family: ${FONT_BODY};
+  font-family: ${FONT_TITLE};
   font-size: ${TYPE.sectionH2.size};
   font-weight: ${TYPE.sectionH2.weight};
   line-height: ${TYPE.sectionH2.lh};
@@ -744,6 +744,7 @@ const SplitOverlay = styled.div`
   justify-content: center;
   padding: 24px;
   animation: ${fadeIn} 0.22s ease;
+  cursor: pointer;
 `;
 
 const SplitBox = styled.div`
@@ -915,6 +916,7 @@ const ModalOverlay = styled.div`
   justify-content: center;
   padding: 24px;
   animation: ${fadeIn} 0.2s ease;
+  cursor: pointer;
 `;
 
 const ModalBox = styled.div`
@@ -938,7 +940,7 @@ const ModalHeader = styled.div`
 `;
 
 const ModalTitle = styled.h3`
-  font-family: ${FONT_BODY};
+  font-family: ${FONT_TITLE};
   font-size: ${TYPE.sectionH2.size};
   font-weight: ${TYPE.sectionH2.weight};
   letter-spacing: ${TYPE.sectionH2.ls};

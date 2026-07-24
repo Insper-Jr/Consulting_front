@@ -40,7 +40,7 @@ const Inner = styled.div<{ $visible: boolean }>`
 
 const Eyebrow = styled.span`
   font-family: ${FONT_TITLE};
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;

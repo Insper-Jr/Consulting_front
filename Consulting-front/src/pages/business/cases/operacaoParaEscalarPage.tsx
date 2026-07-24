@@ -6,7 +6,7 @@ import Header from "../../../components/header";
 import Footer from "../../../components/footerNovo";
 import WppButton from "../../../components/wppButton";
 
-const RED        = "#A10F23";
+const RED        = "#C02121";
 const FONT_TITLE = `"Montserrat", Helvetica, sans-serif`;
 const FONT_BODY  = `"Inter", Helvetica, sans-serif`;
 
@@ -53,8 +53,8 @@ const Badge = styled.span`
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(161,15,35,0.7);
-  border: 1px solid rgba(161,15,35,0.3);
+  color: rgba(192,33,33,0.7);
+  border: 1px solid rgba(192,33,33,0.3);
   padding: 6px 14px;
   border-radius: 2px;
   margin-bottom: 2rem;

@@ -12,10 +12,10 @@ import shotAdmin     from "../../../assets/medicina/slides/15-admin.jpg";
 
 // ── Tokens (mirrors parent page) ──────────────────────────────────────────
 const C = {
-  redTitle: "#A10F23",
+  redTitle: "#C02121",
   redCTA: "#C02121",
   redDark: "#691212",
-  ink: "#1a1a1a",
+  ink: "#1a1a18",
 };
 
 const FONT_TITLE = `"Montserrat", Helvetica, sans-serif`;
@@ -685,7 +685,7 @@ const ShotsMiniH = styled.h4`
   font-family: ${FONT_TITLE};
   font-size: 18px;
   font-weight: 700;
-  color: #1a1a1a;
+  color: #1a1a18;
   letter-spacing: -0.02em;
   line-height: 1.18;
   margin: 0;
@@ -700,7 +700,7 @@ const ShotsMiniFrame = styled.div`
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
-  background: #1a1a1a;
+  background: #1a1a18;
   border-radius: 6px;
   overflow: hidden;
   box-shadow: 0 14px 36px -16px rgba(0,0,0,0.28), 0 0 0 1px rgba(0,0,0,0.07);
@@ -843,8 +843,8 @@ const ShotsMiniDots = styled.div`
 
 const ShotsMiniDot = styled.button<{ $active: boolean }>`
   appearance: none;
-  background: ${p => p.$active ? "#1a1a1a" : "transparent"};
-  border: 1px solid ${p => p.$active ? "#1a1a1a" : "rgba(0,0,0,0.14)"};
+  background: ${p => p.$active ? "#1a1a18" : "transparent"};
+  border: 1px solid ${p => p.$active ? "#1a1a18" : "rgba(0,0,0,0.14)"};
   border-radius: 999px;
   padding: 0.3rem 0.65rem;
   font-family: ${FONT_MONO};
@@ -855,7 +855,7 @@ const ShotsMiniDot = styled.button<{ $active: boolean }>`
   cursor: pointer;
   transition: all 0.25s ease;
   &:hover {
-    border-color: ${p => p.$active ? "#1a1a1a" : "rgba(0,0,0,0.32)"};
-    color: ${p => p.$active ? "#fff" : "#1a1a1a"};
+    border-color: ${p => p.$active ? "#1a1a18" : "rgba(0,0,0,0.32)"};
+    color: ${p => p.$active ? "#fff" : "#1a1a18"};
   }
 `;

@@ -245,7 +245,7 @@ export const aboutJoinTranslations = {
         insperBadge: "Exclusivo para alunos Insper",
       },
       valores: {
-        eyebrow: "01 · Nossos valores",
+        eyebrow: "Nossos valores",
         titleLine1: "O que nos",
         titleLine2: "move por dentro.",
         leadSub:
@@ -274,7 +274,7 @@ export const aboutJoinTranslations = {
         ],
       },
       benefits: {
-        eyebrow: "02 · Por que fazer parte?",
+        eyebrow: "Por que fazer parte?",
         titleLine1: "Três coisas que você",
         titleLine2: "não aprende em sala.",
         lead:
@@ -284,7 +284,7 @@ export const aboutJoinTranslations = {
             title: "Projetos com clientes reais",
             category: "Experiência",
             description:
-              "Desde o primeiro dia, você está dentro de um projeto real — com cliente, prazo e entrega que importam de verdade. Sem simulação. Sem case fictício. Só trabalho de verdade.",
+              "Desde o primeiro dia, você está dentro de um projeto real, com cliente, prazo e entrega que importam de verdade. Sem simulação. Sem case fictício. Só trabalho de verdade.",
             bullets: [
               "4 frentes de atuação em consultoria",
               "Entrega com impacto mensurável no cliente",
@@ -295,7 +295,7 @@ export const aboutJoinTranslations = {
             title: "Capacitação contínua",
             category: "Formação",
             description:
-              "Mais de 50 aulas por ano em estratégia, finanças, dados e gestão — mais um trainee de 3 meses com mentoria de quem já passou por isso. Você cresce enquanto entrega.",
+              "Mais de 50 aulas por ano em estratégia, finanças, dados e gestão, mais um trainee de 3 meses com mentoria de quem já passou por isso. Você cresce enquanto entrega.",
             bullets: [
               "50+ aulas de capacitação por ano",
               "3 meses de programa trainee estruturado",
@@ -321,7 +321,7 @@ export const aboutJoinTranslations = {
         ],
       },
       timeline: {
-        eyebrow: "03 · Etapas do Processo Seletivo",
+        eyebrow: "Etapas do Processo Seletivo",
         title: "O processo de cada frente.",
         editalMeta: "Processo seletivo aberto",
         editalFrentePre: "Frente ",
@@ -425,7 +425,7 @@ export const aboutJoinTranslations = {
         ],
       },
       inscricaoCta: {
-        eyebrow: "04 · Inscrição",
+        eyebrow: "Inscrição",
         titleLine1: "Pronto para construir",
         titleLine2Pre: "algo ",
         titleEm: "real",
@@ -434,7 +434,7 @@ export const aboutJoinTranslations = {
         cta: "Inscreva-se no Processo Seletivo",
         insperNotePre: "Exclusivo para ",
         insperNoteStrong: "alunos Insper",
-        insperNoteMid: " — use seu e-mail institucional",
+        insperNoteMid: ", use seu e-mail institucional",
         imgAlt: "Membros da Insper Jr colaborando",
         liveTag: "Processo aberto",
         badge1Label: "Projetos entregues",
@@ -690,7 +690,7 @@ export const aboutJoinTranslations = {
         insperBadge: "Exclusive to Insper students",
       },
       valores: {
-        eyebrow: "01 · Our values",
+        eyebrow: "Our values",
         titleLine1: "What drives us",
         titleLine2: "from within.",
         leadSub:
@@ -704,7 +704,7 @@ export const aboutJoinTranslations = {
           {
             title: "Excellence",
             desc:
-              "We deliver with rigor and depth. Quality isn't what we show off — it's the silent standard behind every decision.",
+              "We deliver with rigor and depth. Quality isn't what we show off. It's the silent standard behind every decision.",
           },
           {
             title: "Collaboration",
@@ -719,7 +719,7 @@ export const aboutJoinTranslations = {
         ],
       },
       benefits: {
-        eyebrow: "02 · Why join us?",
+        eyebrow: "Why join us?",
         titleLine1: "Three things you",
         titleLine2: "won't learn in a classroom.",
         lead:
@@ -729,7 +729,7 @@ export const aboutJoinTranslations = {
             title: "Projects with real clients",
             category: "Experience",
             description:
-              "From day one, you're working on a real project — with a client, a deadline, and deliverables that truly matter. No simulations. No fictional cases. Just real work.",
+              "From day one, you're working on a real project, with a client, a deadline, and deliverables that truly matter. No simulations. No fictional cases. Just real work.",
             bullets: [
               "4 areas of practice in consulting",
               "Measurable impact delivered to the client",
@@ -740,7 +740,7 @@ export const aboutJoinTranslations = {
             title: "Continuous training",
             category: "Development",
             description:
-              "More than 50 classes a year in strategy, finance, data, and management — plus a 3-month trainee program with mentorship from those who've been through it. You grow while you deliver.",
+              "More than 50 classes a year in strategy, finance, data, and management, plus a 3-month trainee program with mentorship from those who've been through it. You grow while you deliver.",
             bullets: [
               "50+ training classes a year",
               "3-month structured trainee program",
@@ -766,7 +766,7 @@ export const aboutJoinTranslations = {
         ],
       },
       timeline: {
-        eyebrow: "03 · Selection Process Steps",
+        eyebrow: "Selection Process Steps",
         title: "The process for each area.",
         editalMeta: "Selection process open",
         editalFrentePre: "",
@@ -870,7 +870,7 @@ export const aboutJoinTranslations = {
         ],
       },
       inscricaoCta: {
-        eyebrow: "04 · Registration",
+        eyebrow: "Registration",
         titleLine1: "Ready to build",
         titleLine2Pre: "something ",
         titleEm: "real",
@@ -879,7 +879,7 @@ export const aboutJoinTranslations = {
         cta: "Apply for the Selection Process",
         insperNotePre: "Exclusive to ",
         insperNoteStrong: "Insper students",
-        insperNoteMid: " — use your institutional email",
+        insperNoteMid: ", use your institutional email",
         imgAlt: "Insper Jr. members collaborating",
         liveTag: "Applications open",
         badge1Label: "Projects delivered",

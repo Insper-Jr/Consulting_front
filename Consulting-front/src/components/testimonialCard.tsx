@@ -14,7 +14,7 @@ const TestimonialCard: React.FC<{ testimonial: Testimonial }> = ({ testimonial }
       <BackgroundRect />
       <ForegroundRect>
         <QuotesIcon>
-          <Quotes size={32} weight="fill" color="#A10F23" />
+          <Quotes size={32} weight="fill" color="#C02121" />
         </QuotesIcon>
         <CardName>{testimonial.name}</CardName>
         <CardRole>{testimonial.role}</CardRole>
@@ -170,7 +170,7 @@ const CompanyLogo = styled.img`
 const RedLine = styled.div`
   width: 80px;
   height: 1.5px;
-  background-color: #a10f23;
+  background-color: #C02121;
 
   @media (max-width: 1200px) {
     width: 70px;

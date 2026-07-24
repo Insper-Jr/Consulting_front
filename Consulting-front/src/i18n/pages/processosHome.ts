@@ -104,7 +104,7 @@ export const processosHomeTranslations = {
         outcomeItems: [
           {
             title: "Visibilidade total da operação",
-            body: "Entenda exatamente como cada etapa do seu processo funciona, quanto tempo leva e onde a performance se perde — com dados coletados diretamente na sua operação.",
+            body: "Entenda exatamente como cada etapa do seu processo funciona, quanto tempo leva e onde a performance se perde, com dados coletados diretamente na sua operação.",
           },
           {
             title: "Gargalos identificados com precisão",
@@ -120,40 +120,40 @@ export const processosHomeTranslations = {
         eyebrow: "Cases de sucesso",
         headingPre: "Resultados que já",
         headingItalic: "entregamos",
-        lead: "Projetos reais, com diagnóstico rigoroso e soluções aplicáveis — clique para ver o case completo.",
+        lead: "Projetos reais, com diagnóstico rigoroso e soluções aplicáveis. Clique para ver o case completo.",
         openAriaLabel: "Abrir case Shipping I",
-        coverAlt: "Shipping I — todos os 14 gaps mapeados",
+        coverAlt: "Shipping I: todos os 14 gaps mapeados",
         badge: "Processos",
         tag: "Engenharia de Processos · Plano Operacional",
         title: "Shipping I",
-        desc: "Diagnóstico completo de um centro de distribuição logístico — 14 gaps mapeados em dois turnos, soluções detalhadas e estimativas de investimento.",
+        desc: "Diagnóstico completo de um centro de distribuição logístico: 14 gaps mapeados em dois turnos, soluções detalhadas e estimativas de investimento.",
         meta: "22 slides",
         cta: "Ver case completo →",
         backBtn: "← Voltar",
         backAriaLabel: "Voltar para processos",
         detailBadge: "Case em destaque",
         detailIntro:
-          "Para mostrar como entregamos <strong>planos operacionais de alto impacto</strong> dentro do escopo de <strong>Engenharia de Processos</strong>: o projeto <strong>Shipping I</strong> — diagnóstico completo de um centro de distribuição logístico, com mapeamento de <strong>14 gaps operacionais</strong> em dois turnos e propostas estruturadas de solução com estimativas de custo.",
+          "Para mostrar como entregamos <strong>planos operacionais de alto impacto</strong> dentro do escopo de <strong>Engenharia de Processos</strong>: o projeto <strong>Shipping I</strong>, diagnóstico completo de um centro de distribuição logístico, com mapeamento de <strong>14 gaps operacionais</strong> em dois turnos e propostas estruturadas de solução com estimativas de custo.",
         ctEyebrow: "O projeto",
         ctTitle: "Por que Shipping I?",
         ctLabelHow: "Como foi feito",
         ctLabelResults: "Resultados entregues",
         ctBody1:
-          "O cliente, do setor de <strong>logística de última milha</strong>, operava seu CD com alto volume de pacotes diários, mas enfrentava gargalos críticos — do descarregamento dos caminhões até a saída dos entregadores — com processos manuais e sem delimitação física dos espaços operacionais.",
+          "O cliente, do setor de <strong>logística de última milha</strong>, operava seu CD com alto volume de pacotes diários, mas enfrentava gargalos críticos (do descarregamento dos caminhões até a saída dos entregadores) com processos manuais e sem delimitação física dos espaços operacionais.",
         ctBody2:
           "Mapeamos toda a operação em dois turnos (noite e manhã), identificando <strong>14 gaps operacionais</strong> em descarregamento, triagem, separação, chegada de entregadores e entrega final. A análise partiu de observação direta, entrevistas e cronoanálise in loco.",
         ctBody3:
-          "Para cada gap desenvolvemos soluções concretas com opções de implementação, estimativas de custo e descrição detalhada da operação na prática — desde esteiras telescópicas e leitores inteligentes até sistemas de agendamento e padronização visual de gaiolas.",
+          "Para cada gap desenvolvemos soluções concretas com opções de implementação, estimativas de custo e descrição detalhada da operação na prática: desde esteiras telescópicas e leitores inteligentes até sistemas de agendamento e padronização visual de gaiolas.",
         ctListItem1:
-          "<strong>14 gaps mapeados</strong> — turnos noturno e matinal cobertos integralmente.",
+          "<strong>14 gaps mapeados</strong>: turnos noturno e matinal cobertos integralmente.",
         ctListItem2:
-          "<strong>Soluções com custo estimado</strong> — do baixo investimento à automação completa.",
+          "<strong>Soluções com custo estimado</strong>: do baixo investimento à automação completa.",
         ctListItem3:
-          "<strong>Layout proposto</strong> — remapeamento físico do galpão com áreas por etapa.",
+          "<strong>Layout proposto</strong>: remapeamento físico do galpão com áreas por etapa.",
         ctListItem4:
-          "<strong>Sistema de agendamento</strong> — fluxo de chegada de entregadores com vagas dedicadas.",
+          "<strong>Sistema de agendamento</strong>: fluxo de chegada de entregadores com vagas dedicadas.",
         ctListItem5:
-          "<strong>Padronização de gaiolas</strong> — identificação visual por cor, placa e destino.",
+          "<strong>Padronização de gaiolas</strong>: identificação visual por cor, placa e destino.",
         ctTagLine: "14 gaps · 2 turnos · operação escalável e rastreável.",
         fullCloseAria: "Fechar",
         prevAria: "Anterior",
@@ -167,12 +167,12 @@ export const processosHomeTranslations = {
           "02 · Objetivos do Plano",
           "03 · Variáveis Operacionais",
           "04 · Critérios Competitivos",
-          "05 · Layout Operacional — Noite",
+          "05 · Layout Operacional: Noite",
           "06 · Operação da Noite",
           "07 · Gaps: Triagem e Separação",
           "08 · Gaps: Rebipagem e Espaço",
           "09 · Gaps Gerais da Noite",
-          "10 · Layout Operacional — Manhã",
+          "10 · Layout Operacional: Manhã",
           "11 · Operação da Manhã",
           "12 · Todos os 14 Gaps",
           "13 · Soluções: Descarregamento",
@@ -183,8 +183,8 @@ export const processosHomeTranslations = {
           "18 · Soluções: Rastreabilidade",
           "19 · Soluções: Gaps Gerais",
           "20 · Soluções: Espaço e Gaiolas",
-          "21 · Conclusão — Próximos Passos I",
-          "22 · Conclusão — Próximos Passos II",
+          "21 · Conclusão: Próximos Passos I",
+          "22 · Conclusão: Próximos Passos II",
         ],
       },
       cta: {
@@ -331,7 +331,7 @@ export const processosHomeTranslations = {
         outcomeItems: [
           {
             title: "Full visibility of the operation",
-            body: "Understand exactly how each stage of your process works, how long it takes and where performance is being lost — with data collected directly from your operation.",
+            body: "Understand exactly how each stage of your process works, how long it takes and where performance is being lost, with data collected directly from your operation.",
           },
           {
             title: "Bottlenecks identified with precision",
@@ -347,40 +347,40 @@ export const processosHomeTranslations = {
         eyebrow: "Success cases",
         headingPre: "Results we've already",
         headingItalic: "delivered",
-        lead: "Real projects, with rigorous diagnosis and applicable solutions — click to see the full case.",
+        lead: "Real projects, with rigorous diagnosis and applicable solutions. Click to see the full case.",
         openAriaLabel: "Open Shipping I case",
-        coverAlt: "Shipping I — all 14 gaps mapped",
+        coverAlt: "Shipping I: all 14 gaps mapped",
         badge: "Process",
         tag: "Process Engineering · Operational Plan",
         title: "Shipping I",
-        desc: "Complete diagnosis of a logistics distribution center — 14 gaps mapped across two shifts, detailed solutions and investment estimates.",
+        desc: "Complete diagnosis of a logistics distribution center: 14 gaps mapped across two shifts, detailed solutions and investment estimates.",
         meta: "22 slides",
         cta: "See full case →",
         backBtn: "← Back",
         backAriaLabel: "Back to processes",
         detailBadge: "Featured case",
         detailIntro:
-          "To show how we deliver <strong>high-impact operational plans</strong> within the <strong>Process Engineering</strong> scope: the <strong>Shipping I</strong> project — a complete diagnosis of a logistics distribution center, mapping <strong>14 operational gaps</strong> across two shifts and structured solution proposals with cost estimates.",
+          "To show how we deliver <strong>high-impact operational plans</strong> within the <strong>Process Engineering</strong> scope: the <strong>Shipping I</strong> project, a complete diagnosis of a logistics distribution center, mapping <strong>14 operational gaps</strong> across two shifts and structured solution proposals with cost estimates.",
         ctEyebrow: "The project",
         ctTitle: "Why Shipping I?",
         ctLabelHow: "How it was done",
         ctLabelResults: "Results delivered",
         ctBody1:
-          "The client, in the <strong>last-mile logistics</strong> sector, operated their distribution center with a high volume of daily packages, but faced critical bottlenecks — from truck unloading to courier departure — due to manual processes and no physical delimitation of operational spaces.",
+          "The client, in the <strong>last-mile logistics</strong> sector, operated their distribution center with a high volume of daily packages, but faced critical bottlenecks (from truck unloading to courier departure) due to manual processes and no physical delimitation of operational spaces.",
         ctBody2:
           "We mapped the entire operation across two shifts (night and morning), identifying <strong>14 operational gaps</strong> in unloading, sorting, separation, courier arrival and final delivery. The analysis was based on direct observation, interviews and on-site time-and-motion studies.",
         ctBody3:
-          "For each gap we developed concrete solutions with implementation options, cost estimates and detailed descriptions of the operation in practice — from telescopic conveyors and smart scanners to scheduling systems and visual cage standardization.",
+          "For each gap we developed concrete solutions with implementation options, cost estimates and detailed descriptions of the operation in practice: from telescopic conveyors and smart scanners to scheduling systems and visual cage standardization.",
         ctListItem1:
-          "<strong>14 gaps mapped</strong> — night and morning shifts covered in full.",
+          "<strong>14 gaps mapped</strong>: night and morning shifts covered in full.",
         ctListItem2:
-          "<strong>Solutions with estimated cost</strong> — from low investment to full automation.",
+          "<strong>Solutions with estimated cost</strong>: from low investment to full automation.",
         ctListItem3:
-          "<strong>Proposed layout</strong> — physical remapping of the warehouse with areas by stage.",
+          "<strong>Proposed layout</strong>: physical remapping of the warehouse with areas by stage.",
         ctListItem4:
-          "<strong>Scheduling system</strong> — courier arrival flow with dedicated slots.",
+          "<strong>Scheduling system</strong>: courier arrival flow with dedicated slots.",
         ctListItem5:
-          "<strong>Cage standardization</strong> — visual identification by color, plate and destination.",
+          "<strong>Cage standardization</strong>: visual identification by color, plate and destination.",
         ctTagLine: "14 gaps · 2 shifts · scalable, traceable operation.",
         fullCloseAria: "Close",
         prevAria: "Previous",
@@ -394,12 +394,12 @@ export const processosHomeTranslations = {
           "02 · Plan Objectives",
           "03 · Operational Variables",
           "04 · Competitive Criteria",
-          "05 · Operational Layout — Night",
+          "05 · Operational Layout: Night",
           "06 · Night Operation",
           "07 · Gaps: Sorting and Separation",
           "08 · Gaps: Re-tagging and Space",
           "09 · General Night Gaps",
-          "10 · Operational Layout — Morning",
+          "10 · Operational Layout: Morning",
           "11 · Morning Operation",
           "12 · All 14 Gaps",
           "13 · Solutions: Unloading",
@@ -410,8 +410,8 @@ export const processosHomeTranslations = {
           "18 · Solutions: Traceability",
           "19 · Solutions: General Gaps",
           "20 · Solutions: Space and Cages",
-          "21 · Conclusion — Next Steps I",
-          "22 · Conclusion — Next Steps II",
+          "21 · Conclusion: Next Steps I",
+          "22 · Conclusion: Next Steps II",
         ],
       },
       cta: {

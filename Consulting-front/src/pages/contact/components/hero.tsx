@@ -81,11 +81,18 @@ export default Hero;
 
 const Section = styled.section`
   position: relative;
-  min-height: 100vh;
-  min-height: 100dvh;
+  height: 100vh;
+  height: 100dvh;
   background: #080f0f;
   overflow: hidden;
   font-family: "Montserrat", sans-serif;
+
+  @media (max-width: 1100px) {
+    height: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow: visible;
+  }
 `;
 
 const PhotoLayer = styled.div`
@@ -122,22 +129,25 @@ const BottomVignette = styled.div`
 const Content = styled.div`
   position: relative;
   z-index: 2;
+  box-sizing: border-box;
+  height: 100%;
   display: grid;
   grid-template-columns: 1fr 460px;
+  align-items: stretch;
   gap: 80px;
-  padding: 160px 96px 96px;
-  max-width: 1440px;
+  padding: 104px 96px 40px;
+  max-width: 1200px;
   margin: 0 auto;
 
   @media (max-width: 1100px) {
+    height: auto;
     grid-template-columns: 1fr;
-    gap: 56px;
-    padding: 130px 48px 80px;
+    gap: 24px;
+    padding: 104px 48px 32px;
   }
 
   @media (max-width: 600px) {
-    padding: 110px 20px 56px;
-    gap: 40px;
+    padding: 96px 20px 24px;
   }
 `;
 
@@ -145,33 +155,40 @@ const Left = styled.div`
   min-width: 0;
   overflow-wrap: break-word;
   word-break: break-word;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @media (max-width: 1100px) {
+    display: block;
+  }
 `;
 
 const Headline = styled.h1`
   color: #fff;
   margin: 20px 0 24px;
-  font-size: 64px;
-  line-height: 1.04;
-  font-weight: 600;
-  letter-spacing: -0.025em;
+  font-size: 48px;
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.03em;
   max-width: 600px;
   text-shadow: 0 2px 24px rgba(0, 0, 0, 0.6);
 
   @media (max-width: 900px) {
-    font-size: 48px;
+    font-size: 40px;
   }
 
   @media (max-width: 600px) {
-    font-size: 38px;
+    font-size: 34px;
   }
 
   @media (max-width: 380px) {
-    font-size: 32px;
+    font-size: 30px;
   }
 `;
 
 const Highlight = styled.span`
-  color: #c02121;
+  color: #C02121;
   font-style: italic;
   font-weight: 500;
 `;
@@ -182,7 +199,7 @@ const Lead = styled.p`
   line-height: 1.7;
   font-weight: 400;
   max-width: 460px;
-  margin: 0 0 56px;
+  margin: 0;
   text-shadow: 0 1px 12px rgba(0, 0, 0, 0.6);
 
   @media (max-width: 600px) {
@@ -195,7 +212,7 @@ const Lead = styled.p`
 const Stats = styled.div`
   display: flex;
   gap: 48px;
-  margin-bottom: 56px;
+  margin: 0;
   flex-wrap: wrap;
 
   @media (max-width: 600px) {
@@ -237,8 +254,15 @@ const Awards = styled.div`
 
 const AwardLogo = styled.img`
   width: auto;
-  opacity: 0.85;
+  opacity: 0.65;
   filter: brightness(0) invert(1);
+  transition: opacity 0.25s ease, filter 0.25s ease, transform 0.25s ease;
+
+  &:hover {
+    opacity: 1;
+    filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+    transform: translateY(-2px);
+  }
 
   @media (max-width: 600px) { height: 32px !important; }
 `;
@@ -246,4 +270,10 @@ const AwardLogo = styled.img`
 const Right = styled.div`
   min-width: 0;
   width: 100%;
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 1100px) {
+    padding: 8px 0 32px;
+  }
 `;

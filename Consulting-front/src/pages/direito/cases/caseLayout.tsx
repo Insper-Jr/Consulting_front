@@ -7,9 +7,9 @@ import Footer from "../../../components/footerNovo";
 import WppButton from "../../../components/wppButton";
 
 const COLORS = {
-  redTitle: "#A10F23",
+  redTitle: "#C02121",
   redCTA: "#C02121",
-  ink: "#1a1a1a",
+  ink: "#1a1a18",
   bg: "#ffffff",
   greenLight: "#dcfce7",
   greenLightHover: "#bbf7d0",

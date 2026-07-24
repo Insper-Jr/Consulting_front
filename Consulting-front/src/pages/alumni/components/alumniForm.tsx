@@ -216,7 +216,7 @@ const Inner = styled.div`
   position: relative;
   z-index: 2;
   width: 100%;
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 ${SPACING.innerPaddingX};
   animation: ${fadeUp} 0.5s ${SPRING} both;
@@ -239,7 +239,7 @@ const Eyebrow = styled.p`
 `;
 
 const Title = styled.h2`
-  font-family: ${FONT_BODY};
+  font-family: ${FONT_TITLE};
   font-size: ${TYPE.sectionH2.size};
   font-weight: ${TYPE.sectionH2.weight};
   line-height: ${TYPE.sectionH2.lh};

@@ -14,14 +14,14 @@ import medHighlight from "../../assets/medicina/slides/04-contexto.jpg";
 
 // ── Color tokens (from HTML reference) ──────────────────────────────────────
 const COLORS = {
-  redTitle: "#A10F23",
+  redTitle: "#C02121",
   redCTA:   "#C02121",
   redDark:  "#691212",
   black:    "#0e0404",
-  ink:      "#1a1a1a",
+  ink:      "#1a1a18",
   bg:       "#ffffff",
   cream:    "#FAF2EA",
-  lightCream: "#faf6f1",
+  lightCream: "#FAF2EA",
 };
 
 const FONT_TITLE = `"Montserrat", Helvetica, sans-serif`;
@@ -780,14 +780,14 @@ const HeroEyebrow = styled.span`
 
 const HeroTitle = styled.h1`
   font-family: ${FONT_TITLE};
-  font-size: 56px;
+  font-size: 48px;
   font-weight: 700;
   color: ${COLORS.cream};
   letter-spacing: -0.03em;
   line-height: 1.1;
   margin: 0;
 
-  @media (max-width: 1300px) { font-size: 44px; }
+  @media (max-width: 1300px) { font-size: 40px; }
   @media (max-width: 600px) { font-size: 30px; }
 `;
 
@@ -859,7 +859,7 @@ const HeroScrollLine = styled.div`
 const Intro = styled.section`
   padding: 0 2rem 4rem;
   width: 80%;
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
   position: relative;
 
@@ -892,7 +892,7 @@ const SectionTitle = styled.h2`
   font-family: ${FONT_TITLE};
   font-size: 32px;
   font-weight: 700;
-  color: #080F0F;
+  color: ${COLORS.ink};
   letter-spacing: -0.02em;
   line-height: 1.1;
   margin: 0;
@@ -908,7 +908,7 @@ const SectionSubtitle = styled.p`
   max-width: 700px;
   margin: 0 auto 3rem;
   text-align: center;
-  color: #444;
+  color: #7a746e;
   padding: 0 1rem;
 
   @media (max-width: 600px) { font-size: 14px; }
@@ -916,7 +916,7 @@ const SectionSubtitle = styled.p`
 
 // ── Scopes Opening (editorial chapter intro) ──
 const ScopesOpening = styled.section`
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 5rem auto 0;
   padding: 0 2rem 4rem;
   text-align: center;
@@ -941,7 +941,7 @@ const OpeningTitle = styled.h2`
   font-family: ${FONT_TITLE};
   font-size: 32px;
   font-weight: 700;
-  color: #080F0F;
+  color: ${COLORS.ink};
   letter-spacing: -0.02em;
   line-height: 1.1;
   margin: 0;
@@ -960,7 +960,7 @@ const OpeningSubtitle = styled.p`
   font-size: 16px;
   font-weight: 400;
   line-height: 1.5;
-  color: #444;
+  color: #7a746e;
   max-width: 700px;
   margin: 0 auto 3rem;
 
@@ -1215,7 +1215,7 @@ const ScopeSection = styled.section`
 `;
 
 const ScopesWrap = styled.div`
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0;
   width: 100%;
@@ -1559,7 +1559,7 @@ const Tag = styled.span`
 // ── Highlight Cases (overview cards) ──
 const HighlightCases = styled.section`
   padding: 0 2rem 5rem;
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
   width: 100%;
 
@@ -1764,14 +1764,15 @@ const Kicker = styled.div`
 
 const IntegrationTitle = styled.h2`
   font-family: ${FONT_TITLE};
-  font-size: 38px;
+  font-size: 32px;
   margin: 0 0 1rem;
-  line-height: 1.15;
-  color: #fff;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: ${COLORS.cream};
   font-weight: 700;
   span { color: ${COLORS.redCTA}; }
 
-  @media (max-width: 800px) { font-size: 28px; }
+  @media (max-width: 800px) { font-size: 26px; }
 `;
 
 const IntegrationLede = styled.p`
@@ -1828,7 +1829,7 @@ const IntCardText = styled.p`
 // ── Diferenciais ──
 const Diferenciais = styled.section`
   padding: 0 2rem 5rem;
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
 `;
 

@@ -103,7 +103,7 @@ const en = {
   interactiveSelector: {
     titleLine1:        "How can we",
     titleLine2:        "help you?",
-    subtitle:          "Tell us what you need and we'll connect you with the right expertise — tailored to your industry and goals.",
+    subtitle:          "Tell us what you need and we'll connect you with the right expertise, tailored to your industry and goals.",
     industriesLabel:   "Industries",
     capabilitiesLabel: "Capabilities",
     learnMore:         "Learn more →",
@@ -146,7 +146,7 @@ const en = {
       data:           "We extract patterns and insights from large data volumes to guide smarter decisions.",
       product:        "From concept to launch: we structure the product lifecycle focused on value and scalability.",
       web:            "We build robust, high-performance web interfaces and systems designed to convert.",
-      creation:       "We help materialize ideas into solid structures — corporate, operational, and brand.",
+      creation:       "We help materialize ideas into solid structures: corporate, operational, and brand.",
       corporate:      "We structure governance and corporate participation to ensure alignment and longevity.",
       cnpj:           "We simplify your company's formation with agility, security, and zero unnecessary bureaucracy.",
       docs:           "We draft articles of incorporation, bylaws, and minutes with legal precision and clear language.",

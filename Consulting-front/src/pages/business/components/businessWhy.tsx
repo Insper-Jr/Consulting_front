@@ -75,7 +75,7 @@ const Section = styled.section`
 `;
 
 const Inner = styled.div`
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 56px;
   display: flex;
