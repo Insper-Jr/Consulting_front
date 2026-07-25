@@ -79,26 +79,27 @@ export const techTranslations = {
           tags: ["Python", "React", "SQL", "PostgreSQL", "Supabase", "SQL Workbench", "NoSQL", "Machine Learning"],
         },
         automation: {
-          tab: "Automação",
-          title: "Processos que <i>se movem</i> sozinhos.",
-          lede: "<strong>Fluxos automatizados e agentes inteligentes</strong> que otimizam processos, reduzem atividades repetitivas e integram sistemas. Atuamos com <strong>n8n</strong> e programação customizada, sempre a partir de um mapeamento prévio da operação.",
+          tab: "Inteligência Artificial",
+          title: "Agentes que <i>executam</i> e conversam.",
+          lede: "Desenvolvimento de <strong>automações inteligentes</strong> e de <strong>agentes e chatbots</strong> capazes de executar tarefas e conversar com usuários, integrando sistemas e reduzindo tempo e custo de processos internos e de atendimento.",
           sideEyebrow: "Ficha do escopo",
           rows: {
-            produtoChave: { label: "Produto-chave", value: "<strong>Fluxos automatizados</strong> e <strong>agentes inteligentes</strong> (chatbots)" },
-            ferramentaPrincipal: { label: "Ferramenta principal", value: "n8n, com programação customizada" },
-            integracoes: { label: "Integrações", value: "APIs e sistemas externos · canais WhatsApp, plataformas web e sistemas internos" },
-            aplicacoes: { label: "Aplicações", value: "Processos operacionais, comunicações automáticas, chatbots e execução baseada em inputs" },
+            produtoChave: { label: "Produto-chave", value: "<strong>Automações inteligentes</strong> e <strong>agentes conversacionais</strong> (chatbots)" },
+            frentes: { label: "Frentes", value: "· Automação e agentes<br />· Chatbots e assistentes conversacionais" },
+            integracoes: { label: "Integrações", value: "APIs entre plataformas · canais WhatsApp e site · bases de conhecimento próprias (RAG)" },
+            aplicacoes: { label: "Aplicações", value: "Rotinas repetitivas, triagem de documentos, e-mails e planilhas, atendimento ao cliente final e suporte interno" },
           },
-          quote: "Onde há repetição, há um fluxo a ser automatizado.",
-          detail: "Desenvolvemos <strong>fluxos baseados em lógica de negócio</strong>, sempre a partir de um mapeamento operacional prévio, e criamos agentes conversacionais inteligentes que integram diretamente com Desenvolvimento Web e Dados. Um exemplo dessa atuação é o <strong>Wall-E</strong>, construído em n8n a partir do mapeamento da equipe de Business, uma das iniciativas sinérgicas entre Engenharia e Business da Insper Jr.",
+          quote: "Da rotina repetitiva ao atendimento: execução autônoma de ponta a ponta.",
+          detail: "A atuação se divide em duas frentes. Em <strong>automação e agentes</strong>, integramos plataformas via <strong>APIs</strong>, executamos rotinas repetitivas de forma autônoma e fazemos a triagem de documentos, e-mails e planilhas com <strong>processamento de linguagem natural</strong>. Em <strong>chatbots e assistentes conversacionais</strong>, atendemos o cliente final e o suporte interno com consulta a <strong>bases de conhecimento próprias da empresa (RAG)</strong>, em canais como WhatsApp e site.",
           bullets: [
-            "Automação de processos operacionais",
-            "Envio automático de comunicações (e-mails, mensagens)",
-            "Chatbots (WhatsApp, plataformas web, etc.)",
-            "Integração entre sistemas e plataformas",
-            "Execução automática baseada em inputs definidos",
+            "Integração entre plataformas via APIs",
+            "Execução autônoma de rotinas repetitivas",
+            "Triagem de documentos, e-mails e planilhas",
+            "Chatbots de atendimento e suporte interno",
+            "Consulta a bases de conhecimento (RAG)",
+            "Operação em canais como WhatsApp e site",
           ],
-          tags: ["n8n", "APIs", "WhatsApp", "Agentes de IA", "Chatbots"],
+          tags: ["Agentes de IA", "Chatbots", "RAG", "NLP", "APIs", "n8n", "WhatsApp"],
         },
       },
 
@@ -123,7 +124,7 @@ export const techTranslations = {
           title: "Wall-E",
           placeholderAriaLabel: "Imagem a ser definida",
           placeholderText: "Imagem em breve",
-          subtitle: "Escopo · Automação",
+          subtitle: "Escopo · Inteligência Artificial",
         },
       },
 
@@ -146,7 +147,7 @@ export const techTranslations = {
           integrada: {
             num: "02: Integrada",
             title: "Três escopos que conversam",
-            text: "A atuação se divide em <strong>Dados, Desenvolvimento Web e Automação</strong>. A divisão é apenas organizacional: os escopos funcionam de forma integrada dentro de uma mesma solução.",
+            text: "A atuação se divide em <strong>Dados, Desenvolvimento Web e Inteligência Artificial</strong>. A divisão é apenas organizacional: os escopos funcionam de forma integrada dentro de uma mesma solução.",
           },
           sobMedida: {
             num: "03: Sob medida",
@@ -180,7 +181,7 @@ export const techTranslations = {
           integracao: {
             num: "03",
             title: "Integração entre escopos",
-            text: "Dados, Desenvolvimento Web e Automação atuam em conjunto, possibilitando entregas completas em que diferentes soluções conversam dentro de um mesmo ecossistema.",
+            text: "Dados, Desenvolvimento Web e Inteligência Artificial atuam em conjunto, possibilitando entregas completas em que diferentes soluções conversam dentro de um mesmo ecossistema.",
           },
         },
       },
@@ -278,7 +279,7 @@ export const techTranslations = {
 
         walle: {
           name: "Wall-E",
-          sub: "O <strong>Wall-E</strong> nasceu de uma <strong>atuação integrada entre frentes</strong>: antes da camada tecnológica, conduzimos um <strong>estudo operacional dos fluxos de venda e SAC</strong> do cliente para assegurar a experiência ponta a ponta. Só com a jornada mapeada e refinada, o escopo de <strong>Automação</strong> construiu o <strong>ecossistema multi-agente</strong>: quatro IAs especialistas, coordenadas por um classificador inteligente, que cobrem todo o atendimento de um cliente do setor de saúde.",
+          sub: "O <strong>Wall-E</strong> nasceu de uma <strong>atuação integrada entre frentes</strong>: antes da camada tecnológica, conduzimos um <strong>estudo operacional dos fluxos de venda e SAC</strong> do cliente para assegurar a experiência ponta a ponta. Só com a jornada mapeada e refinada, o escopo de <strong>Inteligência Artificial</strong> construiu o <strong>ecossistema multi-agente</strong>: quatro IAs especialistas, coordenadas por um classificador inteligente, que cobrem todo o atendimento de um cliente do setor de saúde.",
           deckAriaLabel: "Apresentação do projeto walle",
           why: "Por que Wall-E?",
           p1: "O cliente, do setor de saúde B2B, atendia em um único canal de WhatsApp três públicos completamente diferentes: <strong>leads em prospecção</strong>, <strong>clientes ativos com dúvidas operacionais</strong> e <strong>clientes aguardando entrega</strong>. Com um time enxuto, o atendimento era reativo, leads esfriavam e dúvidas simples consumiam horas.",
@@ -294,7 +295,7 @@ export const techTranslations = {
           slides: {
             cover: {
               corner: "Live · 2025",
-              pill: "Case · Automação",
+              pill: "Case · Inteligência Artificial",
               tag: "Ecossistema multi-agente sobre <strong>WhatsApp Business</strong>: quatro IAs especialistas, um único canal.",
               meta: {
                 setor: { label: "Setor", value: "Saúde · B2B" },
@@ -455,26 +456,27 @@ export const techTranslations = {
           tags: ["Python", "React", "SQL", "PostgreSQL", "Supabase", "SQL Workbench", "NoSQL", "Machine Learning"],
         },
         automation: {
-          tab: "Automation",
-          title: "Processes that <i>move on their own</i>.",
-          lede: "<strong>Automated workflows and intelligent agents</strong> that optimize processes, reduce repetitive activities, and integrate systems. We work with <strong>n8n</strong> and custom programming, always starting with a prior mapping of the operation.",
+          tab: "Artificial Intelligence",
+          title: "Agents that <i>execute</i> and converse.",
+          lede: "Development of <strong>intelligent automations</strong> and <strong>agents and chatbots</strong> capable of executing tasks and conversing with users, integrating systems and reducing the time and cost of internal and customer-service processes.",
           sideEyebrow: "Scope profile",
           rows: {
-            produtoChave: { label: "Key product", value: "<strong>Automated workflows</strong> and <strong>intelligent agents</strong> (chatbots)" },
-            ferramentaPrincipal: { label: "Main tool", value: "n8n, with custom programming" },
-            integracoes: { label: "Integrations", value: "APIs and external systems · WhatsApp channels, web platforms, and internal systems" },
-            aplicacoes: { label: "Applications", value: "Operational processes, automatic communications, chatbots, and input-based execution" },
+            produtoChave: { label: "Key product", value: "<strong>Intelligent automations</strong> and <strong>conversational agents</strong> (chatbots)" },
+            frentes: { label: "Focus areas", value: "· Automation and agents<br />· Chatbots and conversational assistants" },
+            integracoes: { label: "Integrations", value: "APIs between platforms · WhatsApp and website channels · proprietary knowledge bases (RAG)" },
+            aplicacoes: { label: "Applications", value: "Repetitive routines, triage of documents, emails and spreadsheets, end-customer service and internal support" },
           },
-          quote: "Wherever there's repetition, there's a workflow to automate.",
-          detail: "We develop <strong>workflows based on business logic</strong>, always starting from a prior operational mapping, and build intelligent conversational agents that integrate directly with Web Development and Data. One example of this work is <strong>Wall-E</strong>, built in n8n from the mapping done by the Business team, one of the synergistic initiatives between Engineering and Business at Insper Jr.",
+          quote: "From the repetitive routine to service: end-to-end autonomous execution.",
+          detail: "This work is divided into two areas. In <strong>automation and agents</strong>, we integrate platforms via <strong>APIs</strong>, autonomously execute repetitive routines, and triage documents, emails, and spreadsheets using <strong>natural language processing</strong>. In <strong>chatbots and conversational assistants</strong>, we serve end customers and internal support through queries to <strong>the company's own knowledge bases (RAG)</strong>, on channels such as WhatsApp and the website.",
           bullets: [
-            "Automation of operational processes",
-            "Automatic sending of communications (emails, messages)",
-            "Chatbots (WhatsApp, web platforms, etc.)",
-            "Integration between systems and platforms",
-            "Automatic execution based on defined inputs",
+            "Integration between platforms via APIs",
+            "Autonomous execution of repetitive routines",
+            "Triage of documents, emails, and spreadsheets",
+            "Customer-service and internal-support chatbots",
+            "Knowledge base queries (RAG)",
+            "Operation on channels such as WhatsApp and the website",
           ],
-          tags: ["n8n", "APIs", "WhatsApp", "AI Agents", "Chatbots"],
+          tags: ["AI Agents", "Chatbots", "RAG", "NLP", "APIs", "n8n", "WhatsApp"],
         },
       },
 
@@ -499,7 +501,7 @@ export const techTranslations = {
           title: "Wall-E",
           placeholderAriaLabel: "Image to be added",
           placeholderText: "Image coming soon",
-          subtitle: "Scope · Automation",
+          subtitle: "Scope · Artificial Intelligence",
         },
       },
 
@@ -522,7 +524,7 @@ export const techTranslations = {
           integrada: {
             num: "02: Integrated",
             title: "Three scopes that talk to each other",
-            text: "Our work is divided into <strong>Data, Web Development, and Automation</strong>. The division is purely organizational: the scopes function in an integrated way within a single solution.",
+            text: "Our work is divided into <strong>Data, Web Development, and Artificial Intelligence</strong>. The division is purely organizational: the scopes function in an integrated way within a single solution.",
           },
           sobMedida: {
             num: "03: Custom-built",
@@ -556,7 +558,7 @@ export const techTranslations = {
           integracao: {
             num: "03",
             title: "Integration across scopes",
-            text: "Data, Web Development, and Automation work together, enabling complete deliveries where different solutions communicate within a single ecosystem.",
+            text: "Data, Web Development, and Artificial Intelligence work together, enabling complete deliveries where different solutions communicate within a single ecosystem.",
           },
         },
       },
@@ -654,7 +656,7 @@ export const techTranslations = {
 
         walle: {
           name: "Wall-E",
-          sub: "<strong>Wall-E</strong> was born from <strong>integrated work across practices</strong>: before building the technology layer, we conducted an <strong>operational study of the client's sales and support flows</strong> to ensure a solid end-to-end experience. Only once the journey was mapped and refined did the <strong>Automation</strong> scope build the <strong>multi-agent ecosystem</strong>: four specialist AIs, coordinated by an intelligent classifier, covering the entire customer service operation for a healthcare client.",
+          sub: "<strong>Wall-E</strong> was born from <strong>integrated work across practices</strong>: before building the technology layer, we conducted an <strong>operational study of the client's sales and support flows</strong> to ensure a solid end-to-end experience. Only once the journey was mapped and refined did the <strong>Artificial Intelligence</strong> scope build the <strong>multi-agent ecosystem</strong>: four specialist AIs, coordinated by an intelligent classifier, covering the entire customer service operation for a healthcare client.",
           deckAriaLabel: "Wall-E project presentation",
           why: "Why Wall-E?",
           p1: "The client, from the B2B healthcare sector, served three completely different audiences through a single WhatsApp channel: <strong>leads in prospecting</strong>, <strong>active customers with operational questions</strong>, and <strong>customers awaiting delivery</strong>. With a lean team, service was reactive, leads went cold, and simple questions consumed hours.",
@@ -670,7 +672,7 @@ export const techTranslations = {
           slides: {
             cover: {
               corner: "Live · 2025",
-              pill: "Case · Automation",
+              pill: "Case · Artificial Intelligence",
               tag: "A multi-agent ecosystem on <strong>WhatsApp Business</strong>: four specialist AIs, a single channel.",
               meta: {
                 setor: { label: "Sector", value: "Healthcare · B2B" },
