@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback } from "react";
 import styled, { keyframes } from "styled-components";
 import { useTranslation } from "react-i18next";
+import type { TFunction } from "i18next";
 import toast from "react-hot-toast";
 import { useParticles } from "../../../hooks/useParticleBackground";
 import { config } from "../../../config/config";
@@ -22,6 +23,56 @@ interface FormData {
 
 const INITIAL_STATE: FormData = {
   name: "", year: "", role: "", company: "", linkedin: "", email: "", whatsapp: "",
+};
+
+type FieldErrors = Partial<Record<keyof FormData, string>>;
+
+const fieldLabels = (t: TFunction): Record<keyof FormData, string> => ({
+  name:     t("alumni.form.fields.name.label"),
+  year:     t("alumni.form.fields.year.label"),
+  role:     t("alumni.form.fields.role.label"),
+  company:  t("alumni.form.fields.company.label"),
+  linkedin: t("alumni.form.fields.linkedin.label"),
+  email:    t("alumni.form.fields.email.label"),
+  whatsapp: t("alumni.form.fields.whatsapp.label"),
+});
+
+const isFormField = (campo: unknown): campo is keyof FormData =>
+  typeof campo === "string" && campo in INITIAL_STATE;
+
+/* O backend responde 422 com as mensagens do Pydantic em ingles. Traduz para o
+   texto que o usuario ve; se aparecer uma regra nova que ainda nao esta mapeada,
+   cai no fallback em vez de mostrar ingles na tela. */
+const traduzirErro = (t: TFunction, campo: keyof FormData, msg: string): string => {
+  // Validador proprio do backend lanca ValueError, e o Pydantic prefixa a mensagem
+  if (msg.startsWith("Value error, ")) return msg.replace("Value error, ", "");
+
+  if (campo === "year" && msg.includes("pattern")) {
+    return t("alumni.form.errors.invalidYear");
+  }
+  if (msg.includes("valid email")) return t("alumni.form.errors.invalidEmail");
+
+  const min = msg.match(/at least (\d+) characters/);
+  if (min) return t("alumni.form.errors.minLength", { n: min[1] });
+
+  const max = msg.match(/at most (\d+) characters/);
+  if (max) return t("alumni.form.errors.maxLength", { n: max[1] });
+
+  return t("alumni.form.errors.invalidValue");
+};
+
+const extrairErros = async (response: Response, t: TFunction): Promise<FieldErrors> => {
+  const body = await response.json().catch(() => null);
+  const detail = body?.detail;
+  if (!Array.isArray(detail)) return {};
+
+  const erros: FieldErrors = {};
+  for (const item of detail) {
+    // loc vem como ["body", "<campo>"]
+    const campo = Array.isArray(item?.loc) ? item.loc[item.loc.length - 1] : null;
+    if (isFormField(campo)) erros[campo] = traduzirErro(t, campo, String(item?.msg ?? ""));
+  }
+  return erros;
 };
 
 const AlumniForm = () => {
@@ -47,19 +98,38 @@ const AlumniForm = () => {
   // todos os campos preenchidos) travaria o botao para sempre.
   const [honeypot, setHoneypot] = useState("");
 
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+    // Some o erro assim que o usuario mexe no campo, para nao acusar o que ele ja corrigiu
+    setFieldErrors((prev) => (prev[name as keyof FormData] ? { ...prev, [name]: undefined } : prev));
   };
 
   const isValid = Object.values(form).every((v) => v.trim() !== "");
 
+  /* Espelha as regras do CreateAlumniDTO no backend. Sem isso o usuario so
+     descobre o problema depois do round-trip que volta 422. */
   const validateForm = () => {
-    if (!form.email.includes("@") || !form.email.includes(".")) {
-      toast.error(t("alumni.form.errors.invalidEmail"));
-      return false;
+    const erros: FieldErrors = {};
+
+    if (form.name.trim().length < 2)     erros.name = t("alumni.form.errors.minLength", { n: 2 });
+    if (!/^\d{4}$/.test(form.year))      erros.year = t("alumni.form.errors.invalidYear");
+    if (form.role.trim().length < 2)     erros.role = t("alumni.form.errors.minLength", { n: 2 });
+    if (form.company.trim().length < 2)  erros.company = t("alumni.form.errors.minLength", { n: 2 });
+    if (form.linkedin.trim().length < 3) erros.linkedin = t("alumni.form.errors.minLength", { n: 3 });
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+      erros.email = t("alumni.form.errors.invalidEmail");
     }
     if (form.whatsapp.replace(/\D/g, "").length < 8) {
-      toast.error(t("alumni.form.errors.invalidWhatsapp"));
+      erros.whatsapp = t("alumni.form.errors.invalidWhatsapp");
+    }
+
+    setFieldErrors(erros);
+    if (Object.keys(erros).length > 0) {
+      toast.error(t("alumni.form.errors.reviewFields"));
       return false;
     }
     return true;
@@ -80,7 +150,22 @@ const AlumniForm = () => {
         },
         body: JSON.stringify({ ...form, website: honeypot }),
       });
-      if (!response.ok) throw new Error("Erro no envio");
+
+      if (!response.ok) {
+        // 422 = o backend reprovou algum campo. Mostra qual, em vez de um erro generico.
+        if (response.status === 422) {
+          const erros = await extrairErros(response, t);
+          const campos = Object.keys(erros) as (keyof FormData)[];
+          if (campos.length > 0) {
+            setFieldErrors(erros);
+            const labels = fieldLabels(t);
+            toast.error(t("alumni.form.errors.reviewFieldsList", { campos: campos.map((c) => labels[c]).join(", ") }));
+            return;
+          }
+        }
+        throw new Error(`Falha no envio (HTTP ${response.status})`);
+      }
+
       setSubmitted(true);
     } catch (error) {
       console.error("Erro na requisição:", error);
@@ -151,7 +236,11 @@ const AlumniForm = () => {
                     id="name" name="name" type="text"
                     placeholder={t("alumni.form.fields.name.placeholder")} value={form.name}
                     onChange={handleChange} autoComplete="name"
+                    $invalid={!!fieldErrors.name}
+                    aria-invalid={!!fieldErrors.name}
+                    aria-describedby={fieldErrors.name ? "name-erro" : undefined}
                   />
+                  {fieldErrors.name && <FieldMsg id="name-erro">{fieldErrors.name}</FieldMsg>}
                 </Field>
                 <Field>
                   <Label htmlFor="year">{t("alumni.form.fields.year.label")}</Label>
@@ -159,7 +248,11 @@ const AlumniForm = () => {
                     id="year" name="year" type="text"
                     placeholder={t("alumni.form.fields.year.placeholder")} value={form.year}
                     onChange={handleChange} maxLength={4}
+                    $invalid={!!fieldErrors.year}
+                    aria-invalid={!!fieldErrors.year}
+                    aria-describedby={fieldErrors.year ? "year-erro" : undefined}
                   />
+                  {fieldErrors.year && <FieldMsg id="year-erro">{fieldErrors.year}</FieldMsg>}
                 </Field>
               </Row>
 
@@ -170,7 +263,11 @@ const AlumniForm = () => {
                     id="role" name="role" type="text"
                     placeholder={t("alumni.form.fields.role.placeholder")} value={form.role}
                     onChange={handleChange}
+                    $invalid={!!fieldErrors.role}
+                    aria-invalid={!!fieldErrors.role}
+                    aria-describedby={fieldErrors.role ? "role-erro" : undefined}
                   />
+                  {fieldErrors.role && <FieldMsg id="role-erro">{fieldErrors.role}</FieldMsg>}
                 </Field>
                 <Field>
                   <Label htmlFor="company">{t("alumni.form.fields.company.label")}</Label>
@@ -178,7 +275,11 @@ const AlumniForm = () => {
                     id="company" name="company" type="text"
                     placeholder={t("alumni.form.fields.company.placeholder")} value={form.company}
                     onChange={handleChange}
+                    $invalid={!!fieldErrors.company}
+                    aria-invalid={!!fieldErrors.company}
+                    aria-describedby={fieldErrors.company ? "company-erro" : undefined}
                   />
+                  {fieldErrors.company && <FieldMsg id="company-erro">{fieldErrors.company}</FieldMsg>}
                 </Field>
               </Row>
 
@@ -188,7 +289,11 @@ const AlumniForm = () => {
                   id="linkedin" name="linkedin" type="text"
                   placeholder={t("alumni.form.fields.linkedin.placeholder")} value={form.linkedin}
                   onChange={handleChange} autoComplete="url"
+                  $invalid={!!fieldErrors.linkedin}
+                  aria-invalid={!!fieldErrors.linkedin}
+                  aria-describedby={fieldErrors.linkedin ? "linkedin-erro" : undefined}
                 />
+                {fieldErrors.linkedin && <FieldMsg id="linkedin-erro">{fieldErrors.linkedin}</FieldMsg>}
               </Field>
 
               <Row>
@@ -198,7 +303,11 @@ const AlumniForm = () => {
                     id="email" name="email" type="email"
                     placeholder={t("alumni.form.fields.email.placeholder")} value={form.email}
                     onChange={handleChange} autoComplete="email"
+                    $invalid={!!fieldErrors.email}
+                    aria-invalid={!!fieldErrors.email}
+                    aria-describedby={fieldErrors.email ? "email-erro" : undefined}
                   />
+                  {fieldErrors.email && <FieldMsg id="email-erro">{fieldErrors.email}</FieldMsg>}
                 </Field>
                 <Field>
                   <Label htmlFor="whatsapp">{t("alumni.form.fields.whatsapp.label")}</Label>
@@ -206,7 +315,11 @@ const AlumniForm = () => {
                     id="whatsapp" name="whatsapp" type="tel"
                     placeholder={t("alumni.form.fields.whatsapp.placeholder")} value={form.whatsapp}
                     onChange={handleChange} autoComplete="tel"
+                    $invalid={!!fieldErrors.whatsapp}
+                    aria-invalid={!!fieldErrors.whatsapp}
+                    aria-describedby={fieldErrors.whatsapp ? "whatsapp-erro" : undefined}
                   />
+                  {fieldErrors.whatsapp && <FieldMsg id="whatsapp-erro">{fieldErrors.whatsapp}</FieldMsg>}
                 </Field>
               </Row>
 
@@ -342,12 +455,14 @@ const Label = styled.label`
   color: ${MUTED};
 `;
 
-const Input = styled.input`
+/* $invalid e prop transiente ($) de proposito: sem o prefixo o styled-components
+   repassa o atributo ao DOM e o React reclama de prop desconhecida no console. */
+const Input = styled.input<{ $invalid?: boolean }>`
   font-family: ${FONT_BODY};
   font-size: ${TYPE.bodySmall.size};
   color: #ffffff;
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid ${({ $invalid }) => ($invalid ? RED : "rgba(255, 255, 255, 0.1)")};
   border-radius: 4px;
   padding: 11px 16px;
   outline: none;
@@ -357,6 +472,13 @@ const Input = styled.input`
   &:focus { border-color: ${RED}; }
 
   @media (max-width: 640px) { font-size: 16px; padding: 13px 14px; }
+`;
+
+const FieldMsg = styled.span`
+  font-family: ${FONT_BODY};
+  font-size: 12px;
+  line-height: 1.4;
+  color: ${RED};
 `;
 
 /* Isca anti-spam. Nao usa display:none nem visibility:hidden de proposito --
