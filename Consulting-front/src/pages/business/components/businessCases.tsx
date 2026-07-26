@@ -4,6 +4,11 @@ import styled, { keyframes } from "styled-components";
 import { useTranslation } from "react-i18next";
 import type { TFunction } from "i18next";
 
+import capaWine     from "../../../assets/business/wine/01-contexto.jpg";
+import capaCommunity   from "../../../assets/business/community/03-posicionamento.jpg";
+import capaCaramelo  from "../../../assets/business/caramelo/04-capex.jpg";
+import capaQuimica from "../../../assets/business/quimica/02-macroetapas.jpg";
+
 const RED        = "#C02121";
 const RED_CTA    = "#C02121";
 const INK        = "#1a1a18";
@@ -26,100 +31,56 @@ type Scope = {
   caseLede: string;
   detail: string;
   bullets: string[];
-  pattern: "grid" | "radial" | "diagonal" | "dots";
+  capa: string;
+  capaAlt: string;
 };
 
 const getScopes = (t: TFunction): Scope[] => [
   {
     num: "01",
-    tab: t("business.cases.items.expansaoMercado.tab"),
-    caseSlug: "expansao-mercado",
-    caseTitle: t("business.cases.items.expansaoMercado.caseTitle"),
-    caseLede: t("business.cases.items.expansaoMercado.caseLede"),
-    detail: t("business.cases.items.expansaoMercado.detail"),
-    bullets: t("business.cases.items.expansaoMercado.bullets", { returnObjects: true }) as string[],
-    pattern: "grid",
+    tab: t("business.cases.items.wine.tab"),
+    caseSlug: "wine",
+    caseTitle: t("business.cases.items.wine.caseTitle"),
+    caseLede: t("business.cases.items.wine.caseLede"),
+    detail: t("business.cases.items.wine.detail"),
+    bullets: t("business.cases.items.wine.bullets", { returnObjects: true }) as string[],
+    capa: capaWine,
+    capaAlt: t("business.cases.items.wine.capaAlt"),
   },
   {
     num: "02",
-    tab: t("business.cases.items.goToMarket.tab"),
-    caseSlug: "go-to-market",
-    caseTitle: t("business.cases.items.goToMarket.caseTitle"),
-    caseLede: t("business.cases.items.goToMarket.caseLede"),
-    detail: t("business.cases.items.goToMarket.detail"),
-    bullets: t("business.cases.items.goToMarket.bullets", { returnObjects: true }) as string[],
-    pattern: "radial",
+    tab: t("business.cases.items.community.tab"),
+    caseSlug: "community",
+    caseTitle: t("business.cases.items.community.caseTitle"),
+    caseLede: t("business.cases.items.community.caseLede"),
+    detail: t("business.cases.items.community.detail"),
+    bullets: t("business.cases.items.community.bullets", { returnObjects: true }) as string[],
+    capa: capaCommunity,
+    capaAlt: t("business.cases.items.community.capaAlt"),
   },
   {
     num: "03",
-    tab: t("business.cases.items.estruturaFinanceira.tab"),
-    caseSlug: "estrutura-financeira",
-    caseTitle: t("business.cases.items.estruturaFinanceira.caseTitle"),
-    caseLede: t("business.cases.items.estruturaFinanceira.caseLede"),
-    detail: t("business.cases.items.estruturaFinanceira.detail"),
-    bullets: t("business.cases.items.estruturaFinanceira.bullets", { returnObjects: true }) as string[],
-    pattern: "diagonal",
+    tab: t("business.cases.items.caramelo.tab"),
+    caseSlug: "caramelo",
+    caseTitle: t("business.cases.items.caramelo.caseTitle"),
+    caseLede: t("business.cases.items.caramelo.caseLede"),
+    detail: t("business.cases.items.caramelo.detail"),
+    bullets: t("business.cases.items.caramelo.bullets", { returnObjects: true }) as string[],
+    capa: capaCaramelo,
+    capaAlt: t("business.cases.items.caramelo.capaAlt"),
   },
   {
     num: "04",
-    tab: t("business.cases.items.operacaoParaEscalar.tab"),
-    caseSlug: "operacao-para-escalar",
-    caseTitle: t("business.cases.items.operacaoParaEscalar.caseTitle"),
-    caseLede: t("business.cases.items.operacaoParaEscalar.caseLede"),
-    detail: t("business.cases.items.operacaoParaEscalar.detail"),
-    bullets: t("business.cases.items.operacaoParaEscalar.bullets", { returnObjects: true }) as string[],
-    pattern: "dots",
+    tab: t("business.cases.items.quimica.tab"),
+    caseSlug: "quimica",
+    caseTitle: t("business.cases.items.quimica.caseTitle"),
+    caseLede: t("business.cases.items.quimica.caseLede"),
+    detail: t("business.cases.items.quimica.detail"),
+    bullets: t("business.cases.items.quimica.bullets", { returnObjects: true }) as string[],
+    capa: capaQuimica,
+    capaAlt: t("business.cases.items.quimica.capaAlt"),
   },
 ];
-
-/* ── Pattern backgrounds for case cards ── */
-
-const PATTERN_SVG: Record<Scope["pattern"], React.ReactNode> = {
-  grid: (
-    <svg width="100%" height="100%" style={{ position: "absolute", inset: 0 }}>
-      <defs>
-        <pattern id="pg-b" width="32" height="32" patternUnits="userSpaceOnUse">
-          <path d="M 32 0 L 0 0 0 32" fill="none" stroke="rgba(192,33,33,0.15)" strokeWidth="0.8"/>
-        </pattern>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#pg-b)"/>
-    </svg>
-  ),
-  radial: (
-    <svg width="100%" height="100%" style={{ position: "absolute", inset: 0 }}>
-      <defs>
-        <radialGradient id="pr-b" cx="35%" cy="55%">
-          <stop offset="0%" stopColor="rgba(192,33,33,0.3)"/>
-          <stop offset="100%" stopColor="transparent"/>
-        </radialGradient>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#pr-b)"/>
-      {[40, 80, 120, 160].map(r => (
-        <circle key={r} cx="35%" cy="55%" r={r} fill="none" stroke="rgba(192,33,33,0.1)" strokeWidth="1"/>
-      ))}
-    </svg>
-  ),
-  diagonal: (
-    <svg width="100%" height="100%" style={{ position: "absolute", inset: 0 }}>
-      <defs>
-        <pattern id="pd-b" width="20" height="20" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-          <line x1="0" y1="0" x2="0" y2="20" stroke="rgba(192,33,33,0.12)" strokeWidth="1"/>
-        </pattern>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#pd-b)"/>
-    </svg>
-  ),
-  dots: (
-    <svg width="100%" height="100%" style={{ position: "absolute", inset: 0 }}>
-      <defs>
-        <pattern id="pdots-b" width="20" height="20" patternUnits="userSpaceOnUse">
-          <circle cx="2" cy="2" r="1.5" fill="rgba(192,33,33,0.2)"/>
-        </pattern>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#pdots-b)"/>
-    </svg>
-  ),
-};
 
 /* ── Styled Components ── */
 
@@ -380,6 +341,7 @@ const CaseCardLink = styled(Link)`
     box-shadow: 0 14px 32px rgba(0,0,0,0.12);
     border-color: rgba(192,33,33,0.35);
     &::before { opacity: 1; transform: translate(-50%, 0); }
+    img { transform: scale(1.04); }
   }
 
   &:focus-visible {
@@ -397,6 +359,19 @@ const CaseCardHeader = styled.div`
   flex-shrink: 0;
 `;
 
+/* Slide de abertura do case. As imagens já saem do deck com os dados
+   sensíveis removidos: nome do cliente, valores e dados internos. */
+const CaseCardImage = styled.img`
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition: transform 0.4s ${SPRING};
+`;
+
 const CaseCardNum = styled.span`
   position: absolute;
   right: 16px;
@@ -404,26 +379,12 @@ const CaseCardNum = styled.span`
   font-family: ${FONT_TITLE};
   font-size: 88px;
   font-weight: 800;
-  color: rgba(192,33,33,0.1);
+  color: rgba(255,255,255,0.9);
+  text-shadow: 0 2px 12px rgba(0,0,0,0.45);
   line-height: 1;
   user-select: none;
   pointer-events: none;
-`;
-
-const ComingSoonBadge = styled.span`
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  font-family: ${FONT_TITLE};
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(250,242,234,0.6);
-  background: rgba(192,33,33,0.25);
-  border: 1px solid rgba(192,33,33,0.4);
-  padding: 4px 10px;
-  border-radius: 2px;
+  z-index: 1;
 `;
 
 const CaseCardBody = styled.div`
@@ -512,9 +473,8 @@ export default function BusinessCases() {
 
                   <CaseCardLink to={`/business/${s.caseSlug}`}>
                     <CaseCardHeader>
-                      {PATTERN_SVG[s.pattern]}
+                      <CaseCardImage src={s.capa} alt={s.capaAlt} loading="lazy" />
                       <CaseCardNum>{s.num}</CaseCardNum>
-                      <ComingSoonBadge>{t("business.cases.labels.comingSoon")}</ComingSoonBadge>
                     </CaseCardHeader>
                     <CaseCardBody>
                       <CaseCardScope>{t("business.cases.labels.scopePrefix")} · {s.tab}</CaseCardScope>

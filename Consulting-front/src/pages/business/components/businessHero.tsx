@@ -247,7 +247,7 @@ export default function BusinessHero() {
         <ScrollLine />
       </ScrollHint>
 
-      {/* Wave para a seção seguinte — branco para casar com o BusinessOpening */}
+      {/* Wave para a seção seguinte, branco para casar com o BusinessOpening */}
       <div style={{ position: "absolute", left: 0, right: 0, bottom: -1, lineHeight: 0, zIndex: 5 }}>
         <svg viewBox="0 0 1440 72" preserveAspectRatio="none"
           xmlns="http://www.w3.org/2000/svg" style={{ display: "block", width: "100%" }}>

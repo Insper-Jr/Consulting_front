@@ -24,10 +24,10 @@ import SocietyPage from "./direito/cases/societyPage"
 import PrintPage from "./direito/cases/printPage"
 import Processos from "./processos/processos"
 import Business from "./business/business"
-import ExpansaoMercadoPage from "./business/cases/expansaoMercadoPage"
-import GoToMarketPage from "./business/cases/goToMarketPage"
-import EstruturaFinanceiraPage from "./business/cases/estruturaFinanceiraPage"
-import OperacaoParaEscalarPage from "./business/cases/operacaoParaEscalarPage"
+import WinePage from "./business/cases/winePage"
+import CommunityPage from "./business/cases/communityPage"
+import CarameloPage from "./business/cases/carameloPage"
+import QuimicaPage from "./business/cases/quimicaPage"
 import Alumni from "./alumni/alumni"
 
 
@@ -136,20 +136,20 @@ const routes: RouteObject[] = [{
     element: <Business />,
 },
 {
-    path: "/business/expansao-mercado",
-    element: <ExpansaoMercadoPage />,
+    path: "/business/wine",
+    element: <WinePage />,
 },
 {
-    path: "/business/go-to-market",
-    element: <GoToMarketPage />,
+    path: "/business/community",
+    element: <CommunityPage />,
 },
 {
-    path: "/business/estrutura-financeira",
-    element: <EstruturaFinanceiraPage />,
+    path: "/business/caramelo",
+    element: <CarameloPage />,
 },
 {
-    path: "/business/operacao-para-escalar",
-    element: <OperacaoParaEscalarPage />,
+    path: "/business/quimica",
+    element: <QuimicaPage />,
 },
 ]
 export default routes
