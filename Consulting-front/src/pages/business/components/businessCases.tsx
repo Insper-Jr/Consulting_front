@@ -2,6 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 
+import capaWine     from "../../../assets/business/wine/01-contexto.jpg";
+import capaCommunity   from "../../../assets/business/community/03-posicionamento.jpg";
+import capaCaramelo  from "../../../assets/business/caramelo/04-capex.jpg";
+import capaQuimica from "../../../assets/business/quimica/02-macroetapas.jpg";
+
 const RED        = "#A10F23";
 const RED_CTA    = "#C02121";
 const INK        = "#1a1a1a";
@@ -24,30 +29,31 @@ type Scope = {
   caseLede: React.ReactNode;
   detail: React.ReactNode;
   bullets: string[];
-  pattern: "grid" | "radial" | "diagonal" | "dots";
+  capa: string;
+  capaAlt: string;
 };
 
 const SCOPES: Scope[] = [
   {
     num: "01",
     tab: "Análise Mercadológica",
-    caseSlug: "expansao-mercado",
-    caseTitle: <>Expansão para <i>Novo Mercado</i></>,
+    caseSlug: "wine",
+    caseTitle: <>Projeto <i>Wine</i></>,
     caseLede: (
       <>
-        Empresa do setor de saúde buscava crescimento em segmento inexplorado
-        sem visibilidade sobre o tamanho do mercado, os concorrentes ou o perfil
-        do cliente ideal. O risco de entrar errado era alto.
+        Uma plataforma internacional de vinhos premium queria entrar no Brasil, em
+        um mercado pequeno, disperso e quase sem estatística confiável. Não dava
+        para dimensionar a demanda pelos caminhos convencionais.
       </>
     ),
     detail: (
       <>
-        Conduzimos um estudo de mercado completo, combinando{" "}
-        <strong>pesquisa primária com consumidores</strong> e análise de dados
-        secundários. Dimensionamos o TAM/SAM/SOM do segmento, mapeamos os principais
-        players e identificamos lacunas estratégicas não atendidas. O resultado foi
-        um <strong>relatório de viabilidade com três cenários de entrada</strong> e uma
-        recomendação clara com critérios de decisão.
+        Construímos a leitura de mercado por <strong>cruzamento de fontes</strong>:
+        bases públicas, pesquisa autoral com o público-alvo, abordagem de cliente
+        oculto junto a players e networking para chegar a benchmarks fechados.
+        Avaliamos a operação internacional existente, o cenário concorrencial
+        brasileiro e as barreiras alfandegárias e cambiais, e entregamos as{" "}
+        <strong>recomendações de tropicalização</strong> que redirecionaram o produto.
       </>
     ),
     bullets: [
@@ -57,28 +63,29 @@ const SCOPES: Scope[] = [
       "Relatório de viabilidade com cenários de entrada",
       "Identificação de oportunidades e riscos estratégicos",
     ],
-    pattern: "grid",
+    capa: capaWine,
+    capaAlt: "Contexto do projeto de análise mercadológica",
   },
   {
     num: "02",
     tab: "Estratégia de Marketing",
-    caseSlug: "go-to-market",
-    caseTitle: <>Go-to-Market para <i>Lançamento</i></>,
+    caseSlug: "community",
+    caseTitle: <>Projeto <i>Community</i></>,
     caseLede: (
       <>
-        Startup de healthtech precisava posicionar seu produto em mercado competitivo
-       sem budget para erro e sem clareza sobre quem era realmente o cliente
-        prioritário. Uma entrada errada significaria meses perdidos.
+        Uma startup de saúde emocional digital entrava em um mercado dominado por
+        players globais, sem clareza sobre onde ainda havia espaço nem sobre como
+        chegar ao usuário final e às empresas contratantes.
       </>
     ),
     detail: (
       <>
-        Definimos as personas de maior potencial, construímos o{" "}
-        <strong>posicionamento e a proposta de valor</strong> da marca e estruturamos
-        o plano de canais com estimativas de CPL. Criamos o{" "}
-        <strong>calendário editorial e as diretrizes de comunicação</strong> para
-        os primeiros 90 dias de lançamento, com métricas de acompanhamento e
-        critérios para ajuste de rota.
+        Comparamos os concorrentes atributo por atributo até encontrar a lacuna que
+        ninguém ocupava, e transformamos isso em{" "}
+        <strong>posicionamento e proposta de valor</strong>. Em cima dele estruturamos
+        o go-to-market das duas frentes: precificação B2C e B2B ancorada em benchmark,{" "}
+        <strong>funil de conteúdo founder-led</strong> para aquisição orgânica e
+        prospecção B2B com análise de keywords, CPC e intenção de busca.
       </>
     ),
     bullets: [
@@ -88,27 +95,29 @@ const SCOPES: Scope[] = [
       "Calendário editorial dos primeiros 90 dias",
       "Projeção de métricas de aquisição (CPL, CAC)",
     ],
-    pattern: "radial",
+    capa: capaCommunity,
+    capaAlt: "Mapa de posicionamento competitivo do projeto",
   },
   {
     num: "03",
     tab: "Planejamento Financeiro",
-    caseSlug: "estrutura-financeira",
-    caseTitle: <>Estrutura Financeira <i>para Captação</i></>,
+    caseSlug: "caramelo",
+    caseTitle: <>Projeto <i>Caramelo</i></>,
     caseLede: (
       <>
-        Startup em crescimento acelerado com faturamento em alta mas sem DRE
-        organizado, queima de caixa mal dimensionada e sem modelagem para apresentar
-        a investidores com credibilidade.
+        Uma confeitaria artesanal operava de casa, com entrega própria e pouca
+        visibilidade de marca. Crescer significava abrir uma loja física, uma
+        decisão de investimento que ninguém tinha modelado.
       </>
     ),
     detail: (
       <>
-        Reestruturamos o DRE, mapeamos a queima de caixa real mês a mês e
-        construímos um <strong>modelo de projeção financeira para 18 meses</strong>.
-        Calculamos os unit economics (LTV, CAC, payback) e preparamos a{" "}
-        <strong>tese financeira completa</strong> para a próxima rodada de captação,
-        com análise de sensibilidade por cenário de crescimento.
+        Lemos primeiro o <strong>comportamento de consumo por canal</strong>: o
+        aplicativo de entrega como porta de entrada e a loja física como consolidação
+        de marca. Definida a estratégia, dimensionamos o{" "}
+        <strong>CapEx inicial item a item</strong> e rodamos a projeção completa:
+        receita por canal, estrutura de custos, comparativo entre regimes tributários
+        e geração de caixa ao longo do horizonte do projeto.
       </>
     ),
     bullets: [
@@ -118,28 +127,29 @@ const SCOPES: Scope[] = [
       "Cálculo de unit economics (LTV, CAC, Payback)",
       "Análise de burn rate e runway",
     ],
-    pattern: "diagonal",
+    capa: capaCaramelo,
+    capaAlt: "Dimensionamento do investimento inicial do projeto",
   },
   {
     num: "04",
     tab: "Plano Operacional",
-    caseSlug: "operacao-para-escalar",
-    caseTitle: <>Operação Pronta <i>para Escalar</i></>,
+    caseSlug: "quimica",
+    caseTitle: <>Projeto <i>Química</i></>,
     caseLede: (
       <>
-        Empresa com crescimento acelerado mas operação inteiramente manual processos
-        sem documentação, gargalos não mapeados e time sobrecarregado com tarefas
-        repetitivas que consumiam tempo sem gerar valor.
+        Em uma distribuidora industrial B2B, o pedido passava por cinco áreas e três
+        sistemas que não conversavam entre si. O resultado aparecia no fim da linha:
+        retrabalho, atraso e promessa não cumprida.
       </>
     ),
     detail: (
       <>
-        Mapeamos os fluxos internos, identificamos os gargalos de maior impacto e
-        priorizamos melhorias por esforço vs. retorno. Criamos{" "}
-        <strong>playbooks operacionais detalhados</strong> para os processos críticos
-        e um plano de implementação com responsáveis, prazos e{" "}
-        <strong>métricas de acompanhamento</strong>. A operação saiu do caos para
-        uma estrutura replicável.
+        Diagnosticamos a operação por <strong>triangulação de três fontes</strong>:
+        entrevistas em profundidade, formulário com os operadores e a base de não
+        conformidades. Mapeamos a jornada do pedido em cinco macroetapas, rodamos{" "}
+        <strong>diagrama de Ishikawa</strong> em cada uma para separar sintoma de
+        causa-raiz e entregamos um{" "}
+        <strong>plano de ação em três horizontes</strong>, com ferramenta e dono por ação.
       </>
     ),
     bullets: [
@@ -149,58 +159,10 @@ const SCOPES: Scope[] = [
       "Playbooks e SOPs para o time",
       "Plano de implementação com KPIs de acompanhamento",
     ],
-    pattern: "dots",
+    capa: capaQuimica,
+    capaAlt: "Mapeamento da operação em macroetapas",
   },
 ];
-
-/* ── Pattern backgrounds for case cards ── */
-
-const PATTERN_SVG: Record<Scope["pattern"], React.ReactNode> = {
-  grid: (
-    <svg width="100%" height="100%" style={{ position: "absolute", inset: 0 }}>
-      <defs>
-        <pattern id="pg-b" width="32" height="32" patternUnits="userSpaceOnUse">
-          <path d="M 32 0 L 0 0 0 32" fill="none" stroke="rgba(192,33,33,0.15)" strokeWidth="0.8"/>
-        </pattern>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#pg-b)"/>
-    </svg>
-  ),
-  radial: (
-    <svg width="100%" height="100%" style={{ position: "absolute", inset: 0 }}>
-      <defs>
-        <radialGradient id="pr-b" cx="35%" cy="55%">
-          <stop offset="0%" stopColor="rgba(192,33,33,0.3)"/>
-          <stop offset="100%" stopColor="transparent"/>
-        </radialGradient>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#pr-b)"/>
-      {[40, 80, 120, 160].map(r => (
-        <circle key={r} cx="35%" cy="55%" r={r} fill="none" stroke="rgba(192,33,33,0.1)" strokeWidth="1"/>
-      ))}
-    </svg>
-  ),
-  diagonal: (
-    <svg width="100%" height="100%" style={{ position: "absolute", inset: 0 }}>
-      <defs>
-        <pattern id="pd-b" width="20" height="20" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-          <line x1="0" y1="0" x2="0" y2="20" stroke="rgba(192,33,33,0.12)" strokeWidth="1"/>
-        </pattern>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#pd-b)"/>
-    </svg>
-  ),
-  dots: (
-    <svg width="100%" height="100%" style={{ position: "absolute", inset: 0 }}>
-      <defs>
-        <pattern id="pdots-b" width="20" height="20" patternUnits="userSpaceOnUse">
-          <circle cx="2" cy="2" r="1.5" fill="rgba(192,33,33,0.2)"/>
-        </pattern>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#pdots-b)"/>
-    </svg>
-  ),
-};
 
 /* ── Styled Components ── */
 
@@ -461,6 +423,7 @@ const CaseCardLink = styled(Link)`
     box-shadow: 0 14px 32px rgba(0,0,0,0.12);
     border-color: rgba(161,15,35,0.35);
     &::before { opacity: 1; transform: translate(-50%, 0); }
+    img { transform: scale(1.04); }
   }
 
   &:focus-visible {
@@ -478,6 +441,19 @@ const CaseCardHeader = styled.div`
   flex-shrink: 0;
 `;
 
+/* Slide de abertura do case. As imagens já saem do deck com os dados
+   sensíveis removidos: nome do cliente, valores e dados internos. */
+const CaseCardImage = styled.img`
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition: transform 0.4s ${SPRING};
+`;
+
 const CaseCardNum = styled.span`
   position: absolute;
   right: 16px;
@@ -485,26 +461,12 @@ const CaseCardNum = styled.span`
   font-family: ${FONT_TITLE};
   font-size: 88px;
   font-weight: 800;
-  color: rgba(192,33,33,0.1);
+  color: rgba(255,255,255,0.9);
+  text-shadow: 0 2px 12px rgba(0,0,0,0.45);
   line-height: 1;
   user-select: none;
   pointer-events: none;
-`;
-
-const ComingSoonBadge = styled.span`
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  font-family: ${FONT_TITLE};
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(250,242,234,0.6);
-  background: rgba(192,33,33,0.25);
-  border: 1px solid rgba(192,33,33,0.4);
-  padding: 4px 10px;
-  border-radius: 2px;
+  z-index: 1;
 `;
 
 const CaseCardBody = styled.div`
@@ -591,9 +553,8 @@ export default function BusinessCases() {
 
                   <CaseCardLink to={`/business/${s.caseSlug}`}>
                     <CaseCardHeader>
-                      {PATTERN_SVG[s.pattern]}
+                      <CaseCardImage src={s.capa} alt={s.capaAlt} loading="lazy" />
                       <CaseCardNum>{s.num}</CaseCardNum>
-                      <ComingSoonBadge>Em breve</ComingSoonBadge>
                     </CaseCardHeader>
                     <CaseCardBody>
                       <CaseCardScope>Escopo · {s.tab}</CaseCardScope>
