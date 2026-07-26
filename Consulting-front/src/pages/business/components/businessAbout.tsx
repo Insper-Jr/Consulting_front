@@ -208,7 +208,7 @@ export default function BusinessAbout() {
 
         <PillarsGrid>
           <Pillar>
-            <PillarNum>01 — Multidisciplinar</PillarNum>
+            <PillarNum>01 · Multidisciplinar</PillarNum>
             <PillarTitle>Alunos de diversas graduações</PillarTitle>
             <PillarText>
               Reunimos estudantes de Administração, Economia e Engenharia, garantindo
@@ -216,15 +216,15 @@ export default function BusinessAbout() {
             </PillarText>
           </Pillar>
           <Pillar>
-            <PillarNum>02 — Orientada para resultado</PillarNum>
+            <PillarNum>02 · Orientada para resultado</PillarNum>
             <PillarTitle>Entregáveis que gestores usam</PillarTitle>
             <PillarText>
-              Cada projeto termina com recomendações claras e acionáveis não com
+              Cada projeto termina com recomendações claras e acionáveis, não com
               relatórios que ficam na gaveta.
             </PillarText>
           </Pillar>
           <Pillar>
-            <PillarNum>03 — Sob medida</PillarNum>
+            <PillarNum>03 · Sob medida</PillarNum>
             <PillarTitle>Nenhum projeto é igual ao anterior</PillarTitle>
             <PillarText>
               Não temos modelo padrão. Entendemos o problema e definimos a abordagem
@@ -237,6 +237,9 @@ export default function BusinessAbout() {
           <Stat><StatValue>25+</StatValue><StatLabel>Anos de atuação</StatLabel></Stat>
           <Stat><StatValue>500+</StatValue><StatLabel>Projetos entregues</StatLabel></Stat>
           <Stat><StatValue>3</StatValue><StatLabel>Áreas parceiras</StatLabel></Stat>
+
+
+
         </StatsBar>
       </Intro>
     </>
