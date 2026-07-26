@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import styled, { keyframes } from "styled-components";
+import Rich from "../../../i18n/rich";
 
 import capaWine     from "../../../assets/business/wine/01-contexto.jpg";
 import capaCommunity   from "../../../assets/business/community/03-posicionamento.jpg";
@@ -21,147 +23,21 @@ const redbarGrow = keyframes`to { transform: scaleX(1); }`;
 
 /* ── Types & Data ── */
 
+/* O texto dos escopos vive no pt.ts / en.ts, sob business.scopes.<key>.
+   Aqui ficam só a ordem, o slug da rota, o codinome do case e a capa. */
 type Scope = {
   num: string;
-  tab: string;
+  key: string;
   caseSlug: string;
-  caseTitle: React.ReactNode;
-  caseLede: React.ReactNode;
-  detail: React.ReactNode;
-  bullets: string[];
+  code: string;
   capa: string;
-  capaAlt: string;
 };
 
 const SCOPES: Scope[] = [
-  {
-    num: "01",
-    tab: "Análise Mercadológica",
-    caseSlug: "wine",
-    caseTitle: <>Projeto <i>Wine</i></>,
-    caseLede: (
-      <>
-        Uma plataforma internacional de vinhos premium queria entrar no Brasil, em
-        um mercado pequeno, disperso e quase sem estatística confiável. Não dava
-        para dimensionar a demanda pelos caminhos convencionais.
-      </>
-    ),
-    detail: (
-      <>
-        Construímos a leitura de mercado por <strong>cruzamento de fontes</strong>:
-        bases públicas, pesquisa autoral com o público-alvo, abordagem de cliente
-        oculto junto a players e networking para chegar a benchmarks fechados.
-        Avaliamos a operação internacional existente, o cenário concorrencial
-        brasileiro e as barreiras alfandegárias e cambiais, e entregamos as{" "}
-        <strong>recomendações de tropicalização</strong> que redirecionaram o produto.
-      </>
-    ),
-    bullets: [
-      "Dimensionamento de TAM / SAM / SOM",
-      "Benchmarking de concorrentes e posicionamento",
-      "Pesquisa com consumidores (qualitativa + quantitativa)",
-      "Relatório de viabilidade com cenários de entrada",
-      "Identificação de oportunidades e riscos estratégicos",
-    ],
-    capa: capaWine,
-    capaAlt: "Contexto do projeto de análise mercadológica",
-  },
-  {
-    num: "02",
-    tab: "Estratégia de Marketing",
-    caseSlug: "community",
-    caseTitle: <>Projeto <i>Community</i></>,
-    caseLede: (
-      <>
-        Uma startup de saúde emocional digital entrava em um mercado dominado por
-        players globais, sem clareza sobre onde ainda havia espaço nem sobre como
-        chegar ao usuário final e às empresas contratantes.
-      </>
-    ),
-    detail: (
-      <>
-        Comparamos os concorrentes atributo por atributo até encontrar a lacuna que
-        ninguém ocupava, e transformamos isso em{" "}
-        <strong>posicionamento e proposta de valor</strong>. Em cima dele estruturamos
-        o go-to-market das duas frentes: precificação B2C e B2B ancorada em benchmark,{" "}
-        <strong>funil de conteúdo founder-led</strong> para aquisição orgânica e
-        prospecção B2B com análise de keywords, CPC e intenção de busca.
-      </>
-    ),
-    bullets: [
-      "Definição de personas e ICP (Ideal Customer Profile)",
-      "Posicionamento e proposta de valor",
-      "Plano de canais e alocação de verba",
-      "Calendário editorial dos primeiros 90 dias",
-      "Projeção de métricas de aquisição (CPL, CAC)",
-    ],
-    capa: capaCommunity,
-    capaAlt: "Mapa de posicionamento competitivo do projeto",
-  },
-  {
-    num: "03",
-    tab: "Planejamento Financeiro",
-    caseSlug: "caramelo",
-    caseTitle: <>Projeto <i>Caramelo</i></>,
-    caseLede: (
-      <>
-        Uma confeitaria artesanal operava de casa, com entrega própria e pouca
-        visibilidade de marca. Crescer significava abrir uma loja física, uma
-        decisão de investimento que ninguém tinha modelado.
-      </>
-    ),
-    detail: (
-      <>
-        Lemos primeiro o <strong>comportamento de consumo por canal</strong>: o
-        aplicativo de entrega como porta de entrada e a loja física como consolidação
-        de marca. Definida a estratégia, dimensionamos o{" "}
-        <strong>CapEx inicial item a item</strong> e rodamos a projeção completa:
-        receita por canal, estrutura de custos, comparativo entre regimes tributários
-        e geração de caixa ao longo do horizonte do projeto.
-      </>
-    ),
-    bullets: [
-      "Estruturação de DRE e balanço patrimonial",
-      "Projeção de fluxo de caixa (18 meses)",
-      "Modelagem financeira para captação",
-      "Cálculo de unit economics (LTV, CAC, Payback)",
-      "Análise de burn rate e runway",
-    ],
-    capa: capaCaramelo,
-    capaAlt: "Dimensionamento do investimento inicial do projeto",
-  },
-  {
-    num: "04",
-    tab: "Plano Operacional",
-    caseSlug: "quimica",
-    caseTitle: <>Projeto <i>Química</i></>,
-    caseLede: (
-      <>
-        Em uma distribuidora industrial B2B, o pedido passava por cinco áreas e três
-        sistemas que não conversavam entre si. O resultado aparecia no fim da linha:
-        retrabalho, atraso e promessa não cumprida.
-      </>
-    ),
-    detail: (
-      <>
-        Diagnosticamos a operação por <strong>triangulação de três fontes</strong>:
-        entrevistas em profundidade, formulário com os operadores e a base de não
-        conformidades. Mapeamos a jornada do pedido em cinco macroetapas, rodamos{" "}
-        <strong>diagrama de Ishikawa</strong> em cada uma para separar sintoma de
-        causa-raiz e entregamos um{" "}
-        <strong>plano de ação em três horizontes</strong>, com ferramenta e dono por ação.
-      </>
-    ),
-    bullets: [
-      "Mapeamento de processos internos (AS-IS)",
-      "Identificação e priorização de gargalos",
-      "Proposta de melhoria (TO-BE) com quick wins",
-      "Playbooks e SOPs para o time",
-      "Plano de implementação com KPIs de acompanhamento",
-    ],
-    capa: capaQuimica,
-    capaAlt: "Mapeamento da operação em macroetapas",
-  },
+  { num: "01", key: "market",      caseSlug: "wine",      code: "Wine",      capa: capaWine },
+  { num: "02", key: "marketing",   caseSlug: "community", code: "Community", capa: capaCommunity },
+  { num: "03", key: "financial",   caseSlug: "caramelo",  code: "Caramelo",  capa: capaCaramelo },
+  { num: "04", key: "operational", caseSlug: "quimica",   code: "Química",   capa: capaQuimica },
 ];
 
 /* ── Styled Components ── */
@@ -395,7 +271,8 @@ const CaseCardLink = styled(Link)`
   min-height: 320px;
 
   &::before {
-    content: "Clique aqui";
+    /* Texto vem do data-hint para poder ser traduzido (business.scopes.clickHint) */
+    content: attr(data-hint);
     position: absolute;
     bottom: 100%;
     left: 50%;
@@ -514,9 +391,17 @@ const CaseCardCTA = styled.span`
 /* ── Component ── */
 
 export default function BusinessCases() {
+  const { t } = useTranslation();
+
   return (
     <>
-      {SCOPES.map(s => (
+      {SCOPES.map(s => {
+        const base = `business.scopes.${s.key}`;
+        const tab = t(`${base}.tab`);
+        const title = <>{t("business.scopes.titlePrefix")} <i>{s.code}</i></>;
+        const bullets = t(`${base}.bullets`, { returnObjects: true }) as unknown as string[];
+
+        return (
         <React.Fragment key={s.num}>
           <RedBarWrap><RedBar /></RedBarWrap>
 
@@ -525,42 +410,42 @@ export default function BusinessCases() {
               <ScopePanel>
                 <ScopeHeader>
                   <ScopeCounter>
-                    <ScopeName>{s.tab}</ScopeName>
+                    <ScopeName>{tab}</ScopeName>
                   </ScopeCounter>
                 </ScopeHeader>
 
                 <ScopeGrid>
                   <ScopeMain>
                     <ScopeIntro>
-                      <ScopeTitleH3>{s.caseTitle}</ScopeTitleH3>
+                      <ScopeTitleH3>{title}</ScopeTitleH3>
                       <ScopeAccent />
-                      <ScopeLede>{s.caseLede}</ScopeLede>
+                      <ScopeLede>{t(`${base}.lede`)}</ScopeLede>
                     </ScopeIntro>
 
                     <PanelBody>
                       <PanelCol>
-                        <ColLabel>Como atuamos</ColLabel>
-                        <ScopeDetail>{s.detail}</ScopeDetail>
+                        <ColLabel>{t("business.scopes.howLabel")}</ColLabel>
+                        <ScopeDetail><Rich k={`${base}.detail`} /></ScopeDetail>
                       </PanelCol>
                       <PanelCol>
-                        <ColLabel>O que entregamos</ColLabel>
+                        <ColLabel>{t("business.scopes.deliverLabel")}</ColLabel>
                         <Bullets>
-                          {s.bullets.map((b, i) => <li key={i}>{b}</li>)}
+                          {bullets.map((b, i) => <li key={i}>{b}</li>)}
                         </Bullets>
                       </PanelCol>
                     </PanelBody>
                   </ScopeMain>
 
-                  <CaseCardLink to={`/business/${s.caseSlug}`}>
+                  <CaseCardLink to={`/business/${s.caseSlug}`} data-hint={t("business.scopes.clickHint")}>
                     <CaseCardHeader>
-                      <CaseCardImage src={s.capa} alt={s.capaAlt} loading="lazy" />
+                      <CaseCardImage src={s.capa} alt={t(`${base}.capaAlt`)} loading="lazy" />
                       <CaseCardNum>{s.num}</CaseCardNum>
                     </CaseCardHeader>
                     <CaseCardBody>
-                      <CaseCardScope>Escopo · {s.tab}</CaseCardScope>
-                      <CaseCardTitle>{s.caseTitle}</CaseCardTitle>
+                      <CaseCardScope>{t("business.scopes.scopeLabel")} · {tab}</CaseCardScope>
+                      <CaseCardTitle>{title}</CaseCardTitle>
                       <CaseCardCTA>
-                        Ver case completo
+                        {t("business.scopes.seeCase")}
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                           <line x1="5" y1="12" x2="19" y2="12"/>
                           <polyline points="12 5 19 12 12 19"/>
@@ -573,7 +458,8 @@ export default function BusinessCases() {
             </ScopesWrap>
           </ScopeSection>
         </React.Fragment>
-      ))}
+        );
+      })}
     </>
   );
 }

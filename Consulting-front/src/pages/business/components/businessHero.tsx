@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import styled, { keyframes } from "styled-components";
 import { useParticles } from "../../../hooks/useParticleBackground";
 import BusinessImg from "../../../assets/hero/business2.png";
@@ -189,6 +190,7 @@ const ChevD = () => (
 
 /* ── Component ── */
 export default function BusinessHero() {
+  const { t } = useTranslation();
   const wrapperRef = useRef<HTMLDivElement>(null);
   const canvasRef  = useRef<HTMLCanvasElement>(null);
   useParticles(wrapperRef, canvasRef);
@@ -216,26 +218,23 @@ export default function BusinessHero() {
       <Grid>
         <Inner>
           <Left>
-            <Eyebrow $v={v}>Frente de Business</Eyebrow>
+            <Eyebrow $v={v}>{t("business.hero.eyebrow")}</Eyebrow>
 
             <Title>
-              <Word $d={0.55} $v={v}>Estratégia</Word>
+              <Word $d={0.55} $v={v}>{t("business.hero.titleWord1")}</Word>
               <br />
-              <Word $d={0.78} $v={v}>que</Word>
+              <Word $d={0.78} $v={v}>{t("business.hero.titleWord2")}</Word>
               <br />
-              <Word $d={1.02} $v={v}><Accent>gera resultado</Accent></Word>
+              <Word $d={1.02} $v={v}><Accent>{t("business.hero.titleWord3")}</Accent></Word>
             </Title>
 
             <Divider $v={v} />
 
-            <Sub $v={v}>
-              Combinamos análise de mercado, planejamento financeiro e execução
-              operacional para transformar a visão da sua empresa em crescimento real.
-            </Sub>
+            <Sub $v={v}>{t("business.hero.sub")}</Sub>
 
             <Actions $v={v}>
-              <BtnPrimary href="/contact">Solicitar Diagnóstico <ArrowR /></BtnPrimary>
-              <BtnGhost href="#cases">Ver nossos cases <ChevD /></BtnGhost>
+              <BtnPrimary href="/contact">{t("business.hero.ctaPrimary")} <ArrowR /></BtnPrimary>
+              <BtnGhost href="#cases">{t("business.hero.ctaSecondary")} <ChevD /></BtnGhost>
             </Actions>
           </Left>
         </Inner>
