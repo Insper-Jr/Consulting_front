@@ -9,6 +9,7 @@ import TechCTA from "./components/techCTA";
 // Imagens de destaque dos cases
 import gamifHighlight from "../../assets/gamificacao/slides/02-solucao.png";
 import medHighlight from "../../assets/medicina/slides/04-contexto.jpg";
+import walleHighlight from "../../assets/walle/slide-01.png";
 
 // ── Color tokens (from HTML reference) ──────────────────────────────────────
 const COLORS = {
@@ -555,9 +556,7 @@ function Tech() {
           </HighlightCard>
           <HighlightCard to="/tech/wall-e" aria-label="Ver case Wall-E">
             <HighlightCardTitle>Wall-E</HighlightCardTitle>
-            <HighlightCardPlaceholder aria-label="Imagem a ser definida">
-              <span>Imagem em breve</span>
-            </HighlightCardPlaceholder>
+            <HighlightCardImage src={walleHighlight} alt="Contexto do projeto Wall-E" />
             <HighlightCardSubtitle>Escopo · Inteligência Artificial</HighlightCardSubtitle>
           </HighlightCard>
         </HighlightGrid>
@@ -1714,36 +1713,6 @@ const HighlightCardImage = styled.img`
   object-fit: cover;
   display: block;
   background: ${COLORS.lightCream};
-`;
-
-const HighlightCardPlaceholder = styled.div`
-  width: 100%;
-  aspect-ratio: 16 / 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: repeating-linear-gradient(
-    45deg,
-    ${COLORS.lightCream},
-    ${COLORS.lightCream} 12px,
-    rgba(161,15,35,0.05) 12px,
-    rgba(161,15,35,0.05) 24px
-  );
-  border-top: 1px solid rgba(26,26,24,0.06);
-  border-bottom: 1px solid rgba(26,26,24,0.06);
-
-  span {
-    font-family: ${FONT_MONO};
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: ${COLORS.redTitle};
-    padding: 0.5rem 0.85rem;
-    background: rgba(255,255,255,0.85);
-    border: 1px solid rgba(161,15,35,0.25);
-    border-radius: 2px;
-  }
 `;
 
 const HighlightCardSubtitle = styled.p`
