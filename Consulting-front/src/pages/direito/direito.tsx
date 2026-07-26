@@ -7,6 +7,10 @@ import WppButton from "../../components/wppButton";
 import ContactSection from "../../components/sectionContact";
 import DireitoCTA from "./components/direitoCTA";
 
+import capaPeDireito from "../../assets/direito/pe-direito/slide-03.png";
+import capaSociety   from "../../assets/direito/society/slide-07.png";
+import capaPrint     from "../../assets/direito/print/slide-15.png";
+
 // ── Color tokens (mirror tech) ─────────────────────────────────────────────
 const COLORS = {
   redTitle: "#A10F23",
@@ -560,23 +564,17 @@ function Direito() {
         <HighlightGrid>
           <HighlightCard to="/direito/pe-direito" aria-label="Ver case Pé Direito I">
             <HighlightCardTitle>Pé Direito I</HighlightCardTitle>
-            <HighlightCardPlaceholder aria-label="Imagem a ser definida">
-              <span>Imagem em breve</span>
-            </HighlightCardPlaceholder>
+            <HighlightCardImage src={capaPeDireito} alt="Capa do case Pé Direito I" loading="lazy" />
             <HighlightCardSubtitle>Escopo · Contratos</HighlightCardSubtitle>
           </HighlightCard>
           <HighlightCard to="/direito/society" aria-label="Ver case Society I">
             <HighlightCardTitle>Society I</HighlightCardTitle>
-            <HighlightCardPlaceholder aria-label="Imagem a ser definida">
-              <span>Imagem em breve</span>
-            </HighlightCardPlaceholder>
+            <HighlightCardImage src={capaSociety} alt="Capa do case Society I" loading="lazy" />
             <HighlightCardSubtitle>Escopo · Societário</HighlightCardSubtitle>
           </HighlightCard>
           <HighlightCard to="/direito/print" aria-label="Ver case Print I">
             <HighlightCardTitle>Print I</HighlightCardTitle>
-            <HighlightCardPlaceholder aria-label="Imagem a ser definida">
-              <span>Imagem em breve</span>
-            </HighlightCardPlaceholder>
+            <HighlightCardImage src={capaPrint} alt="Capa do case Print I" loading="lazy" />
             <HighlightCardSubtitle>Escopo · Contratos · Tributário · PI</HighlightCardSubtitle>
           </HighlightCard>
         </HighlightGrid>
@@ -1671,34 +1669,13 @@ const HighlightCardTitle = styled.h3`
   @media (max-width: 900px) { font-size: 20px; padding: 1rem 1.25rem 0.85rem; }
 `;
 
-const HighlightCardPlaceholder = styled.div`
+const HighlightCardImage = styled.img`
   width: 100%;
   aspect-ratio: 16 / 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: repeating-linear-gradient(
-    45deg,
-    ${COLORS.lightCream},
-    ${COLORS.lightCream} 12px,
-    rgba(161,15,35,0.05) 12px,
-    rgba(161,15,35,0.05) 24px
-  );
+  object-fit: cover;
+  display: block;
   border-top: 1px solid rgba(26,26,24,0.06);
   border-bottom: 1px solid rgba(26,26,24,0.06);
-
-  span {
-    font-family: ${FONT_MONO};
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: ${COLORS.redTitle};
-    padding: 0.5rem 0.85rem;
-    background: rgba(255,255,255,0.85);
-    border: 1px solid rgba(161,15,35,0.25);
-    border-radius: 2px;
-  }
 `;
 
 const HighlightCardSubtitle = styled.p`
