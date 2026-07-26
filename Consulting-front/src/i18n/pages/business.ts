@@ -52,13 +52,13 @@ export const businessTranslations = {
           viewFullCase: "Ver case completo",
         },
         items: {
-          expansaoMercado: {
+          wine: {
             tab: "Análise Mercadológica",
-            caseTitle: "Expansão para <i>Novo Mercado</i>",
+            caseTitle: "Projeto <i>Wine</i>",
             caseLede:
-              "Empresa do setor de saúde buscava crescimento em segmento inexplorado, sem visibilidade sobre o tamanho do mercado, os concorrentes ou o perfil do cliente ideal. O risco de entrar errado era alto.",
+              "Uma plataforma internacional de vinhos premium queria entrar no Brasil, em um mercado pequeno, disperso e quase sem estatística confiável. Não dava para dimensionar a demanda pelos caminhos convencionais.",
             detail:
-              "Conduzimos um estudo de mercado completo, combinando <strong>pesquisa primária com consumidores</strong> e análise de dados secundários. Dimensionamos o TAM/SAM/SOM do segmento, mapeamos os principais players e identificamos lacunas estratégicas não atendidas. O resultado foi um <strong>relatório de viabilidade com três cenários de entrada</strong> e uma recomendação clara com critérios de decisão.",
+              "Construímos a leitura de mercado por <strong>cruzamento de fontes</strong>: bases públicas, pesquisa autoral com o público-alvo, abordagem de cliente oculto junto a players e networking para chegar a benchmarks fechados. Avaliamos a operação internacional existente, o cenário concorrencial brasileiro e as barreiras alfandegárias e cambiais, e entregamos as <strong>recomendações de tropicalização</strong> que redirecionaram o produto.",
             bullets: [
               "Dimensionamento de TAM / SAM / SOM",
               "Benchmarking de concorrentes e posicionamento",
@@ -66,14 +66,15 @@ export const businessTranslations = {
               "Relatório de viabilidade com cenários de entrada",
               "Identificação de oportunidades e riscos estratégicos",
             ],
+            capaAlt: "Contexto do projeto de análise mercadológica",
           },
-          goToMarket: {
+          community: {
             tab: "Estratégia de Marketing",
-            caseTitle: "Go-to-Market para <i>Lançamento</i>",
+            caseTitle: "Projeto <i>Community</i>",
             caseLede:
-              "Startup de healthtech precisava posicionar seu produto em mercado competitivo, sem budget para erro e sem clareza sobre quem era realmente o cliente prioritário. Uma entrada errada significaria meses perdidos.",
+              "Uma startup de saúde emocional digital entrava em um mercado dominado por players globais, sem clareza sobre onde ainda havia espaço nem sobre como chegar ao usuário final e às empresas contratantes.",
             detail:
-              "Definimos as personas de maior potencial, construímos o <strong>posicionamento e a proposta de valor</strong> da marca e estruturamos o plano de canais com estimativas de CPL. Criamos o <strong>calendário editorial e as diretrizes de comunicação</strong> para os primeiros 90 dias de lançamento, com métricas de acompanhamento e critérios para ajuste de rota.",
+              "Comparamos os concorrentes atributo por atributo até encontrar a lacuna que ninguém ocupava, e transformamos isso em <strong>posicionamento e proposta de valor</strong>. Em cima dele estruturamos o go-to-market das duas frentes: precificação B2C e B2B ancorada em benchmark, <strong>funil de conteúdo founder-led</strong> para aquisição orgânica e prospecção B2B com análise de keywords, CPC e intenção de busca.",
             bullets: [
               "Definição de personas e ICP (Ideal Customer Profile)",
               "Posicionamento e proposta de valor",
@@ -81,14 +82,15 @@ export const businessTranslations = {
               "Calendário editorial dos primeiros 90 dias",
               "Projeção de métricas de aquisição (CPL, CAC)",
             ],
+            capaAlt: "Mapa de posicionamento competitivo do projeto",
           },
-          estruturaFinanceira: {
+          caramelo: {
             tab: "Planejamento Financeiro",
-            caseTitle: "Estrutura Financeira <i>para Captação</i>",
+            caseTitle: "Projeto <i>Caramelo</i>",
             caseLede:
-              "Startup em crescimento acelerado com faturamento em alta, mas sem DRE organizado, queima de caixa mal dimensionada e sem modelagem para apresentar a investidores com credibilidade.",
+              "Uma confeitaria artesanal operava de casa, com entrega própria e pouca visibilidade de marca. Crescer significava abrir uma loja física, uma decisão de investimento que ninguém tinha modelado.",
             detail:
-              "Reestruturamos o DRE, mapeamos a queima de caixa real mês a mês e construímos um <strong>modelo de projeção financeira para 18 meses</strong>. Calculamos os unit economics (LTV, CAC, payback) e preparamos a <strong>tese financeira completa</strong> para a próxima rodada de captação, com análise de sensibilidade por cenário de crescimento.",
+              "Lemos primeiro o <strong>comportamento de consumo por canal</strong>: o aplicativo de entrega como porta de entrada e a loja física como consolidação de marca. Definida a estratégia, dimensionamos o <strong>CapEx inicial item a item</strong> e rodamos a projeção completa: receita por canal, estrutura de custos, comparativo entre regimes tributários e geração de caixa ao longo do horizonte do projeto.",
             bullets: [
               "Estruturação de DRE e balanço patrimonial",
               "Projeção de fluxo de caixa (18 meses)",
@@ -96,14 +98,15 @@ export const businessTranslations = {
               "Cálculo de unit economics (LTV, CAC, Payback)",
               "Análise de burn rate e runway",
             ],
+            capaAlt: "Dimensionamento do investimento inicial do projeto",
           },
-          operacaoParaEscalar: {
+          quimica: {
             tab: "Plano Operacional",
-            caseTitle: "Operação Pronta <i>para Escalar</i>",
+            caseTitle: "Projeto <i>Química</i>",
             caseLede:
-              "Empresa com crescimento acelerado mas operação inteiramente manual: processos sem documentação, gargalos não mapeados e time sobrecarregado com tarefas repetitivas que consumiam tempo sem gerar valor.",
+              "Em uma distribuidora industrial B2B, o pedido passava por cinco áreas e três sistemas que não conversavam entre si. O resultado aparecia no fim da linha: retrabalho, atraso e promessa não cumprida.",
             detail:
-              "Mapeamos os fluxos internos, identificamos os gargalos de maior impacto e priorizamos melhorias por esforço vs. retorno. Criamos <strong>playbooks operacionais detalhados</strong> para os processos críticos e um plano de implementação com responsáveis, prazos e <strong>métricas de acompanhamento</strong>. A operação saiu do caos para uma estrutura replicável.",
+              "Diagnosticamos a operação por <strong>triangulação de três fontes</strong>: entrevistas em profundidade, formulário com os operadores e a base de não conformidades. Mapeamos a jornada do pedido em cinco macroetapas, rodamos <strong>diagrama de Ishikawa</strong> em cada uma para separar sintoma de causa-raiz e entregamos um <strong>plano de ação em três horizontes</strong>, com ferramenta e dono por ação.",
             bullets: [
               "Mapeamento de processos internos (AS-IS)",
               "Identificação e priorização de gargalos",
@@ -111,6 +114,7 @@ export const businessTranslations = {
               "Playbooks e SOPs para o time",
               "Plano de implementação com KPIs de acompanhamento",
             ],
+            capaAlt: "Mapeamento da operação em macroetapas",
           },
         },
       },
@@ -189,27 +193,6 @@ export const businessTranslations = {
           "Entre em contato com a Insper Jr. e descubra como podemos ajudar sua empresa a crescer com clareza, dados e planejamento sólido.",
         button: "Fazer diagnóstico gratuito",
       },
-      casePages: {
-        comingSoonBadge: "Em breve",
-        description: "Este case está sendo documentado e estará disponível em breve.",
-        backLink: "← Voltar para Business",
-        estruturaFinanceira: {
-          eyebrow: "Planejamento Financeiro",
-          title: "Estrutura Financeira para Captação",
-        },
-        expansaoMercado: {
-          eyebrow: "Análise Mercadológica",
-          title: "Expansão para Novo Mercado",
-        },
-        goToMarket: {
-          eyebrow: "Estratégia de Marketing",
-          title: "Go-to-Market para Lançamento",
-        },
-        operacaoParaEscalar: {
-          eyebrow: "Plano Operacional",
-          title: "Operação Pronta para Escalar",
-        },
-      },
     },
   },
   en: {
@@ -262,13 +245,13 @@ export const businessTranslations = {
           viewFullCase: "View full case",
         },
         items: {
-          expansaoMercado: {
+          wine: {
             tab: "Market Analysis",
-            caseTitle: "Expansion into a <i>New Market</i>",
+            caseTitle: "Project <i>Wine</i>",
             caseLede:
-              "A healthcare company was looking to grow into an unexplored segment, with no visibility into market size, competitors or the ideal customer profile. The risk of getting the entry wrong was high.",
+              "An international premium wine platform wanted to enter Brazil, a small, fragmented market with almost no reliable statistics. Sizing demand through conventional means simply wasn't possible.",
             detail:
-              "We conducted a complete market study, combining <strong>primary research with consumers</strong> and secondary data analysis. We sized the segment's TAM/SAM/SOM, mapped the key players and identified unaddressed strategic gaps. The result was a <strong>feasibility report with three entry scenarios</strong> and a clear recommendation with decision criteria.",
+              "We built our market reading by <strong>cross-referencing sources</strong>: public databases, original research with the target audience, mystery-shopper approaches with players, and networking to reach closed benchmarks. We assessed the existing international operation, the Brazilian competitive landscape and customs and exchange-rate barriers, and delivered the <strong>localization recommendations</strong> that redirected the product.",
             bullets: [
               "TAM / SAM / SOM sizing",
               "Competitor benchmarking and positioning",
@@ -276,14 +259,15 @@ export const businessTranslations = {
               "Feasibility report with entry scenarios",
               "Identification of strategic opportunities and risks",
             ],
+            capaAlt: "Context of the market analysis project",
           },
-          goToMarket: {
+          community: {
             tab: "Marketing Strategy",
-            caseTitle: "Go-to-Market for a <i>Launch</i>",
+            caseTitle: "Project <i>Community</i>",
             caseLede:
-              "A healthtech startup needed to position its product in a competitive market, with no budget for error and no clarity on who the priority customer really was. Getting the entry wrong would mean months lost.",
+              "A digital emotional-health startup was entering a market dominated by global players, with no clarity on where space still existed or how to reach both the end user and the companies purchasing the service.",
             detail:
-              "We defined the highest-potential personas, built the brand's <strong>positioning and value proposition</strong> and structured the channel plan with CPL estimates. We created the <strong>editorial calendar and communication guidelines</strong> for the first 90 days of launch, with tracking metrics and criteria for course correction.",
+              "We compared competitors attribute by attribute until we found the gap no one occupied, and turned it into <strong>positioning and a value proposition</strong>. On top of it we structured go-to-market for both fronts: benchmark-anchored B2C and B2B pricing, a <strong>founder-led content funnel</strong> for organic acquisition, and B2B prospecting with keyword, CPC and search-intent analysis.",
             bullets: [
               "Persona and ICP (Ideal Customer Profile) definition",
               "Positioning and value proposition",
@@ -291,14 +275,15 @@ export const businessTranslations = {
               "First-90-days editorial calendar",
               "Acquisition metrics projection (CPL, CAC)",
             ],
+            capaAlt: "Competitive positioning map of the project",
           },
-          estruturaFinanceira: {
+          caramelo: {
             tab: "Financial Planning",
-            caseTitle: "Financial Structure <i>for Fundraising</i>",
+            caseTitle: "Project <i>Caramelo</i>",
             caseLede:
-              "A fast-growing startup with rising revenue, but no organized income statement, a poorly sized cash burn and no modeling to present to investors with credibility.",
+              "An artisanal confectionery operated out of a home kitchen, with its own delivery and little brand visibility. Growing meant opening a physical store, an investment decision no one had modeled yet.",
             detail:
-              "We restructured the income statement, mapped actual month-by-month cash burn and built an <strong>18-month financial projection model</strong>. We calculated unit economics (LTV, CAC, payback) and prepared the <strong>complete financial thesis</strong> for the next funding round, with sensitivity analysis by growth scenario.",
+              "We first read <strong>consumption behavior by channel</strong>: the delivery app as the entry point and the physical store as brand consolidation. With the strategy defined, we sized the <strong>initial CapEx item by item</strong> and ran the full projection: revenue by channel, cost structure, a comparison across tax regimes, and cash generation over the project's horizon.",
             bullets: [
               "Income statement and balance sheet structuring",
               "18-month cash flow projection",
@@ -306,14 +291,15 @@ export const businessTranslations = {
               "Unit economics calculation (LTV, CAC, Payback)",
               "Burn rate and runway analysis",
             ],
+            capaAlt: "Sizing of the project's initial investment",
           },
-          operacaoParaEscalar: {
+          quimica: {
             tab: "Operations Plan",
-            caseTitle: "Operations Ready <i>to Scale</i>",
+            caseTitle: "Project <i>Química</i>",
             caseLede:
-              "A fast-growing company with an entirely manual operation: undocumented processes, unmapped bottlenecks and a team overloaded with repetitive tasks that consumed time without generating value.",
+              "At a B2B industrial distributor, an order passed through five departments and three systems that didn't talk to each other. The result showed up at the end of the line: rework, delays and broken promises.",
             detail:
-              "We mapped internal workflows, identified the highest-impact bottlenecks and prioritized improvements by effort versus return. We created detailed <strong>operational playbooks</strong> for critical processes and an implementation plan with owners, deadlines and <strong>tracking metrics</strong>. The operation moved from chaos to a replicable structure.",
+              "We diagnosed the operation by <strong>triangulating three sources</strong>: in-depth interviews, a survey with operators and the non-conformance database. We mapped the order journey across five macro-stages, ran an <strong>Ishikawa diagram</strong> on each one to separate symptom from root cause, and delivered a <strong>three-horizon action plan</strong>, with a tool and an owner for every action.",
             bullets: [
               "Internal process mapping (AS-IS)",
               "Bottleneck identification and prioritization",
@@ -321,6 +307,7 @@ export const businessTranslations = {
               "Playbooks and SOPs for the team",
               "Implementation plan with tracking KPIs",
             ],
+            capaAlt: "Mapping of the operation across macro-stages",
           },
         },
       },
@@ -398,27 +385,6 @@ export const businessTranslations = {
         subtitle:
           "Get in touch with Insper Jr. and find out how we can help your company grow with clarity, data and solid planning.",
         button: "Get a free diagnostic",
-      },
-      casePages: {
-        comingSoonBadge: "Coming soon",
-        description: "This case is being documented and will be available soon.",
-        backLink: "← Back to Business",
-        estruturaFinanceira: {
-          eyebrow: "Financial Planning",
-          title: "Financial Structure for Fundraising",
-        },
-        expansaoMercado: {
-          eyebrow: "Market Analysis",
-          title: "Expansion into a New Market",
-        },
-        goToMarket: {
-          eyebrow: "Marketing Strategy",
-          title: "Go-to-Market for a Launch",
-        },
-        operacaoParaEscalar: {
-          eyebrow: "Operations Plan",
-          title: "Operations Ready to Scale",
-        },
       },
     },
   },
