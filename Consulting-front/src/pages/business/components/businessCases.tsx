@@ -107,7 +107,6 @@ const ScopeSection = styled.section`
   display: flex;
   align-items: center;
   background: #ffffff;
-  border-top: 1px solid rgba(26,26,24,0.06);
   &:nth-of-type(even) { background: ${LIGHT_CREAM}; }
   @media (max-width: 900px) { min-height: auto; padding: 3rem 1rem; }
 `;
