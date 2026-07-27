@@ -5,7 +5,7 @@ import { useInView } from "../../../hooks/useInView";
 import { useParticles } from "../../../hooks/useParticleBackground";
 
 /* ─── Tokens ─────────────────────────────────────────── */
-import { RED, DARK, MUTED, BG_DARK, CREAM, FONT_TITLE, FONT_BODY, SPRING } from "../../../styles/tokens";
+import { RED, DARK, MUTED, BG_DARK, CREAM, FONT_TITLE, FONT_BODY, SPRING, TYPE } from "../../../styles/tokens";
 
 /* ─── Animations ─────────────────────────────────────── */
 const fadeUp   = keyframes`from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}`;
@@ -416,9 +416,9 @@ const DetailInner = styled.div<{ $v: boolean }>`
 `;
 
 const PanelTitle = styled.h3`
-  font-family: ${FONT_TITLE}; font-size: 28px; font-weight: 700;
+  font-family: ${FONT_TITLE}; font-size: ${TYPE.sectionH2.size}; font-weight: 700;
   letter-spacing: -0.02em; line-height: 1.15; color: ${CREAM}; margin: 0 0 20px;
-  @media (max-width: 480px) { font-size: 22px; }
+  @media (max-width: 480px) { font-size: 24px; }
 `;
 
 const PanelBody = styled.div`
