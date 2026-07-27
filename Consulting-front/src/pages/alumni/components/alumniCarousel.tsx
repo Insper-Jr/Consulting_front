@@ -5,7 +5,7 @@ import {
   RED, RED_LIGHT, RED_DEEP, BG_CREAM,
   FONT_TITLE, FONT_BODY, TYPE, SPACING, SPRING,
   MUTED, DARK, BORDER_LIGHT,
-} from "../../processos/components/tokens";
+} from "../../../styles/tokens";
 import GiovannaFava from "../../../assets/alumni/GiovannaFava.png";
 import FernandoMauad from "../../../assets/alumni/FernandoMauad.png";
 import MateusMarinheiro from "../../../assets/alumni/MateusMarinheiro.png";

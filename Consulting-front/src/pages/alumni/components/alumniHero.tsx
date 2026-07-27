@@ -6,7 +6,7 @@ import {
   RED, RED_DIM, BG_DARK, CREAM,
   FONT_TITLE, FONT_BODY, SPRING,
   TYPE, SPACING,
-} from "../../processos/components/tokens";
+} from "../../../styles/tokens";
 
 // ── Animations ────────────────────────────────────────────────────────────
 

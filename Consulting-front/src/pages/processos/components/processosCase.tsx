@@ -6,7 +6,7 @@ import {
   RED, BG_CREAM, DARK, MUTED,
   FONT_TITLE, FONT_BODY,
   SPRING, TYPE, SPACING,
-} from "./tokens";
+} from "../../../styles/tokens";
 
 const FONT_MONO = `ui-monospace, "SF Mono", Menlo, monospace`;
 

@@ -9,7 +9,7 @@ import {
   RED, RED_DEEP, BG_DARK,
   FONT_TITLE, FONT_BODY, TYPE, SPACING, SPRING,
   MUTED, BORDER_DARK,
-} from "../../processos/components/tokens";
+} from "../../../styles/tokens";
 
 interface FormData {
   name:     string;
