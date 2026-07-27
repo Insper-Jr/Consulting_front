@@ -119,6 +119,7 @@ const CardTag = styled.span`
 const CardTitle = styled.h3`
   font-family: ${FONT_TITLE}; font-size: 20px; font-weight: 700;
   letter-spacing: -.02em; color: ${DARK}; margin: 0;
+  i { font-style: italic; font-weight: 400; color: ${RED}; }
 `;
 
 const CardDesc = styled.p`

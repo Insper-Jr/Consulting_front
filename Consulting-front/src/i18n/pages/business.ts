@@ -50,6 +50,7 @@ export const businessTranslations = {
           comingSoon: "Em breve",
           scopePrefix: "Escopo",
           viewFullCase: "Ver case completo",
+          badge: "Business",
         },
         items: {
           wine: {
@@ -243,6 +244,7 @@ export const businessTranslations = {
           comingSoon: "Coming soon",
           scopePrefix: "Scope",
           viewFullCase: "View full case",
+          badge: "Business",
         },
         items: {
           wine: {
