@@ -1,12 +1,8 @@
 import React from "react";
-import styled, { keyframes, createGlobalStyle } from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useTranslation } from "react-i18next";
 
 const fadeUp = keyframes`from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}`;
-
-const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
-`;
 
 const c = {
   black: "#080F0F", crimson: "#691212", red: "#C02121",
@@ -43,7 +39,6 @@ export default function ContactSection() {
 
   return (
     <>
-      <GlobalStyle />
       <Section>
         <Container>
           <TopRow>

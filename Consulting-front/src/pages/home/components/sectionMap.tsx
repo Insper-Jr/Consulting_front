@@ -1,9 +1,5 @@
-import styled, { createGlobalStyle } from "styled-components";
+import styled from "styled-components";
 import { useTranslation } from "react-i18next";
-
-const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
-`;
 
 const c = {
   black: "#080F0F", red: "#C02121", linen: "#F5E6DC",
@@ -85,7 +81,6 @@ export default function OfficeMap() {
   const { t } = useTranslation();
   return (
     <>
-      <GlobalStyle />
       <Section>
         <Header>
           <Eyebrow>{t("sectionMap.eyebrow")}</Eyebrow>

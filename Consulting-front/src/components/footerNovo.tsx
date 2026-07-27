@@ -1,10 +1,7 @@
-import styled, { createGlobalStyle } from "styled-components";
+import styled from "styled-components";
 import { useTranslation } from "react-i18next";
+import { FONT_BODY, CREAM } from "../styles/tokens";
 import LogoWR from "../assets/ijr/insperjr-white-red.png";
-
-const GlobalFonts = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Playfair+Display:wght@400;500&display=swap');
-`;
 
 const icons: Record<string, React.ReactNode> = {
   email: (
@@ -32,8 +29,8 @@ const icons: Record<string, React.ReactNode> = {
 
 const Wrap = styled.footer`
   background: #111110;
-  color: #FAF2EA;
-  font-family: 'DM Sans', sans-serif;
+  color: ${CREAM};
+  font-family: ${FONT_BODY};
   padding: 0 40px;
   box-sizing: border-box;
   border-top: 2px solid transparent;
@@ -219,7 +216,6 @@ export default function Footer(): React.ReactElement {
 
   return (
     <>
-      <GlobalFonts />
       <Wrap>
         <Grid>
           <div>

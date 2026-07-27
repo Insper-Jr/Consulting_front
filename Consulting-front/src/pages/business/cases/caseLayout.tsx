@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import styled, { createGlobalStyle } from "styled-components";
+import styled from "styled-components";
 import { CaretLeft } from "phosphor-react";
 import Footer from "../../../components/footerNovo";
 import WppButton from "../../../components/wppButton";
@@ -15,10 +15,6 @@ const COLORS = {
 
 const FONT_TITLE = `"Montserrat", Helvetica, sans-serif`;
 const FONT_BODY = `"Inter", Helvetica, sans-serif`;
-
-const CaseGlobal = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap');
-`;
 
 type CaseLayoutProps = {
   children: React.ReactNode;
@@ -46,7 +42,6 @@ export default function CaseLayout({ children }: CaseLayoutProps) {
 
   return (
     <PageWrap>
-      <CaseGlobal />
       <WppButton />
 
       <BackButtonWrap>
