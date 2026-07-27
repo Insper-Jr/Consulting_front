@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 import { CaretLeft, CaretRight } from "phosphor-react";
+import { RED, RED_DARK, FONT_TITLE, FONT_BODY } from "../styles/tokens";
 import TestimonialCard from "./testimonialCard";
 
 import LogoCarrefour from "../assets/logo_carrefour_white.png";
@@ -130,15 +131,15 @@ const RightSide = styled.div`
 `;
 
 const Title = styled.h2`
-  font-family: "Montserrat", sans-serif;
+  font-family: ${FONT_TITLE};
   font-size: 32px;
   font-weight: 700;
-  color: #C02121;
+  color: ${RED};
   margin-bottom: 16px;
 `;
 
 const Description = styled.p`
-  font-family: "Inter", sans-serif;
+  font-family: ${FONT_BODY};
   font-size: 15px;
   text-align: justify;
   text-indent: 32px;
@@ -169,13 +170,13 @@ const Arrows = styled.div`
 `;
 
 const ArrowButton = styled.button<{ disabled?: boolean }>`
-  background-color: ${({ disabled }) => (disabled ? "#5C0E15" : "#C02121")};
+  background-color: ${({ disabled }) => (disabled ? RED_DARK : RED)};
   border: none;
   color: #fff;
   padding: 8px 12px;
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
 
   &:hover {
-    background-color: ${({ disabled }) => (disabled ? "#5C0E15" : "#87061b")};
+    background-color: ${RED_DARK};
   }
 `;

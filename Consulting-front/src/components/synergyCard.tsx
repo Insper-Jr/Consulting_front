@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { FONT_BODY } from "../styles/tokens";
 import arrowIcon from "../assets/arrow-right.png"; // ajuste o caminho se necessário
 
 
@@ -67,7 +68,7 @@ const CardTitle = styled.h3`
 `;
 
 const CardDescription = styled.p`
-  font-family: "Inter", sans-serif;
+  font-family: ${FONT_BODY};
   font-size: 20px;
   text-align: left;
   line-height: 1.5;

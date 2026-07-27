@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import toast from "react-hot-toast";
+import { FONT_BODY } from "../styles/tokens";
 import { useTranslation } from "react-i18next";
 import whatsIcon from "../assets/whatsappIcon.png";
 import bg from "../assets/backgrounds/wpp-background.png";
@@ -125,7 +126,7 @@ const Greeting = styled.div`
   font-size: 14px;
   border-radius: 8px;
   margin-bottom: 1rem;
-  font-family: "Inter", sans-serif;
+  font-family: ${FONT_BODY};
 `;
 
 const Input = styled.input`
@@ -134,7 +135,7 @@ const Input = styled.input`
   padding: 10px;
   border-radius: 6px;
   margin-bottom: 10px;
-  font-family: "Inter", sans-serif;
+  font-family: ${FONT_BODY};
 `;
 
 const InputMessage = styled.textarea`
@@ -143,7 +144,7 @@ const InputMessage = styled.textarea`
   padding: 10px;
   border-radius: 6px;
   margin-bottom: 10px;
-  font-family: "Inter", sans-serif;
+  font-family: ${FONT_BODY};
   height: 60px;
   resize: none;
 `;
@@ -156,7 +157,7 @@ const SendButton = styled.button`
   font-weight: bold;
   border-radius: 6px;
   cursor: pointer;
-  font-family: "Inter", sans-serif;
+  font-family: ${FONT_BODY};
 
   &:hover {
     background-color: #064c44;

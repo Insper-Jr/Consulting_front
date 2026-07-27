@@ -1,11 +1,12 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 import { useTranslation } from "react-i18next";
+import { RED, RED_DARK } from "../styles/tokens";
 
 const fadeUp = keyframes`from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}`;
 
 const c = {
-  black: "#080F0F", crimson: "#691212", red: "#C02121",
+  black: "#080F0F", crimson: RED_DARK, red: RED,
 };
 
 const FONT = `'Inter', sans-serif`;

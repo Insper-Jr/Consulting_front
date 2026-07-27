@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import toast from "react-hot-toast";
+import { RED, RED_DARK, FONT_TITLE } from "../styles/tokens";
 import { useTranslation } from "react-i18next";
 
 const DiagnosticForm = () => {
@@ -151,7 +152,7 @@ const FormCard = styled.div`
   padding: 26px 28px;
   position: relative;
   box-shadow: 0 32px 80px rgba(0, 0, 0, 0.5);
-  font-family: "Montserrat", sans-serif;
+  font-family: ${FONT_TITLE};
 
   @media (max-width: 600px) {
     padding: 22px 20px;
@@ -164,7 +165,7 @@ const AccentLine = styled.div`
   left: 24px;
   right: 24px;
   height: 2px;
-  background: linear-gradient(90deg, transparent, #c02121, transparent);
+  background: linear-gradient(90deg, transparent, ${RED}, transparent);
 `;
 
 const StatusRow = styled.div`
@@ -178,12 +179,12 @@ const StatusDot = styled.span`
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #c02121;
-  box-shadow: 0 0 12px #c02121;
+  background: ${RED};
+  box-shadow: 0 0 12px ${RED};
 `;
 
 const StatusText = styled.span`
-  color: #c02121;
+  color: ${RED};
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.18em;
@@ -226,7 +227,7 @@ const inputBase = `
   padding: 9px 14px;
   color: #fff;
   font-size: 14px;
-  font-family: "Montserrat", sans-serif;
+  font-family: ${FONT_TITLE};
   outline: none;
   box-sizing: border-box;
   transition: border-color 0.2s, background 0.2s;
@@ -247,7 +248,7 @@ const FieldTextArea = styled.textarea`
 const SubmitButton = styled.button`
   margin-top: 8px;
   width: 100%;
-  background: #c02121;
+  background: ${RED};
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -257,10 +258,10 @@ const SubmitButton = styled.button`
   letter-spacing: 0.06em;
   text-transform: uppercase;
   cursor: pointer;
-  font-family: "Montserrat", sans-serif;
+  font-family: ${FONT_TITLE};
   transition: background 0.2s;
 
   &:hover {
-    background: #8c0c1e;
+    background: ${RED_DARK};
   }
 `;

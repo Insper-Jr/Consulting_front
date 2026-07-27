@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
+import { RED, FONT_BODY } from "../styles/tokens";
 import {
   InstagramLogo,
   LinkedinLogo,
@@ -113,7 +114,7 @@ const FooterContainer = styled.footer`
   max-width: 100%;
 
   font-size: 1.1rem;
-  font-family: "Inter", sans-serif;
+  font-family: ${FONT_BODY};
 
   display: flex;
   justify-content: space-between;
@@ -244,7 +245,7 @@ const FooterLink = styled(Link)`
   text-decoration: none;
 
   &:hover {
-    color: #C02121;
+    color: ${RED};
   }
 
   @media (max-width: 1200px) {
@@ -264,7 +265,7 @@ const ExternalLink = styled.a`
   align-items: center;
 
   &:hover {
-    color: #C02121;
+    color: ${RED};
   }
 
   @media (max-width: 1200px) {
@@ -298,7 +299,7 @@ const SocialIcon = styled.a`
   font-size: 1.2rem;
 
   &:hover {
-    color: #C02121;
+    color: ${RED};
   }
 
   @media (max-width: 1200px) {

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
-import { FONT_BODY, CREAM } from "../styles/tokens";
+import { FONT_BODY, CREAM, RED, RED_DARK } from "../styles/tokens";
 import LogoWR from "../assets/ijr/insperjr-white-red.png";
 
 const icons: Record<string, React.ReactNode> = {
@@ -101,7 +101,7 @@ const NavLink = styled.a`
     width: 3px;
     height: 3px;
     border-radius: 50%;
-    background: #C02121;
+    background: ${RED};
     opacity: 0;
     transition: opacity 0.2s;
     flex-shrink: 0;
@@ -135,16 +135,16 @@ const ContactLink = styled.a`
   }
 
   &:hover span {
-    border-color: #C02121;
+    border-color: ${RED};
     background: rgba(192, 33, 33, 0.12);
-    color: #C02121;
+    color: ${RED};
   }
 `;
 
 const IconBox = styled.span`
   width: 24px;
   height: 24px;
-  border: 1px solid #691212;
+  border: 1px solid ${RED_DARK};
   border-radius: 4px;
   display: flex;
   align-items: center;
@@ -177,7 +177,7 @@ const LegalLink = styled.a`
   transition: color 0.2s;
 
   &:hover {
-    color: #C02121;
+    color: ${RED};
   }
 `;
 

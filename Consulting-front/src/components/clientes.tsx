@@ -1,5 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import { useTranslation } from "react-i18next";
+import { RED, FONT_TITLE } from "../styles/tokens";
 
 import einstein from "../assets/clients/albert_einstein.png";
 import alcoa from "../assets/clients/alcoa.png";
@@ -81,10 +82,10 @@ const TitleWrapper = styled.div`
 const TitleText = styled.div`
   display: flex;
   flex-direction: column;
-  font-family: "Montserrat", sans-serif;
+  font-family: ${FONT_TITLE};
   font-weight: 700;
   font-size: 34px;
-  color: #C02121;
+  color: ${RED};
   line-height: 1.1;
 
   span {
@@ -99,7 +100,7 @@ const TitleText = styled.div`
 const RedBar = styled.div`
   width: 4px;
   height: 80px;
-  background-color: #C02121;
+  background-color: ${RED};
 
   @media (max-width: 600px) {
     height: 45px;
