@@ -2,21 +2,10 @@ import React, { useState, useEffect, useCallback } from "react";
 import styled, { keyframes, css } from "styled-components";
 import { useTranslation } from "react-i18next";
 import { useInView } from "@/hooks/useInView";
+import { RED, RED_DARK, DARK, MUTED, BG_CREAM as BG, CREAM, BORDER_LIGHT as BORDER, FONT_TITLE, FONT_BODY, SPRING } from "@/styles/tokens";
 import FeiraFoto1 from "../../../assets/feira/imagem1.png";
 import FeiraFoto2 from "../../../assets/feira/imagem2.png";
 import FeiraFoto3 from "../../../assets/feira/imagem3.png";
-
-/* ─── Tokens (mesmos da CulturaSection) ──────────────── */
-const RED      = "#C02121";
-const RED_DEEP = "#7d1414";
-const DARK     = "#1a1a18";
-const MUTED    = "#7a746e";
-const BG       = "#FAF2EA";
-const CREAM    = "#FAF2EA";
-const BORDER   = "rgba(26,26,24,0.12)";
-const FONT_TITLE = `'Montserrat', Helvetica, sans-serif`;
-const FONT_BODY  = `'Inter', Helvetica, sans-serif`;
-const SPRING     = "cubic-bezier(0.16,1,0.3,1)";
 
 /* ─── Data ───────────────────────────────────────────── */
 type Leader = { name: string; role: string };
@@ -49,7 +38,7 @@ const Section = styled.section`
 `;
 
 const Left = styled.div<{ $visible: boolean }>`
-  background: ${RED_DEEP};
+  background: ${RED_DARK};
   padding: 72px 56px 72px max(40px, calc((100vw - 1200px) / 2));
   display: flex;
   flex-direction: column;

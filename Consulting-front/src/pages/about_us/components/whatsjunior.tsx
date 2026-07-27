@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { RED_TITLE, FONT_TITLE } from "../../../styles/tokens";
 import whatIsJuniorImg from "../../../assets/whatIsJunior.png"; // Ajuste o caminho conforme sua estrutura de pastas
 import flecha from "../../../assets/flecha.png";
 import LineWithCircles from "./LineWithCircles";
@@ -117,9 +118,9 @@ const DecoratedTitle = styled.div`
   margin-bottom: 1.5rem;
 
   h2 {
-    font-family: "Montserrat", sans-serif;
+    font-family: ${FONT_TITLE};
     font-size: 36px;
-    color: #A10F23;
+    color: ${RED_TITLE};
     margin: 0;
   }
 

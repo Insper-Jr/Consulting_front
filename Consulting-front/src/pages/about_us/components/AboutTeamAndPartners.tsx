@@ -21,13 +21,7 @@ import trading     from "../../../assets/partners/trading-com-dados.png";
 import visagio     from "../../../assets/partners/visagio.png";
 import xp          from "../../../assets/partners/xp.png";
 
-const RED        = "#C02121";
-const DARK       = "#1a1a18";
-const MUTED      = "#7a746e";
-const BG         = "#0e0404";
-const FONT_TITLE = `'Montserrat', Helvetica, sans-serif`;
-const FONT_BODY  = `'Inter', Helvetica, sans-serif`;
-const SPRING     = "cubic-bezier(0.16,1,0.3,1)";
+import { RED, DARK, MUTED, BG_DARK as BG, FONT_TITLE, FONT_BODY, SPRING } from "../../../styles/tokens";
 
 type Stat = { value: string; label: string };
 

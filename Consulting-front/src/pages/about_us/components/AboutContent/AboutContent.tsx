@@ -2,14 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import styled, { keyframes, css } from "styled-components";
 import { useTranslation } from "react-i18next";
 import { useInView } from "@/hooks/useInView";
-
-const RED        = "#C02121";
-const DARK       = "#1a1a18";
-const MUTED      = "#7a746e";
-const BG         = "#FAF2EA";
-const FONT_TITLE = `'Montserrat', Helvetica, sans-serif`;
-const FONT_BODY  = `'Inter', Helvetica, sans-serif`;
-const SPRING     = "cubic-bezier(0.16,1,0.3,1)";
+import { RED, DARK, MUTED, BG_CREAM as BG, FONT_TITLE, FONT_BODY, SPRING } from "@/styles/tokens";
 
 
 function useCountUp(target: number, duration: number, active: boolean) {

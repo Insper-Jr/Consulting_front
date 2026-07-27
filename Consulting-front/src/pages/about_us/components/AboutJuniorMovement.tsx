@@ -2,16 +2,10 @@ import React from "react";
 import styled, { keyframes, css } from "styled-components";
 import { useTranslation } from "react-i18next";
 import { useInView } from "@/hooks/useInView";
+import { RED, DARK, MUTED, BG_CREAM as BG, FONT_TITLE, FONT_BODY, SPRING } from "@/styles/tokens";
 
-/* ─── Tokens ─────────────────────────────────────────── */
-const RED    = "#C02121";
-const DARK   = "#1a1a18";
-const MUTED  = "#7a746e";
-const BG     = "#FAF2EA";
+/* ─── Tokens locais (sem equivalente exato no central) ── */
 const BORDER = "rgba(26,26,24,0.10)";
-const FONT_TITLE = `'Montserrat', Helvetica, sans-serif`;
-const FONT_BODY  = `'Inter', Helvetica, sans-serif`;
-const SPRING    = "cubic-bezier(0.16,1,0.3,1)";
 
 const fadeUp = keyframes`
   from { opacity: 0; transform: translateY(10px); }

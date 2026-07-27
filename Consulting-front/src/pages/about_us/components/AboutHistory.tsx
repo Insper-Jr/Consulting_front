@@ -3,14 +3,7 @@ import styled, { keyframes, css } from "styled-components";
 import { useTranslation } from "react-i18next";
 import { useParticles } from "../../../hooks/useParticleBackground";
 import { useInView } from "@/hooks/useInView";
-
-const RED        = "#C02121";
-const DARK       = "#1a1a18";
-const CREAM      = "#FAF2EA";
-const BG         = "#0e0404";
-const FONT_TITLE = `'Montserrat', Helvetica, sans-serif`;
-const FONT_BODY  = `'Inter', Helvetica, sans-serif`;
-const SPRING     = "cubic-bezier(0.16,1,0.3,1)";
+import { RED, DARK, CREAM, BG_DARK as BG, FONT_TITLE, FONT_BODY, SPRING } from "@/styles/tokens";
 
 type Milestone = { year: string; short: string; text: string };
 
