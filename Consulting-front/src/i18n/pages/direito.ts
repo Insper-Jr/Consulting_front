@@ -29,7 +29,6 @@ export const direitoTranslations = {
       scopes: {
         badgeLabel: "ESCOPO",
         fichaLabel: "Ficha do escopo",
-        themesLabel: "Temas",
         howWeWork: "Como atuamos",
         mainApplications: "Principais aplicações",
         items: [
@@ -347,7 +346,6 @@ export const direitoTranslations = {
       scopes: {
         badgeLabel: "SCOPE",
         fichaLabel: "Scope Overview",
-        themesLabel: "Topics",
         howWeWork: "How We Work",
         mainApplications: "Key Applications",
         items: [

@@ -9,7 +9,7 @@ import ContactSection from "../../components/sectionContact";
 import DireitoCTA from "./components/direitoCTA";
 
 // ── Color tokens (mirror tech) ─────────────────────────────────────────────
-import { RED_TITLE, RED, RED_DARK, BG_DARK, DARK, BG_CREAM, FONT_TITLE, FONT_BODY } from "../../styles/tokens";
+import { RED_TITLE, RED, RED_DARK, BG_DARK, DARK, BG_CREAM, FONT_TITLE, FONT_BODY, TYPE } from "../../styles/tokens";
 
 const COLORS = {
   redTitle: RED_TITLE,
@@ -401,7 +401,6 @@ function Direito() {
                   <ScopeName>{s.tab}</ScopeName>
                 </ScopeCounter>
                 <PanelTags>
-                  <TagsLabel>{t("direito.scopes.themesLabel")}</TagsLabel>
                   {s.tags.map(tag => <Tag key={tag}>{tag}</Tag>)}
                 </PanelTags>
               </ScopeHeader>
@@ -920,9 +919,6 @@ const IndexBadge = styled.span`
   letter-spacing: 0.18em;
   color: ${COLORS.redTitle};
   text-transform: uppercase;
-  padding: 0.3rem 0.6rem;
-  border: 1px solid rgba(161,15,35,0.4);
-  border-radius: 2px;
 `;
 
 const IndexTitle = styled.span`
@@ -1117,13 +1113,14 @@ const ScopePanel = styled.div`
 `;
 
 const ScopeHeader = styled.div`
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 2rem;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1.55fr 1fr;
+  align-items: end;
+  gap: 2.5rem;
 
+  @media (max-width: 1024px) { gap: 1.75rem; }
   @media (max-width: 900px) {
+    grid-template-columns: 1fr;
     align-items: flex-start;
     gap: 1rem;
   }
@@ -1145,15 +1142,11 @@ const CounterNum = styled.span`
   font-weight: 600;
   letter-spacing: 0.18em;
   color: ${COLORS.redTitle};
-  opacity: 1;
-  padding: 0.3rem 0.6rem;
-  border: 1px solid rgba(161,15,35,0.4);
-  border-radius: 2px;
 `;
 
 const ScopeName = styled.span`
   font-family: ${FONT_TITLE};
-  font-size: 40px;
+  font-size: ${TYPE.sectionH2.size};
   font-weight: 800;
   letter-spacing: -0.035em;
   text-transform: none;
@@ -1174,8 +1167,7 @@ const ScopeName = styled.span`
     background: ${COLORS.redTitle};
   }
 
-  @media (max-width: 1100px) { font-size: 32px; }
-  @media (max-width: 700px) { font-size: 26px; }
+  @media (max-width: 700px) { font-size: 24px; }
 `;
 
 const ScopeGrid = styled.div`
@@ -1204,7 +1196,7 @@ const ScopeIntro = styled.div`
 const ScopeTitleH3 = styled.h3`
   color: ${COLORS.ink};
   font-family: ${FONT_TITLE};
-  font-size: 40px;
+  font-size: ${TYPE.subTitle.size};
   font-weight: 700;
   margin: 0;
   letter-spacing: -0.02em;
@@ -1216,7 +1208,7 @@ const ScopeTitleH3 = styled.h3`
     color: ${COLORS.redTitle};
   }
 
-  @media (max-width: 900px) { font-size: 28px; }
+  @media (max-width: 900px) { font-size: 18px; }
 `;
 
 const Accent = styled.div`
@@ -1412,38 +1404,23 @@ const PanelTags = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.5rem;
-  justify-content: flex-end;
-  flex: 1;
+  justify-content: center;
   min-width: 0;
-
-  @media (max-width: 900px) {
-    flex: 0 1 auto;
-    justify-content: flex-start;
-  }
 `;
 
-const TagsLabel = styled.span`
-  font-family: ${FONT_TITLE};
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #7a746e;
-  margin-right: 0.3rem;
-`;
 
 const Tag = styled.span`
   font-family: ${FONT_MONO};
   font-size: 11.5px;
   font-weight: 500;
   color: ${COLORS.ink};
-  background: transparent;
-  border: 1px solid rgba(26,26,24,0.18);
-  padding: 0.4rem 0.75rem;
-  border-radius: 2px;
-  transition: border-color 0.2s ease, color 0.2s ease;
-  &:hover { border-color: ${COLORS.redTitle}; color: ${COLORS.redTitle}; }
+  transition: color 0.2s ease;
+  &:hover { color: ${COLORS.redTitle}; }
+  &:not(:last-child)::after {
+    content: "·";
+    margin: 0 0.5rem;
+    color: rgba(26,26,24,0.3);
+  }
 `;
 
 const HighlightCases = styled.section`
