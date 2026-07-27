@@ -11,10 +11,15 @@ const c = {
 
 const FONT = `'Inter', sans-serif`;
 
-const Section = styled.section`
-  background: #FAF2EA; padding: 36px 24px; font-family: ${FONT};
+const Section = styled.section<{ $white?: boolean }>`
+  background: ${p => p.$white ? "#fff" : "#FAF2EA"}; padding: 36px 24px; font-family: ${FONT};
 `;
 const Container = styled.div`max-width: 1040px; margin: 0 auto;`;
+
+const Divider = styled.div`
+  height: 1px; margin: 0 0 24px;
+  background: linear-gradient(90deg, transparent, ${c.red} 20%, ${c.crimson} 50%, ${c.red} 80%, transparent);
+`;
 
 const TopRow = styled.div`
   display: flex; align-items: center; justify-content: space-between;
@@ -35,13 +40,14 @@ const ContactButton = styled.a`
   svg { width: 15px; height: 15px; flex-shrink: 0; }
 `;
 
-export default function ContactSection() {
+export default function ContactSection({ $white }: { $white?: boolean }) {
   const { t } = useTranslation();
 
   return (
     <>
-      <Section>
+      <Section $white={$white}>
         <Container>
+          <Divider />
           <TopRow>
             <Title>{t("sectionContact.title")}</Title>
             <ContactButton href="/contact">

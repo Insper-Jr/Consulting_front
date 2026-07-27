@@ -28,7 +28,7 @@ function Home() {
 
       <InteractiveSelector />
       <SectionMap />
-      <ContactSection />
+      <ContactSection $white />
       {/* <Hero_Break/> */}
       <Footer/>
     </HomeContainer>
