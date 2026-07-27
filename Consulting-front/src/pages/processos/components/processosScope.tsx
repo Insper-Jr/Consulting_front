@@ -5,14 +5,7 @@ import { useInView } from "../../../hooks/useInView";
 import { useParticles } from "../../../hooks/useParticleBackground";
 
 /* ─── Tokens ─────────────────────────────────────────── */
-const RED        = "#C02121";
-const DARK       = "#1a1a18";
-const MUTED      = "#7a746e";
-const BG_DARK    = "#0e0404";
-const CREAM      = "#FAF2EA";
-const FONT_TITLE = `'Montserrat', Helvetica, sans-serif`;
-const FONT_BODY  = `'Inter', Helvetica, sans-serif`;
-const SPRING     = "cubic-bezier(0.16,1,0.3,1)";
+import { RED, DARK, MUTED, BG_DARK, CREAM, FONT_TITLE, FONT_BODY, SPRING } from "../../../styles/tokens";
 
 /* ─── Animations ─────────────────────────────────────── */
 const fadeUp   = keyframes`from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}`;

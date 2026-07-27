@@ -5,13 +5,7 @@ import { useParticles } from "../../../hooks/useParticleBackground";
 import ProcessImg from "../../../assets/hero/process6.webp"; // ← ajuste o path se necessário
 
 /* ── Tokens ── */
-const RED        = "#C02121";
-const RED_DIM    = "rgba(105,18,18,0.45)";
-const BG         = "#0e0404";
-const CREAM      = "#FAF2EA";
-const FONT_TITLE = `'Montserrat', Helvetica, sans-serif`;
-const FONT_BODY  = `'Inter', Helvetica, sans-serif`;
-const SPRING     = "cubic-bezier(0.16,1,0.3,1)";
+import { RED, RED_DIM, BG_DARK as BG, CREAM, FONT_TITLE, FONT_BODY, SPRING } from "../../../styles/tokens";
 
 /* ── Animations ── */
 const fadeIn   = keyframes`from{opacity:0}to{opacity:1}`;
