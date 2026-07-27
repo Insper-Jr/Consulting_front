@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import styled, { keyframes } from "styled-components";
 import { useTranslation } from "react-i18next";
 import { RED, BG_CREAM, FONT_TITLE, TYPE, SPACING } from "../../../styles/tokens";
+import capacitacaoImg from "../../../assets/capacitation/aula.png";
 
 const useCountUp = (target: number, duration: number, trigger: boolean, delay = 0) => {
   const [count, setCount] = useState(0);
@@ -91,7 +92,7 @@ const InscricaoCTA = () => {
 
           <ImageBlock data-visible={String(visible)}>
             <img
-              src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80"
+              src={capacitacaoImg}
               alt={t("join.inscricaoCta.imgAlt")}
             />
             <div className="overlay" />
