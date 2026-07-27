@@ -19,8 +19,8 @@ import GamificacaoPage from "./tech/cases/gamificacaoPage"
 import MedicinaPage from "./tech/cases/medicinaPage"
 import WallePage from "./tech/cases/wallePage"
 import Direito from "./direito/direito"
-import PeDireitoPage from "./direito/cases/peDireitoPage"
-import SocietyPage from "./direito/cases/societyPage"
+import AlicercePage from "./direito/cases/alicercePage"
+import CarWashPage from "./direito/cases/carWashPage"
 import PrintPage from "./direito/cases/printPage"
 import Processos from "./processos/processos"
 import Business from "./business/business"
@@ -112,12 +112,12 @@ const routes: RouteObject[] = [{
     element: <Direito />,
 },
 {
-    path: "/direito/pe-direito",
-    element: <PeDireitoPage />,
+    path: "/direito/alicerce",
+    element: <AlicercePage />,
 },
 {
-    path: "/direito/society",
-    element: <SocietyPage />,
+    path: "/direito/car-wash",
+    element: <CarWashPage />,
 },
 {
     path: "/direito/print",
