@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import Header from "../../../components/header";
 import DiagnosticForm from "../../../components/forms";
 
-import teamBg from "../../../assets/fale_conosco/fundo-contato-novo.png";
+import teamBg from "../../../assets/gestoes/50a.png";
 import brasilJunior from "../../../assets/awards/brasil_junior.png";
 import enej from "../../../assets/awards/enej.png";
 import falconi from "../../../assets/awards/falconi.png";
