@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
 // ── Tokens (mirrors parent page) ──────────────────────────────────────────
@@ -32,6 +33,7 @@ export type CaseSection = {
 export type CaseViewProps = {
   id: string;
   name: string;
+  /* Sem badge, cai no rótulo traduzido de business.caseUi.badge */
   badge?: string;
   sub: React.ReactNode;
   eyebrow: string;
@@ -46,9 +48,10 @@ export type CaseViewProps = {
 
 // ── Component ─────────────────────────────────────────────────────────────
 export default function CaseView({
-  id, name, badge = "CASE EM DESTAQUE", sub, eyebrow, headline,
+  id, name, badge, sub, eyebrow, headline,
   intro, sections, closing, slides, shots, shotsHeadline,
 }: CaseViewProps) {
+  const { t } = useTranslation();
   const [idx, setIdx] = useState(0);
   const [sIdx, setSIdx] = useState(0);
   const deckRef = useRef<HTMLElement>(null);
@@ -106,7 +109,7 @@ export default function CaseView({
     <CaseSection id={id}>
       <CaseInner>
         <CaseCounter>
-          <CaseBadge>{badge}</CaseBadge>
+          <CaseBadge>{badge ?? t("business.caseUi.badge")}</CaseBadge>
           <CaseBigName>{name}<Dot>.</Dot></CaseBigName>
         </CaseCounter>
 
@@ -133,7 +136,7 @@ export default function CaseView({
             <CtFinal>{closing}</CtFinal>
           </CaseText>
 
-          <CaseDeck ref={deckRef} aria-label={`Apresentação do case ${name}`}>
+          <CaseDeck ref={deckRef} aria-label={t("business.caseUi.deckAria", { name })}>
             <CdFrame>
               <CdStack>
                 {slides.map((s, i) => (
@@ -146,16 +149,16 @@ export default function CaseView({
             </CdFrame>
 
             <CdControls>
-              <CdBtn onClick={goPrev} disabled={idx === 0} aria-label="Anterior">←</CdBtn>
+              <CdBtn onClick={goPrev} disabled={idx === 0} aria-label={t("business.caseUi.prev")}>←</CdBtn>
               <CdProgress>
                 <CdFill style={{ width: `${((idx + 1) / total) * 100}%` }} />
               </CdProgress>
               <CdCounter>{pad(idx + 1)} / {pad(total)}</CdCounter>
-              <CdBtn onClick={goNext} disabled={idx === total - 1} aria-label="Próximo">→</CdBtn>
+              <CdBtn onClick={goNext} disabled={idx === total - 1} aria-label={t("business.caseUi.next")}>→</CdBtn>
             </CdControls>
 
             {/* Mini deck · análises do projeto */}
-            <ShotsMini ref={shotsRef} aria-label={`Análises do case ${name}`}>
+            <ShotsMini ref={shotsRef} aria-label={t("business.caseUi.shotsAria", { name })}>
               <ShotsMiniHead>
                 <ShotsMiniH>{shotsHeadline}</ShotsMiniH>
               </ShotsMiniHead>
@@ -175,21 +178,21 @@ export default function CaseView({
                 </ShotsMiniStack>
               </ShotsMiniFrame>
               <ShotsMiniControls>
-                <CdBtn onClick={sPrev} disabled={sIdx === 0} aria-label="Anterior">←</CdBtn>
+                <CdBtn onClick={sPrev} disabled={sIdx === 0} aria-label={t("business.caseUi.prev")}>←</CdBtn>
                 <ShotsMiniDots>
                   {shots.map((s, i) => (
                     <ShotsMiniDot
                       key={s.id}
                       $active={sIdx === i}
                       onClick={() => setSIdx(i)}
-                      aria-label={`Análise ${i + 1}`}
+                      aria-label={t("business.caseUi.analysisAria", { index: i + 1 })}
                     >
                       {s.label}
                     </ShotsMiniDot>
                   ))}
                 </ShotsMiniDots>
                 <CdCounter>{pad(sIdx + 1)} / {pad(totalShots)}</CdCounter>
-                <CdBtn onClick={sNext} disabled={sIdx === totalShots - 1} aria-label="Próximo">→</CdBtn>
+                <CdBtn onClick={sNext} disabled={sIdx === totalShots - 1} aria-label={t("business.caseUi.next")}>→</CdBtn>
               </ShotsMiniControls>
             </ShotsMini>
           </CaseDeck>

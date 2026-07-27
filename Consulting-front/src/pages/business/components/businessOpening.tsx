@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
 const RED_CTA    = "#C02121";
@@ -142,58 +143,40 @@ const TransLabel = styled.span`
   white-space: nowrap;
 `;
 
+const PRINCIPLES = ["diagnosis", "approach", "delivery"] as const;
+
 export default function BusinessOpening() {
+  const { t } = useTranslation();
+
   return (
     <Opening id="cases">
       <OpenHeader>
         <OpenLeft>
-          <OpenEyebrow>O que fazemos, na prática</OpenEyebrow>
+          <OpenEyebrow>{t("business.opening.eyebrow")}</OpenEyebrow>
           <OpenHeadline>
-            <HLLight>Cada empresa</HLLight>
-            <HLBold>chega diferente.</HLBold>
-            <HLAccent>Nós respondemos.</HLAccent>
+            <HLLight>{t("business.opening.headlineLight")}</HLLight>
+            <HLBold>{t("business.opening.headlineBold")}</HLBold>
+            <HLAccent>{t("business.opening.headlineAccent")}</HLAccent>
           </OpenHeadline>
         </OpenLeft>
         <OpenRight>
-          <OpenBody>
-            Não trabalhamos com pacotes prontos. Entendemos o problema, montamos
-            a equipe certa e definimos a abordagem. O resultado é uma solução
-            construída para o contexto específico do seu negócio sem fórmula,
-            sem atalho.
-          </OpenBody>
+          <OpenBody>{t("business.opening.body")}</OpenBody>
         </OpenRight>
       </OpenHeader>
 
       <PrinciplesStrip>
-        <Principle>
-          <PrincipleNum>01</PrincipleNum>
-          <PrincipleTitle>Diagnóstico antes de solução</PrincipleTitle>
-          <PrincipleText>
-            Mergulhamos no contexto do cliente antes de propor qualquer coisa.
-            Mercado, finanças e operação entendemos tudo antes de recomendar.
-          </PrincipleText>
-        </Principle>
-        <Principle>
-          <PrincipleNum>02</PrincipleNum>
-          <PrincipleTitle>Abordagem adaptada ao problema</PrincipleTitle>
-          <PrincipleText>
-            Usamos as ferramentas que o projeto exige em qualquer combinação.
-            Nenhum projeto tem formato pré-definido.
-          </PrincipleText>
-        </Principle>
-        <Principle>
-          <PrincipleNum>03</PrincipleNum>
-          <PrincipleTitle>Entrega acionável</PrincipleTitle>
-          <PrincipleText>
-            Não entregamos slides bonitos. Entregamos o que o gestor consegue
-            usar para decidir e executar com clareza no dia seguinte.
-          </PrincipleText>
-        </Principle>
+        {PRINCIPLES.map((p, i) => (
+          <Principle key={p}>
+            <PrincipleNum>{String(i + 1).padStart(2, "0")}</PrincipleNum>
+            <PrincipleTitle>{t(`business.opening.principles.${p}.title`)}</PrincipleTitle>
+            <PrincipleText>{t(`business.opening.principles.${p}.text`)}</PrincipleText>
+          </Principle>
+        ))}
       </PrinciplesStrip>
 
       <OpenTransition>
         <TransLine />
-        <TransLabel>04 projetos abaixo</TransLabel>
+        <TransLabel>{t("business.opening.transition")}</TransLabel>
         <TransLine />
       </OpenTransition>
     </Opening>

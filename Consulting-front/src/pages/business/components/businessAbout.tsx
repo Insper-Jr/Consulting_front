@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import styled, { keyframes } from "styled-components";
 
 const COLORS = {
@@ -188,58 +189,39 @@ const StatLabel = styled.div`
   @media (max-width: 600px) { font-size: 13px; }
 `;
 
+const PILLARS = ["multi", "result", "tailored"] as const;
+
 export default function BusinessAbout() {
+  const { t } = useTranslation();
+
   return (
     <>
       <RedBarWrap><RedBar /></RedBarWrap>
       <Intro id="sobre-frente">
         <SectionHeader>
-          <OpeningEyebrow>Quem somos</OpeningEyebrow>
-          <SectionTitle>Sobre a frente</SectionTitle>
+          <OpeningEyebrow>{t("business.about.eyebrow")}</OpeningEyebrow>
+          <SectionTitle>{t("business.about.title")}</SectionTitle>
           <OpeningDivider />
         </SectionHeader>
 
-        <FrenteLede>
-          Desde 2001, a frente de Business da Insper Jr. desenvolve soluções estratégicas
-          que geram crescimento, estruturam operações e abrem novos mercados. Nossa atuação
-          evolui constantemente em metodologias e práticas sempre buscando a solução mais
-          adequada para cada desafio.
-        </FrenteLede>
+        <FrenteLede>{t("business.about.lede")}</FrenteLede>
 
         <PillarsGrid>
-          <Pillar>
-            <PillarNum>01 · Multidisciplinar</PillarNum>
-            <PillarTitle>Alunos de diversas graduações</PillarTitle>
-            <PillarText>
-              Reunimos estudantes de Administração, Economia e Engenharia, garantindo
-              visão ampla sobre cada projeto.
-            </PillarText>
-          </Pillar>
-          <Pillar>
-            <PillarNum>02 · Orientada para resultado</PillarNum>
-            <PillarTitle>Entregáveis que gestores usam</PillarTitle>
-            <PillarText>
-              Cada projeto termina com recomendações claras e acionáveis, não com
-              relatórios que ficam na gaveta.
-            </PillarText>
-          </Pillar>
-          <Pillar>
-            <PillarNum>03 · Sob medida</PillarNum>
-            <PillarTitle>Nenhum projeto é igual ao anterior</PillarTitle>
-            <PillarText>
-              Não temos modelo padrão. Entendemos o problema e definimos a abordagem
-              certa para aquele contexto específico.
-            </PillarText>
-          </Pillar>
+          {PILLARS.map((p, i) => (
+            <Pillar key={p}>
+              <PillarNum>
+                {String(i + 1).padStart(2, "0")} · {t(`business.about.pillars.${p}.label`)}
+              </PillarNum>
+              <PillarTitle>{t(`business.about.pillars.${p}.title`)}</PillarTitle>
+              <PillarText>{t(`business.about.pillars.${p}.text`)}</PillarText>
+            </Pillar>
+          ))}
         </PillarsGrid>
 
         <StatsBar>
-          <Stat><StatValue>25+</StatValue><StatLabel>Anos de atuação</StatLabel></Stat>
-          <Stat><StatValue>500+</StatValue><StatLabel>Projetos entregues</StatLabel></Stat>
-          <Stat><StatValue>3</StatValue><StatLabel>Áreas parceiras</StatLabel></Stat>
-
-
-
+          <Stat><StatValue>25+</StatValue><StatLabel>{t("business.about.stats.years")}</StatLabel></Stat>
+          <Stat><StatValue>500+</StatValue><StatLabel>{t("business.about.stats.projects")}</StatLabel></Stat>
+          <Stat><StatValue>3</StatValue><StatLabel>{t("business.about.stats.areas")}</StatLabel></Stat>
         </StatsBar>
       </Intro>
     </>
