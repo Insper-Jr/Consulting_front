@@ -7,6 +7,7 @@ import Header from "../../components/header";
 import Footer from "../../components/footerNovo";
 import WppButton from "../../components/wppButton";
 import ContactSection from "../../components/sectionContact";
+import CaseShowcaseCard from "../../components/caseShowcaseCard";
 import TechCTA from "./components/techCTA";
 // Imagens de destaque dos cases
 import gamifHighlight from "../../assets/gamificacao/slides/02-solucao.png";
@@ -14,7 +15,7 @@ import medHighlight from "../../assets/medicina/slides/04-contexto.jpg";
 import walleHighlight from "../../assets/walle/slide-01.png";
 
 // ── Color tokens (from HTML reference) ──────────────────────────────────────
-import { RED_TITLE, RED, RED_DARK, BG_DARK, DARK, BG_CREAM, FONT_TITLE, FONT_BODY } from "../../styles/tokens";
+import { RED_TITLE, RED, RED_DARK, BG_DARK, DARK, BG_CREAM, FONT_TITLE, FONT_BODY, TYPE } from "../../styles/tokens";
 
 const COLORS = {
   redTitle: RED_TITLE,
@@ -529,21 +530,39 @@ function Tech() {
           {t("tech.highlightCases.subtitle")}
         </SectionSubtitle>
         <HighlightGrid>
-          <HighlightCard to="/tech/gamificacao" aria-label={t("tech.highlightCases.gamificacao.ariaLabel")}>
-            <HighlightCardTitle>{t("tech.highlightCases.gamificacao.title")}</HighlightCardTitle>
-            <HighlightCardImage src={gamifHighlight} alt={t("tech.highlightCases.gamificacao.imgAlt")} />
-            <HighlightCardSubtitle>{t("tech.highlightCases.gamificacao.subtitle")}</HighlightCardSubtitle>
-          </HighlightCard>
-          <HighlightCard to="/tech/medicina" aria-label={t("tech.highlightCases.medicina.ariaLabel")}>
-            <HighlightCardTitle>{t("tech.highlightCases.medicina.title")}</HighlightCardTitle>
-            <HighlightCardImage src={medHighlight} alt={t("tech.highlightCases.medicina.imgAlt")} />
-            <HighlightCardSubtitle>{t("tech.highlightCases.medicina.subtitle")}</HighlightCardSubtitle>
-          </HighlightCard>
-          <HighlightCard to="/tech/wall-e" aria-label={t("tech.highlightCases.walle.ariaLabel")}>
-            <HighlightCardTitle>{t("tech.highlightCases.walle.title")}</HighlightCardTitle>
-            <HighlightCardImage src={walleHighlight} alt={t("tech.highlightCases.walle.imgAlt")} />
-            <HighlightCardSubtitle>{t("tech.highlightCases.walle.subtitle")}</HighlightCardSubtitle>
-          </HighlightCard>
+          <CaseShowcaseCard
+            to="/tech/gamificacao"
+            ariaLabel={t("tech.highlightCases.gamificacao.ariaLabel")}
+            coverSrc={gamifHighlight}
+            coverAlt={t("tech.highlightCases.gamificacao.imgAlt")}
+            badge={t("tech.highlightCases.badge")}
+            tag={t("tech.highlightCases.gamificacao.subtitle")}
+            title={t("tech.highlightCases.gamificacao.title")}
+            desc={t("tech.highlightCases.gamificacao.desc")}
+            ctaLabel={t("tech.highlightCases.viewCta")}
+          />
+          <CaseShowcaseCard
+            to="/tech/medicina"
+            ariaLabel={t("tech.highlightCases.medicina.ariaLabel")}
+            coverSrc={medHighlight}
+            coverAlt={t("tech.highlightCases.medicina.imgAlt")}
+            badge={t("tech.highlightCases.badge")}
+            tag={t("tech.highlightCases.medicina.subtitle")}
+            title={t("tech.highlightCases.medicina.title")}
+            desc={t("tech.highlightCases.medicina.desc")}
+            ctaLabel={t("tech.highlightCases.viewCta")}
+          />
+          <CaseShowcaseCard
+            to="/tech/wall-e"
+            ariaLabel={t("tech.highlightCases.walle.ariaLabel")}
+            coverSrc={walleHighlight}
+            coverAlt={t("tech.highlightCases.walle.imgAlt")}
+            badge={t("tech.highlightCases.badge")}
+            tag={t("tech.highlightCases.walle.subtitle")}
+            title={t("tech.highlightCases.walle.title")}
+            desc={t("tech.highlightCases.walle.desc")}
+            ctaLabel={t("tech.highlightCases.viewCta")}
+          />
         </HighlightGrid>
       </HighlightCases>
 
@@ -1272,7 +1291,7 @@ const CounterNum = styled.span`
 
 const ScopeName = styled.span`
   font-family: ${FONT_TITLE};
-  font-size: 40px;
+  font-size: ${TYPE.sectionH2.size};
   font-weight: 800;
   letter-spacing: -0.035em;
   text-transform: none;
@@ -1292,9 +1311,9 @@ const ScopeName = styled.span`
     background: ${COLORS.redTitle};
   }
 
-  @media (max-width: 1100px) { font-size: 36px; }
-  @media (max-width: 700px) { font-size: 30px; }
-  @media (min-width: 901px) and (max-height: 700px) { font-size: 30px; padding-bottom: 0.35rem; }
+  @media (max-width: 1100px) { font-size: 28px; }
+  @media (max-width: 700px) { font-size: 24px; }
+  @media (min-width: 901px) and (max-height: 700px) { font-size: 28px; padding-bottom: 0.35rem; }
 `;
 
 const ScopeGrid = styled.div`
@@ -1326,7 +1345,7 @@ const ScopeIntro = styled.div`
 const ScopeTitleH3 = styled.h3`
   color: ${COLORS.ink};
   font-family: ${FONT_TITLE};
-  font-size: 34px;
+  font-size: ${TYPE.subTitle.size};
   font-weight: 700;
   margin: 0;
   letter-spacing: -0.02em;
@@ -1338,8 +1357,8 @@ const ScopeTitleH3 = styled.h3`
     color: ${COLORS.redTitle};
   }
 
-  @media (min-width: 901px) and (max-height: 700px) { font-size: 25px; }
-  @media (max-width: 900px) { font-size: 28px; }
+  @media (min-width: 901px) and (max-height: 700px) { font-size: 18px; }
+  @media (max-width: 900px) { font-size: 18px; }
 `;
 
 const Accent = styled.div`
@@ -1615,103 +1634,6 @@ const HighlightGrid = styled.div`
   }
 `;
 
-const HighlightCard = styled(Link)`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  background: #fff;
-  border: 1px solid rgba(26,26,24,0.08);
-  border-top: 3px solid ${COLORS.redTitle};
-  border-radius: 4px;
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-
-  /* Garante que a imagem respeite o border-radius do card sem cortar o badge */
-  & > img {
-    border-radius: 0;
-  }
-
-  &::before {
-    content: "Clique aqui";
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    margin-bottom: 0.6rem;
-    background: ${COLORS.redTitle};
-    color: #fff;
-    font-family: ${FONT_TITLE};
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    padding: 0.45rem 0.85rem;
-    border-radius: 999px;
-    box-shadow: 0 6px 14px rgba(161, 15, 35, 0.32);
-    opacity: 0;
-    transform: translate(-50%, 8px);
-    transition: opacity 0.25s ease, transform 0.25s ease;
-    pointer-events: none;
-    z-index: 2;
-    white-space: nowrap;
-  }
-
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 14px 32px rgba(0,0,0,0.12);
-    border-color: rgba(161,15,35,0.35);
-
-    &::before {
-      opacity: 1;
-      transform: translate(-50%, 0);
-    }
-  }
-
-  &:focus-visible {
-    outline: 2px solid ${COLORS.redTitle};
-    outline-offset: 3px;
-
-    &::before {
-      opacity: 1;
-      transform: translate(-50%, 0);
-    }
-  }
-`;
-
-const HighlightCardTitle = styled.h3`
-  font-family: ${FONT_TITLE};
-  font-size: 22px;
-  font-weight: 700;
-  color: ${COLORS.ink};
-  margin: 0;
-  padding: 1.25rem 1.5rem 1rem;
-  letter-spacing: -0.01em;
-  line-height: 1.2;
-
-  @media (max-width: 900px) { font-size: 20px; padding: 1rem 1.25rem 0.85rem; }
-`;
-
-const HighlightCardImage = styled.img`
-  width: 100%;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-  display: block;
-  background: ${COLORS.lightCream};
-`;
-
-const HighlightCardSubtitle = styled.p`
-  font-family: ${FONT_MONO};
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: ${COLORS.redTitle};
-  margin: 0;
-  padding: 1rem 1.5rem 1.25rem;
-
-  @media (max-width: 900px) { padding: 0.85rem 1.25rem 1rem; }
-`;
 
 // ── Integration band ──
 const Integration = styled.section`

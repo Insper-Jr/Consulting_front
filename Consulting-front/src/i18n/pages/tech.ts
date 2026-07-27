@@ -107,17 +107,21 @@ export const techTranslations = {
         eyebrow: "Projetos em destaque",
         title: "Cases de Destaque",
         subtitle: "Conheça três projetos que exemplificam a forma como entregamos soluções tecnológicas, do desenvolvimento web a automações inteligentes.",
+        badge: "Tech",
+        viewCta: "Ver case completo",
         gamificacao: {
           ariaLabel: "Ver case Gamificação",
           title: "Gamificação",
           imgAlt: "Aumento da Produtividade Através de Gamificação",
           subtitle: "Escopo · Desenvolvimento Web",
+          desc: "Plataforma fullstack que centraliza a operação de uma empresa de construção civil e engaja a equipe de campo com pontos, ranking e KPIs de segurança.",
         },
         medicina: {
           ariaLabel: "Ver case Medicina",
           title: "Medicina",
           imgAlt: "Contexto do Projeto Medicina",
           subtitle: "Escopo · Desenvolvimento Web",
+          desc: "Plataforma fullstack de gestão documental e notificação de ocorrências, com versionamento em nuvem e fluxo digital padronizado.",
         },
         walle: {
           ariaLabel: "Ver case Wall-E",
@@ -126,6 +130,7 @@ export const techTranslations = {
           placeholderText: "Imagem em breve",
           imgAlt: "Contexto do Projeto Wall-E",
           subtitle: "Escopo · Inteligência Artificial",
+          desc: "Ecossistema multi-agente com quatro IAs especialistas, coordenadas por um classificador inteligente, cobrindo todo o atendimento de um cliente de saúde.",
         },
       },
 
@@ -496,17 +501,21 @@ export const techTranslations = {
         eyebrow: "Featured projects",
         title: "Featured Cases",
         subtitle: "Explore three projects that showcase how we deliver technology solutions, from web development to intelligent automation.",
+        badge: "Tech",
+        viewCta: "View full case",
         gamificacao: {
           ariaLabel: "View the Gamification case",
           title: "Gamification",
           imgAlt: "Increasing Productivity Through Gamification",
           subtitle: "Scope · Web Development",
+          desc: "Full-stack platform that centralizes a construction company's operation and engages the field team with points, rankings, and safety KPIs.",
         },
         medicina: {
           ariaLabel: "View the Medicine case",
           title: "Medicine",
           imgAlt: "Medicine Project Context",
           subtitle: "Scope · Web Development",
+          desc: "Full-stack platform for document management and incident reporting, with cloud version control and a standardized digital flow.",
         },
         walle: {
           ariaLabel: "View the Wall-E case",
@@ -515,6 +524,7 @@ export const techTranslations = {
           placeholderText: "Image coming soon",
           imgAlt: "Wall-E Project Context",
           subtitle: "Scope · Artificial Intelligence",
+          desc: "Multi-agent ecosystem with four specialist AIs, coordinated by an intelligent classifier, covering the entire customer service operation for a healthcare client.",
         },
       },
 
