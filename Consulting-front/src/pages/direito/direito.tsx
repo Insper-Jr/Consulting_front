@@ -7,8 +7,8 @@ import WppButton from "../../components/wppButton";
 import ContactSection from "../../components/sectionContact";
 import DireitoCTA from "./components/direitoCTA";
 
-import capaPeDireito from "../../assets/direito/pe-direito/slide-03.png";
-import capaSociety   from "../../assets/direito/society/slide-07.png";
+import capaAlicerce from "../../assets/direito/alicerce/slide-01-capa.png";
+import capaCarWash   from "../../assets/direito/car-wash/slide-01-capa.jpg";
 import capaPrint     from "../../assets/direito/print/slide-15.png";
 
 // ── Color tokens (mirror tech) ─────────────────────────────────────────────
@@ -195,7 +195,7 @@ const SCOPES: Scope[] = [
     num: "01",
     tab: "Elaboração e/ou Revisão Contratual",
     title: <>Contratos <i>sob medida</i>.</>,
-    lede: <>Escopo voltado à <strong>elaboração de contratos do zero</strong>: partimos da operação real do cliente para desenhar o instrumento inteiro — objeto, obrigações, prazos, garantias e hipóteses de término — com cláusulas sob medida para a dor do negócio e ancoradas na lei aplicável. Também fazemos <strong>revisão estratégica</strong> de contratos já existentes.</>,
+    lede: <>Nossa atuação contratual divide-se em duas frentes complementares: a <strong>elaboração do zero</strong>, estruturando cada instrumento a partir da realidade operacional do cliente (objeto, obrigações, prazos, garantias e término); e a <strong>revisão estratégica</strong>, em que auditamos contratos já em uso para mitigar riscos e propor melhorias. Em ambos os casos, entregamos soluções jurídicas sob medida, focadas nas dores do seu negócio e fundamentadas na legislação vigente.</>,
     side: {
       eyebrow: "Ficha do escopo",
       rows: [
@@ -207,7 +207,7 @@ const SCOPES: Scope[] = [
       ],
       quote: "Cada contrato é escrito do zero para o cliente — não modelo de prateleira.",
     },
-    detail: <>Na <strong>elaboração do zero</strong>, mapeamos a operação, os riscos e os objetivos do cliente para então definir a arquitetura do contrato — partes, objeto, obrigações, prazos, garantias e penalidades. Cada cláusula é redigida sob medida, e o <strong>contrato finalizado</strong> vem com uma <strong>apresentação executiva</strong> dos pontos de atenção. Em revisões, somamos um <strong>memorando explicativo</strong> de cada alteração. Tudo com supervisão de bancas com professores e escritórios parceiros.</>,
+    detail: <>Na <strong>elaboração do zero</strong>, mapeamos a operação, os riscos e os objetivos do cliente para definir a arquitetura do contrato — partes, objeto, obrigações, prazos, garantias e penalidades. Na <strong>revisão</strong>, partimos do contrato que o cliente já utiliza, identificamos cláusulas frágeis, lacunas e pontos desalinhados com a lei e com o negócio, e devolvemos o instrumento ajustado com um <strong>memorando explicativo</strong> que justifica cada alteração. Nos dois casos, o <strong>contrato finalizado</strong> vem com <strong>apresentação executiva</strong> dos pontos de atenção e supervisão de bancas com professores e escritórios parceiros.</>,
     bullets: [
       "Contratos redigidos do zero, sob medida para a operação",
       "Desenho completo — objeto, obrigações, garantias e rescisão",
@@ -232,7 +232,7 @@ const SCOPES: Scope[] = [
       ],
       quote: "Recomendações fundamentadas — a decisão final é do cliente.",
     },
-    detail: <>Dois cenários: análise da <strong>estrutura societária atual</strong> do cliente ou avaliação de <strong>uma ideia ainda no papel</strong>. O escopo é entregue de forma independente e, quando faz sentido, pode vir <strong>acompanhado de outro escopo</strong> (uma viabilidade societária ao lado de uma análise mercadológica, por exemplo). Em ambos os cenários, identificamos riscos e apresentamos <strong>alternativas viáveis</strong>, sem induzir a decisão do cliente.</>,
+    detail: <>Dois cenários: análise da <strong>estrutura societária atual</strong> do cliente ou avaliação de <strong>uma ideia ainda no papel</strong>. O escopo é entregue de forma independente e, quando faz sentido, pode vir <strong>acompanhado de outro escopo</strong> (uma viabilidade societária ao lado de uma análise operacional e/ou mercadológica, por exemplo). Em ambos os cenários, identificamos riscos e apresentamos <strong>alternativas viáveis</strong>, sem induzir a decisão do cliente.</>,
     bullets: [
       "Análise da estrutura societária atual",
       "Identificação de riscos e gargalos jurídicos",
@@ -559,18 +559,18 @@ function Direito() {
           <OpeningDivider />
         </SectionHeader>
         <SectionSubtitle>
-          Três projetos que exemplificam a forma como a frente de Direito atua — do primeiro contrato firmado à assessoria continuada e à atuação multi-escopo.
+          Três projetos que exemplificam a forma como a frente de Direito atua — da elaboração contratual do zero à assessoria continuada e à atuação multi-escopo.
         </SectionSubtitle>
         <HighlightGrid>
-          <HighlightCard to="/direito/pe-direito" aria-label="Ver case Pé Direito I">
-            <HighlightCardTitle>Pé Direito I</HighlightCardTitle>
-            <HighlightCardImage src={capaPeDireito} alt="Capa do case Pé Direito I" loading="lazy" />
+          <HighlightCard to="/direito/alicerce" aria-label="Ver case Alicerce I">
+            <HighlightCardTitle>Alicerce I</HighlightCardTitle>
+            <HighlightCardImage src={capaAlicerce} alt="Capa do case Alicerce I" loading="lazy" />
             <HighlightCardSubtitle>Escopo · Contratos</HighlightCardSubtitle>
           </HighlightCard>
-          <HighlightCard to="/direito/society" aria-label="Ver case Society I">
-            <HighlightCardTitle>Society I</HighlightCardTitle>
-            <HighlightCardImage src={capaSociety} alt="Capa do case Society I" loading="lazy" />
-            <HighlightCardSubtitle>Escopo · Societário</HighlightCardSubtitle>
+          <HighlightCard to="/direito/car-wash" aria-label="Ver case Car Wash I">
+            <HighlightCardTitle>Car Wash I</HighlightCardTitle>
+            <HighlightCardImage src={capaCarWash} alt="Capa do case Car Wash I" loading="lazy" />
+            <HighlightCardSubtitle>Escopo · Societário · Tributário</HighlightCardSubtitle>
           </HighlightCard>
           <HighlightCard to="/direito/print" aria-label="Ver case Print I">
             <HighlightCardTitle>Print I</HighlightCardTitle>
