@@ -2,10 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 
-const RED_CTA    = "#C02121";
-const INK        = "#1a1a18";
-const FONT_TITLE = `"Montserrat", Helvetica, sans-serif`;
-const FONT_BODY  = `"Inter", Helvetica, sans-serif`;
+import { RED as RED_CTA, DARK as INK, FONT_TITLE, FONT_BODY } from "../../../styles/tokens";
 
 const Opening = styled.section`
   max-width: 1200px;

@@ -9,14 +9,7 @@ import capaCommunity   from "../../../assets/business/community/03-posicionament
 import capaCaramelo  from "../../../assets/business/caramelo/04-capex.jpg";
 import capaQuimica from "../../../assets/business/quimica/02-macroetapas.jpg";
 
-const RED        = "#C02121";
-const RED_CTA    = "#C02121";
-const INK        = "#1a1a18";
-const BG_DARK    = "#0e0404";
-const LIGHT_CREAM = "#FAF2EA";
-const FONT_TITLE  = `"Montserrat", Helvetica, sans-serif`;
-const FONT_BODY   = `"Inter", Helvetica, sans-serif`;
-const SPRING      = "cubic-bezier(0.16,1,0.3,1)";
+import { RED, RED as RED_CTA, DARK as INK, BG_DARK, BG_CREAM as LIGHT_CREAM, FONT_TITLE, FONT_BODY, SPRING } from "../../../styles/tokens";
 
 const accentGrow = keyframes`to { transform: scaleX(1); }`;
 const redbarGrow = keyframes`to { transform: scaleX(1); }`;

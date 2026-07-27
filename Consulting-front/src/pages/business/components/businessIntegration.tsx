@@ -1,14 +1,13 @@
 import React, { useEffect, useRef } from "react";
 import styled, { keyframes } from "styled-components";
 import { useTranslation } from "react-i18next";
+import { RED, BG_DARK, BG_CREAM, FONT_TITLE, FONT_BODY } from "../../../styles/tokens";
 
 const COLORS = {
-  redCTA: "#C02121",
-  black:  "#0e0404",
-  cream:  "#FAF2EA",
+  redCTA: RED,
+  black:  BG_DARK,
+  cream:  BG_CREAM,
 };
-const FONT_TITLE = `"Montserrat", Helvetica, sans-serif`;
-const FONT_BODY  = `"Inter", Helvetica, sans-serif`;
 
 type NetOpts = {
   count?: number;
