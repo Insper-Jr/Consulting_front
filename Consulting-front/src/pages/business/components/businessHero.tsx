@@ -229,7 +229,7 @@ export default function BusinessHero() {
 
             <Actions $v={v}>
               <BtnPrimary href="/contact">{t("business.hero.ctaPrimary")} <ArrowR /></BtnPrimary>
-              <BtnGhost href="#cases">{t("business.hero.ctaSecondary")} <ChevD /></BtnGhost>
+              
             </Actions>
           </Left>
         </Inner>
