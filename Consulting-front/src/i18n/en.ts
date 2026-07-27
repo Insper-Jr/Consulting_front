@@ -7,6 +7,7 @@ const en = {
     join:      "Join Us",
     contact:   "Contact",
     cta:       "Get in Touch",
+    tagline:   "High-impact university consulting",
   },
 
   // ── Frentes (Solutions dropdown) ──
@@ -161,15 +162,8 @@ const en = {
 
   // ── SectionContact ──
   sectionContact: {
-    title:             "Get in touch with our team",
-    button:            "Contact",
-    newsletterLabel:   "Newsletter",
-    newsletterHeading: "Stay up to date with our news",
-    newsletterSub:     "Receive insights and updates in your inbox. No spam.",
-    emailPlaceholder:  "your@email.com",
-    submitBtn:         "Subscribe",
-    submitting:        "Sending…",
-    success:           "✓ Thank you! You will receive our updates soon.",
+    title:  "Get in touch with our team",
+    button: "Contact",
   },
 
   // ── SectionMap ──

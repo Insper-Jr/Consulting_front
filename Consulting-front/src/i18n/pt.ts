@@ -7,6 +7,7 @@ const pt = {
     join:      "Faça Parte",
     contact:   "Contato",
     cta:       "Fale Conosco",
+    tagline:   "Consultoria universitária de alto impacto",
   },
 
   // ── Frentes (dropdown de Soluções) ──
@@ -161,15 +162,8 @@ const pt = {
 
   // ── SectionContact ──
   sectionContact: {
-    title:             "Entre em contato com a nossa equipe",
-    button:            "Contato",
-    newsletterLabel:   "Newsletter",
-    newsletterHeading: "Fique por dentro das nossas novidades",
-    newsletterSub:     "Receba insights e atualizações no seu e-mail. Sem spam.",
-    emailPlaceholder:  "seu@email.com",
-    submitBtn:         "Inscrever-se",
-    submitting:        "Enviando…",
-    success:           "✓ Obrigado! Você receberá nossas novidades em breve.",
+    title:  "Entre em contato com a nossa equipe",
+    button: "Contato",
   },
 
   // ── SectionMap ──

@@ -13,7 +13,7 @@ import Hero_Break from "@/components/transformeBreak";
 import WppButton from "@/components/wppButton";
 import InteractiveSelector from "./components/interactiveSelector";
 import SectionMap from "./components/sectionMap";
-import ContactSection from "./components/sectionContact";
+import ContactSection from "../../components/sectionContact";
 import PartnersRows from "./components/partnersRows";
 
 

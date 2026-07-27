@@ -192,7 +192,7 @@ const Header = () => {
         <SidebarDivider />
 
         <SidebarBottom>
-          <SidebarTagline>Consultoria universitária de alto impacto</SidebarTagline>
+          <SidebarTagline>{t("nav.tagline")}</SidebarTagline>
           <SidebarCTA to="/contact" onClick={() => setSidebarOpen(false)}>
             {t("nav.cta")}
           </SidebarCTA>
