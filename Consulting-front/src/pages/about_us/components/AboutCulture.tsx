@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect, useCallback } from "react";
 import styled, { keyframes, css, createGlobalStyle } from "styled-components";
 import { useTranslation } from "react-i18next";
 import { useInView } from "@/hooks/useInView";
+import { RED_DARK } from "@/styles/tokens";
 import Gestao44 from "../../../assets/gestoes/44a.jpg";
 import Gestao45 from "../../../assets/gestoes/45a.png";
 import Gestao46 from "../../../assets/gestoes/46a.png";
@@ -11,7 +12,6 @@ import Gestao49 from "../../../assets/gestoes/49a.jpg";
 import Gestao50 from "../../../assets/gestoes/50a.png";
 
 const RED      = "#C02121";
-const RED_DEEP = "#7d1414";
 const DARK     = "#1a1a18";
 const MUTED    = "#7a746e";
 const BG       = "#FAF2EA";
@@ -239,7 +239,7 @@ const Section = styled.section`
 `;
 
 const Left = styled.div<{ $visible: boolean }>`
-  background: ${RED_DEEP};
+  background: ${RED_DARK};
   padding: 40px 56px 40px max(40px, calc((100vw - 1200px) / 2));
   display: flex;
   flex-direction: column;
