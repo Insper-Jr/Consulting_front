@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import styled, { keyframes } from "styled-components";
 import { useTranslation } from "react-i18next";
+import { RED, BG_CREAM, FONT_TITLE } from "../../../styles/tokens";
 
 const useCountUp = (target: number, duration: number, trigger: boolean, delay = 0) => {
   const [count, setCount] = useState(0);
@@ -34,7 +35,6 @@ const useCountUp = (target: number, duration: number, trigger: boolean, delay = 
 };
 
 const FONT = `'Inter', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif`;
-const FONT_TITLE = `'Montserrat', Helvetica, sans-serif`;
 const MONO = `'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace`;
 
 const ctaPulse = keyframes`
@@ -118,7 +118,7 @@ const InscricaoCTA = () => {
 export default InscricaoCTA;
 
 const Section = styled.section`
-  background: #FAF2EA;
+  background: ${BG_CREAM};
   border-top: 1px solid rgba(8,15,15,0.10);
   border-bottom: 1px solid rgba(8,15,15,0.10);
   padding: 140px 0;
@@ -151,7 +151,7 @@ const Grid = styled.div`
     display: inline-block;
     font-family: ${FONT_TITLE};
     font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
-    text-transform: uppercase; color: #C02121; margin-bottom: 18px;
+    text-transform: uppercase; color: ${RED}; margin-bottom: 18px;
   }
 
   h2 {
@@ -162,13 +162,13 @@ const Grid = styled.div`
     letter-spacing: -0.02em; font-weight: 800;
   }
 
-  h2 em { font-style: normal; color: #C02121; }
+  h2 em { font-style: normal; color: ${RED}; }
 
   .sub {
     margin: 20px 0 0;
     position: relative;
     padding-left: 16px;
-    border-left: 2px solid #C02121;
+    border-left: 2px solid ${RED};
     color: rgba(8,15,15,0.62);
     font-size: 18px; max-width: 46ch; line-height: 1.55;
   }
@@ -186,7 +186,7 @@ const Grid = styled.div`
 const Cta = styled.a`
   display: inline-flex; align-items: center; gap: 10px;
   padding: 20px 32px; border-radius: 4px;
-  background: #C02121; color: #fff;
+  background: ${RED}; color: #fff;
   font-weight: 600; font-size: 17px; text-decoration: none; line-height: 1;
   animation: ${ctaPulse} 3s ease-in-out infinite;
   transition: background .2s, transform .2s;
@@ -269,7 +269,7 @@ const InsperNote = styled.p`
     font-family: ${MONO};
     font-size: 12px;
     background: rgba(192,33,33,0.08);
-    color: #C02121;
+    color: ${RED};
     padding: 1px 6px;
     border-radius: 3px;
     border: 1px solid rgba(192,33,33,0.18);

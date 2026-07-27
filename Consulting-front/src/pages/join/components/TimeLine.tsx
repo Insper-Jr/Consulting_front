@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 import { useTranslation } from "react-i18next";
+import { RED, FONT_TITLE } from "../../../styles/tokens";
 
 type FrenteId = "business" | "tech" | "direito" | "processos";
 type Step = { num: string; label: string; desc: string };
@@ -8,7 +9,6 @@ type StepT = { label: string; desc: string };
 type FrenteT = { id: FrenteId; label: string; steps: StepT[] };
 
 const FONT = `'Inter', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif`;
-const FONT_TITLE = `'Montserrat', Helvetica, sans-serif`;
 const MONO = `'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace`;
 
 const EDITAL_URLS: Record<FrenteId, string> = {
@@ -164,7 +164,7 @@ const Head = styled.div`
   gap: 60px; align-items: end; margin-bottom: 48px;
 
   .left { display: flex; flex-direction: column; gap: 18px; }
-  .eyebrow { font-family: ${FONT_TITLE}; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #C02121; }
+  .eyebrow { font-family: ${FONT_TITLE}; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: ${RED}; }
   h2 { font-family: ${FONT_TITLE}; margin: 0; font-size: clamp(28px, 3.2vw, 40px); line-height: 1.1; letter-spacing: -0.02em; font-weight: 800; }
 
   @media (max-width: 980px) { grid-template-columns: 1fr; gap: 24px; margin-bottom: 32px; }
@@ -172,7 +172,7 @@ const Head = styled.div`
 
 const EditalBlock = styled.div`
   display: flex; flex-direction: column; gap: 10px;
-  padding-left: 16px; border-left: 2px solid #C02121;
+  padding-left: 16px; border-left: 2px solid ${RED};
 `;
 
 const EditalMeta = styled.div`
@@ -189,7 +189,7 @@ const EditalFrente = styled.p`
 
 const EditalCta = styled.a`
   display: inline-flex; align-items: center; gap: 7px; align-self: flex-start;
-  padding: 9px 16px; background: #C02121; color: #fff;
+  padding: 9px 16px; background: ${RED}; color: #fff;
   font-size: 13px; font-weight: 700; letter-spacing: 0.02em; text-decoration: none;
   transition: background 0.2s, gap 0.2s;
   &:hover { background: #a01a1a; gap: 10px; }
@@ -213,7 +213,7 @@ const Pill = styled.button<{ $active: boolean }>`
   @media (max-width: 640px) { padding: 11px 16px; }
   .dot {
     width: 6px; height: 6px; border-radius: 50%;
-    background: ${({ $active }) => $active ? "#C02121" : "rgba(8,15,15,0.2)"};
+    background: ${({ $active }) => $active ? "${RED}" : "rgba(8,15,15,0.2)"};
     transform:  ${({ $active }) => $active ? "scale(1.4)" : "scale(1)"};
     transition: all 0.25s; flex-shrink: 0;
   }
@@ -258,7 +258,7 @@ const Node = styled.div`
   width: 56px; height: 56px; border-radius: 50%;
   display: grid; place-items: center; margin-bottom: 24px;
   font-family: ${MONO}; font-size: 13px; font-weight: 700;
-  background: #fff; border: 2px solid #C02121; color: #C02121;
+  background: #fff; border: 2px solid ${RED}; color: ${RED};
   box-shadow: 0 4px 16px -6px rgba(192,33,33,0.35);
   @media (max-width: 980px) { margin-bottom: 0; grid-row: 1 / 3; align-self: start; }
 `;

@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef, Fragment } from "react";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
+import { RED, FONT_TITLE } from "../../../styles/tokens";
 
 const FONT = `'Inter', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif`;
-const FONT_TITLE = `'Montserrat', Helvetica, sans-serif`;
 const MONO = `'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace`;
 
 const IconProjetos = () => (
@@ -177,7 +177,7 @@ const Head = styled.div`
   .eyebrow {
     font-family: ${FONT_TITLE};
     font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
-    text-transform: uppercase; color: #C02121;
+    text-transform: uppercase; color: ${RED};
   }
 
   h2 {
@@ -191,7 +191,7 @@ const Head = styled.div`
     margin: 0;
     position: relative;
     padding-left: 16px;
-    border-left: 2px solid #C02121;
+    border-left: 2px solid ${RED};
     color: rgba(8,15,15,0.62);
     font-size: 15px; line-height: 1.65; max-width: 42ch;
   }
@@ -229,7 +229,7 @@ const TabBtn = styled.button<{ $active: boolean }>`
     content: "";
     position: absolute;
     left: 0; top: 0; bottom: 0; width: 3px;
-    background: #C02121;
+    background: ${RED};
     transform: scaleY(${({ $active }) => ($active ? 1 : 0)});
     transform-origin: center;
     transition: transform 0.25s ease;
@@ -237,7 +237,7 @@ const TabBtn = styled.button<{ $active: boolean }>`
 
   &:last-child { border-right: none; }
   &:hover { background: ${({ $active }) => ($active ? "#fff" : "rgba(8,15,15,0.025)")}; }
-  &:focus-visible { outline: 2px solid #C02121; outline-offset: -2px; }
+  &:focus-visible { outline: 2px solid ${RED}; outline-offset: -2px; }
 
   @media (max-width: 640px) {
     border-right: none;
@@ -249,7 +249,7 @@ const TabBtn = styled.button<{ $active: boolean }>`
 
 const TabNum = styled.span<{ $active: boolean }>`
   font-size: 10px; font-weight: 700; letter-spacing: 0.16em; line-height: 1;
-  color: ${({ $active }) => ($active ? "#C02121" : "rgba(8,15,15,0.28)")};
+  color: ${({ $active }) => ($active ? "${RED}" : "rgba(8,15,15,0.28)")};
   transition: color 0.2s;
 `;
 
@@ -336,7 +336,7 @@ const BulletList = styled.ul`
 const BulletItem = styled.li`
   display: flex; align-items: baseline; gap: 12px;
   font-size: 14px; font-weight: 500; color: rgba(8,15,15,0.68); line-height: 1.4;
-  .dash { color: #C02121; font-weight: 700; flex-shrink: 0; }
+  .dash { color: ${RED}; font-weight: 700; flex-shrink: 0; }
 `;
 
 const StatsRow = styled.div`
@@ -355,7 +355,7 @@ const Stat = styled.div<{ $idx: number }>`
   .val {
     font-family: ${MONO};
     font-size: clamp(22px, 2.4vw, 30px); font-weight: 700;
-    color: #C02121; letter-spacing: -0.02em; line-height: 1;
+    color: ${RED}; letter-spacing: -0.02em; line-height: 1;
   }
   .lbl { font-size: 13px; color: rgba(8,15,15,0.52); letter-spacing: 0.01em; }
 `;

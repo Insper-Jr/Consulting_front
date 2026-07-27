@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import styled, { keyframes } from "styled-components";
 import { useTranslation } from "react-i18next";
+import { RED, BG_CREAM, FONT_TITLE } from "../../../styles/tokens";
 
 const FONT = `'Inter', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif`;
-const FONT_TITLE = `'Montserrat', Helvetica, sans-serif`;
 
 const IconExcelencia = () => (
   <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
@@ -103,7 +103,7 @@ const Valores = () => {
 export default Valores;
 
 const Section = styled.section`
-  background: #FAF2EA;
+  background: ${BG_CREAM};
   padding: 120px 0;
   font-family: ${FONT};
   color: #080F0F;
@@ -129,9 +129,9 @@ const Head = styled.div`
   gap: 60px; align-items: end; margin-bottom: 64px;
 
   .left { display: flex; flex-direction: column; gap: 18px; }
-  .eyebrow { font-family: ${FONT_TITLE}; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #C02121; }
+  .eyebrow { font-family: ${FONT_TITLE}; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: ${RED}; }
   h2 { font-family: ${FONT_TITLE}; margin: 0; font-size: clamp(28px, 3.2vw, 40px); line-height: 1.1; letter-spacing: -0.02em; font-weight: 800; }
-  .lead-block { position: relative; padding-left: 16px; border-left: 2px solid #C02121; }
+  .lead-block { position: relative; padding-left: 16px; border-left: 2px solid ${RED}; }
   .lead-sub { margin: 0; color: rgba(8,15,15,0.52); font-size: 15px; line-height: 1.65; max-width: 38ch; }
 
   @media (max-width: 980px) { grid-template-columns: 1fr; gap: 16px; margin-bottom: 40px; }
@@ -147,7 +147,7 @@ const Grid = styled.div`
 `;
 
 const IconWrap = styled.div<{ $idx: number }>`
-  margin-bottom: 28px; color: #C02121;
+  margin-bottom: 28px; color: ${RED};
   svg { display: block; transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
   svg path, svg circle { stroke-dasharray: 300; stroke-dashoffset: 300; }
   [data-visible="true"] & svg path,
@@ -166,7 +166,7 @@ const TitleWrap = styled.div`
     transition: color 0.2s ease;
     &::after {
       content: ''; position: absolute; left: 0; bottom: -3px;
-      height: 1.5px; width: 0; background: #C02121;
+      height: 1.5px; width: 0; background: ${RED};
       transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
     }
   }
@@ -186,7 +186,7 @@ const Card = styled.div<{ $idx: number }>`
   [data-visible="true"] & { opacity: 1; transform: none; }
 
   &:hover ${IconWrap} svg { transform: translateY(-5px); }
-  &:hover ${TitleWrap} h4 { color: #C02121; }
+  &:hover ${TitleWrap} h4 { color: ${RED}; }
   &:hover ${TitleWrap} h4::after { width: 100%; }
 
   p { margin: 0; color: rgba(8,15,15,0.62); font-size: 13px; line-height: 1.6; }
