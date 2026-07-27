@@ -9,7 +9,6 @@ import { contactAlumniTranslations } from "./pages/contactAlumni";
 import { processosHomeTranslations } from "./pages/processosHome";
 import { techTranslations } from "./pages/tech";
 import { direitoTranslations } from "./pages/direito";
-import { businessTranslations } from "./pages/business";
 
 const pageFragments = [
   sharedTranslations,
@@ -19,7 +18,6 @@ const pageFragments = [
   processosHomeTranslations,
   techTranslations,
   direitoTranslations,
-  businessTranslations,
 ];
 
 const ptResources = pageFragments.reduce(

@@ -36,22 +36,22 @@ export const direitoTranslations = {
             tab: "Elaboração e/ou Revisão Contratual",
             title: "Contratos <i>sob medida</i>.",
             lede:
-              "Escopo voltado à <strong>elaboração do zero</strong> ou à <strong>revisão estratégica de contratos já existentes</strong>. Na revisão, partimos de um instrumento que o cliente já utiliza e propomos <strong>mudanças e adequações</strong> que enderecem a dor do cliente sem perder de vista a lei aplicável, entregando, ao fim, um material juridicamente consistente e alinhado às necessidades do negócio.",
+              "Escopo voltado à <strong>elaboração de contratos do zero</strong>: partimos da operação real do cliente para desenhar o instrumento inteiro — objeto, obrigações, prazos, garantias e hipóteses de término — com cláusulas sob medida para a dor do negócio e ancoradas na lei aplicável. Também fazemos <strong>revisão estratégica</strong> de contratos já existentes.",
             detail:
-              "Trabalhamos com <strong>elaboração de contratos do zero</strong> e <strong>revisão estratégica</strong> de instrumentos existentes. Em casos de revisão, entregamos um <strong>memorando explicativo</strong> que justifica cada alteração realizada e uma <strong>apresentação executiva</strong> que sintetiza os pontos críticos da revisão para a tomada de decisão. A atuação combina análise técnica das necessidades do cliente, parâmetros legais aplicáveis e revisão por bancas com professores e escritórios parceiros.",
+              "Na <strong>elaboração do zero</strong>, mapeamos a operação, os riscos e os objetivos do cliente para então definir a arquitetura do contrato — partes, objeto, obrigações, prazos, garantias e penalidades. Cada cláusula é redigida sob medida, e o <strong>contrato finalizado</strong> vem com uma <strong>apresentação executiva</strong> dos pontos de atenção. Em revisões, somamos um <strong>memorando explicativo</strong> de cada alteração. Tudo com supervisão de bancas com professores e escritórios parceiros.",
             rows: [
-              { key: "Entregáveis", val: "<strong>Contrato finalizado</strong> + memorando explicativo (em revisões) + apresentação executiva" },
-              { key: "Aplicações", val: "Contratos personalizados conforme a necessidade do cliente, envolvendo diferentes áreas do Direito" },
-              { key: "Abordagem", val: "Elaboração do zero <strong>ou</strong> revisão de material existente do cliente, sempre mirando a dor do negócio + a lei aplicável" },
+              { key: "Entregáveis", val: "<strong>Contrato finalizado</strong> + apresentação executiva (+ memorando explicativo, em revisões)" },
+              { key: "Aplicações", val: "Contratos redigidos sob medida, em diferentes áreas do Direito" },
+              { key: "Abordagem", val: "<strong>Elaboração do zero</strong> a partir da operação do cliente; também revisão de material existente" },
               { key: "Sinergia", val: "Apoio direto a Business e Engenharia em demandas contratuais" },
               { key: "Supervisão", val: "Banca técnica com professores e escritórios parceiros" },
             ],
-            quote: "Cada contrato é desenhado para o cliente, não modelo de prateleira.",
+            quote: "Cada contrato é escrito do zero para o cliente — não modelo de prateleira.",
             bullets: [
-              "Contratos personalizados conforme a necessidade do cliente",
-              "Cobertura ampla: diferentes áreas e ramos do Direito",
-              "Elaboração do zero ou revisão estratégica de instrumentos",
-              "Memorando + apresentação executiva (em revisões)",
+              "Contratos redigidos do zero, sob medida para a operação",
+              "Desenho completo — objeto, obrigações, garantias e rescisão",
+              "Cobertura ampla — diferentes áreas e ramos do Direito",
+              "Revisão estratégica de contratos já existentes",
             ],
             tags: ["Direito Civil", "Direito Empresarial", "Contratos"],
           },
@@ -59,17 +59,17 @@ export const direitoTranslations = {
             tab: "Planejamento Consultivo Societário",
             title: "Estrutura <i>societária</i> sob análise.",
             lede:
-              "Serviço de <strong>análise estratégica da estrutura societária</strong> do cliente, com identificação de riscos, oportunidades de melhoria e alternativas possíveis. Escopo consultivo, <strong>sem envolver emissão de documentos em cartório</strong>, entrega de <strong>parecer fundamentado</strong> e <strong>apresentação executiva</strong> com os caminhos recomendados.",
+              "Serviço de <strong>análise estratégica da estrutura societária</strong> do cliente, com identificação de riscos, oportunidades de melhoria e alternativas possíveis. Escopo consultivo, <strong>sem envolver emissão de documentos em cartório</strong> — entrega de <strong>parecer fundamentado</strong> e <strong>apresentação executiva</strong> com os caminhos recomendados.",
             detail:
-              "Dois cenários: análise da <strong>estrutura societária atual</strong> do cliente ou avaliação de <strong>uma ideia ainda no papel</strong>, neste segundo, na maioria das vezes a análise vem <strong>embarcada em outro escopo</strong> (uma viabilidade societária dentro de uma análise mercadológica, por exemplo). Em ambos, identificamos riscos e apresentamos <strong>alternativas viáveis</strong>, sem induzir a decisão do cliente.",
+              "Dois cenários: análise da <strong>estrutura societária atual</strong> do cliente ou avaliação de <strong>uma ideia ainda no papel</strong>. O escopo é entregue de forma independente e, quando faz sentido, pode vir <strong>acompanhado de outro escopo</strong> (uma viabilidade societária ao lado de uma análise mercadológica, por exemplo). Em ambos os cenários, identificamos riscos e apresentamos <strong>alternativas viáveis</strong>, sem induzir a decisão do cliente.",
             rows: [
               { key: "Entregáveis", val: "<strong>Parecer consultivo</strong> + apresentação executiva com caminhos e recomendações" },
-              { key: "Natureza", val: "Consultivo: <strong>não envolve emissão de documentos em cartório</strong>; apresenta alternativas sem induzir decisões" },
+              { key: "Natureza", val: "Consultivo — <strong>não envolve emissão de documentos em cartório</strong>; apresenta alternativas sem induzir decisões" },
               { key: "Aplicações", val: "Análise societária, identificação de riscos, modelos jurídicos comparados" },
               { key: "Limites", val: "Sem execução direta de procedimentos cartorários ou registrais" },
               { key: "Supervisão", val: "Banca com professores especialistas em societário" },
             ],
-            quote: "Recomendações fundamentadas. A decisão final é do cliente.",
+            quote: "Recomendações fundamentadas — a decisão final é do cliente.",
             bullets: [
               "Análise da estrutura societária atual",
               "Identificação de riscos e gargalos jurídicos",
@@ -84,7 +84,7 @@ export const direitoTranslations = {
             lede:
               "Análise técnica e estratégica relacionada a <strong>registros de marca, patente ou desenho industrial</strong>, com foco na avaliação de viabilidade, alternativas e melhores caminhos perante o <strong>INPI</strong>.",
             detail:
-              "O escopo orienta o cliente sobre <strong>viabilidade de registro</strong>, <strong>requisitos legais</strong> e <strong>implicações estratégicas</strong> perante o INPI. Além de <strong>mapear os caminhos possíveis</strong> (registro, oposição, manutenção, alternativas defensivas), fazemos <strong>análise de viabilidade, estratégia e custos</strong> de cada alternativa, entregando um parecer que orienta a decisão. Conta com supervisão técnica de bancas com professores especialistas em propriedade industrial.",
+              "O escopo orienta o cliente sobre <strong>viabilidade de registro</strong>, <strong>requisitos legais</strong> e <strong>implicações estratégicas</strong> perante o INPI. Além de <strong>mapear os caminhos possíveis</strong> (registro, oposição, manutenção, alternativas defensivas), fazemos <strong>análise de viabilidade, estratégia e custos</strong> de cada alternativa — entregando um parecer que orienta a decisão. Conta com supervisão técnica de bancas com professores especialistas em propriedade industrial.",
             rows: [
               { key: "Entregável", val: "<strong>Parecer consultivo</strong> sobre viabilidade e caminhos no INPI" },
               { key: "Objetos", val: "Marca, patente, desenho industrial" },
@@ -92,7 +92,7 @@ export const direitoTranslations = {
               { key: "Supervisão", val: "Banca técnica com professores especialistas em propriedade industrial" },
               { key: "Limites", val: "Não inclui execução direta de procedimentos no INPI" },
             ],
-            quote: "Análise técnica antes do registro: caminho certo, menos retrabalho.",
+            quote: "Análise técnica antes do registro — caminho certo, menos retrabalho.",
             bullets: [
               "Análise de viabilidade de registro de marca",
               "Estudo de patenteabilidade",
@@ -107,7 +107,7 @@ export const direitoTranslations = {
             lede:
               "Estudo da <strong>situação tributária atual</strong> do cliente, com foco na <strong>comparação de regimes</strong>, impactos financeiros e possibilidades de adequação dentro da legislação vigente.",
             detail:
-              "O escopo combina <strong>simulações em planilha</strong>, <strong>memorando jurídico</strong> e, quando pertinente, <strong>apresentação executiva</strong>. Analisamos a situação tributária atual, comparamos cenários alternativos dentro da legislação vigente e apoiamos o cliente em decisões que envolvam adequação fiscal, escolha de regime ou reestruturação, sempre considerando os <strong>impactos da reforma tributária em curso</strong>.",
+              "O escopo combina <strong>simulações em planilha</strong>, <strong>memorando jurídico</strong> e, quando pertinente, <strong>apresentação executiva</strong>. Analisamos a situação tributária atual, comparamos cenários alternativos dentro da legislação vigente e apoiamos o cliente em decisões que envolvam adequação fiscal, escolha de regime ou reestruturação — sempre considerando os <strong>impactos da reforma tributária em curso</strong>.",
             rows: [
               { key: "Entregáveis", val: "<strong>Simulações</strong> em planilha + memorando jurídico + apresentação executiva" },
               { key: "Foco", val: "Comparativo de regimes tributários e impactos financeiros" },
@@ -117,7 +117,7 @@ export const direitoTranslations = {
             ],
             quote: "Decisões mais eficientes e juridicamente seguras.",
             bullets: [
-              "Comparativo entre regimes tributários (Simples, Presumido, Real)",
+              "Comparativo entre regimes tributários (Simples Nacional, Lucro Presumido, Lucro Real)",
               "Simulações de impacto financeiro",
               "Memorando jurídico fundamentado",
               "Apresentação executiva para decisão",
@@ -165,19 +165,19 @@ export const direitoTranslations = {
           "A frente de Direito da Insper Jr. nasceu da <strong>46ª gestão</strong>, com o objetivo de ampliar o papel da empresa como centro de desenvolvimento para todos os alunos do Insper. Estruturada ao longo de um ciclo de diagnóstico, mapeamento e estruturação, hoje atua de forma integrada com Business e Engenharia, oferecendo serviços jurídicos delimitados, supervisionados por professores e escritórios parceiros.",
         pillars: [
           {
-            num: "01. Estruturada",
-            title: "Escopos delimitados",
-            text: "Quatro escopos consultivos e contratuais (<strong>Contratos, Societário, Propriedade Industrial e Tributário</strong>) desenhados para respeitar os limites regulatórios da OAB e maximizar o valor entregue.",
-          },
-          {
-            num: "02. Supervisionada",
-            title: "Professores e escritórios parceiros",
-            text: "Atuação validada por <strong>bancas técnicas</strong> com professores especialistas em cada um dos escopos jurídicos.",
-          },
-          {
-            num: "03. Integrada",
+            num: "01 — Integrada",
             title: "Conversa com Business e Engenharia",
             text: "A venda dos serviços jurídicos é <strong>integrada ao núcleo comercial</strong> da Insper Jr., permitindo combinar Direito com projetos de outras frentes em um mesmo ecossistema de soluções.",
+          },
+          {
+            num: "02 — Estruturada",
+            title: "Escopos delimitados",
+            text: "Quatro escopos consultivos e contratuais — <strong>Contratos, Societário, Propriedade Industrial e Tributário</strong> — desenhados para respeitar os limites regulatórios da OAB e maximizar o valor entregue.",
+          },
+          {
+            num: "03 — Supervisionada",
+            title: "Professores e escritórios parceiros",
+            text: "Atuação validada por <strong>bancas técnicas</strong> com professores especialistas em cada um dos escopos jurídicos.",
           },
         ],
         stats: [

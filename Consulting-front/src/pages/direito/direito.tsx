@@ -8,6 +8,10 @@ import WppButton from "../../components/wppButton";
 import ContactSection from "../../components/sectionContact";
 import DireitoCTA from "./components/direitoCTA";
 
+import capaPeDireito from "../../assets/direito/pe-direito/slide-03.png";
+import capaSociety   from "../../assets/direito/society/slide-07.png";
+import capaPrint     from "../../assets/direito/print/slide-15.png";
+
 // ── Color tokens (mirror tech) ─────────────────────────────────────────────
 import { RED_TITLE, RED, RED_DARK, BG_DARK, DARK, BG_CREAM, FONT_TITLE, FONT_BODY, TYPE } from "../../styles/tokens";
 
@@ -462,23 +466,17 @@ function Direito() {
         <HighlightGrid>
           <HighlightCard to="/direito/pe-direito" aria-label={t("direito.cases.peDireito.ariaLabel")}>
             <HighlightCardTitle>{t("direito.cases.peDireito.title")}</HighlightCardTitle>
-            <HighlightCardPlaceholder aria-label={t("direito.cases.imagePlaceholderAria")}>
-              <span>{t("direito.cases.imagePlaceholderText")}</span>
-            </HighlightCardPlaceholder>
+            <HighlightCardImage src={capaPeDireito} alt={t("direito.cases.peDireito.title")} loading="lazy" />
             <HighlightCardSubtitle>{t("direito.cases.peDireito.subtitle")}</HighlightCardSubtitle>
           </HighlightCard>
           <HighlightCard to="/direito/society" aria-label={t("direito.cases.society.ariaLabel")}>
             <HighlightCardTitle>{t("direito.cases.society.title")}</HighlightCardTitle>
-            <HighlightCardPlaceholder aria-label={t("direito.cases.imagePlaceholderAria")}>
-              <span>{t("direito.cases.imagePlaceholderText")}</span>
-            </HighlightCardPlaceholder>
+            <HighlightCardImage src={capaSociety} alt={t("direito.cases.society.title")} loading="lazy" />
             <HighlightCardSubtitle>{t("direito.cases.society.subtitle")}</HighlightCardSubtitle>
           </HighlightCard>
           <HighlightCard to="/direito/print" aria-label={t("direito.cases.print.ariaLabel")}>
             <HighlightCardTitle>{t("direito.cases.print.title")}</HighlightCardTitle>
-            <HighlightCardPlaceholder aria-label={t("direito.cases.imagePlaceholderAria")}>
-              <span>{t("direito.cases.imagePlaceholderText")}</span>
-            </HighlightCardPlaceholder>
+            <HighlightCardImage src={capaPrint} alt={t("direito.cases.print.title")} loading="lazy" />
             <HighlightCardSubtitle>{t("direito.cases.print.subtitle")}</HighlightCardSubtitle>
           </HighlightCard>
         </HighlightGrid>
@@ -1084,14 +1082,19 @@ const RedBar = styled.div`
 
 const ScopeSection = styled.section`
   min-height: 100vh;
-  padding: 2rem;
-  scroll-margin-top: 80px;
+  /* topo reservado para o header fixo, para o conteúdo caber em uma tela */
+  padding: calc(72px + 1rem) 2rem 1.5rem;
+  scroll-margin-top: 72px;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   background: #ffffff;
   border-top: 1px solid rgba(26,26,24,0.06);
 
   &:nth-of-type(even) { background: ${COLORS.lightCream}; }
+
+  @media (min-width: 901px) and (max-height: 700px) {
+    padding: calc(72px + 0.5rem) 2rem 1rem;
+  }
 
   @media (max-width: 900px) {
     min-height: auto;
@@ -1104,12 +1107,17 @@ const ScopesWrap = styled.div`
   margin: 0 auto;
   padding: 0;
   width: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 const ScopePanel = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  flex: 1;
+  gap: 1.1rem;
+
+  @media (min-width: 901px) and (max-height: 700px) { gap: 0.6rem; }
 `;
 
 const ScopeHeader = styled.div`
@@ -1151,7 +1159,7 @@ const ScopeName = styled.span`
   letter-spacing: -0.035em;
   text-transform: none;
   color: ${COLORS.ink};
-  line-height: 1.05;
+  line-height: 1;
   position: relative;
   padding-bottom: 0.5rem;
   display: inline-block;
@@ -1175,6 +1183,7 @@ const ScopeGrid = styled.div`
   grid-template-columns: 1.55fr 1fr;
   gap: 2.5rem;
   align-items: stretch;
+  flex: 1;
 
   @media (max-width: 1024px) { gap: 1.75rem; }
   @media (max-width: 900px) { grid-template-columns: 1fr; gap: 1.5rem; }
@@ -1183,9 +1192,11 @@ const ScopeGrid = styled.div`
 const ScopeMain = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 2.25rem;
+  gap: 1.35rem;
   min-width: 0;
   height: 100%;
+
+  @media (min-width: 901px) and (max-height: 700px) { gap: 0.75rem; }
 `;
 
 const ScopeIntro = styled.div`
@@ -1215,10 +1226,12 @@ const Accent = styled.div`
   width: 56px;
   height: 3px;
   background: ${COLORS.redTitle};
-  margin: 0.9rem 0 1.2rem;
+  margin: 0.7rem 0 0.85rem;
   transform-origin: left center;
   transform: scaleX(0);
   animation: ${accentGrow} 0.9s cubic-bezier(0.16,1,0.3,1) 0.3s forwards;
+
+  @media (min-width: 901px) and (max-height: 700px) { margin: 0.45rem 0 0.55rem; }
 `;
 
 const ScopeLede = styled.p`
@@ -1229,6 +1242,7 @@ const ScopeLede = styled.p`
   margin: 0;
   strong { color: ${COLORS.ink}; font-weight: 600; }
 
+  @media (min-width: 901px) and (max-height: 700px) { font-size: 14.5px; line-height: 1.5; }
   @media (max-width: 600px) { font-size: 14px; }
 `;
 
@@ -1238,8 +1252,10 @@ const PanelSide = styled.aside`
   background: rgba(161, 15, 35, 0.035);
   border: 1px solid rgba(26,26,24,0.08);
   border-left: 3px solid ${COLORS.redTitle};
-  padding: 1.5rem 1.75rem 1.4rem;
+  padding: 1.15rem 1.4rem 1.1rem;
   position: relative;
+
+  @media (min-width: 901px) and (max-height: 700px) { padding: 0.85rem 1.2rem 0.8rem; }
 `;
 
 const SideCorner = styled.div`
@@ -1260,7 +1276,7 @@ const SideEyebrow = styled.p`
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: ${COLORS.redTitle};
-  margin: 0 0 0.85rem;
+  margin: 0 0 0.6rem;
 `;
 
 const SideRows = styled.div`
@@ -1273,11 +1289,11 @@ const SideRows = styled.div`
 const SideRow = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0.25rem;
-  padding: 0.75rem 0;
+  gap: 0.2rem;
+  padding: 0.55rem 0;
   border-bottom: 1px solid rgba(26,26,24,0.08);
-  &:first-of-type { padding-top: 0.35rem; }
-  &:last-of-type { border-bottom: none; padding-bottom: 0.35rem; }
+  &:first-of-type { padding-top: 0.25rem; }
+  &:last-of-type { border-bottom: none; padding-bottom: 0.25rem; }
 `;
 
 const SideKey = styled.span`
@@ -1298,8 +1314,8 @@ const SideVal = styled.span`
 `;
 
 const SideQuote = styled.p`
-  margin: 1.1rem 0 0;
-  padding-top: 1rem;
+  margin: 0.85rem 0 0;
+  padding-top: 0.8rem;
   border-top: 1px solid rgba(26,26,24,0.08);
   font-family: ${FONT_BODY};
   font-size: 13.5px;
@@ -1324,7 +1340,7 @@ const PanelBody = styled.div`
   border-top: 1px solid rgba(26,26,24,0.12);
   border-bottom: 1px solid rgba(26,26,24,0.12);
   flex: 1;
-  align-content: center;
+  align-items: stretch;
 
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
@@ -1333,10 +1349,17 @@ const PanelBody = styled.div`
 `;
 
 const PanelCol = styled.div`
-  padding: 1.5rem 2rem 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  padding: 1.15rem 2rem 1.15rem 0;
   & + & {
-    padding: 1.5rem 0 1.5rem 2.25rem;
+    padding: 1.15rem 0 1.15rem 2.25rem;
     border-left: 1px solid rgba(26,26,24,0.12);
+  }
+
+  @media (min-width: 901px) and (max-height: 700px) {
+    padding: 0.75rem 1.35rem 0.75rem 0;
+    & + & { padding: 0.75rem 0 0.75rem 1.6rem; }
   }
 
   @media (max-width: 900px) {
@@ -1356,7 +1379,9 @@ const ColLabel = styled.p`
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: ${COLORS.redTitle};
-  margin: 0 0 0.85rem;
+  margin: 0 0 0.65rem;
+
+  @media (min-width: 901px) and (max-height: 700px) { margin: 0 0 0.45rem; }
 `;
 
 const ScopeDetail = styled.p`
@@ -1366,6 +1391,8 @@ const ScopeDetail = styled.p`
   color: #7a746e;
   margin: 0;
   strong { color: ${COLORS.ink}; font-weight: 600; }
+
+  @media (min-width: 901px) and (max-height: 700px) { font-size: 13.5px; line-height: 1.45; }
 `;
 
 const Bullets = styled.ul`
@@ -1374,13 +1401,15 @@ const Bullets = styled.ul`
   margin: 0;
   display: grid;
   grid-template-columns: 1fr;
+  align-content: space-between;
+  flex: 1;
   counter-reset: entrega;
 
   li {
     font-family: ${FONT_BODY};
-    font-size: 14.5px;
+    font-size: 14px;
     line-height: 1.4;
-    padding: 0.6rem 0 0.6rem 2rem;
+    padding: 0.45rem 0 0.45rem 2rem;
     position: relative;
     color: ${COLORS.ink};
     border-bottom: 1px solid rgba(26,26,24,0.07);
@@ -1397,6 +1426,10 @@ const Bullets = styled.ul`
       color: ${COLORS.redTitle};
       letter-spacing: 0.05em;
     }
+  }
+
+  @media (min-width: 901px) and (max-height: 700px) {
+    li { padding: 0.32rem 0 0.32rem 1.6rem; font-size: 13px; line-height: 1.35; }
   }
 `;
 
@@ -1522,34 +1555,13 @@ const HighlightCardTitle = styled.h3`
   @media (max-width: 900px) { font-size: 20px; padding: 1rem 1.25rem 0.85rem; }
 `;
 
-const HighlightCardPlaceholder = styled.div`
+const HighlightCardImage = styled.img`
   width: 100%;
   aspect-ratio: 16 / 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: repeating-linear-gradient(
-    45deg,
-    ${COLORS.lightCream},
-    ${COLORS.lightCream} 12px,
-    rgba(161,15,35,0.05) 12px,
-    rgba(161,15,35,0.05) 24px
-  );
+  object-fit: cover;
+  display: block;
   border-top: 1px solid rgba(26,26,24,0.06);
   border-bottom: 1px solid rgba(26,26,24,0.06);
-
-  span {
-    font-family: ${FONT_MONO};
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: ${COLORS.redTitle};
-    padding: 0.5rem 0.85rem;
-    background: rgba(255,255,255,0.85);
-    border: 1px solid rgba(161,15,35,0.25);
-    border-radius: 2px;
-  }
 `;
 
 const HighlightCardSubtitle = styled.p`

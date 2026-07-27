@@ -1,6 +1,6 @@
 import React from "react";
-import styled, { keyframes, css } from "styled-components";
 import { useTranslation } from "react-i18next";
+import styled, { keyframes, css } from "styled-components";
 import { useInView } from "../../../hooks/useInView";
 
 import { RED, DARK, BG_CREAM as BG, FONT_TITLE, FONT_BODY, SPRING } from "../../../styles/tokens";
@@ -87,9 +87,7 @@ export default function BusinessCTA() {
           {t("business.cta.titleLine1")}<br />
           {t("business.cta.titleLine2")}
         </Title>
-        <Sub>
-          {t("business.cta.subtitle")}
-        </Sub>
+        <Sub>{t("business.cta.sub")}</Sub>
         <BtnPrimary href="/contact">{t("business.cta.button")}</BtnPrimary>
       </Inner>
     </Section>

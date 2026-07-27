@@ -1,7 +1,7 @@
 import React from "react";
-import styled, { keyframes } from "styled-components";
 import { useTranslation } from "react-i18next";
-import type { TFunction } from "i18next";
+import styled, { keyframes } from "styled-components";
+import Rich from "../../../i18n/rich";
 
 import capaWine     from "../../../assets/business/wine/01-contexto.jpg";
 import capaCommunity   from "../../../assets/business/community/03-posicionamento.jpg";
@@ -16,63 +16,21 @@ const redbarGrow = keyframes`to { transform: scaleX(1); }`;
 
 /* ── Types & Data ── */
 
+/* O texto dos escopos vive no pt.ts / en.ts, sob business.scopes.<key>.
+   Aqui ficam só a ordem, o slug da rota, o codinome do case e a capa. */
 type Scope = {
   num: string;
-  tab: string;
+  key: string;
   caseSlug: string;
-  caseTitle: string;
-  caseLede: string;
-  detail: string;
-  bullets: string[];
+  code: string;
   capa: string;
-  capaAlt: string;
 };
 
-const getScopes = (t: TFunction): Scope[] => [
-  {
-    num: "01",
-    tab: t("business.cases.items.wine.tab"),
-    caseSlug: "wine",
-    caseTitle: t("business.cases.items.wine.caseTitle"),
-    caseLede: t("business.cases.items.wine.caseLede"),
-    detail: t("business.cases.items.wine.detail"),
-    bullets: t("business.cases.items.wine.bullets", { returnObjects: true }) as string[],
-    capa: capaWine,
-    capaAlt: t("business.cases.items.wine.capaAlt"),
-  },
-  {
-    num: "02",
-    tab: t("business.cases.items.community.tab"),
-    caseSlug: "community",
-    caseTitle: t("business.cases.items.community.caseTitle"),
-    caseLede: t("business.cases.items.community.caseLede"),
-    detail: t("business.cases.items.community.detail"),
-    bullets: t("business.cases.items.community.bullets", { returnObjects: true }) as string[],
-    capa: capaCommunity,
-    capaAlt: t("business.cases.items.community.capaAlt"),
-  },
-  {
-    num: "03",
-    tab: t("business.cases.items.caramelo.tab"),
-    caseSlug: "caramelo",
-    caseTitle: t("business.cases.items.caramelo.caseTitle"),
-    caseLede: t("business.cases.items.caramelo.caseLede"),
-    detail: t("business.cases.items.caramelo.detail"),
-    bullets: t("business.cases.items.caramelo.bullets", { returnObjects: true }) as string[],
-    capa: capaCaramelo,
-    capaAlt: t("business.cases.items.caramelo.capaAlt"),
-  },
-  {
-    num: "04",
-    tab: t("business.cases.items.quimica.tab"),
-    caseSlug: "quimica",
-    caseTitle: t("business.cases.items.quimica.caseTitle"),
-    caseLede: t("business.cases.items.quimica.caseLede"),
-    detail: t("business.cases.items.quimica.detail"),
-    bullets: t("business.cases.items.quimica.bullets", { returnObjects: true }) as string[],
-    capa: capaQuimica,
-    capaAlt: t("business.cases.items.quimica.capaAlt"),
-  },
+const SCOPES: Scope[] = [
+  { num: "01", key: "market",      caseSlug: "wine",      code: "Wine",      capa: capaWine },
+  { num: "02", key: "marketing",   caseSlug: "community", code: "Community", capa: capaCommunity },
+  { num: "03", key: "financial",   caseSlug: "caramelo",  code: "Caramelo",  capa: capaCaramelo },
+  { num: "04", key: "operational", caseSlug: "quimica",   code: "Química",   capa: capaQuimica },
 ];
 
 /* ── Styled Components ── */
@@ -293,10 +251,16 @@ const Bullets = styled.ul`
 
 export default function BusinessCases() {
   const { t } = useTranslation();
-  const SCOPES = getScopes(t);
+
   return (
     <>
-      {SCOPES.map(s => (
+      {SCOPES.map(s => {
+        const base = `business.scopes.${s.key}`;
+        const tab = t(`${base}.tab`);
+        const title = <>{t("business.scopes.titlePrefix")} <i>{s.code}</i></>;
+        const bullets = t(`${base}.bullets`, { returnObjects: true }) as unknown as string[];
+
+        return (
         <React.Fragment key={s.num}>
           <RedBarWrap><RedBar /></RedBarWrap>
 
@@ -305,27 +269,27 @@ export default function BusinessCases() {
               <ScopePanel>
                 <ScopeHeader>
                   <ScopeCounter>
-                    <ScopeName>{s.tab}</ScopeName>
+                    <ScopeName>{tab}</ScopeName>
                   </ScopeCounter>
                 </ScopeHeader>
 
                 <ScopeGrid>
                   <ScopeMain>
                     <ScopeIntro>
-                      <ScopeTitleH3 dangerouslySetInnerHTML={{ __html: s.caseTitle }} />
+                      <ScopeTitleH3>{title}</ScopeTitleH3>
                       <ScopeAccent />
-                      <ScopeLede>{s.caseLede}</ScopeLede>
+                      <ScopeLede>{t(`${base}.lede`)}</ScopeLede>
                     </ScopeIntro>
 
                     <PanelBody>
                       <PanelCol>
-                        <ColLabel>{t("business.cases.labels.howWeWork")}</ColLabel>
-                        <ScopeDetail dangerouslySetInnerHTML={{ __html: s.detail }} />
+                        <ColLabel>{t("business.scopes.howLabel")}</ColLabel>
+                        <ScopeDetail><Rich k={`${base}.detail`} /></ScopeDetail>
                       </PanelCol>
                       <PanelCol>
-                        <ColLabel>{t("business.cases.labels.whatWeDeliver")}</ColLabel>
+                        <ColLabel>{t("business.scopes.deliverLabel")}</ColLabel>
                         <Bullets>
-                          {s.bullets.map((b, i) => <li key={i}>{b}</li>)}
+                          {bullets.map((b, i) => <li key={i}>{b}</li>)}
                         </Bullets>
                       </PanelCol>
                     </PanelBody>
@@ -334,19 +298,20 @@ export default function BusinessCases() {
                   <CaseShowcaseCard
                     to={`/business/${s.caseSlug}`}
                     coverSrc={s.capa}
-                    coverAlt={s.capaAlt}
-                    badge={t("business.cases.labels.badge")}
-                    tag={`${t("business.cases.labels.scopePrefix")} · ${s.tab}`}
-                    title={<span dangerouslySetInnerHTML={{ __html: s.caseTitle }} />}
-                    desc={s.caseLede}
-                    ctaLabel={t("business.cases.labels.viewFullCase")}
+                    coverAlt={t(`${base}.capaAlt`)}
+                    badge={t("business.scopes.badge")}
+                    tag={`${t("business.scopes.scopeLabel")} · ${tab}`}
+                    title={title}
+                    desc={t(`${base}.lede`)}
+                    ctaLabel={t("business.scopes.seeCase")}
                   />
                 </ScopeGrid>
               </ScopePanel>
             </ScopesWrap>
           </ScopeSection>
         </React.Fragment>
-      ))}
+        );
+      })}
     </>
   );
 }

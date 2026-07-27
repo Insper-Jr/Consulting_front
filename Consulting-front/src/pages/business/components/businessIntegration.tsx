@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
-import styled, { keyframes } from "styled-components";
 import { useTranslation } from "react-i18next";
+import styled, { keyframes } from "styled-components";
 import { RED, BG_DARK, BG_CREAM, FONT_TITLE, FONT_BODY } from "../../../styles/tokens";
 
 const COLORS = {
@@ -302,9 +302,7 @@ export default function BusinessIntegration() {
           <IntegrationTitle>
             {t("business.integration.titleMain")} <span>{t("business.integration.titleAccent")}</span>
           </IntegrationTitle>
-          <IntegrationLede>
-            {t("business.integration.lede")}
-          </IntegrationLede>
+          <IntegrationLede>{t("business.integration.lede")}</IntegrationLede>
         </IntegrationInner>
       </Integration>
     </>

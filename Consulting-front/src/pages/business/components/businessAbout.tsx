@@ -1,6 +1,6 @@
 import React from "react";
-import styled, { keyframes } from "styled-components";
 import { useTranslation } from "react-i18next";
+import styled, { keyframes } from "styled-components";
 
 import { RED_TITLE, RED, DARK, FONT_TITLE, FONT_BODY } from "../../../styles/tokens";
 
@@ -189,8 +189,11 @@ const StatLabel = styled.div`
   @media (max-width: 600px) { font-size: 13px; }
 `;
 
+const PILLARS = ["multi", "result", "tailored"] as const;
+
 export default function BusinessAbout() {
   const { t } = useTranslation();
+
   return (
     <>
       <RedBarWrap><RedBar /></RedBarWrap>
@@ -201,38 +204,24 @@ export default function BusinessAbout() {
           <OpeningDivider />
         </SectionHeader>
 
-        <FrenteLede>
-          {t("business.about.lede")}
-        </FrenteLede>
+        <FrenteLede>{t("business.about.lede")}</FrenteLede>
 
         <PillarsGrid>
-          <Pillar>
-            <PillarNum>{t("business.about.pillars.p1.num")}</PillarNum>
-            <PillarTitle>{t("business.about.pillars.p1.title")}</PillarTitle>
-            <PillarText>
-              {t("business.about.pillars.p1.text")}
-            </PillarText>
-          </Pillar>
-          <Pillar>
-            <PillarNum>{t("business.about.pillars.p2.num")}</PillarNum>
-            <PillarTitle>{t("business.about.pillars.p2.title")}</PillarTitle>
-            <PillarText>
-              {t("business.about.pillars.p2.text")}
-            </PillarText>
-          </Pillar>
-          <Pillar>
-            <PillarNum>{t("business.about.pillars.p3.num")}</PillarNum>
-            <PillarTitle>{t("business.about.pillars.p3.title")}</PillarTitle>
-            <PillarText>
-              {t("business.about.pillars.p3.text")}
-            </PillarText>
-          </Pillar>
+          {PILLARS.map((p, i) => (
+            <Pillar key={p}>
+              <PillarNum>
+                {String(i + 1).padStart(2, "0")} · {t(`business.about.pillars.${p}.label`)}
+              </PillarNum>
+              <PillarTitle>{t(`business.about.pillars.${p}.title`)}</PillarTitle>
+              <PillarText>{t(`business.about.pillars.${p}.text`)}</PillarText>
+            </Pillar>
+          ))}
         </PillarsGrid>
 
         <StatsBar>
           <Stat><StatValue>25+</StatValue><StatLabel>{t("business.about.stats.years")}</StatLabel></Stat>
           <Stat><StatValue>500+</StatValue><StatLabel>{t("business.about.stats.projects")}</StatLabel></Stat>
-          <Stat><StatValue>3</StatValue><StatLabel>{t("business.about.stats.fronts")}</StatLabel></Stat>
+          <Stat><StatValue>3</StatValue><StatLabel>{t("business.about.stats.areas")}</StatLabel></Stat>
         </StatsBar>
       </Intro>
     </>

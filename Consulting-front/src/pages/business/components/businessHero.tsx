@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
-import styled, { keyframes } from "styled-components";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import styled, { keyframes } from "styled-components";
 import { useParticles } from "../../../hooks/useParticleBackground";
 import BusinessImg from "../../../assets/hero/business2.png";
 
@@ -225,9 +225,7 @@ export default function BusinessHero() {
 
             <Divider $v={v} />
 
-            <Sub $v={v}>
-              {t("business.hero.subtitle")}
-            </Sub>
+            <Sub $v={v}>{t("business.hero.sub")}</Sub>
 
             <Actions $v={v}>
               <BtnPrimary href="/contact">{t("business.hero.ctaPrimary")} <ArrowR /></BtnPrimary>

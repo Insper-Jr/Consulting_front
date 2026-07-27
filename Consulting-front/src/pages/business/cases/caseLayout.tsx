@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import { CaretLeft } from "phosphor-react";
 import Footer from "../../../components/footerNovo";
@@ -20,6 +21,7 @@ type CaseLayoutProps = {
 };
 
 export default function CaseLayout({ children }: CaseLayoutProps) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   // Scroll para o topo ao montar a página
@@ -44,9 +46,9 @@ export default function CaseLayout({ children }: CaseLayoutProps) {
       <WppButton />
 
       <BackButtonWrap>
-        <BackButton type="button" onClick={handleBack} aria-label="Voltar para a página de Business">
+        <BackButton type="button" onClick={handleBack} aria-label={t("business.caseUi.backAria")}>
           <CaretLeft size={16} weight="bold" />
-          <span>Voltar</span>
+          <span>{t("business.caseUi.back")}</span>
         </BackButton>
       </BackButtonWrap>
 

@@ -1,6 +1,6 @@
 import React from "react";
-import styled from "styled-components";
 import { useTranslation } from "react-i18next";
+import styled from "styled-components";
 
 import { RED as RED_CTA, DARK as INK, FONT_TITLE, FONT_BODY } from "../../../styles/tokens";
 
@@ -140,8 +140,11 @@ const TransLabel = styled.span`
   white-space: nowrap;
 `;
 
+const PRINCIPLES = ["diagnosis", "approach", "delivery"] as const;
+
 export default function BusinessOpening() {
   const { t } = useTranslation();
+
   return (
     <Opening id="cases">
       <OpenHeader>
@@ -154,39 +157,23 @@ export default function BusinessOpening() {
           </OpenHeadline>
         </OpenLeft>
         <OpenRight>
-          <OpenBody>
-            {t("business.opening.body")}
-          </OpenBody>
+          <OpenBody>{t("business.opening.body")}</OpenBody>
         </OpenRight>
       </OpenHeader>
 
       <PrinciplesStrip>
-        <Principle>
-          <PrincipleNum>01</PrincipleNum>
-          <PrincipleTitle>{t("business.opening.principles.p1.title")}</PrincipleTitle>
-          <PrincipleText>
-            {t("business.opening.principles.p1.text")}
-          </PrincipleText>
-        </Principle>
-        <Principle>
-          <PrincipleNum>02</PrincipleNum>
-          <PrincipleTitle>{t("business.opening.principles.p2.title")}</PrincipleTitle>
-          <PrincipleText>
-            {t("business.opening.principles.p2.text")}
-          </PrincipleText>
-        </Principle>
-        <Principle>
-          <PrincipleNum>03</PrincipleNum>
-          <PrincipleTitle>{t("business.opening.principles.p3.title")}</PrincipleTitle>
-          <PrincipleText>
-            {t("business.opening.principles.p3.text")}
-          </PrincipleText>
-        </Principle>
+        {PRINCIPLES.map((p, i) => (
+          <Principle key={p}>
+            <PrincipleNum>{String(i + 1).padStart(2, "0")}</PrincipleNum>
+            <PrincipleTitle>{t(`business.opening.principles.${p}.title`)}</PrincipleTitle>
+            <PrincipleText>{t(`business.opening.principles.${p}.text`)}</PrincipleText>
+          </Principle>
+        ))}
       </PrinciplesStrip>
 
       <OpenTransition>
         <TransLine />
-        <TransLabel>{t("business.opening.transitionLabel")}</TransLabel>
+        <TransLabel>{t("business.opening.transition")}</TransLabel>
         <TransLine />
       </OpenTransition>
     </Opening>

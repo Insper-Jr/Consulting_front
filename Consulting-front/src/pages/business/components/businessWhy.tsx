@@ -1,16 +1,8 @@
 import React from "react";
-import styled, { keyframes, css } from "styled-components";
 import { useTranslation } from "react-i18next";
-import type { TFunction } from "i18next";
+import styled, { keyframes, css } from "styled-components";
 import { useInView } from "../../../hooks/useInView";
-
-const RED        = "#C02121";
-const DARK       = "#1a1a18";
-const MUTED      = "#7a746e";
-const CREAM      = "#FAF2EA";
-const FONT_TITLE = `'Montserrat', Helvetica, sans-serif`;
-const FONT_BODY  = `'Inter', Helvetica, sans-serif`;
-const SPRING     = "cubic-bezier(0.16,1,0.3,1)";
+import { RED, DARK, MUTED, BG_CREAM as CREAM, FONT_TITLE, FONT_BODY, SPRING } from "../../../styles/tokens";
 
 const fadeUp = keyframes`
   from { opacity: 0; transform: translateY(16px); }
@@ -18,11 +10,10 @@ const fadeUp = keyframes`
 `;
 const lineGrow = keyframes`from { transform: scaleX(0); } to { transform: scaleX(1); }`;
 
-const getItems = (t: TFunction) => [
+/* Título e texto de cada card vivem no pt.ts / en.ts, sob business.why.items */
+const ITEMS = [
   {
-    key: "marketVision",
-    title: t("business.why.items.marketVision.title"),
-    body: t("business.why.items.marketVision.body"),
+    key: "market",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="11" cy="11" r="8"/>
@@ -33,9 +24,7 @@ const getItems = (t: TFunction) => [
     ),
   },
   {
-    key: "academicSupervision",
-    title: t("business.why.items.academicSupervision.title"),
-    body: t("business.why.items.academicSupervision.body"),
+    key: "faculty",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
@@ -44,9 +33,7 @@ const getItems = (t: TFunction) => [
     ),
   },
   {
-    key: "actionableDeliverables",
-    title: t("business.why.items.actionableDeliverables.title"),
-    body: t("business.why.items.actionableDeliverables.body"),
+    key: "deliverables",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
@@ -56,9 +43,7 @@ const getItems = (t: TFunction) => [
     ),
   },
   {
-    key: "costBenefit",
-    title: t("business.why.items.costBenefit.title"),
-    body: t("business.why.items.costBenefit.body"),
+    key: "value",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <line x1="12" y1="1" x2="12" y2="23"/>
@@ -202,7 +187,6 @@ const CardText = styled.p`
 
 export default function BusinessWhy() {
   const { t } = useTranslation();
-  const ITEMS = getItems(t);
   const { ref: hRef, visible: hV } = useInView();
   const { ref: gRef, visible: gV } = useInView();
 
@@ -211,11 +195,9 @@ export default function BusinessWhy() {
       <Inner>
         <Header ref={hRef} $v={hV}>
           <Eyebrow>{t("business.why.eyebrow")}</Eyebrow>
-          <H2>{t("business.why.titleMain")} <i>{t("business.why.titleItalic")}</i></H2>
+          <H2>{t("business.why.titleMain")} <i>{t("business.why.titleAccent")}</i></H2>
           <Divider $v={hV} />
-          <Lead>
-            {t("business.why.lead")}
-          </Lead>
+          <Lead>{t("business.why.lead")}</Lead>
         </Header>
 
         <Grid ref={gRef}>
@@ -224,8 +206,8 @@ export default function BusinessWhy() {
               <CardAccent />
               <IconWrap>{it.icon}</IconWrap>
               <CardBody>
-                <CardTitle>{it.title}</CardTitle>
-                <CardText>{it.body}</CardText>
+                <CardTitle>{t(`business.why.items.${it.key}.title`)}</CardTitle>
+                <CardText>{t(`business.why.items.${it.key}.body`)}</CardText>
               </CardBody>
             </Card>
           ))}
