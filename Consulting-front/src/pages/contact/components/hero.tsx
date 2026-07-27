@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 import Header from "../../../components/header";
 import DiagnosticForm from "../../../components/forms";
+import { SPACING } from "../../../styles/tokens";
 
 import teamBg from "../../../assets/gestoes/50a.png";
 import brasilJunior from "../../../assets/awards/brasil_junior.png";
@@ -135,8 +136,8 @@ const Content = styled.div`
   grid-template-columns: 1fr 460px;
   align-items: stretch;
   gap: 80px;
-  padding: 104px 96px 40px;
-  max-width: 1200px;
+  padding: 104px ${SPACING.innerPaddingX} 40px;
+  max-width: ${SPACING.innerMaxWidth};
   margin: 0 auto;
 
   @media (max-width: 1100px) {
