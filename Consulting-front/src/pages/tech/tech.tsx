@@ -14,19 +14,19 @@ import medHighlight from "../../assets/medicina/slides/04-contexto.jpg";
 import walleHighlight from "../../assets/walle/slide-01.png";
 
 // ── Color tokens (from HTML reference) ──────────────────────────────────────
+import { RED_TITLE, RED, RED_DARK, BG_DARK, DARK, BG_CREAM, FONT_TITLE, FONT_BODY } from "../../styles/tokens";
+
 const COLORS = {
-  redTitle: "#C02121",
-  redCTA:   "#C02121",
-  redDark:  "#691212",
-  black:    "#0e0404",
-  ink:      "#1a1a18",
+  redTitle: RED_TITLE,
+  redCTA:   RED,
+  redDark:  RED_DARK,
+  black:    BG_DARK,
+  ink:      DARK,
   bg:       "#ffffff",
-  cream:    "#FAF2EA",
-  lightCream: "#FAF2EA",
+  cream:    BG_CREAM,
+  lightCream: BG_CREAM,
 };
 
-const FONT_TITLE = `"Montserrat", Helvetica, sans-serif`;
-const FONT_BODY  = `"Inter", Helvetica, sans-serif`;
 const FONT_MONO  = `ui-monospace, "SF Mono", Menlo, monospace`;
 
 // ── Global Style: import fonts ─────────────────────────────────────────────

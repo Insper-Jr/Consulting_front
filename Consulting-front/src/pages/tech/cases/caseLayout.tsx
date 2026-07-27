@@ -7,15 +7,14 @@ import Footer from "../../../components/footerNovo";
 import WppButton from "../../../components/wppButton";
 
 // ── Color tokens ──────────────────────────────────────────────────────────
+import { RED_TITLE, RED, DARK, FONT_TITLE, FONT_BODY } from "../../../styles/tokens";
+
 const COLORS = {
-  redTitle: "#C02121",
-  redCTA: "#C02121",
-  ink: "#1a1a18",
+  redTitle: RED_TITLE,
+  redCTA: RED,
+  ink: DARK,
   bg: "#ffffff",
 };
-
-const FONT_TITLE = `"Montserrat", Helvetica, sans-serif`;
-const FONT_BODY = `"Inter", Helvetica, sans-serif`;
 
 type CaseLayoutProps = {
   children: React.ReactNode;

@@ -21,15 +21,15 @@ import painel11Ranking      from "../../../assets/gamificacao/slides/painel/11-o
 import painel12Top20        from "../../../assets/gamificacao/slides/painel/12-operario-top20.png";
 
 // ── Tokens (mirrors parent page) ──────────────────────────────────────────
+import { RED_TITLE, RED, RED_DARK, DARK, FONT_TITLE, FONT_BODY } from "../../../styles/tokens";
+
 const C = {
-  redTitle: "#C02121",
-  redCTA: "#C02121",
-  redDark: "#691212",
-  ink: "#1a1a18",
+  redTitle: RED_TITLE,
+  redCTA: RED,
+  redDark: RED_DARK,
+  ink: DARK,
 };
 
-const FONT_TITLE = `"Montserrat", Helvetica, sans-serif`;
-const FONT_BODY  = `"Inter", Helvetica, sans-serif`;
 const FONT_MONO  = `ui-monospace, "SF Mono", Menlo, monospace`;
 
 // ── Slide deck data ─────────────────────────────────────────────────────────

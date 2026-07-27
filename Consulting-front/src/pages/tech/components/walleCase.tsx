@@ -14,11 +14,13 @@ import slide08 from "../../../assets/walle/slide-08.png";
 import slide09 from "../../../assets/walle/slide-09.png";
 
 // ── Tokens (mirrors parent page) ──────────────────────────────────────────
+import { RED_TITLE, RED, RED_DARK, DARK } from "../../../styles/tokens";
+
 const C = {
-  redTitle: "#C02121",
-  redCTA: "#C02121",
-  redDark: "#691212",
-  ink: "#1a1a18",
+  redTitle: RED_TITLE,
+  redCTA: RED,
+  redDark: RED_DARK,
+  ink: DARK,
 };
 
 const FONT_TITLE = `"Montserrat", Helvetica, sans-serif`;
