@@ -195,24 +195,24 @@ const SCOPES: Scope[] = [
     num: "01",
     tab: "Elaboração e/ou Revisão Contratual",
     title: <>Contratos <i>sob medida</i>.</>,
-    lede: <>Escopo voltado à <strong>elaboração do zero</strong> ou à <strong>revisão estratégica de contratos já existentes</strong>. Na revisão, partimos de um instrumento que o cliente já utiliza e propomos <strong>mudanças e adequações</strong> que enderecem a dor do cliente sem perder de vista a lei aplicável — entregando, ao fim, um material juridicamente consistente e alinhado às necessidades do negócio.</>,
+    lede: <>Escopo voltado à <strong>elaboração de contratos do zero</strong>: partimos da operação real do cliente para desenhar o instrumento inteiro — objeto, obrigações, prazos, garantias e hipóteses de término — com cláusulas sob medida para a dor do negócio e ancoradas na lei aplicável. Também fazemos <strong>revisão estratégica</strong> de contratos já existentes.</>,
     side: {
       eyebrow: "Ficha do escopo",
       rows: [
-        { key: "Entregáveis", val: <><strong>Contrato finalizado</strong> + memorando explicativo (em revisões) + apresentação executiva</> },
-        { key: "Aplicações", val: <>Contratos personalizados conforme a necessidade do cliente, envolvendo diferentes áreas do Direito</> },
-        { key: "Abordagem", val: <>Elaboração do zero <strong>ou</strong> revisão de material existente do cliente — sempre mirando a dor do negócio + a lei aplicável</> },
+        { key: "Entregáveis", val: <><strong>Contrato finalizado</strong> + apresentação executiva (+ memorando explicativo, em revisões)</> },
+        { key: "Aplicações", val: <>Contratos redigidos sob medida, em diferentes áreas do Direito</> },
+        { key: "Abordagem", val: <><strong>Elaboração do zero</strong> a partir da operação do cliente; também revisão de material existente</> },
         { key: "Sinergia", val: <>Apoio direto a Business e Engenharia em demandas contratuais</> },
         { key: "Supervisão", val: <>Banca técnica com professores e escritórios parceiros</> },
       ],
-      quote: "Cada contrato é desenhado para o cliente — não modelo de prateleira.",
+      quote: "Cada contrato é escrito do zero para o cliente — não modelo de prateleira.",
     },
-    detail: <>Trabalhamos com <strong>elaboração de contratos do zero</strong> e <strong>revisão estratégica</strong> de instrumentos existentes. Em casos de revisão, entregamos um <strong>memorando explicativo</strong> que justifica cada alteração realizada e uma <strong>apresentação executiva</strong> que sintetiza os pontos críticos da revisão para a tomada de decisão. A atuação combina análise técnica das necessidades do cliente, parâmetros legais aplicáveis e revisão por bancas com professores e escritórios parceiros.</>,
+    detail: <>Na <strong>elaboração do zero</strong>, mapeamos a operação, os riscos e os objetivos do cliente para então definir a arquitetura do contrato — partes, objeto, obrigações, prazos, garantias e penalidades. Cada cláusula é redigida sob medida, e o <strong>contrato finalizado</strong> vem com uma <strong>apresentação executiva</strong> dos pontos de atenção. Em revisões, somamos um <strong>memorando explicativo</strong> de cada alteração. Tudo com supervisão de bancas com professores e escritórios parceiros.</>,
     bullets: [
-      "Contratos personalizados conforme a necessidade do cliente",
+      "Contratos redigidos do zero, sob medida para a operação",
+      "Desenho completo — objeto, obrigações, garantias e rescisão",
       "Cobertura ampla — diferentes áreas e ramos do Direito",
-      "Elaboração do zero ou revisão estratégica de instrumentos",
-      "Memorando + apresentação executiva (em revisões)",
+      "Revisão estratégica de contratos já existentes",
     ],
     tags: ["Direito Civil", "Direito Empresarial", "Contratos"],
   },
@@ -232,7 +232,7 @@ const SCOPES: Scope[] = [
       ],
       quote: "Recomendações fundamentadas — a decisão final é do cliente.",
     },
-    detail: <>Dois cenários: análise da <strong>estrutura societária atual</strong> do cliente ou avaliação de <strong>uma ideia ainda no papel</strong> — neste segundo, na maioria das vezes a análise vem <strong>embarcada em outro escopo</strong> (uma viabilidade societária dentro de uma análise mercadológica, por exemplo). Em ambos, identificamos riscos e apresentamos <strong>alternativas viáveis</strong>, sem induzir a decisão do cliente.</>,
+    detail: <>Dois cenários: análise da <strong>estrutura societária atual</strong> do cliente ou avaliação de <strong>uma ideia ainda no papel</strong>. O escopo é entregue de forma independente e, quando faz sentido, pode vir <strong>acompanhado de outro escopo</strong> (uma viabilidade societária ao lado de uma análise mercadológica, por exemplo). Em ambos os cenários, identificamos riscos e apresentamos <strong>alternativas viáveis</strong>, sem induzir a decisão do cliente.</>,
     bullets: [
       "Análise da estrutura societária atual",
       "Identificação de riscos e gargalos jurídicos",
@@ -284,7 +284,7 @@ const SCOPES: Scope[] = [
     },
     detail: <>O escopo combina <strong>simulações em planilha</strong>, <strong>memorando jurídico</strong> e, quando pertinente, <strong>apresentação executiva</strong>. Analisamos a situação tributária atual, comparamos cenários alternativos dentro da legislação vigente e apoiamos o cliente em decisões que envolvam adequação fiscal, escolha de regime ou reestruturação — sempre considerando os <strong>impactos da reforma tributária em curso</strong>.</>,
     bullets: [
-      "Comparativo entre regimes tributários (Simples, Presumido, Real)",
+      "Comparativo entre regimes tributários (Simples Nacional, Lucro Presumido, Lucro Real)",
       "Simulações de impacto financeiro",
       "Memorando jurídico fundamentado",
       "Apresentação executiva para decisão",
@@ -612,24 +612,24 @@ function Direito() {
 
         <PillarsGrid>
           <Pillar>
-            <PillarNum>01 — Estruturada</PillarNum>
+            <PillarNum>01 — Integrada</PillarNum>
+            <PillarTitle>Conversa com Business e Engenharia</PillarTitle>
+            <PillarText>
+              A venda dos serviços jurídicos é <strong>integrada ao núcleo comercial</strong> da Insper Jr., permitindo combinar Direito com projetos de outras frentes em um mesmo ecossistema de soluções.
+            </PillarText>
+          </Pillar>
+          <Pillar>
+            <PillarNum>02 — Estruturada</PillarNum>
             <PillarTitle>Escopos delimitados</PillarTitle>
             <PillarText>
               Quatro escopos consultivos e contratuais — <strong>Contratos, Societário, Propriedade Industrial e Tributário</strong> — desenhados para respeitar os limites regulatórios da OAB e maximizar o valor entregue.
             </PillarText>
           </Pillar>
           <Pillar>
-            <PillarNum>02 — Supervisionada</PillarNum>
+            <PillarNum>03 — Supervisionada</PillarNum>
             <PillarTitle>Professores e escritórios parceiros</PillarTitle>
             <PillarText>
               Atuação validada por <strong>bancas técnicas</strong> com professores especialistas em cada um dos escopos jurídicos.
-            </PillarText>
-          </Pillar>
-          <Pillar>
-            <PillarNum>03 — Integrada</PillarNum>
-            <PillarTitle>Conversa com Business e Engenharia</PillarTitle>
-            <PillarText>
-              A venda dos serviços jurídicos é <strong>integrada ao núcleo comercial</strong> da Insper Jr., permitindo combinar Direito com projetos de outras frentes em um mesmo ecossistema de soluções.
             </PillarText>
           </Pillar>
         </PillarsGrid>
@@ -1212,14 +1212,19 @@ const RedBar = styled.div`
 
 const ScopeSection = styled.section`
   min-height: 100vh;
-  padding: 2rem;
-  scroll-margin-top: 80px;
+  /* topo reservado para o header fixo, para o conteúdo caber em uma tela */
+  padding: calc(72px + 1rem) 2rem 1.5rem;
+  scroll-margin-top: 72px;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   background: #ffffff;
   border-top: 1px solid rgba(26,26,24,0.06);
 
   &:nth-of-type(even) { background: ${COLORS.lightCream}; }
+
+  @media (min-width: 901px) and (max-height: 700px) {
+    padding: calc(72px + 0.5rem) 2rem 1rem;
+  }
 
   @media (max-width: 900px) {
     min-height: auto;
@@ -1232,12 +1237,17 @@ const ScopesWrap = styled.div`
   margin: 0 auto;
   padding: 0;
   width: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 const ScopePanel = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  flex: 1;
+  gap: 1.1rem;
+
+  @media (min-width: 901px) and (max-height: 700px) { gap: 0.6rem; }
 `;
 
 const ScopeHeader = styled.div`
@@ -1282,7 +1292,7 @@ const ScopeName = styled.span`
   letter-spacing: -0.035em;
   text-transform: none;
   color: ${COLORS.ink};
-  line-height: 1.05;
+  line-height: 1;
   position: relative;
   padding-bottom: 0.5rem;
   display: inline-block;
@@ -1298,8 +1308,9 @@ const ScopeName = styled.span`
     background: ${COLORS.redTitle};
   }
 
-  @media (max-width: 1100px) { font-size: 32px; }
-  @media (max-width: 700px) { font-size: 26px; }
+  @media (max-width: 1100px) { font-size: 36px; }
+  @media (max-width: 700px) { font-size: 30px; }
+  @media (min-width: 901px) and (max-height: 700px) { font-size: 30px; padding-bottom: 0.35rem; }
 `;
 
 const ScopeGrid = styled.div`
@@ -1307,6 +1318,7 @@ const ScopeGrid = styled.div`
   grid-template-columns: 1.55fr 1fr;
   gap: 2.5rem;
   align-items: stretch;
+  flex: 1;
 
   @media (max-width: 1024px) { gap: 1.75rem; }
   @media (max-width: 900px) { grid-template-columns: 1fr; gap: 1.5rem; }
@@ -1315,9 +1327,11 @@ const ScopeGrid = styled.div`
 const ScopeMain = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 2.25rem;
+  gap: 1.35rem;
   min-width: 0;
   height: 100%;
+
+  @media (min-width: 901px) and (max-height: 700px) { gap: 0.75rem; }
 `;
 
 const ScopeIntro = styled.div`
@@ -1328,7 +1342,7 @@ const ScopeIntro = styled.div`
 const ScopeTitleH3 = styled.h3`
   color: ${COLORS.ink};
   font-family: ${FONT_TITLE};
-  font-size: 40px;
+  font-size: 34px;
   font-weight: 700;
   margin: 0;
   letter-spacing: -0.02em;
@@ -1340,6 +1354,7 @@ const ScopeTitleH3 = styled.h3`
     color: ${COLORS.redTitle};
   }
 
+  @media (min-width: 901px) and (max-height: 700px) { font-size: 25px; }
   @media (max-width: 900px) { font-size: 28px; }
 `;
 
@@ -1347,20 +1362,23 @@ const Accent = styled.div`
   width: 56px;
   height: 3px;
   background: ${COLORS.redTitle};
-  margin: 0.9rem 0 1.2rem;
+  margin: 0.7rem 0 0.85rem;
   transform-origin: left center;
   transform: scaleX(0);
   animation: ${accentGrow} 0.9s cubic-bezier(0.16,1,0.3,1) 0.3s forwards;
+
+  @media (min-width: 901px) and (max-height: 700px) { margin: 0.45rem 0 0.55rem; }
 `;
 
 const ScopeLede = styled.p`
   font-family: ${FONT_BODY};
-  font-size: 16.5px;
-  line-height: 1.6;
+  font-size: 15.5px;
+  line-height: 1.55;
   color: #5a5550;
   margin: 0;
   strong { color: ${COLORS.ink}; font-weight: 600; }
 
+  @media (min-width: 901px) and (max-height: 700px) { font-size: 14.5px; line-height: 1.5; }
   @media (max-width: 600px) { font-size: 14px; }
 `;
 
@@ -1370,8 +1388,10 @@ const PanelSide = styled.aside`
   background: rgba(161, 15, 35, 0.035);
   border: 1px solid rgba(26,26,24,0.08);
   border-left: 3px solid ${COLORS.redTitle};
-  padding: 1.5rem 1.75rem 1.4rem;
+  padding: 1.15rem 1.4rem 1.1rem;
   position: relative;
+
+  @media (min-width: 901px) and (max-height: 700px) { padding: 0.85rem 1.2rem 0.8rem; }
 `;
 
 const SideCorner = styled.div`
@@ -1392,7 +1412,7 @@ const SideEyebrow = styled.p`
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: ${COLORS.redTitle};
-  margin: 0 0 0.85rem;
+  margin: 0 0 0.6rem;
 `;
 
 const SideRows = styled.div`
@@ -1405,11 +1425,11 @@ const SideRows = styled.div`
 const SideRow = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0.25rem;
-  padding: 0.75rem 0;
+  gap: 0.2rem;
+  padding: 0.55rem 0;
   border-bottom: 1px solid rgba(26,26,24,0.08);
-  &:first-of-type { padding-top: 0.35rem; }
-  &:last-of-type { border-bottom: none; padding-bottom: 0.35rem; }
+  &:first-of-type { padding-top: 0.25rem; }
+  &:last-of-type { border-bottom: none; padding-bottom: 0.25rem; }
 `;
 
 const SideKey = styled.span`
@@ -1430,8 +1450,8 @@ const SideVal = styled.span`
 `;
 
 const SideQuote = styled.p`
-  margin: 1.1rem 0 0;
-  padding-top: 1rem;
+  margin: 0.85rem 0 0;
+  padding-top: 0.8rem;
   border-top: 1px solid rgba(26,26,24,0.08);
   font-family: ${FONT_BODY};
   font-size: 13.5px;
@@ -1456,7 +1476,7 @@ const PanelBody = styled.div`
   border-top: 1px solid rgba(26,26,24,0.12);
   border-bottom: 1px solid rgba(26,26,24,0.12);
   flex: 1;
-  align-content: center;
+  align-items: stretch;
 
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
@@ -1465,10 +1485,17 @@ const PanelBody = styled.div`
 `;
 
 const PanelCol = styled.div`
-  padding: 1.5rem 2rem 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  padding: 1.15rem 2rem 1.15rem 0;
   & + & {
-    padding: 1.5rem 0 1.5rem 2.25rem;
+    padding: 1.15rem 0 1.15rem 2.25rem;
     border-left: 1px solid rgba(26,26,24,0.12);
+  }
+
+  @media (min-width: 901px) and (max-height: 700px) {
+    padding: 0.75rem 1.35rem 0.75rem 0;
+    & + & { padding: 0.75rem 0 0.75rem 1.6rem; }
   }
 
   @media (max-width: 900px) {
@@ -1488,16 +1515,20 @@ const ColLabel = styled.p`
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: ${COLORS.redTitle};
-  margin: 0 0 0.85rem;
+  margin: 0 0 0.65rem;
+
+  @media (min-width: 901px) and (max-height: 700px) { margin: 0 0 0.45rem; }
 `;
 
 const ScopeDetail = styled.p`
   font-family: ${FONT_BODY};
-  font-size: 15px;
-  line-height: 1.65;
+  font-size: 14.5px;
+  line-height: 1.55;
   color: #3a3530;
   margin: 0;
   strong { color: ${COLORS.ink}; font-weight: 600; }
+
+  @media (min-width: 901px) and (max-height: 700px) { font-size: 13.5px; line-height: 1.45; }
 `;
 
 const Bullets = styled.ul`
@@ -1506,13 +1537,15 @@ const Bullets = styled.ul`
   margin: 0;
   display: grid;
   grid-template-columns: 1fr;
+  align-content: space-between;
+  flex: 1;
   counter-reset: entrega;
 
   li {
     font-family: ${FONT_BODY};
-    font-size: 14.5px;
+    font-size: 14px;
     line-height: 1.4;
-    padding: 0.6rem 0 0.6rem 2rem;
+    padding: 0.45rem 0 0.45rem 2rem;
     position: relative;
     color: ${COLORS.ink};
     border-bottom: 1px solid rgba(26,26,24,0.07);
@@ -1529,6 +1562,10 @@ const Bullets = styled.ul`
       color: ${COLORS.redTitle};
       letter-spacing: 0.05em;
     }
+  }
+
+  @media (min-width: 901px) and (max-height: 700px) {
+    li { padding: 0.32rem 0 0.32rem 1.6rem; font-size: 13px; line-height: 1.35; }
   }
 `;
 
