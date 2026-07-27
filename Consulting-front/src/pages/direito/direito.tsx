@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import styled, { createGlobalStyle, keyframes, css } from "styled-components";
 import { useTranslation } from "react-i18next";
@@ -11,9 +11,11 @@ import DireitoCTA from "./components/direitoCTA";
 import capaPeDireito from "../../assets/direito/pe-direito/slide-03.png";
 import capaSociety   from "../../assets/direito/society/slide-07.png";
 import capaPrint     from "../../assets/direito/print/slide-15.png";
+import LawImg        from "../../assets/hero/law2.png";
+import { useParticles } from "../../hooks/useParticleBackground";
 
 // ── Color tokens (mirror tech) ─────────────────────────────────────────────
-import { RED_TITLE, RED, RED_DARK, BG_DARK, DARK, BG_CREAM, FONT_TITLE, FONT_BODY, TYPE } from "../../styles/tokens";
+import { RED_TITLE, RED, RED_DARK, RED_DIM, BG_DARK, DARK, BG_CREAM, CREAM, FONT_TITLE, FONT_BODY, SPRING, TYPE } from "../../styles/tokens";
 
 const COLORS = {
   redTitle: RED_TITLE,
@@ -198,60 +200,19 @@ function Direito() {
   const scopeItems = t("direito.scopes.items", { returnObjects: true }) as Omit<Scope, "num">[];
   const SCOPES: Scope[] = scopeItems.map((s, i) => ({ ...s, num: String(i + 1).padStart(2, "0") }));
 
-  const heroIntroRef = useRef<HTMLDivElement>(null);
-  const sharedCanvasRef = useRef<HTMLCanvasElement>(null);
-  const heroGlowRef = useRef<HTMLDivElement>(null);
-
-  const heroRef = useRef<HTMLElement>(null);
+  const heroWrapperRef = useRef<HTMLDivElement>(null);
   const heroCanvasRef = useRef<HTMLCanvasElement>(null);
+  useParticles(heroWrapperRef, heroCanvasRef);
+
+  const [heroVisible, setHeroVisible] = useState(false);
+  useEffect(() => {
+    const timer = setTimeout(() => setHeroVisible(true), 80);
+    return () => clearTimeout(timer);
+  }, []);
 
   const integrationRef = useRef<HTMLElement>(null);
   const synergyCanvasRef = useRef<HTMLCanvasElement>(null);
   const integrationGlowRef = useRef<HTMLDivElement>(null);
-
-  useParticleNetwork(sharedCanvasRef, heroIntroRef, {
-    count: 75,
-    maxDist: 120,
-    dotColor: "rgba(230,90,90,0.63)",
-    lineColor: (c: number) => `rgba(230,90,90,${0.252 * c})`,
-    deadZone: (W, H) => ({ x: W * 0.22, y: H * 0.18, w: W * 0.56, h: H * 0.64 }),
-  });
-
-  useEffect(() => {
-    const wrap = heroIntroRef.current;
-    const glow = heroGlowRef.current;
-    if (!wrap || !glow) return;
-    let raf = 0;
-    const onEnter = () => { glow.style.opacity = "1"; };
-    const onLeave = () => { glow.style.opacity = "0"; };
-    const onMove = (e: MouseEvent) => {
-      const rect = wrap.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      if (raf) cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        glow.style.left = `${x}px`;
-        glow.style.top = `${y}px`;
-      });
-    };
-    wrap.addEventListener("mouseenter", onEnter);
-    wrap.addEventListener("mouseleave", onLeave);
-    wrap.addEventListener("mousemove", onMove);
-    return () => {
-      wrap.removeEventListener("mouseenter", onEnter);
-      wrap.removeEventListener("mouseleave", onLeave);
-      wrap.removeEventListener("mousemove", onMove);
-      cancelAnimationFrame(raf);
-    };
-  }, []);
-
-  useParticleNetwork(heroCanvasRef, heroRef, {
-    count: 75,
-    maxDist: 120,
-    dotColor: "rgba(230,90,90,0.63)",
-    lineColor: (c: number) => `rgba(230,90,90,${0.252 * c})`,
-    deadZone: (W, H) => ({ x: W * 0.22, y: H * 0.18, w: W * 0.56, h: H * 0.64 }),
-  });
 
   useParticleNetwork(synergyCanvasRef, integrationRef, {
     count: 60,
@@ -311,14 +272,14 @@ function Direito() {
     return () => io.disconnect();
   }, []);
 
-  const heroWords: { text: string; accent?: boolean; delay: string }[] = [
-    { text: t("direito.hero.words.word1"), delay: "0.55s" },
-    { text: t("direito.hero.words.word2"), delay: "0.7s" },
-    { text: t("direito.hero.words.word3"), accent: true, delay: "0.85s" },
-    { text: t("direito.hero.words.word4"), accent: true, delay: "1.0s" },
-    { text: t("direito.hero.words.word5"), delay: "1.15s" },
-    { text: t("direito.hero.words.word6"), accent: true, delay: "1.3s" },
-    { text: t("direito.hero.words.word7"), accent: true, delay: "1.45s" },
+  const heroWords: { text: string; accent?: boolean; delay: number }[] = [
+    { text: t("direito.hero.words.word1"), delay: 0.55 },
+    { text: t("direito.hero.words.word2"), delay: 0.7 },
+    { text: t("direito.hero.words.word3"), accent: true, delay: 0.85 },
+    { text: t("direito.hero.words.word4"), accent: true, delay: 1.0 },
+    { text: t("direito.hero.words.word5"), delay: 1.15 },
+    { text: t("direito.hero.words.word6"), accent: true, delay: 1.3 },
+    { text: t("direito.hero.words.word7"), accent: true, delay: 1.45 },
   ];
 
   return (
@@ -327,36 +288,54 @@ function Direito() {
       <WppButton />
       <Header />
 
-      {/* Hero + Intro shared canvas */}
-      <HeroIntroWrap ref={heroIntroRef}>
-        <SharedCanvas ref={sharedCanvasRef} />
-        <HeroGlow ref={heroGlowRef} />
+      {/* Hero */}
+      <HeroOuter ref={heroWrapperRef}>
+        <PhotoBg />
+        <GradientOverlay />
+        <HeroVignette />
+        <Blueprint />
 
-        {/* Hero */}
-        <Hero ref={heroRef}>
-          <HeroCanvas ref={heroCanvasRef} />
-          <HeroVignette />
-          <HeroCenter>
-            <HeroEyebrow>{t("direito.hero.eyebrow")}</HeroEyebrow>
-            <HeroTitle>
-              {heroWords.map((w, i) => (
-                <Word key={i} $accent={!!w.accent} style={{ animationDelay: w.delay }}>
-                  {w.text}
-                </Word>
-              ))}
-            </HeroTitle>
-            <HeroLine />
-            <HeroSub>
-              {t("direito.hero.sub")}
-            </HeroSub>
-          </HeroCenter>
-          <HeroScroll>
-            <HeroScrollDot />
-            <HeroScrollLine />
-          </HeroScroll>
-        </Hero>
+        <canvas ref={heroCanvasRef} style={{
+          position: "absolute", inset: 0, width: "100%", height: "100%",
+          pointerEvents: "none", zIndex: 3,
+        }} />
 
-      </HeroIntroWrap>
+        <HeroGrid>
+          <HeroInner>
+            <HeroLeft>
+              <HeroEyebrow $v={heroVisible}>{t("direito.hero.eyebrow")}</HeroEyebrow>
+
+              <HeroTitle>
+                {heroWords.map((w, i) => (
+                  <Word key={i} $d={w.delay} $v={heroVisible} $accent={!!w.accent}>
+                    {w.text}
+                  </Word>
+                ))}
+              </HeroTitle>
+
+              <HeroLine $v={heroVisible} />
+
+              <HeroSub $v={heroVisible}>
+                {t("direito.hero.sub")}
+              </HeroSub>
+            </HeroLeft>
+          </HeroInner>
+        </HeroGrid>
+
+        <HeroScroll>
+          <HeroScrollDot />
+          <HeroScrollLine />
+        </HeroScroll>
+
+        {/* Wave para a seção seguinte */}
+        <div style={{ position: "absolute", left: 0, right: 0, bottom: -1, lineHeight: 0, zIndex: 5 }}>
+          <svg viewBox="0 0 1440 72" preserveAspectRatio="none"
+            xmlns="http://www.w3.org/2000/svg" style={{ display: "block", width: "100%" }}>
+            <path d="M0,72 L0,36 C240,72 480,0 720,36 C960,72 1200,0 1440,36 L1440,72 Z"
+              fill="#fff" />
+          </svg>
+        </div>
+      </HeroOuter>
 
       {/* Red animated bar above Nossos Escopos */}
       <RedBarWrap><RedBar /></RedBarWrap>
@@ -594,162 +573,133 @@ const PageWrap = styled.div`
   overflow-x: hidden;
 `;
 
-const HeroIntroWrap = styled.div`
+const HeroOuter = styled.div`
   position: relative;
+  width: 100%;
+  height: 100vh;
   overflow: hidden;
-  background: #ffffff;
-`;
-
-const SharedCanvas = styled.canvas`
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-`;
-
-const HeroGlow = styled.div`
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(192,33,33,0.18) 0%, transparent 65%);
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.35s ease;
-  mix-blend-mode: screen;
-  z-index: 1;
-  will-change: left, top, opacity;
-`;
-
-const Hero = styled.section`
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  background: ${COLORS.black};
   display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+  align-items: stretch;
+  isolation: isolate;
 `;
 
-const HeroCanvas = styled.canvas`
+/* Foto de fundo */
+const PhotoBg = styled.div`
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
   z-index: 0;
+  background: url(${LawImg}) center center / cover no-repeat;
+`;
+
+/* Gradiente esquerda → direita para legibilidade do texto */
+const GradientOverlay = styled.div`
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to right,
+    rgba(14, 4, 4, 0.97) 0%,
+    rgba(14, 4, 4, 0.85) 35%,
+    rgba(14, 4, 4, 0.45) 65%,
+    rgba(14, 4, 4, 0.15) 100%
+  );
 `;
 
 const HeroVignette = styled.div`
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at center, transparent 40%, rgba(14,4,4,0.85) 100%);
-  pointer-events: none;
-  z-index: 1;
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(14,4,4,0.35) 0%,
+    transparent 20%,
+    transparent 75%,
+    rgba(14,4,4,0.75) 100%
+  );
 `;
 
-const HeroCenter = styled.div`
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
+const Blueprint = styled.div`
+  position: absolute; inset: 0; z-index: 2; pointer-events: none; opacity: .25;
+  background-image:
+    linear-gradient(rgba(192,33,33,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(192,33,33,.06) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 25%, transparent 75%);
+          mask-image: radial-gradient(ellipse at center, #000 25%, transparent 75%);
+`;
+
+const HeroGrid = styled.div`
+  position: relative; z-index: 4; width: 100%;
+  display: flex; align-items: center;
+`;
+
+const HeroInner = styled.div`
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 56px;
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: 48px;
   align-items: center;
-  gap: 32px;
-  padding: 0 24px;
-  text-align: center;
-  max-width: 760px;
+
+  @media (max-width: 960px) { grid-template-columns: 1fr; padding: 0 28px; gap: 0; }
+  @media (max-width: 480px) { padding: 0 20px; }
 `;
 
-const HeroEyebrow = styled.span`
-  font-family: ${FONT_TITLE};
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: ${COLORS.redCTA};
-  opacity: 0;
-  animation: ${heroFadeIn} 0.6s cubic-bezier(0.16,1,0.3,1) 0.2s forwards;
+const HeroLeft = styled.div`
+  padding: 88px 0 48px 0;
+  max-width: 620px;
+  display: flex; flex-direction: column; justify-content: center;
+  @media (max-width: 960px) { padding: 100px 0 48px; }
+`;
+
+const HeroEyebrow = styled.span<{ $v: boolean }>`
+  font-family: ${FONT_TITLE}; font-size: 11px; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase; color: ${COLORS.redCTA};
+  margin-bottom: 28px; opacity: 0;
+  animation: ${p => p.$v ? heroFadeIn : "none"} .6s .15s cubic-bezier(0.16,1,0.3,1) forwards;
 `;
 
 const HeroTitle = styled.h1`
-  font-family: ${FONT_TITLE};
-  font-size: 48px;
-  font-weight: 700;
-  color: ${COLORS.cream};
-  letter-spacing: -0.03em;
-  line-height: 1.1;
-  margin: 0;
-
-  @media (max-width: 1300px) { font-size: 40px; }
-  @media (max-width: 600px) { font-size: 30px; }
+  font-family: ${FONT_TITLE}; font-size: 48px; font-weight: 700;
+  line-height: 1.05; letter-spacing: -0.03em; color: ${CREAM}; margin: 0 0 28px;
+  @media (max-width: 960px) { font-size: 42px; }
+  @media (max-width: 480px) { font-size: 32px; margin: 0 0 20px; }
 `;
 
-const Word = styled.span<{ $accent?: boolean }>`
-  display: inline-block;
-  margin-right: 0.22em;
-  opacity: 0;
-  transform: translateY(28px);
-  filter: blur(6px);
-  animation: ${heroWordIn} 0.85s cubic-bezier(0.16,1,0.3,1) forwards;
-  ${p => p.$accent && css`color: ${COLORS.redCTA};`}
+const Word = styled.span<{ $d: number; $v: boolean; $accent?: boolean }>`
+  display: inline-block; margin-right: .22em; opacity: 0;
+  animation: ${p => p.$v ? heroWordIn : "none"} .85s ${p => p.$d}s cubic-bezier(0.16,1,0.3,1) forwards;
+  ${p => p.$accent && css`color: ${COLORS.redCTA}; font-style: italic; font-weight: 400;`}
   &:last-child { margin-right: 0; }
 `;
 
-const HeroLine = styled.div`
-  width: 64px;
-  height: 3px;
-  background: ${COLORS.redCTA};
-  transform-origin: left center;
-  transform: scaleX(0);
-  animation: ${heroLineGrow} 0.7s cubic-bezier(0.16,1,0.3,1) 1.4s forwards;
+const HeroLine = styled.div<{ $v: boolean }>`
+  width: 48px; height: 3px; background: ${COLORS.redCTA};
+  transform-origin: left; margin-bottom: 28px; transform: scaleX(0);
+  animation: ${p => p.$v ? heroLineGrow : "none"} .7s 1.4s cubic-bezier(0.16,1,0.3,1) forwards;
 `;
 
-const HeroSub = styled.p`
-  font-family: ${FONT_BODY};
-  font-size: 16px;
-  font-weight: 400;
-  color: ${COLORS.cream};
-  line-height: 1.5;
-  max-width: 560px;
-  margin: 0;
-  opacity: 0;
-  animation: ${heroFadeIn} 0.75s cubic-bezier(0.16,1,0.3,1) 1.55s forwards;
-
-  @media (max-width: 600px) { font-size: 14px; }
+const HeroSub = styled.p<{ $v: boolean }>`
+  font-family: ${FONT_BODY}; font-size: 16px; line-height: 1.65;
+  color: rgba(250,242,234,.6); max-width: 480px; margin: 0 0 40px; opacity: 0;
+  animation: ${p => p.$v ? heroFadeIn : "none"} .75s 1.55s cubic-bezier(0.16,1,0.3,1) forwards;
 `;
 
 const HeroScroll = styled.div`
-  position: absolute;
-  bottom: 36px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  opacity: 0;
-  animation: ${heroFadeIn} 0.6s cubic-bezier(0.16,1,0.3,1) 2.1s forwards;
+  position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+  z-index: 4; display: flex; flex-direction: column; align-items: center; gap: 8px;
+  opacity: 0; animation: ${heroFadeIn} 0.6s cubic-bezier(0.16,1,0.3,1) 2.1s forwards;
 `;
 
 const HeroScrollDot = styled.div`
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: ${COLORS.redCTA};
+  width: 5px; height: 5px; border-radius: 50%; background: ${COLORS.redCTA};
   animation: ${heroScrollBounce} 1.8s ease-in-out 2.5s infinite;
 `;
 
 const HeroScrollLine = styled.div`
-  width: 1px;
-  height: 40px;
-  background: linear-gradient(to bottom, rgba(105,18,18,0.45), transparent);
+  width: 1px; height: 40px;
+  background: linear-gradient(to bottom, ${RED_DIM}, transparent);
 `;
 
 const Intro = styled.section`
