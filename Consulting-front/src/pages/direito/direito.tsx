@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 import styled, { createGlobalStyle, keyframes, css } from "styled-components";
 import { useTranslation } from "react-i18next";
 import Header from "../../components/header";
@@ -7,9 +6,11 @@ import Footer from "../../components/footerNovo";
 import WppButton from "../../components/wppButton";
 import ContactSection from "../../components/sectionContact";
 import DireitoCTA from "./components/direitoCTA";
+import CaseShowcaseCard from "../../components/caseShowcaseCard";
+import Rich from "../../i18n/rich";
 
-import capaPeDireito from "../../assets/direito/pe-direito/slide-03.png";
-import capaSociety   from "../../assets/direito/society/slide-07.png";
+import capaAlicerce from "../../assets/direito/alicerce/slide-01-capa.png";
+import capaCarWash   from "../../assets/direito/car-wash/slide-01-capa.jpg";
 import capaPrint     from "../../assets/direito/print/slide-15.png";
 import LawImg        from "../../assets/hero/law2.png";
 import { useParticles } from "../../hooks/useParticleBackground";
@@ -443,21 +444,39 @@ function Direito() {
           {t("direito.cases.subtitle")}
         </SectionSubtitle>
         <HighlightGrid>
-          <HighlightCard to="/direito/pe-direito" aria-label={t("direito.cases.peDireito.ariaLabel")}>
-            <HighlightCardTitle>{t("direito.cases.peDireito.title")}</HighlightCardTitle>
-            <HighlightCardImage src={capaPeDireito} alt={t("direito.cases.peDireito.title")} loading="lazy" />
-            <HighlightCardSubtitle>{t("direito.cases.peDireito.subtitle")}</HighlightCardSubtitle>
-          </HighlightCard>
-          <HighlightCard to="/direito/society" aria-label={t("direito.cases.society.ariaLabel")}>
-            <HighlightCardTitle>{t("direito.cases.society.title")}</HighlightCardTitle>
-            <HighlightCardImage src={capaSociety} alt={t("direito.cases.society.title")} loading="lazy" />
-            <HighlightCardSubtitle>{t("direito.cases.society.subtitle")}</HighlightCardSubtitle>
-          </HighlightCard>
-          <HighlightCard to="/direito/print" aria-label={t("direito.cases.print.ariaLabel")}>
-            <HighlightCardTitle>{t("direito.cases.print.title")}</HighlightCardTitle>
-            <HighlightCardImage src={capaPrint} alt={t("direito.cases.print.title")} loading="lazy" />
-            <HighlightCardSubtitle>{t("direito.cases.print.subtitle")}</HighlightCardSubtitle>
-          </HighlightCard>
+          <CaseShowcaseCard
+            to="/direito/alicerce"
+            ariaLabel={t("direito.cases.alicerce.ariaLabel")}
+            coverSrc={capaAlicerce}
+            coverAlt={t("direito.cases.alicerce.title")}
+            badge={t("direito.cases.badge")}
+            tag={t("direito.cases.alicerce.subtitle")}
+            title={t("direito.cases.alicerce.title")}
+            desc={<Rich k="direito.caseStudies.alicerce.sub" />}
+            ctaLabel={t("direito.cases.viewCta")}
+          />
+          <CaseShowcaseCard
+            to="/direito/car-wash"
+            ariaLabel={t("direito.cases.carWash.ariaLabel")}
+            coverSrc={capaCarWash}
+            coverAlt={t("direito.cases.carWash.title")}
+            badge={t("direito.cases.badge")}
+            tag={t("direito.cases.carWash.subtitle")}
+            title={t("direito.cases.carWash.title")}
+            desc={<Rich k="direito.caseStudies.carWash.sub" />}
+            ctaLabel={t("direito.cases.viewCta")}
+          />
+          <CaseShowcaseCard
+            to="/direito/print"
+            ariaLabel={t("direito.cases.print.ariaLabel")}
+            coverSrc={capaPrint}
+            coverAlt={t("direito.cases.print.title")}
+            badge={t("direito.cases.badge")}
+            tag={t("direito.cases.print.subtitle")}
+            title={t("direito.cases.print.title")}
+            desc={<Rich k="direito.caseStudies.print.sub" />}
+            ctaLabel={t("direito.cases.viewCta")}
+          />
         </HighlightGrid>
       </HighlightCases>
 
@@ -1429,103 +1448,6 @@ const HighlightGrid = styled.div`
   }
 `;
 
-const HighlightCard = styled(Link)`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  background: #fff;
-  border: 1px solid rgba(26,26,24,0.08);
-  border-top: 3px solid ${COLORS.redTitle};
-  border-radius: 4px;
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-
-  & > img {
-    border-radius: 0;
-  }
-
-  &::before {
-    content: "Clique aqui";
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    margin-bottom: 0.6rem;
-    background: ${COLORS.redTitle};
-    color: #fff;
-    font-family: ${FONT_TITLE};
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    padding: 0.45rem 0.85rem;
-    border-radius: 999px;
-    box-shadow: 0 6px 14px rgba(161, 15, 35, 0.32);
-    opacity: 0;
-    transform: translate(-50%, 8px);
-    transition: opacity 0.25s ease, transform 0.25s ease;
-    pointer-events: none;
-    z-index: 2;
-    white-space: nowrap;
-  }
-
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 14px 32px rgba(0,0,0,0.12);
-    border-color: rgba(161,15,35,0.35);
-
-    &::before {
-      opacity: 1;
-      transform: translate(-50%, 0);
-    }
-  }
-
-  &:focus-visible {
-    outline: 2px solid ${COLORS.redTitle};
-    outline-offset: 3px;
-
-    &::before {
-      opacity: 1;
-      transform: translate(-50%, 0);
-    }
-  }
-`;
-
-const HighlightCardTitle = styled.h3`
-  font-family: ${FONT_TITLE};
-  font-size: 22px;
-  font-weight: 700;
-  color: ${COLORS.ink};
-  margin: 0;
-  padding: 1.25rem 1.5rem 1rem;
-  letter-spacing: -0.01em;
-  line-height: 1.2;
-
-  @media (max-width: 900px) { font-size: 20px; padding: 1rem 1.25rem 0.85rem; }
-`;
-
-const HighlightCardImage = styled.img`
-  width: 100%;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-  display: block;
-  border-top: 1px solid rgba(26,26,24,0.06);
-  border-bottom: 1px solid rgba(26,26,24,0.06);
-`;
-
-const HighlightCardSubtitle = styled.p`
-  font-family: ${FONT_MONO};
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: ${COLORS.redTitle};
-  margin: 0;
-  padding: 1rem 1.5rem 1.25rem;
-
-  @media (max-width: 900px) { padding: 0.85rem 1.25rem 1rem; }
-`;
 
 const Integration = styled.section`
   margin-top: 4rem;

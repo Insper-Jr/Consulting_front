@@ -36,9 +36,9 @@ export const direitoTranslations = {
             tab: "Elaboração e/ou Revisão Contratual",
             title: "Contratos <i>sob medida</i>.",
             lede:
-              "Escopo voltado à <strong>elaboração de contratos do zero</strong>: partimos da operação real do cliente para desenhar o instrumento inteiro — objeto, obrigações, prazos, garantias e hipóteses de término — com cláusulas sob medida para a dor do negócio e ancoradas na lei aplicável. Também fazemos <strong>revisão estratégica</strong> de contratos já existentes.",
+              "Nossa atuação contratual divide-se em duas frentes complementares: a <strong>elaboração do zero</strong>, estruturando cada instrumento a partir da realidade operacional do cliente (objeto, obrigações, prazos, garantias e término); e a <strong>revisão estratégica</strong>, em que auditamos contratos já em uso para mitigar riscos e propor melhorias. Em ambos os casos, entregamos soluções jurídicas sob medida, focadas nas dores do seu negócio e fundamentadas na legislação vigente.",
             detail:
-              "Na <strong>elaboração do zero</strong>, mapeamos a operação, os riscos e os objetivos do cliente para então definir a arquitetura do contrato — partes, objeto, obrigações, prazos, garantias e penalidades. Cada cláusula é redigida sob medida, e o <strong>contrato finalizado</strong> vem com uma <strong>apresentação executiva</strong> dos pontos de atenção. Em revisões, somamos um <strong>memorando explicativo</strong> de cada alteração. Tudo com supervisão de bancas com professores e escritórios parceiros.",
+              "Na <strong>elaboração do zero</strong>, mapeamos a operação, os riscos e os objetivos do cliente para definir a arquitetura do contrato — partes, objeto, obrigações, prazos, garantias e penalidades. Na <strong>revisão</strong>, partimos do contrato que o cliente já utiliza, identificamos cláusulas frágeis, lacunas e pontos desalinhados com a lei e com o negócio, e devolvemos o instrumento ajustado com um <strong>memorando explicativo</strong> que justifica cada alteração. Nos dois casos, o <strong>contrato finalizado</strong> vem com <strong>apresentação executiva</strong> dos pontos de atenção e supervisão de bancas com professores e escritórios parceiros.",
             rows: [
               { key: "Entregáveis", val: "<strong>Contrato finalizado</strong> + apresentação executiva (+ memorando explicativo, em revisões)" },
               { key: "Aplicações", val: "Contratos redigidos sob medida, em diferentes áreas do Direito" },
@@ -61,7 +61,7 @@ export const direitoTranslations = {
             lede:
               "Serviço de <strong>análise estratégica da estrutura societária</strong> do cliente, com identificação de riscos, oportunidades de melhoria e alternativas possíveis. Escopo consultivo, <strong>sem envolver emissão de documentos em cartório</strong> — entrega de <strong>parecer fundamentado</strong> e <strong>apresentação executiva</strong> com os caminhos recomendados.",
             detail:
-              "Dois cenários: análise da <strong>estrutura societária atual</strong> do cliente ou avaliação de <strong>uma ideia ainda no papel</strong>. O escopo é entregue de forma independente e, quando faz sentido, pode vir <strong>acompanhado de outro escopo</strong> (uma viabilidade societária ao lado de uma análise mercadológica, por exemplo). Em ambos os cenários, identificamos riscos e apresentamos <strong>alternativas viáveis</strong>, sem induzir a decisão do cliente.",
+              "Dois cenários: análise da <strong>estrutura societária atual</strong> do cliente ou avaliação de <strong>uma ideia ainda no papel</strong>. O escopo é entregue de forma independente e, quando faz sentido, pode vir <strong>acompanhado de outro escopo</strong> (uma viabilidade societária ao lado de uma análise operacional e/ou mercadológica, por exemplo). Em ambos os cenários, identificamos riscos e apresentamos <strong>alternativas viáveis</strong>, sem induzir a decisão do cliente.",
             rows: [
               { key: "Entregáveis", val: "<strong>Parecer consultivo</strong> + apresentação executiva com caminhos e recomendações" },
               { key: "Natureza", val: "Consultivo — <strong>não envolve emissão de documentos em cartório</strong>; apresenta alternativas sem induzir decisões" },
@@ -131,18 +131,18 @@ export const direitoTranslations = {
         eyebrow: "Projetos em destaque",
         title: "Cases de Destaque",
         subtitle:
-          "Três projetos que exemplificam a forma como a frente de Direito atua: do primeiro contrato firmado à assessoria continuada e à atuação multi-escopo.",
-        imagePlaceholderAria: "Imagem a ser definida",
-        imagePlaceholderText: "Imagem em breve",
-        peDireito: {
-          title: "Pé Direito I",
-          ariaLabel: "Ver case Pé Direito I",
+          "Três projetos que exemplificam a forma como a frente de Direito atua — da elaboração contratual do zero à assessoria continuada e à atuação multi-escopo.",
+        badge: "Direito",
+        viewCta: "Ver case completo",
+        alicerce: {
+          title: "Alicerce I",
+          ariaLabel: "Ver case Alicerce I",
           subtitle: "Escopo · Contratos",
         },
-        society: {
-          title: "Society I",
-          ariaLabel: "Ver case Society I",
-          subtitle: "Escopo · Societário",
+        carWash: {
+          title: "Car Wash I",
+          ariaLabel: "Ver case Car Wash I",
+          subtitle: "Escopo · Societário · Tributário",
         },
         print: {
           title: "Print I",
@@ -231,60 +231,62 @@ export const direitoTranslations = {
       },
 
       caseStudies: {
-        peDireito: {
+        alicerce: {
           badge: "CASE EM DESTAQUE",
-          bigName: "Pé Direito I",
+          bigName: "Alicerce I",
           sub:
-            "O <strong>Pé Direito I</strong> foi o <strong>primeiro projeto executado pela frente de Direito</strong> da Insper Jr., conduzido para uma ONG cliente. Mais do que uma entrega, o projeto serviu como <strong>teste de viabilidade do escopo de Contratos</strong> recém-estruturado, e validou o modelo de atuação consultiva da frente.",
-          headline: "Por que Pé Direito?",
+            "O <strong>Alicerce I</strong> foi um projeto de <strong>elaboração contratual do zero</strong> conduzido pela frente de Direito da Insper Jr., que estruturou <strong>dois contratos completos</strong> — prestação de serviços e fornecimento — para uma empresa que operava com modelos genéricos e pouco aderentes à sua realidade.",
+          headline: "Por que Alicerce?",
           paragraphs: [
-            "A cliente, uma <strong>ONG do terceiro setor</strong>, mantinha relações comerciais com empresas parceiras que, formalmente, eram tratadas como <strong>doações</strong>, mas envolviam <strong>contrapartida financeira</strong>, o que descaracterizava juridicamente a operação como doação pura e gerava riscos tributários e reputacionais.",
-            "O objetivo do projeto foi <strong>identificar corretamente a natureza jurídica</strong> dessas relações e estruturar contratos adequados às necessidades da ONG, preservando o vínculo com os parceiros e reduzindo a exposição fiscal.",
+            "O cliente contrata <strong>fornecedores e prestadores de serviço de forma recorrente</strong> e dependia de uma estrutura contratual eficiente para dar organização, previsibilidade e segurança a essas relações. Na prática, porém, usava <strong>contratos genéricos, sem padronização</strong> e com <strong>mecanismos frágeis de cobrança e responsabilização</strong>.",
+            "O objetivo foi <strong>desenvolver contratos personalizados</strong> — de prestação de serviços e de fornecimento — capazes de trazer clareza às obrigações, fortalecer a responsabilização e melhorar a gestão dos fornecedores, sem depender de uma equipe jurídica interna a cada nova contratação.",
           ],
           list: [
-            "<strong>Diagnóstico jurídico</strong>: identificar o tipo de contrato que melhor representava a relação real entre ONG e empresas.",
-            "<strong>Análise tributária integrada</strong>: avaliar o impacto fiscal de cada modelo contratual possível.",
-            "<strong>Modelagem flexível</strong>: optar por contrato atípico, com maior margem de redação personalizada.",
-            "<strong>Documentos complementares</strong>: completar o ecossistema jurídico com termos de voluntariado e uso de imagem.",
+            "<strong>Análise dos documentos atuais</strong> — leitura dos contratos em uso e alinhamentos com a empresa para identificar lacunas, riscos e oportunidades de melhoria.",
+            "<strong>Contrato fixo + anexo variável</strong> — cláusulas gerais estáveis e uma <strong>Tabela de Especificações (Anexo I)</strong> preenchida a cada contratação, com a mesma validade jurídica do contrato principal.",
+            "<strong>Cláusulas de proteção</strong> — objeto, prazo, obrigações das partes, aceite, pagamento, multas, garantias, rescisão e regras de subcontratação.",
+            "<strong>Modelo replicável</strong> — estrutura desenhada para ser reaproveitada nas contratações seguintes, concentrando alterações apenas nas variáveis.",
           ],
           meta: [
-            { label: "Setor", value: "Terceiro Setor · ONG" },
-            { label: "Contexto", value: "Doações com contrapartida" },
+            { label: "Cliente", value: "Preservado por confidencialidade" },
+            { label: "Contexto", value: "Contratos genéricos e sem padronização" },
             { label: "Escopo", value: "Contratos" },
           ],
           steps: [
-            { alt: "Pé Direito I (escopo: contratos)", cap: "01 · Capa" },
-            { alt: "Contexto: ONG com contrato de doação inadequado", cap: "02 · Contexto" },
-            { alt: "Desafios do projeto Pé Direito I", cap: "03 · Desafios" },
-            { alt: "Entregáveis do projeto Pé Direito I", cap: "04 · Entregáveis" },
+            { alt: "Alicerce I — elaboração contratual", cap: "01 · Capa" },
+            { alt: "Contexto: contratos genéricos e sem padronização", cap: "02 · Contexto" },
+            { alt: "O anexo do contrato: escopo, prazos e entregas", cap: "03 · Anexo" },
+            { alt: "Tabela de especificações do contrato de prestação de serviços", cap: "04 · Tabela" },
+            { alt: "Conclusão: entregas e importância dos contratos", cap: "05 · Conclusão" },
           ],
         },
-        society: {
+        carWash: {
           badge: "CASE EM DESTAQUE",
-          bigName: "Society I",
+          bigName: "Car Wash I",
           sub:
-            "O <strong>Society I</strong> foi o <strong>primeiro projeto da frente de Direito no escopo de Societário</strong>, conduzido com o objetivo explícito de <strong>testar o escopo dentro da operação</strong> da Insper Jr. Mais do que uma entrega ao cliente, o projeto se tornou um <strong>aprendizado institucional</strong> sobre os limites do que a empresa júnior pode executar diretamente.",
-          headline: "Por que Society?",
+            "O <strong>Car Wash I</strong> foi um projeto consultivo que mapeou o caminho jurídico para o cliente <strong>transformar sua operação em uma franquia</strong> — dos documentos obrigatórios do franqueador aos modelos de distribuição de insumos e à estrutura societária mais adequada para abrigar a nova atividade.",
+          headline: "Como se tornar franqueador?",
           paragraphs: [
-            "O projeto chegou por <strong>indicação de um conhecido de uma professora</strong>, com objetivo claro de testar a viabilidade do escopo de <strong>Societário</strong> dentro da frente de Direito. O cliente era constituído como <strong>Sociedade Limitada (LTDA)</strong> e a demanda envolvia a <strong>alteração do quadro societário</strong>, em razão da saída de um dos sócios.",
-            "Ao longo da execução, ficou claro que parte das etapas necessárias <strong>fugia da autonomia institucional da Insper Jr.</strong>, exigindo comparecimento presencial em cartório e atos que só o próprio cliente pode praticar. O projeto não se concluiu na entrega tradicional, mas <strong>delimitou o escopo</strong> do que a frente passa a oferecer daí em diante.",
+            "O cliente queria <strong>expandir a operação pelo modelo de franquia</strong> e precisava entender, antes de qualquer decisão, o que a legislação exige de um franqueador: <strong>titularidade da marca</strong>, adequação das atividades no CNPJ, <strong>Circular de Oferta de Franquia (COF)</strong> nos termos da Lei nº 13.966/2019 e um <strong>contrato de franquia</strong> coerente com o que a COF promete.",
+            "Em paralelo, o projeto avaliou <strong>como os insumos chegariam aos franqueados</strong> — revenda pelo próprio franqueador ou intermediação com comissão — e <strong>onde alojar a nova atividade</strong>: em um novo CNPJ ou por alteração do CNPJ existente. Cada caminho foi analisado sob os efeitos societários, tributários (Simples Nacional) e de risco, terminando em uma <strong>recomendação fundamentada</strong>.",
           ],
           list: [
-            "<strong>Análise da demanda real</strong>: entender exatamente o que a alteração societária exigia.",
-            "<strong>Mapeamento das etapas externas</strong>: identificar passos dependentes de cartório, assinaturas e registros.",
-            "<strong>Avaliação de autonomia</strong>: diagnosticar quais etapas a Insper Jr. poderia conduzir diretamente.",
-            "<strong>Aprendizado institucional</strong>: converter o projeto em delimitação formal do escopo de Societário.",
+            "<strong>Requisitos do franqueador</strong> — marca, atividades no CNPJ e os documentos obrigatórios da relação de franquia.",
+            "<strong>COF e contrato de franquia</strong> — o que a lei exige informar e como isso se traduz nas cláusulas do contrato.",
+            "<strong>Distribuição de insumos</strong> — comparação entre revenda e intermediação: faturamento, tributação, logística, controle de preço e risco de venda casada.",
+            "<strong>Estrutura societária</strong> — novo CNPJ x alteração da atividade, comparados por governança, proteção patrimonial, custo e atratividade para investidores.",
           ],
           meta: [
-            { label: "Cliente", value: "Sociedade Limitada (LTDA)" },
-            { label: "Origem", value: "Indicação acadêmica" },
-            { label: "Escopo", value: "Societário" },
+            { label: "Cliente", value: "Preservado por confidencialidade" },
+            { label: "Demanda", value: "Estruturação de franquia" },
+            { label: "Escopo", value: "Societário · Tributário" },
           ],
           steps: [
-            { alt: "Society I (escopo: societário)", cap: "01 · Capa" },
-            { alt: "Contexto: cliente LTDA com saída de sócio", cap: "02 · Contexto" },
-            { alt: "Desafios do projeto Society I", cap: "03 · Desafios" },
-            { alt: "Entregáveis do projeto Society I", cap: "04 · Entregáveis" },
+            { alt: "Car Wash I — capa do projeto", cap: "01 · Capa" },
+            { alt: "Como ser um franqueador", cap: "02 · Franqueador" },
+            { alt: "Circular de Oferta de Franquia: o que é e para que serve", cap: "03 · COF" },
+            { alt: "Comparação entre revenda e intermediação de insumos", cap: "04 · Modelos" },
+            { alt: "Comparação e recomendação: novo CNPJ x alteração da atividade", cap: "05 · Recomendação" },
           ],
         },
         print: {
@@ -448,18 +450,18 @@ export const direitoTranslations = {
         eyebrow: "Featured Projects",
         title: "Featured Cases",
         subtitle:
-          "Three projects that showcase how the Law practice area operates: from the first contract signed to ongoing advisory work and multi-scope engagements.",
-        imagePlaceholderAria: "Image to be defined",
-        imagePlaceholderText: "Image coming soon",
-        peDireito: {
-          title: "Pé Direito I",
-          ariaLabel: "View the Pé Direito I case study",
+          "Three projects that showcase how the Law practice area operates, from ground-up contract drafting to ongoing advisory work and multi-scope engagements.",
+        badge: "Law",
+        viewCta: "View full case",
+        alicerce: {
+          title: "Alicerce I",
+          ariaLabel: "View the Alicerce I case study",
           subtitle: "Scope · Contracts",
         },
-        society: {
-          title: "Society I",
-          ariaLabel: "View the Society I case study",
-          subtitle: "Scope · Corporate",
+        carWash: {
+          title: "Car Wash I",
+          ariaLabel: "View the Car Wash I case study",
+          subtitle: "Scope · Corporate · Tax",
         },
         print: {
           title: "Print I",
@@ -548,60 +550,62 @@ export const direitoTranslations = {
       },
 
       caseStudies: {
-        peDireito: {
+        alicerce: {
           badge: "FEATURED CASE",
-          bigName: "Pé Direito I",
+          bigName: "Alicerce I",
           sub:
-            "<strong>Pé Direito I</strong> was the <strong>first project carried out by the Law practice area</strong> at Insper Jr., conducted for a nonprofit client. More than a deliverable, the project served as a <strong>feasibility test for the newly structured Contracts scope</strong>, and validated the practice area's consultative approach.",
-          headline: "Why Pé Direito?",
+            "<strong>Alicerce I</strong> was a <strong>ground-up contract drafting project</strong> carried out by the Law practice area at Insper Jr., which structured <strong>two complete contracts</strong> (service provision and supply) for a company that operated with generic templates poorly suited to its reality.",
+          headline: "Why Alicerce?",
           paragraphs: [
-            "The client, a <strong>third-sector nonprofit</strong>, maintained commercial relationships with partner companies that, formally, were treated as <strong>donations</strong>, but involved <strong>financial consideration</strong>, which legally mischaracterized the arrangement as a pure donation and created tax and reputational risks.",
-            "The project's goal was to <strong>correctly identify the legal nature</strong> of these relationships and structure contracts suited to the nonprofit's needs, preserving the relationship with partners while reducing tax exposure.",
+            "The client <strong>hires suppliers and service providers on a recurring basis</strong> and needed an efficient contractual structure to bring organization, predictability, and security to these relationships. In practice, it used <strong>generic, non-standardized contracts</strong> with <strong>weak collection and accountability mechanisms</strong>.",
+            "The goal was to <strong>develop customized contracts</strong>, for service provision and supply, capable of clarifying obligations, strengthening accountability, and improving supplier management, without depending on an in-house legal team for every new engagement.",
           ],
           list: [
-            "<strong>Legal diagnosis</strong>: identifying the type of contract that best represented the real relationship between the nonprofit and the companies.",
-            "<strong>Integrated tax analysis</strong>: assessing the tax impact of each possible contractual model.",
-            "<strong>Flexible modeling</strong>: opting for an atypical contract, with greater room for customized drafting.",
-            "<strong>Complementary documents</strong>: rounding out the legal ecosystem with volunteer agreements and image-use terms.",
+            "<strong>Review of current documents</strong>: reading the contracts in use and aligning with the company to identify gaps, risks, and improvement opportunities.",
+            "<strong>Fixed contract + variable annex</strong>: stable general clauses plus a <strong>Specifications Table (Annex I)</strong> filled out for each engagement, with the same legal force as the main contract.",
+            "<strong>Protective clauses</strong>: subject matter, term, obligations, acceptance, payment, penalties, guarantees, termination, and subcontracting rules.",
+            "<strong>Replicable model</strong>: a structure designed to be reused in future engagements, concentrating changes only in the variable fields.",
           ],
           meta: [
-            { label: "Sector", value: "Third Sector · Nonprofit" },
-            { label: "Context", value: "Donations with consideration" },
+            { label: "Client", value: "Preserved for confidentiality" },
+            { label: "Context", value: "Generic, non-standardized contracts" },
             { label: "Scope", value: "Contracts" },
           ],
           steps: [
-            { alt: "Pé Direito I (scope: contracts)", cap: "01 · Cover" },
-            { alt: "Context: nonprofit with an inadequate donation agreement", cap: "02 · Context" },
-            { alt: "Challenges of the Pé Direito I project", cap: "03 · Challenges" },
-            { alt: "Deliverables of the Pé Direito I project", cap: "04 · Deliverables" },
+            { alt: "Alicerce I: contract drafting", cap: "01 · Cover" },
+            { alt: "Context: generic, non-standardized contracts", cap: "02 · Context" },
+            { alt: "The contract annex: scope, timelines, and deliverables", cap: "03 · Annex" },
+            { alt: "Specifications table for the service agreement", cap: "04 · Table" },
+            { alt: "Conclusion: deliverables and the value of the contracts", cap: "05 · Conclusion" },
           ],
         },
-        society: {
+        carWash: {
           badge: "FEATURED CASE",
-          bigName: "Society I",
+          bigName: "Car Wash I",
           sub:
-            "<strong>Society I</strong> was the <strong>Law practice area's first project in the Corporate scope</strong>, carried out with the explicit goal of <strong>testing the scope within Insper Jr.'s operations</strong>. More than a deliverable for the client, the project became an <strong>institutional learning experience</strong> about the limits of what the junior enterprise can execute directly.",
-          headline: "Why Society?",
+            "<strong>Car Wash I</strong> was an advisory project that mapped the legal path for the client to <strong>turn its operation into a franchise</strong>, from the franchisor's mandatory documents to supply distribution models and the corporate structure best suited to house the new activity.",
+          headline: "How to become a franchisor?",
           paragraphs: [
-            "The project came through a <strong>referral from an acquaintance of a professor</strong>, with the clear goal of testing the feasibility of the <strong>Corporate</strong> scope within the Law practice area. The client was structured as a <strong>Limited Liability Company (LTDA)</strong>, and the request involved <strong>changing the ownership structure</strong> due to a partner's exit.",
-            "As the project progressed, it became clear that part of the necessary steps <strong>fell outside Insper Jr.'s institutional autonomy</strong>, requiring in-person attendance at a notary's office and acts that only the client itself can perform. The project didn't conclude with a traditional deliverable, but it <strong>defined the scope</strong> of what the practice area would go on to offer from then on.",
+            "The client wanted to <strong>expand through a franchise model</strong> and needed to understand, before any decision, what the law requires of a franchisor: <strong>trademark ownership</strong>, activities registered under the CNPJ, a <strong>Franchise Disclosure Circular (COF)</strong> under Law 13,966/2019, and a <strong>franchise agreement</strong> consistent with what the COF discloses.",
+            "In parallel, the project assessed <strong>how supplies would reach franchisees</strong> (resale by the franchisor itself or brokered with a commission) and <strong>where to house the new activity</strong>: a new CNPJ or a change to the existing one. Each path was analyzed for its corporate, tax (Simples Nacional), and risk implications, ending in a <strong>well-founded recommendation</strong>.",
           ],
           list: [
-            "<strong>Analysis of the actual request</strong>: understanding exactly what the ownership change required.",
-            "<strong>Mapping of external steps</strong>: identifying steps dependent on notary offices, signatures, and registrations.",
-            "<strong>Autonomy assessment</strong>: diagnosing which steps Insper Jr. could carry out directly.",
-            "<strong>Institutional learning</strong>: turning the project into a formal definition of the Corporate scope.",
+            "<strong>Franchisor requirements</strong>: trademark, CNPJ activities, and the mandatory documents of the franchise relationship.",
+            "<strong>COF and franchise agreement</strong>: what the law requires disclosing and how that translates into contract clauses.",
+            "<strong>Supply distribution</strong>: comparing resale and brokerage, covering revenue, taxation, logistics, price control, and tied-sale risk.",
+            "<strong>Corporate structure</strong>: new CNPJ vs. changing the existing activity, compared on governance, asset protection, cost, and investor appeal.",
           ],
           meta: [
-            { label: "Client", value: "Limited Liability Company (LTDA)" },
-            { label: "Origin", value: "Academic referral" },
-            { label: "Scope", value: "Corporate" },
+            { label: "Client", value: "Preserved for confidentiality" },
+            { label: "Request", value: "Franchise structuring" },
+            { label: "Scope", value: "Corporate · Tax" },
           ],
           steps: [
-            { alt: "Society I (scope: corporate)", cap: "01 · Cover" },
-            { alt: "Context: LTDA client with a partner's exit", cap: "02 · Context" },
-            { alt: "Challenges of the Society I project", cap: "03 · Challenges" },
-            { alt: "Deliverables of the Society I project", cap: "04 · Deliverables" },
+            { alt: "Car Wash I: project cover", cap: "01 · Cover" },
+            { alt: "How to become a franchisor", cap: "02 · Franchisor" },
+            { alt: "Franchise Disclosure Circular: what it is and what it's for", cap: "03 · COF" },
+            { alt: "Comparing resale and supply brokerage", cap: "04 · Models" },
+            { alt: "Comparison and recommendation: new CNPJ vs. activity change", cap: "05 · Recommendation" },
           ],
         },
         print: {
