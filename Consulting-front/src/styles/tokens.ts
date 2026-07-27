@@ -36,6 +36,8 @@ export const TYPE = {
   hero:        { size: "48px", weight: 700, lh: 1.1,  ls: "-0.03em" },
   /* Título de seção */
   sectionH2:   { size: "32px", weight: 700, lh: 1.1,  ls: "-0.02em" },
+  /* Título de bloco de fechamento (CTA final de página, ex.: AboutCTA / InscricaoCTA) */
+  closingTitle:{ size: "38px", weight: 700, lh: 1.1,  ls: "-0.03em" },
   /* Subtítulo (dentro de blocos, cards expandidos, painéis) */
   subTitle:    { size: "20px", weight: 400, lh: 1.3,  ls: "-0.01em" },
   /* Eyebrow — sempre Montserrat 700, 11px, tracking 0.18em */

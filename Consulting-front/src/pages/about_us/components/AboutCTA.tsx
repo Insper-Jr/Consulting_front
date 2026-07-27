@@ -2,7 +2,7 @@ import React from "react";
 import styled, { keyframes, css } from "styled-components";
 import { useTranslation } from "react-i18next";
 import { useInView } from "../../../hooks/useInView";
-import { RED, DARK, BG_CREAM as BG, FONT_TITLE, FONT_BODY, SPRING } from "../../../styles/tokens";
+import { RED, DARK, BG_CREAM as BG, FONT_TITLE, FONT_BODY, SPRING, TYPE } from "../../../styles/tokens";
 
 const fadeUp = keyframes`
   from { opacity: 0; transform: translateY(16px); }
@@ -45,13 +45,15 @@ const Eyebrow = styled.span`
 
 const Title = styled.h2`
   font-family: ${FONT_TITLE};
-  font-size: clamp(26px, 3.5vw, 38px);
-  font-weight: 700;
+  font-size: ${TYPE.closingTitle.size};
+  font-weight: ${TYPE.closingTitle.weight};
   color: ${DARK};
-  letter-spacing: -0.03em;
-  line-height: 1.1;
+  letter-spacing: ${TYPE.closingTitle.ls};
+  line-height: ${TYPE.closingTitle.lh};
   margin: 0;
   max-width: 620px;
+
+  @media (max-width: 480px) { font-size: 28px; }
 `;
 
 const Sub = styled.p`

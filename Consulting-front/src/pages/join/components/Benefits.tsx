@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, Fragment } from "react";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
-import { RED, FONT_TITLE } from "../../../styles/tokens";
+import { RED, FONT_TITLE, TYPE, SPACING } from "../../../styles/tokens";
 
 const FONT = `'Inter', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif`;
 const MONO = `'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace`;
@@ -155,7 +155,7 @@ const Inner = styled.div`
   position: relative;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 32px;
+  padding: 0 ${SPACING.innerPaddingX};
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 0.5s ease-out, transform 0.5s ease-out;
@@ -183,8 +183,8 @@ const Head = styled.div`
   h2 {
     font-family: ${FONT_TITLE};
     margin: 0;
-    font-size: clamp(28px, 3.2vw, 40px);
-    line-height: 1.1; letter-spacing: -0.02em; font-weight: 800;
+    font-size: ${TYPE.sectionH2.size};
+    line-height: 1.1; letter-spacing: -0.02em; font-weight: ${TYPE.sectionH2.weight};
   }
 
   .lead {
@@ -193,7 +193,7 @@ const Head = styled.div`
     padding-left: 16px;
     border-left: 2px solid ${RED};
     color: rgba(8,15,15,0.62);
-    font-size: 15px; line-height: 1.65; max-width: 42ch;
+    font-size: ${TYPE.body.size}; line-height: 1.65; max-width: 42ch;
   }
 
   @media (max-width: 980px) { grid-template-columns: 1fr; gap: 16px; margin-bottom: 40px; }
@@ -303,7 +303,7 @@ const PanelIconBox = styled.div`
 const PanelTitle = styled.h4`
   font-family: ${FONT_TITLE};
   position: relative; z-index: 1; margin: 0;
-  font-size: clamp(20px, 2.2vw, 28px); font-weight: 800;
+  font-size: ${TYPE.subTitle.size}; font-weight: 800;
   color: #fff; line-height: 1.18; letter-spacing: -0.02em;
 `;
 

@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import styled, { keyframes, css } from "styled-components";
 import { useTranslation } from "react-i18next";
 import { useInView } from "@/hooks/useInView";
-import { RED, DARK, MUTED, BG_CREAM as BG, FONT_TITLE, FONT_BODY, SPRING } from "@/styles/tokens";
+import { RED, DARK, MUTED, BG_CREAM as BG, FONT_TITLE, FONT_BODY, SPRING, TYPE, SPACING } from "@/styles/tokens";
 
 
 function useCountUp(target: number, duration: number, active: boolean) {
@@ -47,9 +47,9 @@ const Section = styled.section`
 `;
 
 const Inner = styled.div`
-  max-width: 1200px;
+  max-width: ${SPACING.innerMaxWidth};
   margin: 0 auto;
-  padding: 0 56px;
+  padding: 0 ${SPACING.innerPaddingX};
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -119,11 +119,11 @@ const Left = styled.div<{ $visible: boolean }>`
 
 const Title = styled.h2`
   font-family: ${FONT_TITLE};
-  font-size: 32px;
-  font-weight: 700;
+  font-size: ${TYPE.sectionH2.size};
+  font-weight: ${TYPE.sectionH2.weight};
   color: ${DARK};
-  letter-spacing: -0.02em;
-  line-height: 1.1;
+  letter-spacing: ${TYPE.sectionH2.ls};
+  line-height: ${TYPE.sectionH2.lh};
   margin: 0;
 
   i {
@@ -131,8 +131,8 @@ const Title = styled.h2`
     font-weight: 400;
   }
 
-  @media (max-width: 860px) { font-size: 40px; }
-  @media (max-width: 480px) { font-size: 30px; }
+  @media (max-width: 860px) { font-size: 28px; }
+  @media (max-width: 480px) { font-size: 24px; }
 `;
 
 const Accent = styled.div<{ $visible: boolean }>`

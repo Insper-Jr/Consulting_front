@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import styled, { keyframes } from "styled-components";
 import { useTranslation } from "react-i18next";
-import { RED, BG_CREAM, FONT_TITLE } from "../../../styles/tokens";
+import { RED, BG_CREAM, FONT_TITLE, TYPE, SPACING } from "../../../styles/tokens";
 
 const useCountUp = (target: number, duration: number, trigger: boolean, delay = 0) => {
   const [count, setCount] = useState(0);
@@ -132,7 +132,7 @@ const Inner = styled.div`
   position: relative;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 32px;
+  padding: 0 ${SPACING.innerPaddingX};
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 0.5s ease-out, transform 0.5s ease-out;
@@ -157,9 +157,9 @@ const Grid = styled.div`
   h2 {
     font-family: ${FONT_TITLE};
     margin: 0;
-    font-size: clamp(36px, 4.4vw, 56px);
+    font-size: ${TYPE.closingTitle.size};
     line-height: 1.04; max-width: 14ch;
-    letter-spacing: -0.02em; font-weight: 800;
+    letter-spacing: -0.02em; font-weight: ${TYPE.closingTitle.weight};
   }
 
   h2 em { font-style: normal; color: ${RED}; }
@@ -170,7 +170,7 @@ const Grid = styled.div`
     padding-left: 16px;
     border-left: 2px solid ${RED};
     color: rgba(8,15,15,0.62);
-    font-size: 18px; max-width: 46ch; line-height: 1.55;
+    font-size: ${TYPE.body.size}; max-width: 46ch; line-height: ${TYPE.body.lh};
   }
 
   .actions { margin-top: 36px; display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
@@ -178,7 +178,8 @@ const Grid = styled.div`
   @media (max-width: 980px) { grid-template-columns: 1fr; gap: 40px; }
   @media (max-width: 640px) {
     gap: 32px;
-    .sub { font-size: 16px; margin-top: 16px; }
+    h2 { font-size: 30px; }
+    .sub { margin-top: 16px; }
     .actions { margin-top: 28px; align-items: stretch; }
   }
 `;

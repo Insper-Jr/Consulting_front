@@ -38,7 +38,7 @@ const HeroOuter = styled.div`
   min-height: 100dvh;
   background: ${BG_DARK};
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   overflow: hidden;
 `;
@@ -50,12 +50,12 @@ const Center = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 32px;
-  padding: 0 24px;
+  padding: 220px 24px 0;
   text-align: center;
 
   @media (max-width: 640px) {
     gap: 20px;
-    padding: 0 20px;
+    padding: 160px 20px 0;
   }
 `;
 

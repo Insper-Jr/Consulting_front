@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 import { useTranslation } from "react-i18next";
-import { RED, FONT_TITLE } from "../../../styles/tokens";
+import { RED, FONT_TITLE, TYPE, SPACING } from "../../../styles/tokens";
 
 type FrenteId = "business" | "tech" | "direito" | "processos";
 type Step = { num: string; label: string; desc: string };
@@ -150,7 +150,7 @@ const Inner = styled.div`
   position: relative;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 32px;
+  padding: 0 ${SPACING.innerPaddingX};
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 0.5s ease-out, transform 0.5s ease-out;
@@ -165,7 +165,7 @@ const Head = styled.div`
 
   .left { display: flex; flex-direction: column; gap: 18px; }
   .eyebrow { font-family: ${FONT_TITLE}; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: ${RED}; }
-  h2 { font-family: ${FONT_TITLE}; margin: 0; font-size: clamp(28px, 3.2vw, 40px); line-height: 1.1; letter-spacing: -0.02em; font-weight: 800; }
+  h2 { font-family: ${FONT_TITLE}; margin: 0; font-size: ${TYPE.sectionH2.size}; line-height: 1.1; letter-spacing: -0.02em; font-weight: ${TYPE.sectionH2.weight}; }
 
   @media (max-width: 980px) { grid-template-columns: 1fr; gap: 24px; margin-bottom: 32px; }
 `;
@@ -244,7 +244,7 @@ const StepItem = styled.div`
   position: relative; z-index: 1; padding: 0 14px;
   &:first-child { padding-left: 0; }
   &:last-child  { padding-right: 0; }
-  h4 { font-family: ${FONT_TITLE}; margin: 0 0 8px; font-size: 16px; font-weight: 700; letter-spacing: -0.01em; }
+  h4 { font-family: ${FONT_TITLE}; margin: 0 0 8px; font-size: ${TYPE.subTitle.size}; font-weight: 700; letter-spacing: -0.01em; }
   p  { margin: 0; color: rgba(8,15,15,0.62); font-size: 13px; line-height: 1.55; }
   @media (max-width: 980px) {
     display: grid; grid-template-columns: 56px 1fr;

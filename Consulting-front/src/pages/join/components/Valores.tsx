@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import styled, { keyframes } from "styled-components";
 import { useTranslation } from "react-i18next";
-import { RED, BG_CREAM, FONT_TITLE } from "../../../styles/tokens";
+import { RED, BG_CREAM, FONT_TITLE, TYPE, SPACING } from "../../../styles/tokens";
 
 const FONT = `'Inter', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif`;
 
@@ -115,7 +115,7 @@ const Inner = styled.div`
   position: relative;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 32px;
+  padding: 0 ${SPACING.innerPaddingX};
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 0.5s ease-out, transform 0.5s ease-out;
@@ -130,9 +130,9 @@ const Head = styled.div`
 
   .left { display: flex; flex-direction: column; gap: 18px; }
   .eyebrow { font-family: ${FONT_TITLE}; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: ${RED}; }
-  h2 { font-family: ${FONT_TITLE}; margin: 0; font-size: clamp(28px, 3.2vw, 40px); line-height: 1.1; letter-spacing: -0.02em; font-weight: 800; }
+  h2 { font-family: ${FONT_TITLE}; margin: 0; font-size: ${TYPE.sectionH2.size}; line-height: 1.1; letter-spacing: -0.02em; font-weight: ${TYPE.sectionH2.weight}; }
   .lead-block { position: relative; padding-left: 16px; border-left: 2px solid ${RED}; }
-  .lead-sub { margin: 0; color: rgba(8,15,15,0.52); font-size: 15px; line-height: 1.65; max-width: 38ch; }
+  .lead-sub { margin: 0; color: rgba(8,15,15,0.52); font-size: ${TYPE.body.size}; line-height: 1.65; max-width: 38ch; }
 
   @media (max-width: 980px) { grid-template-columns: 1fr; gap: 16px; margin-bottom: 40px; }
   @media (max-width: 640px) { margin-bottom: 28px; }
@@ -162,7 +162,7 @@ const TitleWrap = styled.div`
   h4 {
     font-family: ${FONT_TITLE};
     margin: 0; display: inline-block; position: relative;
-    font-size: 22px; font-weight: 700; letter-spacing: -0.02em; color: #080F0F;
+    font-size: ${TYPE.subTitle.size}; font-weight: 700; letter-spacing: -0.02em; color: #080F0F;
     transition: color 0.2s ease;
     &::after {
       content: ''; position: absolute; left: 0; bottom: -3px;
@@ -170,7 +170,7 @@ const TitleWrap = styled.div`
       transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
     }
   }
-  @media (max-width: 640px) { h4 { font-size: 19px; } }
+  @media (max-width: 640px) { h4 { font-size: 18px; } }
 `;
 
 const Card = styled.div<{ $idx: number }>`
