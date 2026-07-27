@@ -2,16 +2,7 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 import styled, { keyframes, css } from "styled-components";
 import { useTranslation } from "react-i18next";
 import { useParticles } from "../../../hooks/useParticleBackground";
-
-// Tokens
-const DARK_BG  = "#0e0404";   // quase preto quente
-const RED = "#C02121";
-const RED_DIM  = "rgba(105,18,18,0.45)";
-const CREAM    = "#FAF2EA";
-const MUTED    = "rgba(250,242,234,0.48)";
-const FONT_TITLE = `'Montserrat',Helvetica,sans-serif`;
-const FONT_BODY  = `'Inter',Helvetica,sans-serif`;
-const SPRING   = "cubic-bezier(0.16,1,0.3,1)";
+import { BG_DARK, RED, RED_DARK, RED_DIM, CREAM, FONT_TITLE, FONT_BODY, SPRING, TYPE } from "../../../styles/tokens";
 
 // Animations
 const wordIn = keyframes`
@@ -45,7 +36,7 @@ const HeroOuter = styled.div`
   width: 100%;
   min-height: 100vh;
   min-height: 100dvh;
-  background: ${DARK_BG};
+  background: ${BG_DARK};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -71,9 +62,9 @@ const Center = styled.div`
 // Eyebrow
 const Eyebrow = styled.span`
   font-family: ${FONT_TITLE};
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
+  font-size: ${TYPE.eyebrow.size};
+  font-weight: ${TYPE.eyebrow.weight};
+  letter-spacing: ${TYPE.eyebrow.ls};
   text-transform: uppercase;
   color: ${RED};
   opacity: 0;
@@ -83,11 +74,11 @@ const Eyebrow = styled.span`
 // Main title — H1: Montserrat Bold 48px
 const Title = styled.h1`
   font-family: ${FONT_TITLE};
-  font-size: 48px;
-  font-weight: 700;
+  font-size: ${TYPE.hero.size};
+  font-weight: ${TYPE.hero.weight};
   color: ${CREAM};
-  letter-spacing: -0.03em;
-  line-height: 1.1;
+  letter-spacing: ${TYPE.hero.ls};
+  line-height: ${TYPE.hero.lh};
   margin: 0;
 
   @media (max-width: 640px) { font-size: 36px; }
@@ -116,10 +107,10 @@ const AccentLine = styled.div`
 // Subtitle — Body: Inter Regular 16px
 const Subtitle = styled.p`
   font-family: ${FONT_BODY};
-  font-size: 16px;
-  font-weight: 400;
+  font-size: ${TYPE.body.size};
+  font-weight: ${TYPE.body.weight};
   color: ${CREAM};
-  line-height: 1.5;
+  line-height: ${TYPE.body.lh};
   max-width: 560px;
   margin: 0;
   opacity: 0;
@@ -136,8 +127,8 @@ const HeroBtn = styled.a`
   background: ${RED};
   color: ${CREAM};
   font-family: ${FONT_BODY};
-  font-weight: 600;
-  font-size: 16px;
+  font-weight: ${TYPE.cta.weight};
+  font-size: ${TYPE.cta.size};
   text-decoration: none;
   line-height: 1;
   opacity: 0;
@@ -147,7 +138,7 @@ const HeroBtn = styled.a`
   .arrow { transition: transform 0.25s; }
 
   &:hover {
-    background: #a81b1b;
+    background: ${RED_DARK};
     transform: translateY(-1px);
     animation-play-state: paused;
   }
