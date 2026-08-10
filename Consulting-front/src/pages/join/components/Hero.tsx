@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import styled, { keyframes, css } from "styled-components";
 import { useParticles } from "../../../hooks/useParticleBackground";
+import { INSCRICAO_URL } from "../../../config/config";
 
 // Tokens
 const DARK_BG  = "#0e0404";   // quase preto quente
@@ -326,7 +327,7 @@ export default function AboutHero() {
         </Subtitle>
 
 
-        <HeroBtn href="#inscricao">
+        <HeroBtn href={INSCRICAO_URL} target="_blank" rel="noopener noreferrer">
           Inscreva-se no processo seletivo <span className="arrow">→</span>
         </HeroBtn>
 
