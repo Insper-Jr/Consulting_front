@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import styled, { keyframes } from "styled-components";
+import { INSCRICAO_URL } from "../../../config/config";
 
 const useCountUp = (target: number, duration: number, trigger: boolean, delay = 0) => {
   const [count, setCount] = useState(0);
@@ -75,13 +76,13 @@ const InscricaoCTA = () => {
               tudo o que precisa saber por e-mail.
             </p>
             <div className="actions">
-              <Cta href="#">Inscreva-se no Processo Seletivo <span className="arrow">→</span></Cta>
+              <Cta href={INSCRICAO_URL} target="_blank" rel="noopener noreferrer">Inscreva-se no Processo Seletivo <span className="arrow">→</span></Cta>
               <InsperNote>
                 <svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true">
                   <circle cx="10" cy="10" r="9" stroke="currentColor" strokeWidth="1.6"/>
                   <path d="M10 9v5M10 6.5v.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
                 </svg>
-                Exclusivo para <strong>alunos Insper</strong> — use seu e-mail institucional
+                <span>Exclusivo para <strong>alunos Insper</strong>, use seu e-mail institucional</span>
                 <span className="email">@al.insper.edu.br</span>
               </InsperNote>
             </div>
