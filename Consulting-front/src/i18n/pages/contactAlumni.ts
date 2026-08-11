@@ -34,6 +34,9 @@ export const contactAlumniTranslations = {
         eyebrow: "Onde estão",
         title: "Ex-membros em destaque",
         viewAllBtn: "Ver todos",
+        viewAllCard: {
+          ariaLabel: "Ver mais {{count}} ex-membros",
+        },
         cardAriaLabel: "Ver depoimento completo de {{name}}",
         readMore: "Ver depoimento →",
         scrollHint: "Role para ver mais",
@@ -110,6 +113,11 @@ export const contactAlumniTranslations = {
             quote:
               "Minha passagem pela Insper Jr. foi determinante para a minha carreira. Buscava aprender através de projetos reais e encontrei um ambiente que acelerou meu amadurecimento profissional. Saí com vivências únicas, habilidades consolidadas e uma rede de contatos e amigos que formei durante meu período na empresa.",
           },
+          viniciusGrecco: {
+            role: "Software Engineer Intern",
+            quote:
+              "Sou muito grato à Insper Jr., que teve um papel crucial na minha formação. Os projetos me proporcionaram experiências práticas que aceleraram meu desenvolvimento e foram essenciais para minha preparação para processos seletivos, além de me proporcionarem amizades que levo para a vida.",
+          },
         },
       },
       form: {
@@ -185,6 +193,9 @@ export const contactAlumniTranslations = {
         eyebrow: "Where they are now",
         title: "Featured alumni",
         viewAllBtn: "View all",
+        viewAllCard: {
+          ariaLabel: "See {{count}} more alumni",
+        },
         cardAriaLabel: "View {{name}}'s full testimonial",
         readMore: "View testimonial →",
         scrollHint: "Scroll to see more",
@@ -260,6 +271,11 @@ export const contactAlumniTranslations = {
             area: "Credit Card",
             quote:
               "My time at Insper Jr. was decisive for my career. I was looking to learn through real projects and found an environment that accelerated my professional growth. I left with unique experiences, solid skills, and a network of contacts and friends I made during my time at the company.",
+          },
+          viniciusGrecco: {
+            role: "Software Engineer Intern",
+            quote:
+              "I'm very grateful to Insper Jr., which played a crucial role in my development. The projects gave me hands-on experience that accelerated my growth and were essential in preparing me for recruitment processes, as well as giving me friendships I'll carry for life.",
           },
         },
       },
