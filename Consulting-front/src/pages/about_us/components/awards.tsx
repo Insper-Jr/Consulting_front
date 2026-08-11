@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { FONT_TITLE } from "../../../styles/tokens";
 // Ajuste os imports das imagens conforme a localização real em seu projeto
 import falconiLogo from "../../../assets/awards/falconi.png";
 import brasilJuniorLogo from "../../../assets/awards/brasil_junior.png";
@@ -64,7 +65,7 @@ const AwardItem = styled.div`
 `;
 
 const Text = styled.p`
-  font-family: "Montserrat", sans-serif;
+  font-family: ${FONT_TITLE};
   font-size: 20px;
   margin-top: 1rem;
   font-weight: 800;

@@ -7,6 +7,7 @@ const en = {
     join:      "Join Us",
     contact:   "Contact",
     cta:       "Get in Touch",
+    tagline:   "High-impact university consulting",
   },
 
   // ── Frentes (Solutions dropdown) ──
@@ -87,7 +88,7 @@ const en = {
   intro: {
     eyebrow:  "Who we are",
     title:    "Insper Jr.",
-    body:     "We are the junior enterprise of Insper, one of the most recognized educational institutions in Brazil. Since 2000, we have connected real companies to high-impact solutions in Business, Engineering & Technology, and Law, combining academic rigor with the practical perspective of those immersed in the market.",
+    body:     "We are the junior enterprise of Insper, one of the most recognized educational institutions in Brazil. Since 2001, we have connected real companies to high-impact solutions in Business, Engineering & Technology, and Law, combining academic rigor with the practical perspective of those immersed in the market.",
     cta:      "Learn more",
     mapLabel: "Clients and projects across Brazil",
     awards:   "Recognition",
@@ -103,7 +104,7 @@ const en = {
   interactiveSelector: {
     titleLine1:        "How can we",
     titleLine2:        "help you?",
-    subtitle:          "Tell us what you need and we'll connect you with the right expertise — tailored to your industry and goals.",
+    subtitle:          "Tell us what you need and we'll connect you with the right expertise, tailored to your industry and goals.",
     industriesLabel:   "Industries",
     capabilitiesLabel: "Capabilities",
     learnMore:         "Learn more →",
@@ -146,7 +147,7 @@ const en = {
       data:           "We extract patterns and insights from large data volumes to guide smarter decisions.",
       product:        "From concept to launch: we structure the product lifecycle focused on value and scalability.",
       web:            "We build robust, high-performance web interfaces and systems designed to convert.",
-      creation:       "We help materialize ideas into solid structures — corporate, operational, and brand.",
+      creation:       "We help materialize ideas into solid structures: corporate, operational, and brand.",
       corporate:      "We structure governance and corporate participation to ensure alignment and longevity.",
       cnpj:           "We simplify your company's formation with agility, security, and zero unnecessary bureaucracy.",
       docs:           "We draft articles of incorporation, bylaws, and minutes with legal precision and clear language.",
@@ -161,15 +162,8 @@ const en = {
 
   // ── SectionContact ──
   sectionContact: {
-    title:             "Get in touch with our team",
-    button:            "Contact",
-    newsletterLabel:   "Newsletter",
-    newsletterHeading: "Stay up to date with our news",
-    newsletterSub:     "Receive insights and updates in your inbox. No spam.",
-    emailPlaceholder:  "your@email.com",
-    submitBtn:         "Subscribe",
-    submitting:        "Sending…",
-    success:           "✓ Thank you! You will receive our updates soon.",
+    title:  "Get in touch with our team",
+    button: "Contact",
   },
 
   // ── SectionMap ──
@@ -217,6 +211,7 @@ const en = {
 
     // ── Scopes and case cards (BusinessCases) ──
     scopes: {
+      badge:       "Business",
       titlePrefix: "Project",
       howLabel:    "How we work",
       deliverLabel: "What we deliver",

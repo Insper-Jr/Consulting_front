@@ -1,4 +1,6 @@
 import styled, { keyframes } from "styled-components";
+import { useTranslation } from "react-i18next";
+import { RED, FONT_TITLE } from "../styles/tokens";
 
 import einstein from "../assets/clients/albert_einstein.png";
 import alcoa from "../assets/clients/alcoa.png";
@@ -25,12 +27,14 @@ const clientLogos = [
 ];
 
 const Carousel = () => {
+  const { t } = useTranslation();
+
   return (
     <CarouselWrapper>
       <TitleWrapper>
         <TitleText>
-          <span>Nossos</span>
-          <span>Clientes</span>
+          <span>{t("shared.clientes.titleLine1")}</span>
+          <span>{t("shared.clientes.titleLine2")}</span>
         </TitleText>
         <RedBar />
       </TitleWrapper>
@@ -39,7 +43,7 @@ const Carousel = () => {
         <SlideTrack>
           {[...clientLogos, ...clientLogos].map((logo, index) => (
             <LogoWrapper key={index}>
-              <img src={logo} alt={`Cliente ${index}`} />
+              <img src={logo} alt={t("shared.clientes.logoAlt", { index })} />
             </LogoWrapper>
           ))}
         </SlideTrack>
@@ -78,10 +82,10 @@ const TitleWrapper = styled.div`
 const TitleText = styled.div`
   display: flex;
   flex-direction: column;
-  font-family: "Montserrat", sans-serif;
+  font-family: ${FONT_TITLE};
   font-weight: 700;
   font-size: 34px;
-  color: #A10F23;
+  color: ${RED};
   line-height: 1.1;
 
   span {
@@ -96,7 +100,7 @@ const TitleText = styled.div`
 const RedBar = styled.div`
   width: 4px;
   height: 80px;
-  background-color: #A10F23;
+  background-color: ${RED};
 
   @media (max-width: 600px) {
     height: 45px;

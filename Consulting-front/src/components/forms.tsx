@@ -2,8 +2,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import toast from "react-hot-toast";
+import { RED, RED_DARK, FONT_TITLE } from "../styles/tokens";
+import { useTranslation } from "react-i18next";
 
 const DiagnosticForm = () => {
+  const { t } = useTranslation();
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -21,15 +24,15 @@ const DiagnosticForm = () => {
   const validateForm = () => {
     const { name, email, mobile_phone, cf_description } = form;
     if (!name || !email || !mobile_phone || !cf_description) {
-      toast.error("Por favor, preencha todos os campos obrigatórios.");
+      toast.error(t("shared.forms.errors.requiredFields"));
       return false;
     }
     if (!email.includes("@") || !email.includes(".")) {
-      toast.error("Digite um e-mail válido");
+      toast.error(t("shared.forms.errors.invalidEmail"));
       return false;
     }
     if (mobile_phone.replace(/\D/g, "").length < 8) {
-      toast.error("Digite um celular válido.");
+      toast.error(t("shared.forms.errors.invalidPhone"));
       return false;
     }
     return true;
@@ -53,7 +56,7 @@ const DiagnosticForm = () => {
         }
       );
       if (!response.ok) throw new Error("Erro no envio");
-      toast.success("Formulário enviado com sucesso!");
+      toast.success(t("shared.forms.success.submitted"));
       setForm({
         name: "",
         email: "",
@@ -63,71 +66,71 @@ const DiagnosticForm = () => {
       });
     } catch (error) {
       console.error("Erro na requisição:", error);
-      toast.error("Erro ao enviar o formulário. Tente novamente mais tarde.");
+      toast.error(t("shared.forms.errors.submitFailed"));
     }
   };
 
   return (
     <FormCard>
       <AccentLine />
-      <FormTitle>Comece o seu diagnóstico</FormTitle>
+      <FormTitle>{t("shared.forms.title")}</FormTitle>
 
       <StyledForm onSubmit={handleSubmit}>
         <Field>
-          <FieldLabel>Nome Completo</FieldLabel>
+          <FieldLabel>{t("shared.forms.fields.name.label")}</FieldLabel>
           <FieldInput
             type="text"
             name="name"
-            placeholder="Digite seu nome"
+            placeholder={t("shared.forms.fields.name.placeholder")}
             value={form.name}
             onChange={handleChange}
             required
           />
         </Field>
         <Field>
-          <FieldLabel>Email</FieldLabel>
+          <FieldLabel>{t("shared.forms.fields.email.label")}</FieldLabel>
           <FieldInput
             type="email"
             name="email"
-            placeholder="Digite seu email"
+            placeholder={t("shared.forms.fields.email.placeholder")}
             value={form.email}
             onChange={handleChange}
             required
           />
         </Field>
         <Field>
-          <FieldLabel>Celular</FieldLabel>
+          <FieldLabel>{t("shared.forms.fields.phone.label")}</FieldLabel>
           <FieldInput
             type="tel"
             name="mobile_phone"
-            placeholder="Digite seu número de celular"
+            placeholder={t("shared.forms.fields.phone.placeholder")}
             value={form.mobile_phone}
             onChange={handleChange}
             required
           />
         </Field>
         <Field>
-          <FieldLabel>Nome da Empresa</FieldLabel>
+          <FieldLabel>{t("shared.forms.fields.company.label")}</FieldLabel>
           <FieldInput
             type="text"
             name="company_name"
-            placeholder="Digite o nome da sua empresa"
+            placeholder={t("shared.forms.fields.company.placeholder")}
             value={form.company_name}
             onChange={handleChange}
           />
         </Field>
         <Field>
-          <FieldLabel>Como podemos te ajudar</FieldLabel>
+          <FieldLabel>{t("shared.forms.fields.description.label")}</FieldLabel>
           <FieldTextArea
             name="cf_description"
-            rows={3}
-            placeholder="Uma breve descrição de como poderíamos te ajudar"
+            rows={2}
+            placeholder={t("shared.forms.fields.description.placeholder")}
             value={form.cf_description}
             onChange={handleChange}
             required
           />
         </Field>
-        <SubmitButton type="submit">Enviar Diagnóstico →</SubmitButton>
+        <SubmitButton type="submit">{t("shared.forms.submitButton")}</SubmitButton>
       </StyledForm>
     </FormCard>
   );
@@ -146,13 +149,13 @@ const FormCard = styled.div`
   -webkit-backdrop-filter: blur(24px) saturate(150%);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
-  padding: 36px;
+  padding: 26px 28px;
   position: relative;
   box-shadow: 0 32px 80px rgba(0, 0, 0, 0.5);
-  font-family: "Montserrat", sans-serif;
+  font-family: ${FONT_TITLE};
 
   @media (max-width: 600px) {
-    padding: 24px 20px;
+    padding: 22px 20px;
   }
 `;
 
@@ -162,7 +165,7 @@ const AccentLine = styled.div`
   left: 24px;
   right: 24px;
   height: 2px;
-  background: linear-gradient(90deg, transparent, #c02121, transparent);
+  background: linear-gradient(90deg, transparent, ${RED}, transparent);
 `;
 
 const StatusRow = styled.div`
@@ -176,12 +179,12 @@ const StatusDot = styled.span`
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #c02121;
-  box-shadow: 0 0 12px #c02121;
+  background: ${RED};
+  box-shadow: 0 0 12px ${RED};
 `;
 
 const StatusText = styled.span`
-  color: #c02121;
+  color: ${RED};
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.18em;
@@ -190,16 +193,16 @@ const StatusText = styled.span`
 
 const FormTitle = styled.h3`
   color: #fff;
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 600;
-  margin: 0 0 28px;
+  margin: 0 0 18px;
   letter-spacing: -0.01em;
 `;
 
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 12px;
 `;
 
 const Field = styled.div`
@@ -213,7 +216,7 @@ const FieldLabel = styled.label`
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 `;
 
 const inputBase = `
@@ -221,10 +224,10 @@ const inputBase = `
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 4px;
-  padding: 12px 14px;
+  padding: 9px 14px;
   color: #fff;
   font-size: 14px;
-  font-family: "Montserrat", sans-serif;
+  font-family: ${FONT_TITLE};
   outline: none;
   box-sizing: border-box;
   transition: border-color 0.2s, background 0.2s;
@@ -245,7 +248,7 @@ const FieldTextArea = styled.textarea`
 const SubmitButton = styled.button`
   margin-top: 8px;
   width: 100%;
-  background: #c02121;
+  background: ${RED};
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -255,10 +258,10 @@ const SubmitButton = styled.button`
   letter-spacing: 0.06em;
   text-transform: uppercase;
   cursor: pointer;
-  font-family: "Montserrat", sans-serif;
+  font-family: ${FONT_TITLE};
   transition: background 0.2s;
 
   &:hover {
-    background: #8c0c1e;
+    background: ${RED_DARK};
   }
 `;

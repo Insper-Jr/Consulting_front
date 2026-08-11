@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { RED_TITLE, FONT_TITLE } from "../../../styles/tokens";
 import brasil_junior from "../../../assets/awards/brasil_junior.png";
 import fejesp from "../../../assets/awards/fejesp.png";
 
@@ -49,9 +50,9 @@ const MovmentTitleWrapper = styled.div`
   width: 100%;
 
   h2 {
-    font-family: "Montserrat", sans-serif;
+    font-family: ${FONT_TITLE};
     font-size: 36px;
-    color: #a10f23;
+    color: ${RED_TITLE};
     white-space: nowrap;
     margin: 0;
   }
@@ -89,7 +90,7 @@ const LeftContainer = styled.div`
   max-width: 1000px;
 
   p {
-    font-family: "Montserrat", sans-serif;
+    font-family: ${FONT_TITLE};
     font-size: 20px;
     color: #333;
     line-height: 1.5;

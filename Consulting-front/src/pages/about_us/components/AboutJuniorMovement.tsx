@@ -1,16 +1,11 @@
 import React from "react";
 import styled, { keyframes, css } from "styled-components";
+import { useTranslation } from "react-i18next";
 import { useInView } from "@/hooks/useInView";
+import { RED, DARK, MUTED, BG_CREAM as BG, FONT_TITLE, FONT_BODY, SPRING } from "@/styles/tokens";
 
-/* ─── Tokens ─────────────────────────────────────────── */
-const RED    = "#C02121";
-const DARK   = "#1a1a18";
-const MUTED  = "#7a746e";
-const BG     = "#FAF2EA";
+/* ─── Tokens locais (sem equivalente exato no central) ── */
 const BORDER = "rgba(26,26,24,0.10)";
-const FONT_TITLE = `'Montserrat', Helvetica, sans-serif`;
-const FONT_BODY  = `'Inter', Helvetica, sans-serif`;
-const SPRING    = "cubic-bezier(0.16,1,0.3,1)";
 
 const fadeUp = keyframes`
   from { opacity: 0; transform: translateY(10px); }
@@ -86,21 +81,22 @@ const Tag = styled.span`
 
 /* ══════════════════════════════════════════════════════ */
 export default function AboutJuniorMovement() {
+  const { t } = useTranslation();
   const { ref, visible } = useInView();
 
   return (
     <Strip ref={ref} $visible={visible}>
       <Inner>
-        <Eyebrow>O que é uma EJ</Eyebrow>
+        <Eyebrow>{t("about.juniorMovement.eyebrow")}</Eyebrow>
         <Body>
-          <strong>Empresas Juniores</strong> são consultorias formadas por
-          estudantes universitários, sem fins lucrativos e supervisionadas por
-          professores. Fazemos parte de um movimento nacional de <strong>+600 EJs</strong>.
+          <strong>{t("about.juniorMovement.strong1")}</strong>
+          {t("about.juniorMovement.bodyMiddle")}
+          <strong>{t("about.juniorMovement.strong2")}</strong>.
         </Body>
         <Tags>
-          <Tag>Sem fins lucrativos</Tag>
-          <Tag>Supervisionados</Tag>
-          <Tag>+600 EJs no Brasil</Tag>
+          <Tag>{t("about.juniorMovement.tag1")}</Tag>
+          <Tag>{t("about.juniorMovement.tag2")}</Tag>
+          <Tag>{t("about.juniorMovement.tag3")}</Tag>
         </Tags>
       </Inner>
     </Strip>

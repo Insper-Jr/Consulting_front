@@ -1,48 +1,24 @@
 import { useState, useEffect, useRef } from "react";
 import styled, { createGlobalStyle } from "styled-components";
+import { useTranslation } from "react-i18next";
+import { RED, FONT_TITLE, TYPE, SPACING } from "../../../styles/tokens";
 
 type FrenteId = "business" | "tech" | "direito" | "processos";
 type Step = { num: string; label: string; desc: string };
+type StepT = { label: string; desc: string };
+type FrenteT = { id: FrenteId; label: string; steps: StepT[] };
 
 const FONT = `'Inter', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif`;
 const MONO = `'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace`;
 
-const FRENTES: { id: FrenteId; label: string; editalUrl: string; steps: Step[] }[] = [
-  {
-    id: "business", label: "Business", editalUrl: "#edital-business",
-    steps: [
-      { num: "01", label: "Prova GMAT",           desc: "Prova de lógica, raciocínio técnico e questões de atualidades." },
-      { num: "02", label: "Dinâmica em grupo",     desc: "Simulação de case de consultoria nas áreas financeira e de marketing mercadológico." },
-      { num: "03", label: "Entrevista individual", desc: "Avaliação de raciocínio analítico e postura profissional em formato de case individual." },
-      { num: "04", label: "Trainee",               desc: "Business plan completo: análise mercadológica, plano operacional, escopo financeiro e estratégia de marketing (~3 meses)." },
-    ],
-  },
-  {
-    id: "tech", label: "Tech", editalUrl: "#edital-tech",
-    steps: [
-      { num: "01", label: "Dinâmica em grupo", desc: "Desafio colaborativo avaliando lógica, comunicação e resolução de problemas técnicos." },
-      { num: "02", label: "Case e entrevista", desc: "Desenvolvimento de case em Dev Web ou Análise de Dados, seguido de entrevista técnica." },
-      { num: "03", label: "Trainee",           desc: "Projeto real em Dev Web ou Análise de Dados com entregas incrementais ao longo do semestre." },
-    ],
-  },
-  {
-    id: "direito", label: "Direito", editalUrl: "#edital-direito",
-    steps: [
-      { num: "01", label: "Dinâmica em grupo", desc: "Exercício de argumentação jurídica e avaliação de conhecimento do ordenamento." },
-      { num: "02", label: "Case individual",   desc: "Resolução de case nas áreas de contratos, direito tributário ou societário." },
-      { num: "03", label: "Trainee",           desc: "Escopo de trabalho em contrato, societário, tributário e propriedade intelectual." },
-    ],
-  },
-  {
-    id: "processos", label: "Processos", editalUrl: "#edital-processos",
-    steps: [
-      { num: "01", label: "Dinâmica em grupo", desc: "Exercício colaborativo de mapeamento e análise crítica de processos." },
-      { num: "02", label: "Case individual",   desc: "Diagnóstico de processo e proposta de melhoria com indicadores de desempenho." },
-      { num: "03", label: "Entrevista",        desc: "Discussão sobre metodologias de melhoria contínua e experiências anteriores." },
-      { num: "04", label: "Trainee",           desc: "Redesenho de processo real de um cliente, com acompanhamento da implementação." },
-    ],
-  },
-];
+const EDITAL_URLS: Record<FrenteId, string> = {
+  business: "#edital-business",
+  tech: "#edital-tech",
+  direito: "#edital-direito",
+  processos: "#edital-processos",
+};
+
+const STEP_NUMS = ["01", "02", "03", "04"];
 
 const GlobalAnim = createGlobalStyle`
   @keyframes trackLeave {
@@ -56,6 +32,16 @@ const GlobalAnim = createGlobalStyle`
 `;
 
 const TimeLine = () => {
+  const { t } = useTranslation();
+  const FRENTES: { id: FrenteId; label: string; editalUrl: string; steps: Step[] }[] = (
+    t("join.timeline.frentes", { returnObjects: true }) as FrenteT[]
+  ).map(f => ({
+    id: f.id,
+    label: f.label,
+    editalUrl: EDITAL_URLS[f.id],
+    steps: f.steps.map((s, i) => ({ num: STEP_NUMS[i], label: s.label, desc: s.desc })),
+  }));
+
   const [selected, setSelected]               = useState<FrenteId>("business");
   const [displayedFrente, setDisplayedFrente] = useState<FrenteId>("business");
   const busyRef  = useRef(false);
@@ -108,15 +94,14 @@ const TimeLine = () => {
       <Inner ref={innerRef} data-visible={String(visible)}>
         <Head>
           <div className="left">
-            <span className="eye
-            brow">03 · Etapas do Processo Seletivo</span>
-            <h2>O processo de cada frente.</h2>
+            <span className="eyebrow">{t("join.timeline.eyebrow")}</span>
+            <h2>{t("join.timeline.title")}</h2>
           </div>
           <EditalBlock>
-            <EditalMeta><span className="dot" /><span>Processo seletivo aberto</span></EditalMeta>
-            <EditalFrente key={current.id}>Frente <strong>{current.label}</strong></EditalFrente>
+            <EditalMeta><span className="dot" /><span>{t("join.timeline.editalMeta")}</span></EditalMeta>
+            <EditalFrente key={current.id}>{t("join.timeline.editalFrentePre")}<strong>{current.label}</strong>{t("join.timeline.editalFrenteSuffix")}</EditalFrente>
             <EditalCta href={current.editalUrl} target="_blank" rel="noopener noreferrer">
-              Acessar edital
+              {t("join.timeline.editalCta")}
               <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden>
                 <path d="M2 11 L11 2M11 2 H5M11 2 V8" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
@@ -124,7 +109,7 @@ const TimeLine = () => {
           </EditalBlock>
         </Head>
 
-        <Pills role="tablist" aria-label="Selecione uma frente">
+        <Pills role="tablist" aria-label={t("join.timeline.pillsAriaLabel")}>
           {FRENTES.map((f) => (
             <Pill key={f.id} role="tab" type="button" aria-selected={selected === f.id} $active={selected === f.id} onClick={() => handleSelect(f.id)}>
               <span className="dot" />{f.label}
@@ -163,9 +148,9 @@ const Section = styled.section`
 
 const Inner = styled.div`
   position: relative;
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 32px;
+  padding: 0 ${SPACING.innerPaddingX};
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 0.5s ease-out, transform 0.5s ease-out;
@@ -179,15 +164,15 @@ const Head = styled.div`
   gap: 60px; align-items: end; margin-bottom: 48px;
 
   .left { display: flex; flex-direction: column; gap: 18px; }
-  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #691212; }
-  h2 { margin: 0; font-size: clamp(28px, 3.2vw, 40px); line-height: 1.1; letter-spacing: -0.02em; font-weight: 800; }
+  .eyebrow { font-family: ${FONT_TITLE}; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: ${RED}; }
+  h2 { font-family: ${FONT_TITLE}; margin: 0; font-size: ${TYPE.sectionH2.size}; line-height: 1.1; letter-spacing: -0.02em; font-weight: ${TYPE.sectionH2.weight}; }
 
   @media (max-width: 980px) { grid-template-columns: 1fr; gap: 24px; margin-bottom: 32px; }
 `;
 
 const EditalBlock = styled.div`
   display: flex; flex-direction: column; gap: 10px;
-  padding-left: 16px; border-left: 2px solid #C02121;
+  padding-left: 16px; border-left: 2px solid ${RED};
 `;
 
 const EditalMeta = styled.div`
@@ -204,7 +189,7 @@ const EditalFrente = styled.p`
 
 const EditalCta = styled.a`
   display: inline-flex; align-items: center; gap: 7px; align-self: flex-start;
-  padding: 9px 16px; background: #C02121; color: #fff;
+  padding: 9px 16px; background: ${RED}; color: #fff;
   font-size: 13px; font-weight: 700; letter-spacing: 0.02em; text-decoration: none;
   transition: background 0.2s, gap 0.2s;
   &:hover { background: #a01a1a; gap: 10px; }
@@ -228,7 +213,7 @@ const Pill = styled.button<{ $active: boolean }>`
   @media (max-width: 640px) { padding: 11px 16px; }
   .dot {
     width: 6px; height: 6px; border-radius: 50%;
-    background: ${({ $active }) => $active ? "#C02121" : "rgba(8,15,15,0.2)"};
+    background: ${({ $active }) => $active ? "${RED}" : "rgba(8,15,15,0.2)"};
     transform:  ${({ $active }) => $active ? "scale(1.4)" : "scale(1)"};
     transition: all 0.25s; flex-shrink: 0;
   }
@@ -259,7 +244,7 @@ const StepItem = styled.div`
   position: relative; z-index: 1; padding: 0 14px;
   &:first-child { padding-left: 0; }
   &:last-child  { padding-right: 0; }
-  h4 { margin: 0 0 8px; font-size: 16px; font-weight: 700; letter-spacing: -0.01em; }
+  h4 { font-family: ${FONT_TITLE}; margin: 0 0 8px; font-size: ${TYPE.subTitle.size}; font-weight: 700; letter-spacing: -0.01em; }
   p  { margin: 0; color: rgba(8,15,15,0.62); font-size: 13px; line-height: 1.55; }
   @media (max-width: 980px) {
     display: grid; grid-template-columns: 56px 1fr;
@@ -273,7 +258,7 @@ const Node = styled.div`
   width: 56px; height: 56px; border-radius: 50%;
   display: grid; place-items: center; margin-bottom: 24px;
   font-family: ${MONO}; font-size: 13px; font-weight: 700;
-  background: #fff; border: 2px solid #C02121; color: #C02121;
+  background: #fff; border: 2px solid ${RED}; color: ${RED};
   box-shadow: 0 4px 16px -6px rgba(192,33,33,0.35);
   @media (max-width: 980px) { margin-bottom: 0; grid-row: 1 / 3; align-self: start; }
 `;

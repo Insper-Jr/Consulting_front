@@ -1,6 +1,10 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import styled, { keyframes, css } from "styled-components";
+import { useTranslation } from "react-i18next";
 import { useParticles } from "../../../hooks/useParticleBackground";
+
+import { BG_DARK, RED, RED_DARK, RED_DIM, CREAM, FONT_TITLE, FONT_BODY, SPRING, TYPE } from "../../../styles/tokens";
+
 import { INSCRICAO_URL } from "../../../config/config";
 
 // Tokens
@@ -45,9 +49,9 @@ const HeroOuter = styled.div`
   width: 100%;
   min-height: 100vh;
   min-height: 100dvh;
-  background: ${DARK_BG};
+  background: ${BG_DARK};
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   overflow: hidden;
 `;
@@ -59,21 +63,21 @@ const Center = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 32px;
-  padding: 0 24px;
+  padding: 220px 24px 0;
   text-align: center;
 
   @media (max-width: 640px) {
     gap: 20px;
-    padding: 0 20px;
+    padding: 160px 20px 0;
   }
 `;
 
 // Eyebrow
 const Eyebrow = styled.span`
   font-family: ${FONT_TITLE};
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
+  font-size: ${TYPE.eyebrow.size};
+  font-weight: ${TYPE.eyebrow.weight};
+  letter-spacing: ${TYPE.eyebrow.ls};
   text-transform: uppercase;
   color: ${RED};
   opacity: 0;
@@ -83,11 +87,11 @@ const Eyebrow = styled.span`
 // Main title — H1: Montserrat Bold 48px
 const Title = styled.h1`
   font-family: ${FONT_TITLE};
-  font-size: 48px;
-  font-weight: 700;
+  font-size: ${TYPE.hero.size};
+  font-weight: ${TYPE.hero.weight};
   color: ${CREAM};
-  letter-spacing: -0.03em;
-  line-height: 1.1;
+  letter-spacing: ${TYPE.hero.ls};
+  line-height: ${TYPE.hero.lh};
   margin: 0;
 
   @media (max-width: 640px) { font-size: 36px; }
@@ -116,10 +120,10 @@ const AccentLine = styled.div`
 // Subtitle — Body: Inter Regular 16px
 const Subtitle = styled.p`
   font-family: ${FONT_BODY};
-  font-size: 16px;
-  font-weight: 400;
+  font-size: ${TYPE.body.size};
+  font-weight: ${TYPE.body.weight};
   color: ${CREAM};
-  line-height: 1.5;
+  line-height: ${TYPE.body.lh};
   max-width: 560px;
   margin: 0;
   opacity: 0;
@@ -136,8 +140,8 @@ const HeroBtn = styled.a`
   background: ${RED};
   color: ${CREAM};
   font-family: ${FONT_BODY};
-  font-weight: 600;
-  font-size: 16px;
+  font-weight: ${TYPE.cta.weight};
+  font-size: ${TYPE.cta.size};
   text-decoration: none;
   line-height: 1;
   opacity: 0;
@@ -147,7 +151,7 @@ const HeroBtn = styled.a`
   .arrow { transition: transform 0.25s; }
 
   &:hover {
-    background: #a81b1b;
+    background: ${RED_DARK};
     transform: translateY(-1px);
     animation-play-state: paused;
   }
@@ -229,11 +233,12 @@ const WaveBottom = styled.div`
 `;
 
 // Component
-const TITLE_WORDS = ["Faça", "parte"];
 // Delay escalonado para cada palavra
 const WORD_DELAYS = [0.55, 0.78, 1.02];
 
 export default function AboutHero() {
+  const { t } = useTranslation();
+  const titleWords = t("join.hero.titleWords", { returnObjects: true }) as string[];
   const wrapperRef = useRef<HTMLDivElement>(null);
   const canvasRef  = useRef<HTMLCanvasElement>(null);
 
@@ -308,10 +313,10 @@ export default function AboutHero() {
 
       {/* Conteúdo centralizado */}
       <Center>
-        <Eyebrow>Processo seletivo</Eyebrow>
+        <Eyebrow>{t("join.hero.eyebrow")}</Eyebrow>
 
         <Title>
-          {TITLE_WORDS.map((word, i) => (
+          {titleWords.map((word, i) => (
             <Word key={word} $delay={WORD_DELAYS[i]}>
               {word}
             </Word>
@@ -321,14 +326,12 @@ export default function AboutHero() {
         <AccentLine />
 
         <Subtitle>
-          Enquanto a maioria espera se formar para ter experiência,
-          os membros da Insper Jr. já estão construindo. Clientes reais.
-          Decisões reais. Um portfólio que começa agora.
+          {t("join.hero.subtitle")}
         </Subtitle>
 
 
-        <HeroBtn href={INSCRICAO_URL} target="_blank" rel="noopener noreferrer">
-          Inscreva-se no processo seletivo <span className="arrow">→</span>
+        <HeroBtn href="#inscricao">
+          {t("join.hero.button")} <span className="arrow">→</span>
         </HeroBtn>
 
         <InsperBadge>
@@ -337,7 +340,7 @@ export default function AboutHero() {
             <line x1="12" y1="8" x2="12" y2="12" />
             <line x1="12" y1="16" x2="12.01" y2="16" />
           </svg>
-          Exclusivo para alunos Insper
+          {t("join.hero.insperBadge")}
         </InsperBadge>
       </Center>
 

@@ -3,13 +3,7 @@ import styled, { keyframes, css } from "styled-components";
 import { useInView } from "../../../hooks/useInView";
 
 /* ─── Tokens ─────────────────────────────────────────── */
-const RED        = "#C02121";
-const DARK       = "#1a1a18";
-const MUTED      = "#7a746e";
-const CREAM      = "#FAF2EA";
-const FONT_TITLE = `'Montserrat', Helvetica, sans-serif`;
-const FONT_BODY  = `'Inter', Helvetica, sans-serif`;
-const SPRING     = "cubic-bezier(0.16,1,0.3,1)";
+import { RED, DARK, MUTED, CREAM, FONT_TITLE, FONT_BODY, SPRING } from "../../../styles/tokens";
 
 /* ─── Animations ─────────────────────────────────────── */
 const fadeUp = keyframes`
@@ -80,7 +74,7 @@ const Section = styled.section`
 `;
 
 const Inner = styled.div`
-  max-width: 1240px; margin: 0 auto; padding: 0 56px;
+  max-width: 1200px; margin: 0 auto; padding: 0 56px;
   display: flex; flex-direction: column; gap: 36px;
   @media (max-width: 768px) { padding: 0 28px; }
   @media (max-width: 480px) { padding: 0 20px; gap: 28px; }

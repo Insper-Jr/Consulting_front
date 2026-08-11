@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Quotes } from "phosphor-react";
+import { RED, FONT_TITLE, FONT_BODY } from "../styles/tokens";
 
 interface Testimonial {
   name: string;
@@ -14,7 +15,7 @@ const TestimonialCard: React.FC<{ testimonial: Testimonial }> = ({ testimonial }
       <BackgroundRect />
       <ForegroundRect>
         <QuotesIcon>
-          <Quotes size={32} weight="fill" color="#A10F23" />
+          <Quotes size={32} weight="fill" color={RED} />
         </QuotesIcon>
         <CardName>{testimonial.name}</CardName>
         <CardRole>{testimonial.role}</CardRole>
@@ -57,7 +58,7 @@ const ForegroundRect = styled.div`
   padding: 16px 32px;
   box-sizing: border-box;
   color: #fff;
-  font-family: "Poppins", sans-serif;
+  font-family: ${FONT_BODY};
 
   @media (max-width: 1200px) {
     padding: 12px 24px;
@@ -80,7 +81,7 @@ const QuotesIcon = styled.div`
 `;
 
 const CardName = styled.h3`
-  font-family: "Poppins", sans-serif;
+  font-family: ${FONT_TITLE};
   font-weight: 700;
   font-size: 18px;
   margin: 24px 0 4px 0;
@@ -98,7 +99,7 @@ const CardName = styled.h3`
 `;
 
 const CardRole = styled.p`
-  font-family: "Poppins", sans-serif;
+  font-family: ${FONT_BODY};
   font-style: italic;
   font-size: 14px;
   margin: 0;
@@ -115,7 +116,7 @@ const CardRole = styled.p`
 `;
 
 const CardText = styled.p`
-  font-family: "Poppins", sans-serif;
+  font-family: ${FONT_BODY};
   font-weight: 400;
   font-size: 14px;
   margin-top: 12px;
@@ -170,7 +171,7 @@ const CompanyLogo = styled.img`
 const RedLine = styled.div`
   width: 80px;
   height: 1.5px;
-  background-color: #a10f23;
+  background-color: ${RED};
 
   @media (max-width: 1200px) {
     width: 70px;

@@ -417,7 +417,7 @@ export default IntroSection;
 // Styled Components
 
 const Section = styled.section`
-  background: #FAF4F0;
+  background: #FAF2EA;
   padding: 2.25rem 0 3rem 0;
   display: flex;
   flex-direction: column;

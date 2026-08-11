@@ -1,10 +1,11 @@
 import { useRef, useState, useEffect, useCallback } from "react";
 import styled, { keyframes } from "styled-components";
+import { useTranslation } from "react-i18next";
 import {
   RED, RED_LIGHT, RED_DEEP, BG_CREAM,
   FONT_TITLE, FONT_BODY, TYPE, SPACING, SPRING,
   MUTED, DARK, BORDER_LIGHT,
-} from "../../processos/components/tokens";
+} from "../../../styles/tokens";
 import GiovannaFava from "../../../assets/alumni/GiovannaFava.png";
 import FernandoMauad from "../../../assets/alumni/FernandoMauad.png";
 import MateusMarinheiro from "../../../assets/alumni/MateusMarinheiro.png";
@@ -16,6 +17,8 @@ import MariaFernandaMelo from "../../../assets/alumni/MariaFernandaMelo.png";
 import TomasMiele from "../../../assets/alumni/TomasMiele.png";
 import JoaoFaraco from "../../../assets/alumni/JoaoFaraco.png";
 import HenriqueManequini from "../../../assets/alumni/HenriqueManequini.png"
+import FernandoThome from "../../../assets/alumni/FernandoThome.png"
+import GuilhermeLMazer from "../../../assets/alumni/GuilhermeLMazer.png"
 
 
 // ── Constants ──────────────────────────────────────────────────────────────
@@ -45,100 +48,121 @@ export interface Member {
 // ── Data ───────────────────────────────────────────────────────────────────
 // Para reordenar: basta alterar os ids em sequência (1, 2, 3...)
 // O carousel segue a ordem do array.
+// Campos traduzíveis (role, area, quote e, quando necessário, company) vêm
+// de alumni.carousel.members.<slug> em src/i18n/pages/contactAlumni.ts.
 
-const MEMBERS: Member[] = [
+type MemberBase = Omit<Member, "role" | "quote" | "company"> & {
+  slug: string;
+  company: string;
+  translatedArea?: boolean;
+  translatedCompany?: boolean;
+};
+
+const MEMBERS_BASE: MemberBase[] = [
   {
     id: 2,
+    slug:     "fernandoMauad",
     name:     "Fernando Mauad",
-    role:     "Associate Director",
     area:     "Investment Banking",
     company:  "UBS",
     photo:    FernandoMauad,
     linkedin: "https://www.linkedin.com/in/fernando-saad-mauad-8a4479164/",
-    quote:    "A Insper Jr teve um papel importante na minha formação, tanto pela vivência prática e proximidade com o mercado quanto pelas relações e experiências construídas ao longo do caminho. É um período que lembro com muito orgulho e gratidão.",
   },
   {
     id: 8,
+    slug:     "mariaFernandaMelo",
     name:     "Maria Fernanda Melo",
-    role:     "Associate Consultant",
     company:  "Bain & Company",
     photo:    MariaFernandaMelo,
     linkedin: "https://www.linkedin.com/in/maria-fernanda-melo-8b6bba248/",
-    quote:    "Sou muito grata pela resiliência, comprometimento e organização que desenvolvi na Insper Jr. e acredito que a minha experiência como consultora e diretora contribuíram muito para o meu desempenho no mercado de trabalho hoje em dia.",
-  },  
+  },
   {
     id: 5,
+    slug:     "gabrielDebiagi",
     name:     "Gabriel Debiagi",
-    role:     "Empresário",
     company:  "Empreendedorismo",
+    translatedCompany: true,
     photo:    GabrielDebiagi,
     linkedin: "https://www.linkedin.com/in/gabriel-debiagi-698321153/",
-    quote:    "A Junior abriu todas as portas pra mim. Durante a Junior, conheci muita gente, fiz muitos contatos por conta dos treinamentos e das mentorias — e foi assim que fui convidado pela Ambev pra participar de um projeto de inovação. Entreguei o projeto e fui convidado pra estagiar no escritório central da América Latina da Ambev, sem processo seletivo. Entrei no trade marketing, um ano depois fui aprovado no trainee — eram 90 vagas pra 100 mil candidatos — e tenho certeza que foi muito por conta do desenvolvimento que tive na Junior. Depois de um ano de trainee, fui transferido pra Salvador pra assumir uma gerência de vendas de clientes de segmento VIP. Em menos de três anos, cheguei a um cargo de gerência na Ambev. Depois saí pra empreender, que sempre foi meu sonho. Minha família tem negócios em Campos do Jordão e eu assumi a gestão. Hoje, em menos de cinco anos após a Junior, toco três empresas, estou abrindo a quarta, e tenho quase 50 funcionários sob minha responsabilidade. A Junior foi o período mais feliz e mais marcante da minha carreira — ela que abriu tudo.",
   },
   {
     id: 4,
+    slug:     "guilhermeKaidei",
     name:     "Guilherme Katayama Kaidei",
-    role:     "AI Intern",
     company:  "McKinsey & Company",
     photo:    GuilhermeKaidei,
     linkedin: "https://www.linkedin.com/in/guilherme-kaidei/",
-    quote:    "Estar na Insper Jr. foi uma experiência essencial para o meu desenvolvimento profissional. Ter a oportunidade de trabalhar com pessoas de diferentes cursos, todas com o objetivo em comum de contribuir para o crescimento da empresa, me proporcionou muito aprendizado, troca de experiências e desenvolvimento tanto técnico quanto interpessoal. Durante meu tempo na empresa, também tive meu primeiro contato com projetos voltados para clientes reais, entendendo na prática a responsabilidade e o impacto de entregar soluções que geravam valor de verdade. Essa vivência me ajudou a desenvolver uma visão mais próxima da dinâmica do mercado de trabalho e foi fundamental para me preparar para os próximos passos da minha carreira, trazendo mais maturidade, senso de responsabilidade e visão profissional.",
   },
   {
     id: 11,
+    slug:     "henriqueManequini",
     name:     "Henrique Manequini",
-    role:     "Analista",
     area: "Investment banking",
     company:  "G5 Partners",
     photo:    HenriqueManequini,
     linkedin: "https://www.linkedin.com/in/henrique-manequini-rocha-pinto-7a16b223a/",
-    quote:    "A Insper Jr. teve um papel enorme na minha formação. Foi onde aprendi, na prática, a lidar com clientes de verdade, construir relações e trabalhar bem em equipe. As visitas a empresas e o contato com o mercado me ajudaram a entender de perto como as coisas funcionam e me mostraram que era na área em que eu queria estar. Além disso, desenvolvi soft skills e construi uma rede que me acompanha até hoje.",
-  },  
+  },
   {
     id: 7,
+    slug:     "leonardoElias",
     name:     "Leonardo Fernandes Farah Elias",
-    role:     "Analista - Investment Banking",
     company:  "XP Inc.",
     photo:    LeonardoElias,
     linkedin: "https://www.linkedin.com/in/leonardo-fernandes-farah-elias-24a5041aa/",
-    quote:    "Na IJR, pude assumir, ainda na graduação, responsabilidades que normalmente só viriam após anos de mercado, liderando times, tocando projetos e lidando com clientes. Tenho certeza que essa experiência acelerou meu desenvolvimento e abriu portas importantes no início da minha carreira.",
-  }, 
+  },
   {
     id: 3,
+    slug:     "mateusMarinheiro",
     name:     "Mateus Marinheiro",
-    role:     "Estagiário de Dados e IA",
     company:  "Galápagos Capital",
     photo:    MateusMarinheiro,
     linkedin: "https://www.linkedin.com/in/mateus-marinheiro-4a19b0324/",
-    quote:    "Fiquei na Insper Jr. por 1 ano e 6 meses e, olhando para trás, tenho certeza de que foi uma das experiências mais marcantes da minha trajetória no Insper. Durante o período de trainee, tudo ainda era muito nebuloso para mim e eu ainda estava entendendo como a entidade funcionava, mas, depois da aprovação, percebi que estava entrando não só em uma empresa, mas em uma verdadeira família. Sem dúvida, foram os melhores semestres que vivi dentro da faculdade, tanto pelas pessoas quanto pelas experiências que tive. Além do desenvolvimento técnico na área de tecnologia, a Insper Jr. também me proporcionou aprendizados que iam muito além da engenharia, principalmente dentro do núcleo comercial, onde desenvolvi habilidades de comunicação, negociação e relacionamento que vou levar para toda a vida.",
   },
   {
     id: 1,
+    slug:     "giovannaFava",
     name:     "Giovanna Fava Steinberg",
-    role:     "Founder",
     company:  "PROTS Snacks",
     photo:    GiovannaFava,
     linkedin: "https://www.linkedin.com/in/giovanna-fava-steinberg",
-    quote:    "Minha experiência na IJR foi muito enriquecedora, tanto profissionalmente quanto pessoalmente, além de ter sido os melhores anos que tive na faculdade. Tenho amigos que fiz na empresa júnior que mantenho até hoje.",
   },
   {
     id: 9,
+    slug:     "tomasMiele",
     name:     "Tomas Miele",
-    role:     "Data Analytics Intern",
     company:  "LTS Investments",
     photo:    TomasMiele,
     linkedin: "https://www.linkedin.com/in/tomas-miele/",
-    quote:    "Durante minha passagem pela Jr, tive a oportunidade de atuar em múltiplos projetos que me proporcionaram uma vivência próxima ao dia a dia corporativo, lidando com prazos, desafios e impactos reais para empresas parceiras. Entre as experiências, participei do desenvolvimento de um website para uma empresa, em que tivemos o desafio de atender às necessidades e expectativas do cliente ao longo de todo o projeto. Essa experiência foi fundamental para meu desenvolvimento profissional, permitindo desenvolver habilidades técnicas e de trabalho em equipe em um ambiente com demandas e desafios reais.",
-  },  
+  },
   {
     id: 10,
+    slug:     "joaoFaraco",
     name:     "João Gabriel Faraco",
-    role:     "Estagiário de Data Science",
     area: "Cartão de Crédito",
+    translatedArea: true,
     company:  "Galapagos Capital",
     photo:    JoaoFaraco,
     linkedin: "https://www.linkedin.com/in/jo%C3%A3o-gabriel-faraco-871a8628a/",
-    quote:    "Fazer parte da Insper Junior foi uma experiência muito importante na minha trajetória no Insper. Além de representar meu primeiro contato com o mercado de trabalho, foi um período de grande aprendizado e desenvolvimento profissional. Também tive a oportunidade de construir conexões e trabalhar com pessoas que contribuíram bastante para minha formação.",
+  },
+  {
+    id: 12,
+    slug:     "fernandoThome",
+    name:     "Fernando Thomé",
+    area: "Cartão de Crédito",
+    translatedArea: true,
+    company:  "McKinsey & Company",
+    photo:    FernandoThome,
+    linkedin: "https://www.linkedin.com/in/fernando-ferreira-thome/",
+  },
+  {
+    id: 13,
+    slug:     "guilhermeMazer",
+    name:     "Guilherme Mazer",
+    area: "Cartão de Crédito",
+    translatedArea: true,
+    company:  "EY-Parthenon",
+    photo:    GuilhermeLMazer,
+    linkedin: "https://www.linkedin.com/in/guilherme-l-mazer-2b6843250/",
   },
   // {
   //   id: 6,
@@ -151,19 +175,29 @@ const MEMBERS: Member[] = [
   // },
   // {
   //   id: 12,
-  //   initials: "EG", 
+  //   initials: "EG",
   //   name:     "Enzo Gargiulo",
   //   role:     "Investor relations",
   //   company:  "SPX Capital",
   //   linkedin: "https://www.linkedin.com/in/enzogargiulo/",
   //   quote:    "",
   // },
-  
+
 ];
 
 // ── Component ──────────────────────────────────────────────────────────────
 
 const AlumniCarousel = () => {
+  const { t } = useTranslation();
+
+  const MEMBERS: Member[] = MEMBERS_BASE.map(({ slug, translatedArea, translatedCompany, area, company, ...base }) => ({
+    ...base,
+    role:    t(`alumni.carousel.members.${slug}.role`),
+    quote:   t(`alumni.carousel.members.${slug}.quote`),
+    area:    translatedArea ? t(`alumni.carousel.members.${slug}.area`) : area,
+    company: translatedCompany ? t(`alumni.carousel.members.${slug}.company`) : company,
+  }));
+
   const wrapperRef  = useRef<HTMLDivElement>(null);
   const trackRef    = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
@@ -228,8 +262,8 @@ const AlumniCarousel = () => {
 
           <SectionHeader>
             <HeaderLeft>
-              <Eyebrow>Onde estão</Eyebrow>
-              <SectionTitle>Ex-membros em destaque</SectionTitle>
+              <Eyebrow>{t("alumni.carousel.eyebrow")}</Eyebrow>
+              <SectionTitle>{t("alumni.carousel.title")}</SectionTitle>
             </HeaderLeft>
             <HeaderRight>
               <Counter>
@@ -238,7 +272,7 @@ const AlumniCarousel = () => {
                 <CounterTotal>{String(MEMBERS.length).padStart(2, "0")}</CounterTotal>
               </Counter>
               <BtnVerTodos onClick={() => setModalOpen(true)}>
-                Ver todos
+                {t("alumni.carousel.viewAllBtn")}
               </BtnVerTodos>
             </HeaderRight>
           </SectionHeader>
@@ -252,7 +286,7 @@ const AlumniCarousel = () => {
                   role="button"
                   tabIndex={0}
                   onKeyDown={(e) => e.key === "Enter" && setSelectedMember(m)}
-                  aria-label={`Ver depoimento completo de ${m.name}`}
+                  aria-label={t("alumni.carousel.cardAriaLabel", { name: m.name })}
                 >
                   <CardStrip>
                     <AvatarRing>
@@ -274,7 +308,7 @@ const AlumniCarousel = () => {
                     </MemberMeta>
                     <CardFooter>
                       <CompanyTag>{m.company}</CompanyTag>
-                      <ReadMore>Ver depoimento →</ReadMore>
+                      <ReadMore>{t("alumni.carousel.readMore")}</ReadMore>
                     </CardFooter>
                   </CardBody>
                 </Card>
@@ -287,7 +321,7 @@ const AlumniCarousel = () => {
           </ProgressBar>
 
           <ScrollHint $hidden={current === maxIndex}>
-            Role para ver mais
+            {t("alumni.carousel.scrollHint")}
           </ScrollHint>
 
         </StickySection>
@@ -308,9 +342,9 @@ const AlumniCarousel = () => {
             </SplitLeft>
 
             <SplitRight>
-              <SplitCloseBtn onClick={() => setSelectedMember(null)} aria-label="Fechar">✕</SplitCloseBtn>
+              <SplitCloseBtn onClick={() => setSelectedMember(null)} aria-label={t("alumni.carousel.close")}>✕</SplitCloseBtn>
 
-              <SplitEyebrow>Depoimento</SplitEyebrow>
+              <SplitEyebrow>{t("alumni.carousel.modalSplit.eyebrow")}</SplitEyebrow>
               <SplitQuoteMark aria-hidden="true">"</SplitQuoteMark>
               <SplitQuote>{selectedMember.quote}</SplitQuote>
 
@@ -332,7 +366,7 @@ const AlumniCarousel = () => {
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                       <path d="M20.45 20.45h-3.554v-5.57c0-1.328-.024-3.037-1.85-3.037-1.852 0-2.136 1.445-2.136 2.94v5.667H9.356V9h3.414v1.561h.048c.476-.9 1.637-1.85 3.368-1.85 3.6 0 4.267 2.37 4.267 5.455v6.284zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                     </svg>
-                    Ver perfil no LinkedIn
+                    {t("alumni.carousel.modalSplit.linkedinCta")}
                   </LinkedInLink>
                 )}
               </SplitMeta>
@@ -347,8 +381,8 @@ const AlumniCarousel = () => {
         <ModalOverlay onClick={() => setModalOpen(false)}>
           <ModalBox onClick={(e) => e.stopPropagation()}>
             <ModalHeader>
-              <ModalTitle>Todos os ex-membros</ModalTitle>
-              <CloseBtn onClick={() => setModalOpen(false)} aria-label="Fechar">✕</CloseBtn>
+              <ModalTitle>{t("alumni.carousel.modalAll.title")}</ModalTitle>
+              <CloseBtn onClick={() => setModalOpen(false)} aria-label={t("alumni.carousel.close")}>✕</CloseBtn>
             </ModalHeader>
             <ModalGrid>
               {MEMBERS.map((m) => (
@@ -433,7 +467,7 @@ const Eyebrow = styled.p`
 `;
 
 const SectionTitle = styled.h2`
-  font-family: ${FONT_BODY};
+  font-family: ${FONT_TITLE};
   font-size: ${TYPE.sectionH2.size};
   font-weight: ${TYPE.sectionH2.weight};
   line-height: ${TYPE.sectionH2.lh};
@@ -710,6 +744,7 @@ const SplitOverlay = styled.div`
   justify-content: center;
   padding: 24px;
   animation: ${fadeIn} 0.22s ease;
+  cursor: pointer;
 `;
 
 const SplitBox = styled.div`
@@ -881,6 +916,7 @@ const ModalOverlay = styled.div`
   justify-content: center;
   padding: 24px;
   animation: ${fadeIn} 0.2s ease;
+  cursor: pointer;
 `;
 
 const ModalBox = styled.div`
@@ -904,7 +940,7 @@ const ModalHeader = styled.div`
 `;
 
 const ModalTitle = styled.h3`
-  font-family: ${FONT_BODY};
+  font-family: ${FONT_TITLE};
   font-size: ${TYPE.sectionH2.size};
   font-weight: ${TYPE.sectionH2.weight};
   letter-spacing: ${TYPE.sectionH2.ls};

@@ -1,23 +1,11 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import styled, { keyframes, css } from "styled-components";
+import { useTranslation } from "react-i18next";
 import { useParticles } from "../../../hooks/useParticleBackground";
 import { useInView } from "@/hooks/useInView";
+import { RED, DARK, CREAM, BG_DARK as BG, FONT_TITLE, FONT_BODY, SPRING } from "@/styles/tokens";
 
-const RED        = "#C02121";
-const DARK       = "#1a1a18";
-const CREAM      = "#FAF2EA";
-const BG         = "#0e0404";
-const FONT_TITLE = `'Montserrat', Helvetica, sans-serif`;
-const FONT_BODY  = `'Inter', Helvetica, sans-serif`;
-const SPRING     = "cubic-bezier(0.16,1,0.3,1)";
-
-const MILESTONES = [
-  { year: "2001", short: "Fundação",       text: "Criação da Ibmec Jr por Tarso Tietê, com o propósito de desenvolver alunos por meio de experiências práticas antes do estágio obrigatório." },
-  { year: "2008", short: "Nomes mudam, valores permanecem",     text: "Com a mudança para Insper, torna-se Insper Júnior Consulting, preservando seus valores, cultura e compromisso com o desenvolvimento dos membros." },
-  { year: "2024", short: "Expansão Multidisciplinar",        text: "Estrutura-se como a EJ mais multidisciplinar do Insper, integrando frentes de Business, Tech e Direito e ampliando sua capacidade de atuação." },
-  { year: "2025", short: "Marco Histórico de Crescimento", text: "Ultrapassa R$ 1 milhão em faturamento, impulsionada por iniciativas estratégicas e consolidando sua posição como referência em consultoria estudantil." },
-  { year: "Hoje", short: "+550 projetos",  text: "Mais de 550 projetos entregues para empresas como Ambev, Hospital Albert Einstein, Carrefour, Prefeitura de SP e dezenas de startups em todo o Brasil.", highlight: true },
-];
+type Milestone = { year: string; short: string; text: string };
 
 const fadeUp = keyframes`
   from { opacity: 0; transform: translateY(24px); }
@@ -174,6 +162,9 @@ const Text = styled.p`
 `;
 
 export default function AboutHistory() {
+  const { t } = useTranslation();
+  const MILESTONES = (t("about.history.milestones", { returnObjects: true }) as Milestone[])
+    .map((m, i, arr) => ({ ...m, highlight: i === arr.length - 1 }));
   const wrapperRef = useRef<HTMLElement>(null);
   const canvasRef  = useRef<HTMLCanvasElement>(null);
   const { ref: headerRef, visible: headerVisible } = useInView();
@@ -220,8 +211,8 @@ export default function AboutHistory() {
       />
       <Inner style={{ position: "relative", zIndex: 1 }}>
         <Header ref={headerRef} $visible={headerVisible}>
-          <Eyebrow>Nossa trajetória</Eyebrow>
-          <Title>25 anos formando <i>consultores</i></Title>
+          <Eyebrow>{t("about.history.eyebrow")}</Eyebrow>
+          <Title>{t("about.history.titlePre")} <i>{t("about.history.titleItalic")}</i></Title>
           <Divider $visible={headerVisible} />
         </Header>
 

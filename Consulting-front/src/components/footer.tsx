@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
+import { RED, FONT_BODY } from "../styles/tokens";
 import {
   InstagramLogo,
   LinkedinLogo,
@@ -14,6 +16,8 @@ import Logo from "@/assets/ijr/insperjr-white-red.png"
 
 
 const Footer: React.FC = () => {
+  const { t } = useTranslation();
+
   return (
     <FooterContainer>
       {/* Coluna 1 (logo e slogan) */}
@@ -23,7 +27,7 @@ const Footer: React.FC = () => {
             <LogoImg src={Logo} alt="Insper Jr." />
           </Link>
         </LogoWrapper>
-        <Slogan>Transformando realidades com soluções inovadoras!</Slogan>
+        <Slogan>{t("shared.footer.slogan")}</Slogan>
         <Line />
         <SocialIcons>
           <SocialIcon
@@ -46,15 +50,15 @@ const Footer: React.FC = () => {
 
       {/* Coluna 2 (Navegação) */}
       <ColumnCenter>
-        <Title>Navegação</Title>
-        <FooterLink to="/">Início</FooterLink>
-        <FooterLink to="/about">Sobre nós</FooterLink>
-        <FooterLink to="/overview">Serviços</FooterLink>
+        <Title>{t("shared.footer.navTitle")}</Title>
+        <FooterLink to="/">{t("shared.footer.nav.home")}</FooterLink>
+        <FooterLink to="/about">{t("shared.footer.nav.about")}</FooterLink>
+        <FooterLink to="/overview">{t("shared.footer.nav.services")}</FooterLink>
       </ColumnCenter>
 
       {/* Coluna 3 (Contato) */}
       <ColumnCenter>
-        <Title>Contato</Title>
+        <Title>{t("shared.footer.contactTitle")}</Title>
         <ExternalLink
           href="https://wa.me/5511998983364"
           target="_blank"
@@ -79,7 +83,7 @@ const Footer: React.FC = () => {
 
       {/* Coluna 4 (Endereço) */}
       <ColumnCenter>
-        <Title>Endereço</Title>
+        <Title>{t("shared.footer.addressTitle")}</Title>
         <ExternalLink
           href="https://www.google.com/maps/place/R.+Quat%C3%A1,+200+-+1%C2%BA+Andar+-+Vila+Ol%C3%ADmpia,+S%C3%A3o+Paulo+-+SP,+04546-041/@-23.5990549,-46.675479,17z/data=!3m1!4b1!4m5!3m4!1s0x94ce5753605b7ef1:0xe4a8a4037abb6338!8m2!3d-23.5990549!4d-46.675479?entry=ttu&g_ep=EgoyMDI1MDMxOS4yIKXMDSoJLDEwMjExNDU1SAFQAw%3D%3D"
           target="_blank"
@@ -90,9 +94,9 @@ const Footer: React.FC = () => {
             weight="bold"
             style={{ marginRight: "8px", color: "inherit" }}
           />
-          R. Quatá, 200 (1º Andar) <br />
-          Vila Olímpia, São Paulo - SP <br />
-          04546-042
+          {t("shared.footer.address.line1")} <br />
+          {t("shared.footer.address.line2")} <br />
+          {t("shared.footer.address.line3")}
         </ExternalLink>
       </ColumnCenter>
     </FooterContainer>
@@ -110,7 +114,7 @@ const FooterContainer = styled.footer`
   max-width: 100%;
 
   font-size: 1.1rem;
-  font-family: "Inter", sans-serif;
+  font-family: ${FONT_BODY};
 
   display: flex;
   justify-content: space-between;
@@ -241,7 +245,7 @@ const FooterLink = styled(Link)`
   text-decoration: none;
 
   &:hover {
-    color: #a10f23;
+    color: ${RED};
   }
 
   @media (max-width: 1200px) {
@@ -257,11 +261,11 @@ const FooterLink = styled(Link)`
 const ExternalLink = styled.a`
   color: #fff;
   text-decoration: none;
-  display: flex; 
+  display: flex;
   align-items: center;
 
   &:hover {
-    color: #a10f23;
+    color: ${RED};
   }
 
   @media (max-width: 1200px) {
@@ -295,7 +299,7 @@ const SocialIcon = styled.a`
   font-size: 1.2rem;
 
   &:hover {
-    color: #a10f23;
+    color: ${RED};
   }
 
   @media (max-width: 1200px) {

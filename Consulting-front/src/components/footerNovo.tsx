@@ -1,9 +1,7 @@
-import styled, { createGlobalStyle } from "styled-components";
+import styled from "styled-components";
+import { useTranslation } from "react-i18next";
+import { FONT_BODY, CREAM, RED, RED_DARK } from "../styles/tokens";
 import LogoWR from "../assets/ijr/insperjr-white-red.png";
-
-const GlobalFonts = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Playfair+Display:wght@400;500&display=swap');
-`;
 
 const icons: Record<string, React.ReactNode> = {
   email: (
@@ -31,8 +29,8 @@ const icons: Record<string, React.ReactNode> = {
 
 const Wrap = styled.footer`
   background: #111110;
-  color: #e8e4dc;
-  font-family: 'DM Sans', sans-serif;
+  color: ${CREAM};
+  font-family: ${FONT_BODY};
   padding: 0 40px;
   box-sizing: border-box;
   border-top: 2px solid transparent;
@@ -62,7 +60,7 @@ const BrandLogo = styled.img`
 
 const BrandDesc = styled.p`
   font-size: 14px;
-  color: rgba(232, 228, 220, 0.48);
+  color: rgba(250, 242, 234, 0.48);
   line-height: 1.55;
   font-weight: 300;
   max-width: 200px;
@@ -73,7 +71,7 @@ const Label = styled.p`
   font-size: 9px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(232, 228, 220, 0.32);
+  color: rgba(250, 242, 234, 0.32);
   font-weight: 500;
   margin: 0 0 10px;
 `;
@@ -89,7 +87,7 @@ const NavList = styled.ul`
 
 const NavLink = styled.a`
   font-size: 12px;
-  color: rgba(232, 228, 220, 0.72);
+  color: rgba(250, 242, 234, 0.72);
   text-decoration: none;
   font-weight: 300;
   transition: color 0.2s, padding-left 0.2s;
@@ -103,14 +101,14 @@ const NavLink = styled.a`
     width: 3px;
     height: 3px;
     border-radius: 50%;
-    background: #C02121;
+    background: ${RED};
     opacity: 0;
     transition: opacity 0.2s;
     flex-shrink: 0;
   }
 
   &:hover {
-    color: #e8e4dc;
+    color: #FAF2EA;
     padding-left: 2px;
     &::before { opacity: 1; }
   }
@@ -127,32 +125,32 @@ const ContactLink = styled.a`
   align-items: center;
   gap: 8px;
   text-decoration: none;
-  color: rgba(232, 228, 220, 0.72);
+  color: rgba(250, 242, 234, 0.72);
   font-size: 11.5px;
   font-weight: 300;
   transition: color 0.2s;
 
   &:hover {
-    color: #e8e4dc;
+    color: #FAF2EA;
   }
 
   &:hover span {
-    border-color: #C02121;
+    border-color: ${RED};
     background: rgba(192, 33, 33, 0.12);
-    color: #C02121;
+    color: ${RED};
   }
 `;
 
 const IconBox = styled.span`
   width: 24px;
   height: 24px;
-  border: 1px solid #691212;
+  border: 1px solid ${RED_DARK};
   border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  color: rgba(232, 228, 220, 0.55);
+  color: rgba(250, 242, 234, 0.55);
   transition: border-color 0.2s, background 0.2s, color 0.2s;
 `;
 
@@ -166,20 +164,20 @@ const BottomBar = styled.div`
 
 const LegalText = styled.span`
   font-size: 10.5px;
-  color: rgba(232, 228, 220, 0.28);
+  color: rgba(250, 242, 234, 0.28);
   font-weight: 300;
   letter-spacing: 0.02em;
 `;
 
 const LegalLink = styled.a`
   font-size: 10.5px;
-  color: rgba(232, 228, 220, 0.28);
+  color: rgba(250, 242, 234, 0.28);
   text-decoration: none;
   letter-spacing: 0.02em;
   transition: color 0.2s;
 
   &:hover {
-    color: #C02121;
+    color: ${RED};
   }
 `;
 
@@ -194,8 +192,6 @@ interface LegalLinkItem {
   href: string;
 }
 
-const areas: string[] = ["Business", "Engenharia & Tecnologia", "Direito", "Processos"];
-
 const contacts: ContactItem[] = [
   { label: "pedrodp@insperjr.com", href: "mailto:pedrodp@insperjr.com", icon: icons.email },
   { label: "LinkedIn", href: "https://br.linkedin.com/company/insper-jr-consulting", icon: icons.linkedin },
@@ -203,24 +199,32 @@ const contacts: ContactItem[] = [
   { label: "(11) 99898-3364", href: "https://api.whatsapp.com/send/?phone=5511998983364&text&type=phone_number&app_absent=0", icon: icons.whatsapp },
 ];
 
-const legalLinks: LegalLinkItem[] = [
-  { label: "Política de privacidade", href: "#" },
-  { label: "Termos de uso", href: "#" },
-];
-
 export default function Footer(): React.ReactElement {
+  const { t } = useTranslation();
+
+  const areas: string[] = [
+    t("shared.footerNovo.areas.business"),
+    t("shared.footerNovo.areas.engenhariaTecnologia"),
+    t("shared.footerNovo.areas.direito"),
+    t("shared.footerNovo.areas.processos"),
+  ];
+
+  const legalLinks: LegalLinkItem[] = [
+    { label: t("shared.footerNovo.legal.privacyPolicy"), href: "#" },
+    { label: t("shared.footerNovo.legal.termsOfUse"), href: "#" },
+  ];
+
   return (
     <>
-      <GlobalFonts />
       <Wrap>
         <Grid>
           <div>
             <BrandLogo src={LogoWR} alt="Insper Jr." />
-            <BrandDesc>Transformando realidades com soluções inovadoras</BrandDesc>
+            <BrandDesc>{t("shared.footerNovo.brandDesc")}</BrandDesc>
           </div>
           <Divider />
           <div>
-            <Label>Nossas Áreas</Label>
+            <Label>{t("shared.footerNovo.areasLabel")}</Label>
             <NavList>
               {areas.map((area) => (
                 <li key={area}>
@@ -231,7 +235,7 @@ export default function Footer(): React.ReactElement {
           </div>
           <Divider />
           <div>
-            <Label>Contato</Label>
+            <Label>{t("shared.footerNovo.contactLabel")}</Label>
             <ContactList>
               {contacts.map((contact) => (
                 <ContactLink key={contact.label} href={contact.href}>
@@ -243,7 +247,7 @@ export default function Footer(): React.ReactElement {
           </div>
         </Grid>
         <BottomBar>
-          <LegalText>© 2026 Insper Jr. Todos os direitos reservados.</LegalText>
+          <LegalText>{t("shared.footerNovo.copyright")}</LegalText>
           <div style={{ display: "flex", gap: "24px" }}>
             {legalLinks.map((link) => (
               <LegalLink key={link.label} href={link.href}>

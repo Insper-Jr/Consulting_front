@@ -1,16 +1,11 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import styled, { keyframes } from "styled-components";
+import { useTranslation } from "react-i18next";
 import { useParticles } from "../../../hooks/useParticleBackground";
 import ProcessImg from "../../../assets/hero/process6.webp"; // ← ajuste o path se necessário
 
 /* ── Tokens ── */
-const RED        = "#C02121";
-const RED_DIM    = "rgba(105,18,18,0.45)";
-const BG         = "#0e0404";
-const CREAM      = "#FAF2EA";
-const FONT_TITLE = `'Montserrat', Helvetica, sans-serif`;
-const FONT_BODY  = `'Inter', Helvetica, sans-serif`;
-const SPRING     = "cubic-bezier(0.16,1,0.3,1)";
+import { RED, RED_DIM, BG_DARK as BG, CREAM, FONT_TITLE, FONT_BODY, SPRING } from "../../../styles/tokens";
 
 /* ── Animations ── */
 const fadeIn   = keyframes`from{opacity:0}to{opacity:1}`;
@@ -82,7 +77,7 @@ const Grid = styled.div`
 
 const Inner = styled.div`
   width: 100%;
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 56px;
   @media (max-width: 960px) { padding: 0 28px; }
@@ -228,11 +223,13 @@ const ChevD = () => (
   </svg>
 );
 
-const W = ["Simulação", "&"];
 const D = [0.55, 0.78];
 
 /* ── Component ── */
 export default function ProcessosHero() {
+  const { t } = useTranslation();
+  const W = [t("processos.hero.titleWord1"), t("processos.hero.titleWord2")];
+
   const wrapperRef = useRef<HTMLDivElement>(null);
   const canvasRef  = useRef<HTMLCanvasElement>(null);
   useParticles(wrapperRef, canvasRef);
@@ -261,27 +258,25 @@ export default function ProcessosHero() {
       <Grid>
         <Inner>
           <Left>
-            <Eyebrow $v={v}>Frente de Engenharia</Eyebrow>
+            <Eyebrow $v={v}>{t("processos.hero.eyebrow")}</Eyebrow>
 
             <Title>
               {W.map((w, i) => <Word key={w} $d={D[i]} $v={v}>{w}</Word>)}
               <br />
-              <Word $d={1.02} $v={v}><Accent>Otimização</Accent></Word>
+              <Word $d={1.02} $v={v}><Accent>{t("processos.hero.titleAccent")}</Accent></Word>
               <br />
-              <Word $d={1.22} $v={v}>de Processos</Word>
+              <Word $d={1.22} $v={v}>{t("processos.hero.titleSuffix")}</Word>
             </Title>
 
             <Divider $v={v} />
 
             <Sub $v={v}>
-              Mapeamos sua operação, coletamos dados com precisão e construímos
-              um modelo computacional completo para identificar gargalos e
-              recomendar as melhorias de maior impacto.
+              {t("processos.hero.sub")}
             </Sub>
 
             <Actions $v={v}>
-              <BtnPrimary href="/contact">Solicitar Diagnóstico <ArrowR /></BtnPrimary>
-              <BtnGhost href="#escopos">Nossos escopos <ChevD /></BtnGhost>
+              <BtnPrimary href="/contact">{t("processos.hero.ctaPrimary")} <ArrowR /></BtnPrimary>
+              <BtnGhost href="#escopos">{t("processos.hero.ctaGhost")} <ChevD /></BtnGhost>
             </Actions>
           </Left>
         </Inner>

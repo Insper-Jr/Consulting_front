@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect, RefObject } from "react";
 import styled from "styled-components";
+import { RED_TITLE, FONT_TITLE } from "../../../styles/tokens";
 
 // Hook customizado: pode ser colocado em um arquivo separado se preferir
 const useOnScreen = (ref: RefObject<HTMLElement | null>, rootMargin: string = "0px"): boolean => {
@@ -110,17 +111,17 @@ const TitleWrapper = styled.div`
   margin-bottom: 1rem;
 
   h2 {
-    font-family: "Montserrat", sans-serif;
+    font-family: ${FONT_TITLE};
     font-size: 36px;
-    color: #A10F23;
+    color: ${RED_TITLE};
     white-space: nowrap;
   }
   
   @media (max-width: 600px) {
     h2 {
-      font-family: "Montserrat", sans-serif;
+      font-family: ${FONT_TITLE};
       font-size: 26px;
-      color: #A10F23;
+      color: ${RED_TITLE};
       white-space: nowrap;
     }
   }

@@ -1,21 +1,23 @@
 import styled from "styled-components";
 import carwash from "../../../assets/protection/carwash.png";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const SuccessCase = () => {
   const [hovered, setHovered] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <Wrapper>
-    <Intro>CASE DE SUCESSO</Intro>
+    <Intro>{t("protection.successCase.label")}</Intro>
     <Container hovered={hovered} onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
-      <Image src={carwash} alt="Consultoria estratégica" />
+      <Image src={carwash} alt={t("protection.successCase.imageAlt")} />
       <TextContent>
         <Title>
-          CARWASH I
+          {t("protection.successCase.title")}
         </Title>
         <Description>
-        No projeto de expansão da Prime Car Wash via franquias, estruturamos juridicamente e logisticamente a distribuição de insumos às unidades. Iniciamos com a elaboração de um manual do franqueado, padronizando o processo de abertura e formalização da PJ, garantindo segurança jurídica. Em seguida, analisamos dois modelos para fornecimento de insumos: (i) revenda direta pela franqueadora, com análise de ICMS, inscrição estadual e riscos fiscais; e (ii) comissão sobre vendas diretas da fornecedora aos franqueados, com menor complexidade e foco em intermediação comercial.
+        {t("protection.successCase.description")}
         </Description>
       </TextContent>
     </Container>
@@ -46,9 +48,9 @@ const Container = styled.div<{ hovered: boolean }>`
   height: 350px;
   display: flex;
   flex-direction: row;
-  border-top: ${({ hovered }) => (hovered ? "2px solid #A10F23" : "2px solid #929090")};
-  border-bottom: ${({ hovered }) => (hovered ? "2px solid #A10F23" : "2px solid #929090")};
-  border-right: ${({ hovered }) => (hovered ? "2px solid #A10F23" : "0px solid #A10F23")};
+  border-top: ${({ hovered }) => (hovered ? "2px solid #C02121" : "2px solid #929090")};
+  border-bottom: ${({ hovered }) => (hovered ? "2px solid #C02121" : "2px solid #929090")};
+  border-right: ${({ hovered }) => (hovered ? "2px solid #C02121" : "0px solid #C02121")};
   transition: border 0.3s ease, transform 0.3s ease;
 
   &:hover {
@@ -67,7 +69,7 @@ const Container = styled.div<{ hovered: boolean }>`
     gap: 1rem;
   }
   @media (max-width: 500px) {
-      border-right: 0px solid #A10F23;
+      border-right: 0px solid #C02121;
   }
 `;
 
@@ -101,7 +103,7 @@ const Title = styled.h3`
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 1rem;
-  color:#A10F23;
+  color:#C02121;
 
   @media (max-width: 800px) {
     font-size: 20px;

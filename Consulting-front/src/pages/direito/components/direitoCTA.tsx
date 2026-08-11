@@ -1,12 +1,8 @@
 import styled, { keyframes, css } from "styled-components";
+import { useTranslation } from "react-i18next";
 import { useInView } from "../../../hooks/useInView";
 
-const RED        = "#C02121";
-const DARK       = "#1a1a18";
-const BG         = "#FAF2EA";
-const FONT_TITLE = `'Montserrat', Helvetica, sans-serif`;
-const FONT_BODY  = `'Inter', Helvetica, sans-serif`;
-const SPRING     = "cubic-bezier(0.16,1,0.3,1)";
+import { RED, DARK, BG_CREAM as BG, FONT_TITLE, FONT_BODY, SPRING } from "../../../styles/tokens";
 
 const fadeUp = keyframes`
   from { opacity: 0; transform: translateY(16px); }
@@ -85,20 +81,18 @@ const BtnPrimary = styled.a`
 `;
 
 export default function DireitoCTA() {
+  const { t } = useTranslation();
   const { ref, visible } = useInView();
 
   return (
     <Section>
       <Inner ref={ref} $visible={!!visible}>
-        <Eyebrow>Próximo passo</Eyebrow>
-        <Title>Pronto para resolver sua<br />
-          próxima demanda jurídica?</Title>
+        <Eyebrow>{t("direito.cta.eyebrow")}</Eyebrow>
+        <Title dangerouslySetInnerHTML={{ __html: t("direito.cta.title") }} />
         <Sub>
-          Entre em contato com a Insper Jr. e descubra como podemos apoiar
-          o seu negócio com contratos sob medida, pareceres consultivos e
-          análises tributárias supervisionadas por professores e escritórios parceiros.
+          {t("direito.cta.sub")}
         </Sub>
-        <BtnPrimary href="/contact">Fazer diagnóstico gratuito</BtnPrimary>
+        <BtnPrimary href="/contact">{t("direito.cta.button")}</BtnPrimary>
       </Inner>
     </Section>
   );

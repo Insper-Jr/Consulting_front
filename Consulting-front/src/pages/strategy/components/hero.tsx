@@ -1,19 +1,20 @@
 import styled from "styled-components";
 import backgroundImage from "@/assets/strategy/strategy-backgroung.png";
 import DiagnosticForm from "@/components/forms";
+import { useTranslation } from "react-i18next";
 
 
 const Hero = () => {
+  const { t } = useTranslation();
+
   return (
     <HeroSection>
       <Content>
-        <Title>Operação e Estratégia</Title>
+        <Title>{t("strategy.hero.title")}</Title>
         <Description>
-        Oferecemos suporte jurídico para estruturar, consolidar e expandir seu negócio com segurança. Atuamos com contratos, políticas internas e planejamento tributário, avaliando regimes fiscais, isenções e imunidades. Garantimos base jurídica sólida e apoio estratégico.
+          {t("strategy.hero.description")}
         </Description>
-        <CallToAction>
-          Quer fortalecer a base jurídica do seu negócio e tomar decisões estratégicas com mais segurança? Peça um diagnóstico gratuito e veja como podemos ajudar sua empresa a crescer com solidez.
-        </CallToAction>
+        <CallToAction dangerouslySetInnerHTML={{ __html: t("strategy.hero.cta") }} />
       </Content>
       <DiagnosticForm/>
     </HeroSection>

@@ -1,13 +1,13 @@
 import React, { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import styled, { keyframes } from "styled-components";
+import { RED, BG_DARK, BG_CREAM, FONT_TITLE, FONT_BODY } from "../../../styles/tokens";
 
 const COLORS = {
-  redCTA: "#C02121",
-  black:  "#0e0404",
+  redCTA: RED,
+  black:  BG_DARK,
+  cream:  BG_CREAM,
 };
-const FONT_TITLE = `"Montserrat", Helvetica, sans-serif`;
-const FONT_BODY  = `"Inter", Helvetica, sans-serif`;
 
 type NetOpts = {
   count?: number;
@@ -166,7 +166,7 @@ const RedBar = styled.div`
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(90deg, #A10F23 0%, ${COLORS.redCTA} 50%, #A10F23 100%);
+    background: linear-gradient(90deg, ${COLORS.redCTA} 0%, ${COLORS.redCTA} 50%, ${COLORS.redCTA} 100%);
     transform-origin: left center;
     transform: scaleX(0);
     animation: ${redbarGrow} 1.6s cubic-bezier(0.16,1,0.3,1) 0.2s forwards;
@@ -228,21 +228,22 @@ const Kicker = styled.div`
 
 const IntegrationTitle = styled.h2`
   font-family: ${FONT_TITLE};
-  font-size: 38px;
+  font-size: 32px;
   margin: 0 0 1rem;
-  line-height: 1.15;
-  color: #fff;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: ${COLORS.cream};
   font-weight: 700;
   span { color: ${COLORS.redCTA}; }
 
-  @media (max-width: 800px) { font-size: 28px; }
+  @media (max-width: 800px) { font-size: 26px; }
 `;
 
 const IntegrationLede = styled.p`
   font-family: ${FONT_BODY};
   font-size: 18px;
   line-height: 1.7;
-  color: rgba(255,255,255,0.78);
+  color: rgba(250,242,234,0.85);
   max-width: 820px;
   margin: 0 auto 2.5rem;
 `;

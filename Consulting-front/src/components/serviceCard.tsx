@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { RED_TITLE, FONT_TITLE, FONT_BODY } from "../styles/tokens";
 import arrow from "../assets/arrow-right.png";
 
 interface ServiceCardProps {
@@ -56,7 +57,7 @@ const Card = styled.div`
 `;
 
 const CardTitle = styled.h3<{ hovered: boolean }>`
-  font-family: "Poppins", sans-serif;
+  font-family: ${FONT_TITLE};
   font-size: ${({ hovered }) => (hovered ? "25px" : "30px")};
   color: black;
   margin-bottom: ${({ hovered }) => (hovered ? "0px" : "auto")};
@@ -73,7 +74,7 @@ const CardTitle = styled.h3<{ hovered: boolean }>`
 `;
 
 const CardDescription = styled.p<{ hovered: boolean }>`
-  font-family: "Inter", sans-serif;
+  font-family: ${FONT_BODY};
   font-size: 15px;
   color: #333;
   opacity: ${({ hovered }) => (hovered ? 1 : 0)};
@@ -90,10 +91,10 @@ const CardDescription = styled.p<{ hovered: boolean }>`
 `;
 
 const LearnMore = styled.div<{ hovered: boolean }>`
-  font-family: "Poppins", sans-serif;
+  font-family: ${FONT_BODY};
   font-size: 15px;
   font-weight: bold;
-  color: #A10F23;
+  color: ${RED_TITLE};
   display: flex;
   align-items: center;
   margin-top: auto;

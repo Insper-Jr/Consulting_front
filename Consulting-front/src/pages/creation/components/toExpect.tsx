@@ -1,81 +1,49 @@
 import styled from "styled-components";
 import { MagnifyingGlass,PencilSimple, Target  } from "phosphor-react";
+import { useTranslation } from "react-i18next";
 
 interface WhatToExpectProps {
   selectedTab: number;
 }
 
+interface CardText {
+  title: string;
+  description: string;
+}
+
 const WhatToExpect = ({ selectedTab }: WhatToExpectProps) => {
-  const cardData = [
+  const { t } = useTranslation();
+
+  const iconData = [
     [
-      {
-        icon: <MagnifyingGlass size={28} color="white" weight="bold" />,
-        title: "Defina o melhor modelo societário",
-        description:
-          "Analisamos o perfil dos sócios, operação e riscos para recomendar a estrutura mais adequada ao seu negócio.",
-      },
-      {
-        icon: <PencilSimple size={28} color="white" weight="bold" />,
-        title: "Garanta uma base sólida desde o início",
-        description:
-          "Organizamos a participação societária com foco em crescimento, segurança jurídica e prevenção de conflitos.",
-      },
-      {
-        icon: <Target size={28} color="white" weight="bold" />,
-        title: "Evite problemas futuros",
-        description:
-          "Com escolhas estratégicas desde a fundação, sua empresa ganha eficiência, estabilidade e governança.",
-      },
+      <MagnifyingGlass size={28} color="white" weight="bold" />,
+      <PencilSimple size={28} color="white" weight="bold" />,
+      <Target size={28} color="white" weight="bold" />,
     ],
     [
-      {
-        icon: <PencilSimple size={28} color="white" weight="bold" />,
-        title: "Defina, registre e formalize com segurança",
-        description:
-          "Estruturamos a natureza jurídica e conduzimos todo o processo de emissão do CNPJ, da documentação ao registro final.",
-      },
-      {
-        icon: <Target size={28} color="white" weight="bold" />,
-        title: "Escolha a natureza jurídica ideal",
-        description:
-          "Analisamos o tipo societário mais adequado ao seu caso para assegurar alinhamento com os objetivos do negócio.",
-      },
-      {
-        icon: <MagnifyingGlass size={28} color="white" weight="bold" />,
-        title: "Garanta conformidade e agilidade",
-        description:
-          "Preparamos e acompanhamos a documentação necessária, assegurando regularidade e rapidez no registro.",
-      },
+      <PencilSimple size={28} color="white" weight="bold" />,
+      <Target size={28} color="white" weight="bold" />,
+      <MagnifyingGlass size={28} color="white" weight="bold" />,
     ],
     [
-      {
-        icon: <MagnifyingGlass size={28} color="white" weight="bold" />,
-        title: "Elabore documentos sob medida para sua organização",
-        description:
-          "Redigimos Estatuto Social, Regimento Interno e Termo de Voluntariado com base nas necessidades e especificidades do seu projeto.",
-      },
-      {
-        icon: <PencilSimple size={28} color="white" weight="bold" />,
-        title: "Garanta clareza e segurança jurídica",
-        description:
-          "Estruturamos textos claros e coerentes, que refletem a realidade da organização e previnem conflitos futuros.",
-      },
-      {
-        icon: <Target size={28} color="white" weight="bold" />,
-        title: "Esteja em conformidade com a legislação",
-        description:
-          "As minutas seguem rigorosamente as normas legais vigentes, assegurando validade e regularidade desde o início.",
-      },
+      <MagnifyingGlass size={28} color="white" weight="bold" />,
+      <PencilSimple size={28} color="white" weight="bold" />,
+      <Target size={28} color="white" weight="bold" />,
     ],
   ];
 
-  const cards = cardData[selectedTab];
+  const tabsText = t("creation.toExpect.tabs", { returnObjects: true }) as CardText[][];
+
+  const cards = tabsText[selectedTab].map((card, index) => ({
+    ...card,
+    icon: iconData[selectedTab][index],
+  }));
 
   return (
     <Section>
       <Header>
         <StyledHR />
-        <h2>O que esperar</h2>
+        <h2>{t("creation.toExpect.heading")}</h2>
         <StyledHR />
       </Header>
 
@@ -113,7 +81,7 @@ const Header = styled.div`
   h2 {
     font-family: "Montserrat", sans-serif;
     font-size: 36px;
-    color: #A10F23;
+    color: #C02121;
     white-space: nowrap;
   }
 
@@ -147,7 +115,7 @@ const Card = styled.div`
 `;
 
 const IconWrapper = styled.div`
-  background-color: #A10F23;
+  background-color: #C02121;
   border: 2px solid white;
   padding: 0.7rem;
   display: inline-flex;

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import ServiceCard from "./serviceCard";
+import { RED_TITLE, FONT_TITLE, FONT_BODY } from "../styles/tokens";
 import arrow from "../assets/arrow-right.png";
 
 const business = [
@@ -203,16 +204,16 @@ export const Header = styled.div`
   margin-bottom: 1rem;
 
   h2 {
-    font-family: "Montserrat", sans-serif;
+    font-family: ${FONT_TITLE};
     font-size: 36px;
-    color: #A10F23;
+    color: ${RED_TITLE};
     white-space: nowrap;
   }
       @media (max-width: 600px) {
   h2 {
-    font-family: "Montserrat", sans-serif;
+    font-family: ${FONT_TITLE};
     font-size: 26px;
-    color: #A10F23;
+    color: ${RED_TITLE};
     white-space: nowrap;
   }
   }
@@ -225,7 +226,7 @@ export const Line = styled.div`
 `;
 
 export const Subtitle = styled.p`
-  font-family: "Inter", sans-serif;
+  font-family: ${FONT_BODY};
   font-size: 18px;
   max-width: 800px;
   margin: 0 auto 2rem auto;
@@ -242,7 +243,7 @@ export const Tabs = styled.div`
 `;
 
 export const Tab = styled.button<{ active: boolean }>`
-  font-family: "Inter", sans-serif;
+  font-family: ${FONT_BODY};
   font-size: 20px;
   font-weight: 600;
   background: none;
@@ -259,7 +260,7 @@ export const Tab = styled.button<{ active: boolean }>`
     left: 0;
     width: 100%;
     height: 2px;
-    background-color: ${({ active }) => (active ? "#A10F23" : "transparent")};
+    background-color: ${({ active }) => (active ? "${RED_TITLE}" : "transparent")};
     transition: background-color 0.3s ease;
   }
     @media (max-width: 600px) {
@@ -272,7 +273,7 @@ export const Underline = styled.div<{ activeTab: "business" | "engenharia" }>`
   position: absolute;
   bottom: 0;
   height: 2px;
-  background: #A10F23;
+  background: ${RED_TITLE};
   width: ${({ activeTab }) => (activeTab === "business" ? "100px" : "120px")};
   transition: all 0.3s ease;
   left: ${({ activeTab }) => (activeTab === "business" ? "calc(50% - 135px)" : "calc(50% + 17px)")};
@@ -343,7 +344,7 @@ export const Dots = styled.div`
 export const Dot = styled.div<{ active: boolean }>`
   width: 10px;
   height: 10px;
-  background-color: ${({ active }) => (active ? "#A10F23" : "#ccc")};
+  background-color: ${({ active }) => (active ? "${RED_TITLE}" : "#ccc")};
   border-radius: 50%;
   margin-top: 1rem;
   cursor: pointer;
@@ -354,13 +355,13 @@ export const Dot = styled.div<{ active: boolean }>`
 `;
 
 export const OverviewButton = styled.button`
-  font-family: "Inter", sans-serif;
+  font-family: ${FONT_BODY};
   font-size: 16px;
   font-weight: 600;
   margin-top: 2rem;
   background: none;
   border: none;
-  color: #A10F23;
+  color: ${RED_TITLE};
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
