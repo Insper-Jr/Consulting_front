@@ -218,7 +218,7 @@ const CaseSub = styled.p`
   max-width: 780px;
   margin: 0 0 3rem;
   text-align: left;
-  color: #7a746e;
+  color: #333;
   line-height: 1.65;
   strong { color: ${C.ink}; font-weight: 600; }
 `;
@@ -272,7 +272,7 @@ const CtSub = styled.p`
 const CtP = styled.p`
   font-size: 14.5px;
   line-height: 1.7;
-  color: #7a746e;
+  color: #444;
   margin: 0 0 0.9rem;
   strong { color: ${C.ink}; font-weight: 600; }
 `;
@@ -286,7 +286,7 @@ const CtList = styled.ul`
   li {
     font-size: 13.5px;
     line-height: 1.55;
-    color: #7a746e;
+    color: #555;
     padding-left: 1.25rem;
     position: relative;
     &::before {

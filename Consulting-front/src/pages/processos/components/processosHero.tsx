@@ -276,7 +276,6 @@ export default function ProcessosHero() {
 
             <Actions $v={v}>
               <BtnPrimary href="/contact">{t("processos.hero.ctaPrimary")} <ArrowR /></BtnPrimary>
-              <BtnGhost href="#escopos">{t("processos.hero.ctaGhost")} <ChevD /></BtnGhost>
             </Actions>
           </Left>
         </Inner>

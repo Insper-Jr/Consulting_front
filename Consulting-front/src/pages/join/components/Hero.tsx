@@ -7,16 +7,6 @@ import { BG_DARK, RED, RED_DARK, RED_DIM, CREAM, FONT_TITLE, FONT_BODY, SPRING, 
 
 import { INSCRICAO_URL } from "../../../config/config";
 
-// Tokens
-const DARK_BG  = "#0e0404";   // quase preto quente
-const RED = "#C02121";
-const RED_DIM  = "rgba(105,18,18,0.45)";
-const CREAM    = "#FAF2EA";
-const MUTED    = "rgba(250,242,234,0.48)";
-const FONT_TITLE = `'Montserrat',Helvetica,sans-serif`;
-const FONT_BODY  = `'Inter',Helvetica,sans-serif`;
-const SPRING   = "cubic-bezier(0.16,1,0.3,1)";
-
 // Animations
 const wordIn = keyframes`
   from { opacity:0; transform:translateY(28px); filter:blur(6px); }

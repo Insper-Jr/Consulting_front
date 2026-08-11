@@ -19,6 +19,7 @@ import JoaoFaraco from "../../../assets/alumni/JoaoFaraco.png";
 import HenriqueManequini from "../../../assets/alumni/HenriqueManequini.png"
 import FernandoThome from "../../../assets/alumni/FernandoThome.png"
 import GuilhermeLMazer from "../../../assets/alumni/GuilhermeLMazer.png"
+import ViniciusGrecco from "../../../assets/alumni/ViniciusGrecco.jpeg"
 
 
 // ── Constants ──────────────────────────────────────────────────────────────
@@ -30,6 +31,8 @@ const SCROLL_PER_CARD = 35;
 const AVATAR_SIZE  = 108;
 const STRIP_HEIGHT = 72;
 const AVATAR_BLEED = 54;
+
+const CAROUSEL_LIMIT = 8;
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -58,7 +61,19 @@ type MemberBase = Omit<Member, "role" | "quote" | "company"> & {
   translatedCompany?: boolean;
 };
 
+/* Ordenado por relevância de cargo + empresa: fundador/diretoria primeiro,
+   depois consultores/analistas em empresas de maior prestígio, estagiários
+   por último. Os 8 primeiros aparecem no carrossel; o restante só no
+   modal "Ver todos". */
 const MEMBERS_BASE: MemberBase[] = [
+  {
+    id: 1,
+    slug:     "giovannaFava",
+    name:     "Giovanna Fava Steinberg",
+    company:  "PROTS Snacks",
+    photo:    GiovannaFava,
+    linkedin: "https://www.linkedin.com/in/giovanna-fava-steinberg",
+  },
   {
     id: 2,
     slug:     "fernandoMauad",
@@ -69,15 +84,7 @@ const MEMBERS_BASE: MemberBase[] = [
     linkedin: "https://www.linkedin.com/in/fernando-saad-mauad-8a4479164/",
   },
   {
-    id: 8,
-    slug:     "mariaFernandaMelo",
-    name:     "Maria Fernanda Melo",
-    company:  "Bain & Company",
-    photo:    MariaFernandaMelo,
-    linkedin: "https://www.linkedin.com/in/maria-fernanda-melo-8b6bba248/",
-  },
-  {
-    id: 5,
+    id: 3,
     slug:     "gabrielDebiagi",
     name:     "Gabriel Debiagi",
     company:  "Empreendedorismo",
@@ -87,14 +94,42 @@ const MEMBERS_BASE: MemberBase[] = [
   },
   {
     id: 4,
-    slug:     "guilhermeKaidei",
-    name:     "Guilherme Katayama Kaidei",
-    company:  "McKinsey & Company",
-    photo:    GuilhermeKaidei,
-    linkedin: "https://www.linkedin.com/in/guilherme-kaidei/",
+    slug:     "mariaFernandaMelo",
+    name:     "Maria Fernanda Melo",
+    company:  "Bain & Company",
+    photo:    MariaFernandaMelo,
+    linkedin: "https://www.linkedin.com/in/maria-fernanda-melo-8b6bba248/",
   },
   {
-    id: 11,
+    id: 5,
+    slug:     "guilhermeMazer",
+    name:     "Guilherme Mazer",
+    area: "Cartão de Crédito",
+    translatedArea: true,
+    company:  "EY-Parthenon",
+    photo:    GuilhermeLMazer,
+    linkedin: "https://www.linkedin.com/in/guilherme-l-mazer-2b6843250/",
+  },
+  {
+    id: 6,
+    slug:     "leonardoElias",
+    name:     "Leonardo Fernandes Farah Elias",
+    company:  "XP Inc.",
+    photo:    LeonardoElias,
+    linkedin: "https://www.linkedin.com/in/leonardo-fernandes-farah-elias-24a5041aa/",
+  },
+  {
+    id: 7,
+    slug:     "fernandoThome",
+    name:     "Fernando Thomé",
+    area: "Cartão de Crédito",
+    translatedArea: true,
+    company:  "McKinsey & Company",
+    photo:    FernandoThome,
+    linkedin: "https://www.linkedin.com/in/fernando-ferreira-thome/",
+  },
+  {
+    id: 8,
     slug:     "henriqueManequini",
     name:     "Henrique Manequini",
     area: "Investment banking",
@@ -103,39 +138,22 @@ const MEMBERS_BASE: MemberBase[] = [
     linkedin: "https://www.linkedin.com/in/henrique-manequini-rocha-pinto-7a16b223a/",
   },
   {
-    id: 7,
-    slug:     "leonardoElias",
-    name:     "Leonardo Fernandes Farah Elias",
-    company:  "XP Inc.",
-    photo:    LeonardoElias,
-    linkedin: "https://www.linkedin.com/in/leonardo-fernandes-farah-elias-24a5041aa/",
-  },
-  {
-    id: 3,
-    slug:     "mateusMarinheiro",
-    name:     "Mateus Marinheiro",
-    company:  "Galápagos Capital",
-    photo:    MateusMarinheiro,
-    linkedin: "https://www.linkedin.com/in/mateus-marinheiro-4a19b0324/",
-  },
-  {
-    id: 1,
-    slug:     "giovannaFava",
-    name:     "Giovanna Fava Steinberg",
-    company:  "PROTS Snacks",
-    photo:    GiovannaFava,
-    linkedin: "https://www.linkedin.com/in/giovanna-fava-steinberg",
-  },
-  {
     id: 9,
-    slug:     "tomasMiele",
-    name:     "Tomas Miele",
-    company:  "LTS Investments",
-    photo:    TomasMiele,
-    linkedin: "https://www.linkedin.com/in/tomas-miele/",
+    slug:     "guilhermeKaidei",
+    name:     "Guilherme Katayama Kaidei",
+    company:  "McKinsey & Company",
+    photo:    GuilhermeKaidei,
+    linkedin: "https://www.linkedin.com/in/guilherme-kaidei/",
   },
   {
     id: 10,
+    slug:     "viniciusGrecco",
+    name:     "Vinicius Grecco",
+    company:  "BCGX (Boston Consulting Group)",
+    photo:    ViniciusGrecco,
+  },
+  {
+    id: 11,
     slug:     "joaoFaraco",
     name:     "João Gabriel Faraco",
     area: "Cartão de Crédito",
@@ -146,23 +164,19 @@ const MEMBERS_BASE: MemberBase[] = [
   },
   {
     id: 12,
-    slug:     "fernandoThome",
-    name:     "Fernando Thomé",
-    area: "Cartão de Crédito",
-    translatedArea: true,
-    company:  "McKinsey & Company",
-    photo:    FernandoThome,
-    linkedin: "https://www.linkedin.com/in/fernando-ferreira-thome/",
+    slug:     "mateusMarinheiro",
+    name:     "Mateus Marinheiro",
+    company:  "Galápagos Capital",
+    photo:    MateusMarinheiro,
+    linkedin: "https://www.linkedin.com/in/mateus-marinheiro-4a19b0324/",
   },
   {
     id: 13,
-    slug:     "guilhermeMazer",
-    name:     "Guilherme Mazer",
-    area: "Cartão de Crédito",
-    translatedArea: true,
-    company:  "EY-Parthenon",
-    photo:    GuilhermeLMazer,
-    linkedin: "https://www.linkedin.com/in/guilherme-l-mazer-2b6843250/",
+    slug:     "tomasMiele",
+    name:     "Tomas Miele",
+    company:  "LTS Investments",
+    photo:    TomasMiele,
+    linkedin: "https://www.linkedin.com/in/tomas-miele/",
   },
   // {
   //   id: 6,
@@ -198,6 +212,12 @@ const AlumniCarousel = () => {
     company: translatedCompany ? t(`alumni.carousel.members.${slug}.company`) : company,
   }));
 
+  const carouselMembers = MEMBERS.slice(0, CAROUSEL_LIMIT);
+  const remainingCount  = MEMBERS.length - carouselMembers.length;
+  const hasMore         = remainingCount > 0;
+  // Track = os cards visíveis no carrossel + (se houver mais) o card "ver todos" como último slide
+  const trackLength = carouselMembers.length + (hasMore ? 1 : 0);
+
   const wrapperRef  = useRef<HTMLDivElement>(null);
   const trackRef    = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
@@ -207,7 +227,7 @@ const AlumniCarousel = () => {
   const [modalOpen,      setModalOpen]      = useState(false);
   const [selectedMember, setSelectedMember] = useState<Member | null>(null);
 
-  const maxIndex = Math.max(0, MEMBERS.length - cardsVisible);
+  const maxIndex = Math.max(0, trackLength - cardsVisible);
 
   useEffect(() => {
     const calc = () => {
@@ -266,11 +286,6 @@ const AlumniCarousel = () => {
               <SectionTitle>{t("alumni.carousel.title")}</SectionTitle>
             </HeaderLeft>
             <HeaderRight>
-              <Counter>
-                <CounterCurrent>{String(current + 1).padStart(2, "0")}</CounterCurrent>
-                <CounterSep>/</CounterSep>
-                <CounterTotal>{String(MEMBERS.length).padStart(2, "0")}</CounterTotal>
-              </Counter>
               <BtnVerTodos onClick={() => setModalOpen(true)}>
                 {t("alumni.carousel.viewAllBtn")}
               </BtnVerTodos>
@@ -279,7 +294,7 @@ const AlumniCarousel = () => {
 
           <Viewport ref={viewportRef}>
             <Track ref={trackRef}>
-              {MEMBERS.map((m) => (
+              {carouselMembers.map((m) => (
                 <Card
                   key={m.id}
                   onClick={() => setSelectedMember(m)}
@@ -307,12 +322,24 @@ const AlumniCarousel = () => {
                       <MemberRole>{m.role}</MemberRole>
                     </MemberMeta>
                     <CardFooter>
-                      <CompanyTag>{m.company}</CompanyTag>
+                      <CompanyTag title={m.company}>{m.company}</CompanyTag>
                       <ReadMore>{t("alumni.carousel.readMore")}</ReadMore>
                     </CardFooter>
                   </CardBody>
                 </Card>
               ))}
+
+              {hasMore && (
+                <ViewAllSlot>
+                  <BtnVerTodos
+                    type="button"
+                    onClick={() => setModalOpen(true)}
+                    aria-label={t("alumni.carousel.viewAllCard.ariaLabel", { count: remainingCount })}
+                  >
+                    {t("alumni.carousel.viewAllBtn")}
+                  </BtnVerTodos>
+                </ViewAllSlot>
+              )}
             </Track>
           </Viewport>
 
@@ -388,7 +415,7 @@ const AlumniCarousel = () => {
               {MEMBERS.map((m) => (
                 <ModalCard
                   key={m.id}
-                  onClick={() => { setModalOpen(false); setSelectedMember(m); }}
+                  onClick={() => setSelectedMember(m)}
                 >
                   <ModalAvatarWrap>
                     {m.photo ? (
@@ -475,19 +502,6 @@ const SectionTitle = styled.h2`
   color: ${DARK};
 `;
 
-const Counter     = styled.div`display: flex; align-items: baseline; gap: 4px;`;
-
-const CounterCurrent = styled.span`
-  font-family: ${FONT_BODY};
-  font-size: 28px;
-  font-weight: 700;
-  color: ${DARK};
-  letter-spacing: -0.03em;
-`;
-
-const CounterSep   = styled.span`font-family: ${FONT_BODY}; font-size: 14px; color: ${MUTED};`;
-const CounterTotal = styled.span`font-family: ${FONT_BODY}; font-size: 14px; color: ${MUTED};`;
-
 const BtnVerTodos = styled.button`
   font-family: ${FONT_TITLE};
   font-size: ${TYPE.eyebrow.size};
@@ -547,6 +561,17 @@ const Card = styled.div`
     outline: 2px solid ${RED};
     outline-offset: 3px;
   }
+`;
+
+// ── "Ver todos" card (último slide do carrossel) ────────────────────────────
+
+const ViewAllSlot = styled.div`
+  flex: 0 0 ${CARD_WIDTH}px;
+  height: 360px;
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const CardStrip = styled.div`
@@ -670,6 +695,7 @@ const CardFooter = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 10px;
   flex-shrink: 0;
 `;
 
@@ -684,7 +710,11 @@ const CompanyTag = styled.span`
   padding: 5px 10px;
   border-radius: 3px;
   align-self: flex-start;
-  flex-shrink: 0;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const ReadMore = styled.span`
@@ -960,15 +990,14 @@ const CloseBtn = styled.button`
 
 const ModalGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 16px;
 
-  @media (max-width: 768px) { grid-template-columns: repeat(2, 1fr); }
   @media (max-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   @media (max-width: 420px) {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 `;
 

@@ -889,6 +889,10 @@ const IndexBadge = styled.span`
 `;
 
 const IndexTitle = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(1.2em * 3 + 0.6rem);
   font-family: ${FONT_TITLE};
   font-size: 19px;
   font-weight: 700;

@@ -243,7 +243,7 @@ const CaseBadge = styled.span`
 
 const CaseBigName = styled.span`
   font-family: ${FONT_TITLE};
-  font-size: 72px;
+  font-size: 88px;
   font-weight: 800;
   letter-spacing: -0.045em;
   color: ${C.ink};
@@ -260,9 +260,8 @@ const CaseBigName = styled.span`
     height: 4px;
     background: ${C.redTitle};
   }
-  @media (max-width: 1100px) { font-size: 56px; }
-  @media (max-width: 700px)  { font-size: 40px; }
-  @media (max-width: 400px)  { font-size: 32px; }
+  @media (max-width: 1100px) { font-size: 64px; }
+  @media (max-width: 700px)  { font-size: 48px; }
 `;
 
 const Dot = styled.span`
