@@ -3,6 +3,7 @@ import styled, { keyframes } from "styled-components";
 import { useTranslation } from "react-i18next";
 import { RED, BG_CREAM, FONT_TITLE, TYPE, SPACING } from "../../../styles/tokens";
 import capacitacaoImg from "../../../assets/capacitation/aula.png";
+import { INSCRICAO_URL } from "../../../config/config";
 
 const useCountUp = (target: number, duration: number, trigger: boolean, delay = 0) => {
   const [count, setCount] = useState(0);
