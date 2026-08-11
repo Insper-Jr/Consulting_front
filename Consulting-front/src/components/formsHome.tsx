@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import styled from "styled-components";
 import toast, { Toaster } from "react-hot-toast";
+import { RED, RED_DARK, FONT_TITLE } from "../styles/tokens";
 
 // Componente final
 const DiagnosticForm = ({onClose} : {onClose: () => void}) => {
@@ -169,7 +170,7 @@ const FormContainer = styled.div`
 
 // Título do formulário centralizado
 const FormTitle = styled.h3`
-  font-family: "Montserrat", sans-serif;
+  font-family: ${FONT_TITLE};
   font-size: 24px;
   color: #000;
   margin-bottom: 8px;
@@ -211,7 +212,7 @@ const FieldWrapperTextArea = styled(FieldWrapper)`
 
 // Título do campo
 const FieldTitle = styled.span`
-  font-family: "Montserrat", sans-serif;
+  font-family: ${FONT_TITLE};
   font-size: 12px; /* Reduzido */
   font-weight: 500;
   color: #6D6D6D;
@@ -225,7 +226,7 @@ const FieldTitle = styled.span`
 const FieldInput = styled.input`
   border: none;
   outline: none;
-  font-family: "Montserrat", sans-serif;
+  font-family: ${FONT_TITLE};
   font-size: 12px; /* Reduzido */
   color: #333;
   width: 100%;
@@ -248,7 +249,7 @@ const FieldInput = styled.input`
 const FieldTextArea = styled.textarea`
   border: none;
   outline: none;
-  font-family: "Montserrat", sans-serif;
+  font-family: ${FONT_TITLE};
   font-size: 12px; /* Reduzido */
   color: #333;
   width: 100%;
@@ -271,9 +272,9 @@ const FieldTextArea = styled.textarea`
 
 // Botão de envio reduzido e centralizado
 const SubmitButton = styled.button`
-  font-family: "Montserrat", sans-serif;
+  font-family: ${FONT_TITLE};
   font-size: 14px; /* Reduzido */
-  background-color: #a10f23;
+  background-color: ${RED};
   color: #ffffff;
   border: none;
   border-radius: 6px;
@@ -284,7 +285,7 @@ const SubmitButton = styled.button`
   align-self: center; /* Centraliza o botão */
 
   &:hover {
-    background-color: #8c0c1e;
+    background-color: ${RED_DARK};
   }
     @media (max-width: 800px) {
         font-size: 12px;

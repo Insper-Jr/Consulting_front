@@ -2,13 +2,13 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import styled, { keyframes } from "styled-components";
 
+import { RED_TITLE, RED, DARK, FONT_TITLE, FONT_BODY } from "../../../styles/tokens";
+
 const COLORS = {
-  redTitle: "#A10F23",
-  redCTA:   "#C02121",
-  ink:      "#1a1a1a",
+  redTitle: RED_TITLE,
+  redCTA:   RED,
+  ink:      DARK,
 };
-const FONT_TITLE = `"Montserrat", Helvetica, sans-serif`;
-const FONT_BODY  = `"Inter", Helvetica, sans-serif`;
 
 const redbarGrow = keyframes`to { transform: scaleX(1); }`;
 
@@ -38,7 +38,7 @@ const RedBar = styled.div`
 const Intro = styled.section`
   padding: 0 2rem 4rem;
   width: 80%;
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
   position: relative;
 
@@ -73,7 +73,7 @@ const SectionTitle = styled.h2`
   font-family: ${FONT_TITLE};
   font-size: 32px;
   font-weight: 700;
-  color: #080F0F;
+  color: ${COLORS.ink};
   letter-spacing: -0.02em;
   line-height: 1.1;
   margin: 0;
@@ -122,7 +122,7 @@ const Pillar = styled.div`
   &:hover {
     transform: translateY(-3px);
     box-shadow: 0 12px 28px rgba(0,0,0,0.06);
-    border-color: rgba(161,15,35,0.25);
+    border-color: rgba(192,33,33,0.25);
   }
 `;
 

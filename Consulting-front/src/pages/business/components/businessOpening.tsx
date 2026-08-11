@@ -2,13 +2,10 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
-const RED_CTA    = "#C02121";
-const INK        = "#1a1a1a";
-const FONT_TITLE = `"Montserrat", Helvetica, sans-serif`;
-const FONT_BODY  = `"Inter", Helvetica, sans-serif`;
+import { RED as RED_CTA, DARK as INK, FONT_TITLE, FONT_BODY } from "../../../styles/tokens";
 
 const Opening = styled.section`
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 5rem auto 0;
   padding: 0 2rem;
   @media (max-width: 768px) { margin: 3.5rem auto 0; padding: 0 1rem; }
@@ -38,10 +35,10 @@ const OpenEyebrow = styled.p`
 
 const OpenHeadline = styled.h2`
   font-family: ${FONT_TITLE};
-  font-size: clamp(32px, 4vw, 54px);
-  line-height: 1.06;
+  font-size: clamp(28px, 3.2vw, 32px);
+  line-height: 1.1;
   margin: 0;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
 `;
 
 const HLLight = styled.span`

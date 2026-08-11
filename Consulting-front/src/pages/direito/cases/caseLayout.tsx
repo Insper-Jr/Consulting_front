@@ -1,33 +1,26 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import styled, { createGlobalStyle } from "styled-components";
+import styled from "styled-components";
 import { CaretLeft } from "phosphor-react";
+import { useTranslation } from "react-i18next";
 import Footer from "../../../components/footerNovo";
 import WppButton from "../../../components/wppButton";
 
+import { RED_TITLE, RED, DARK, FONT_TITLE, FONT_BODY } from "../../../styles/tokens";
+
 const COLORS = {
-  redTitle: "#A10F23",
-  redCTA: "#C02121",
-  ink: "#1a1a1a",
+  redTitle: RED_TITLE,
+  redCTA: RED,
+  ink: DARK,
   bg: "#ffffff",
-  greenLight: "#dcfce7",
-  greenLightHover: "#bbf7d0",
-  greenInk: "#166534",
-  greenBorder: "#86efac",
 };
-
-const FONT_TITLE = `"Montserrat", Helvetica, sans-serif`;
-const FONT_BODY = `"Inter", Helvetica, sans-serif`;
-
-const CaseGlobal = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap');
-`;
 
 type CaseLayoutProps = {
   children: React.ReactNode;
 };
 
 export default function CaseLayout({ children }: CaseLayoutProps) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -45,13 +38,12 @@ export default function CaseLayout({ children }: CaseLayoutProps) {
 
   return (
     <PageWrap>
-      <CaseGlobal />
       <WppButton />
 
       <BackButtonWrap>
-        <BackButton type="button" onClick={handleBack} aria-label="Voltar para a página de Direito">
+        <BackButton type="button" onClick={handleBack} aria-label={t("direito.caseCommon.backAria")}>
           <CaretLeft size={16} weight="bold" />
-          <span>Voltar</span>
+          <span>{t("direito.caseCommon.back")}</span>
         </BackButton>
       </BackButtonWrap>
 
@@ -93,24 +85,25 @@ const BackButton = styled.button`
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: ${COLORS.greenInk};
-  background: ${COLORS.greenLight};
-  border: 1px solid ${COLORS.greenBorder};
+  color: ${COLORS.ink};
+  background: ${COLORS.bg};
+  border: 1px solid rgba(26,26,24,0.18);
   padding: 0.65rem 1.1rem;
   border-radius: 999px;
   text-decoration: none;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 14px rgba(22, 101, 52, 0.15);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
 
   svg {
     transition: transform 0.2s ease;
+    color: ${COLORS.redCTA};
   }
 
   &:hover {
-    background: ${COLORS.greenLightHover};
-    border-color: ${COLORS.greenInk};
-    box-shadow: 0 6px 18px rgba(22, 101, 52, 0.25);
+    background: #f7f7f7;
+    border-color: rgba(161,15,35,0.35);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
     transform: translateY(-1px);
 
     svg {
@@ -119,8 +112,7 @@ const BackButton = styled.button`
   }
 
   &:focus-visible {
-    outline: 2px solid ${COLORS.greenInk};
-    outline-offset: 3px;
+    outline: none;
   }
 `;
 

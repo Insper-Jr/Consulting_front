@@ -7,6 +7,7 @@ const pt = {
     join:      "Faça Parte",
     contact:   "Contato",
     cta:       "Fale Conosco",
+    tagline:   "Consultoria universitária de alto impacto",
   },
 
   // ── Frentes (dropdown de Soluções) ──
@@ -87,7 +88,7 @@ const pt = {
   intro: {
     eyebrow:  "Quem somos",
     title:    "A Insper Jr.",
-    body:     "Somos a empresa júnior do Insper, uma das instituições de ensino mais reconhecidas do Brasil. Desde 2000, conectamos empresas reais a soluções de alto impacto nas áreas de Business, Engenharia e Tecnologia e Direito, com rigor acadêmico e olhar prático de quem está imerso no mercado.",
+    body:     "Somos a empresa júnior do Insper, uma das instituições de ensino mais reconhecidas do Brasil. Desde 2001, conectamos empresas reais a soluções de alto impacto nas áreas de Business, Engenharia e Tecnologia e Direito, com rigor acadêmico e olhar prático de quem está imerso no mercado.",
     cta:      "Saiba mais",
     mapLabel: "Clientes e projetos em todo o Brasil",
     awards:   "Reconhecimentos",
@@ -162,15 +163,8 @@ const pt = {
 
   // ── SectionContact ──
   sectionContact: {
-    title:             "Entre em contato com a nossa equipe",
-    button:            "Contato",
-    newsletterLabel:   "Newsletter",
-    newsletterHeading: "Fique por dentro das nossas novidades",
-    newsletterSub:     "Receba insights e atualizações no seu e-mail. Sem spam.",
-    emailPlaceholder:  "seu@email.com",
-    submitBtn:         "Inscrever-se",
-    submitting:        "Enviando…",
-    success:           "✓ Obrigado! Você receberá nossas novidades em breve.",
+    title:  "Entre em contato com a nossa equipe",
+    button: "Contato",
   },
 
   // ── SectionMap ──
@@ -218,6 +212,7 @@ const pt = {
 
     // ── Escopos e cards de case (BusinessCases) ──
     scopes: {
+      badge:       "Business",
       titlePrefix: "Projeto",
       howLabel:    "Como atuamos",
       deliverLabel: "O que entregamos",

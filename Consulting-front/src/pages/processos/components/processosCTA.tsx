@@ -1,13 +1,9 @@
 import React from "react";
 import styled, { keyframes, css } from "styled-components";
+import { useTranslation } from "react-i18next";
 import { useInView } from "../../../hooks/useInView";
 
-const RED        = "#C02121";
-const DARK       = "#1a1a18";
-const BG         = "#FAF2EA";
-const FONT_TITLE = `'Montserrat', Helvetica, sans-serif`;
-const FONT_BODY  = `'Inter', Helvetica, sans-serif`;
-const SPRING     = "cubic-bezier(0.16,1,0.3,1)";
+import { RED, DARK, BG_CREAM as BG, FONT_TITLE, FONT_BODY, SPRING } from "../../../styles/tokens";
 
 const fadeUp = keyframes`
   from { opacity: 0; transform: translateY(16px); }
@@ -90,20 +86,19 @@ const BtnPrimary = styled.a`
 `;
 
 export default function AboutCTA() {
+  const { t } = useTranslation();
   const { ref, visible } = useInView();
 
   return (
     <Section>
       <Inner ref={ref} $visible={!!visible}>
-        <Eyebrow>Próximo passo</Eyebrow>
-        <Title>Pronto para enxergar sua<br />
-          operação com clareza?</Title>
+        <Eyebrow>{t("processos.cta.eyebrow")}</Eyebrow>
+        <Title>{t("processos.cta.titleLine1")}<br />
+          {t("processos.cta.titleLine2")}</Title>
         <Sub>
-          Entre em contato com a Insper Jr. e descubra como podemos ajudar sua
-          empresa a identificar gargalos, simular melhorias e tomar decisões
-          com mais segurança.
+          {t("processos.cta.sub")}
         </Sub>
-        <BtnPrimary href="/contact">Fazer diagnóstico gratuito</BtnPrimary>
+        <BtnPrimary href="/contact">{t("processos.cta.button")}</BtnPrimary>
       </Inner>
     </Section>
   )}

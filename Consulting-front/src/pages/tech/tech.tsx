@@ -1,35 +1,39 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import styled, { createGlobalStyle, keyframes, css } from "styled-components";
+import { useTranslation, Trans } from "react-i18next";
+import type { TFunction } from "i18next";
 import Header from "../../components/header";
 import Footer from "../../components/footerNovo";
 import WppButton from "../../components/wppButton";
 import ContactSection from "../../components/sectionContact";
+import CaseShowcaseCard from "../../components/caseShowcaseCard";
 import TechCTA from "./components/techCTA";
 // Imagens de destaque dos cases
 import gamifHighlight from "../../assets/gamificacao/slides/02-solucao.png";
 import medHighlight from "../../assets/medicina/slides/04-contexto.jpg";
 import walleHighlight from "../../assets/walle/slide-01.png";
+import TechImg from "../../assets/hero/tech3.png";
+import { useParticles } from "../../hooks/useParticleBackground";
 
 // ── Color tokens (from HTML reference) ──────────────────────────────────────
+import { RED_TITLE, RED, RED_DARK, RED_DIM, BG_DARK, DARK, BG_CREAM, CREAM, FONT_TITLE, FONT_BODY, SPRING, TYPE } from "../../styles/tokens";
+
 const COLORS = {
-  redTitle: "#A10F23",
-  redCTA:   "#C02121",
-  redDark:  "#691212",
-  black:    "#0e0404",
-  ink:      "#1a1a1a",
+  redTitle: RED_TITLE,
+  redCTA:   RED,
+  redDark:  RED_DARK,
+  black:    BG_DARK,
+  ink:      DARK,
   bg:       "#ffffff",
-  cream:    "#FAF2EA",
-  lightCream: "#faf6f1",
+  cream:    BG_CREAM,
+  lightCream: BG_CREAM,
 };
 
-const FONT_TITLE = `"Montserrat", Helvetica, sans-serif`;
-const FONT_BODY  = `"Inter", Helvetica, sans-serif`;
 const FONT_MONO  = `ui-monospace, "SF Mono", Menlo, monospace`;
 
 // ── Global Style: import fonts ─────────────────────────────────────────────
 const TechGlobal = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap');
   html { scroll-behavior: smooth; }
 `;
 
@@ -190,144 +194,90 @@ type Scope = {
   tags: string[];
 };
 
-const SCOPES: Scope[] = [
-  {
-    num: "01",
-    tab: "Desenvolvimento Web",
-    title: <>Plataformas <i>completas</i>.</>,
-    lede: <>Focado na <strong>criação de plataformas digitais completas (fullstack)</strong> — de componentes isolados a sistemas inteiros. Arquitetura modular e escalável, com integração nativa a dados, automações e agentes de IA.</>,
-    side: {
-      eyebrow: "Ficha do escopo",
-      rows: [
-        { key: "Produto-chave", val: <><strong>Plataformas digitais completas</strong> (fullstack)</> },
-        { key: "Stack", val: <>· React no front<br />· Python no back</> },
-        { key: "Versionamento", val: <>GitHub — controle de branches e documentação completa</> },
-        { key: "Aplicações", val: <>Sistemas web personalizados, plataformas institucionais e operacionais, soluções interativas</> },
-        { key: "Sinergia", val: <>Comunicação direta com Dados, automações e agentes de IA</> },
-      ],
-      quote: "Do componente isolado ao sistema completo — arquitetura modular e escalável.",
+function buildScopes(t: TFunction): Scope[] {
+  const richStrong = { strong: <strong /> };
+  const richBr = { br: <br /> };
+
+  return [
+    {
+      num: "01",
+      tab: t("tech.scopes.web.tab"),
+      title: <Trans i18nKey="tech.scopes.web.title" components={{ i: <i /> }} />,
+      lede: <Trans i18nKey="tech.scopes.web.lede" components={richStrong} />,
+      side: {
+        eyebrow: t("tech.scopes.web.sideEyebrow"),
+        rows: [
+          { key: t("tech.scopes.web.rows.produtoChave.label"), val: <Trans i18nKey="tech.scopes.web.rows.produtoChave.value" components={richStrong} /> },
+          { key: t("tech.scopes.web.rows.stack.label"), val: <Trans i18nKey="tech.scopes.web.rows.stack.value" components={richBr} /> },
+          { key: t("tech.scopes.web.rows.versionamento.label"), val: t("tech.scopes.web.rows.versionamento.value") },
+          { key: t("tech.scopes.web.rows.aplicacoes.label"), val: t("tech.scopes.web.rows.aplicacoes.value") },
+          { key: t("tech.scopes.web.rows.sinergia.label"), val: t("tech.scopes.web.rows.sinergia.value") },
+        ],
+        quote: t("tech.scopes.web.quote"),
+      },
+      detail: <Trans i18nKey="tech.scopes.web.detail" components={richStrong} />,
+      bullets: t("tech.scopes.web.bullets", { returnObjects: true }) as string[],
+      tags: t("tech.scopes.web.tags", { returnObjects: true }) as string[],
     },
-    detail: <>Trabalhamos com <strong>desenvolvimento fullstack</strong> (frontend + backend), priorizando arquitetura modular e escalável. Integramos com banco de dados e soluções analíticas, conversamos diretamente com automações e agentes de IA, e organizamos os projetos em <strong>repositórios bem documentados</strong>. A flexibilidade do escopo permite entregar desde um dashboard isolado até uma plataforma completa, passando por soluções híbridas.</>,
-    bullets: [
-      "Sistemas web personalizados",
-      "Plataformas institucionais e operacionais",
-      "Aplicações com integração de dados",
-      "Soluções interativas",
-    ],
-    tags: ["React", "Python", "GitHub"],
-  },
-  {
-    num: "02",
-    tab: "Dados",
-    title: <>Dados que viram <i>decisão</i>.</>,
-    lede: <>Responsável por <strong>transformar dados em inteligência estratégica</strong> — da estruturação e modelagem dos bancos ao desenvolvimento de <strong>dashboards interativos</strong> e modelos de machine learning para apoio à tomada de decisão.</>,
-    side: {
-      eyebrow: "Ficha do escopo",
-      rows: [
-        { key: "Produto-chave", val: <><strong>Dashboards interativos</strong> (React + Python)</> },
-        { key: "Bancos de dados", val: <>· SQL (PostgreSQL, Supabase, SQL Workbench)<br />· NoSQL</> },
-        { key: "Aplicações", val: <>Visualização estratégica, análise exploratória e diagnóstica, Machine Learning (previsão, classificação, clusterização)</> },
-        { key: "Sinergia", val: <>Forte integração com Desenvolvimento Web — dashboards embarcados em plataformas</> },
-      ],
-      quote: "Desenvolvimento orientado ao problema — não à ferramenta.",
+    {
+      num: "02",
+      tab: t("tech.scopes.data.tab"),
+      title: <Trans i18nKey="tech.scopes.data.title" components={{ i: <i /> }} />,
+      lede: <Trans i18nKey="tech.scopes.data.lede" components={richStrong} />,
+      side: {
+        eyebrow: t("tech.scopes.data.sideEyebrow"),
+        rows: [
+          { key: t("tech.scopes.data.rows.produtoChave.label"), val: <Trans i18nKey="tech.scopes.data.rows.produtoChave.value" components={richStrong} /> },
+          { key: t("tech.scopes.data.rows.bancosDeDados.label"), val: <Trans i18nKey="tech.scopes.data.rows.bancosDeDados.value" components={richBr} /> },
+          { key: t("tech.scopes.data.rows.aplicacoes.label"), val: t("tech.scopes.data.rows.aplicacoes.value") },
+          { key: t("tech.scopes.data.rows.sinergia.label"), val: t("tech.scopes.data.rows.sinergia.value") },
+        ],
+        quote: t("tech.scopes.data.quote"),
+      },
+      detail: <Trans i18nKey="tech.scopes.data.detail" components={richStrong} />,
+      bullets: t("tech.scopes.data.bullets", { returnObjects: true }) as string[],
+      tags: t("tech.scopes.data.tags", { returnObjects: true }) as string[],
     },
-    detail: <>Nossa abordagem é <strong>orientada ao problema</strong> e não restrita a ferramentas específicas. Estruturamos e modelamos os dados conforme a necessidade do cliente, integramos com outras frentes (ex: dashboards dentro de plataformas web) e entregamos <strong>documentação técnica detalhada</strong> de todos os métodos utilizados. O produto-chave são os dashboards — front-end em React e back-end em Python, conectados ao banco em tempo real.</>,
-    bullets: [
-      "Dashboards interativos",
-      "Visualização de dados estratégicos",
-      "Análise exploratória e diagnóstica",
-      "Modelos de Machine Learning — previsão, classificação e clusterização",
-      "Apoio à tomada de decisão baseada em dados",
-    ],
-    tags: ["Python", "React", "SQL", "PostgreSQL", "Supabase", "SQL Workbench", "NoSQL", "Machine Learning"],
-  },
-  {
-    num: "03",
-    tab: "Inteligência Artificial",
-    title: <>Agentes que <i>executam</i> e conversam.</>,
-    lede: <>Desenvolvimento de <strong>automações inteligentes</strong> e de <strong>agentes e chatbots</strong> capazes de executar tarefas e conversar com usuários — integrando sistemas e reduzindo tempo e custo de processos internos e de atendimento.</>,
-    side: {
-      eyebrow: "Ficha do escopo",
-      rows: [
-        { key: "Produto-chave", val: <><strong>Automações inteligentes</strong> e <strong>agentes conversacionais</strong> (chatbots)</> },
-        { key: "Frentes", val: <>· Automação e agentes<br />· Chatbots e assistentes conversacionais</> },
-        { key: "Integrações", val: <>APIs entre plataformas · canais WhatsApp e site · bases de conhecimento próprias (RAG)</> },
-        { key: "Aplicações", val: <>Rotinas repetitivas, triagem de documentos, e-mails e planilhas, atendimento ao cliente final e suporte interno</> },
-      ],
-      quote: "Da rotina repetitiva ao atendimento — execução autônoma de ponta a ponta.",
+    {
+      num: "03",
+      tab: t("tech.scopes.automation.tab"),
+      title: <Trans i18nKey="tech.scopes.automation.title" components={{ i: <i /> }} />,
+      lede: <Trans i18nKey="tech.scopes.automation.lede" components={richStrong} />,
+      side: {
+        eyebrow: t("tech.scopes.automation.sideEyebrow"),
+        rows: [
+          { key: t("tech.scopes.automation.rows.produtoChave.label"), val: <Trans i18nKey="tech.scopes.automation.rows.produtoChave.value" components={richStrong} /> },
+          { key: t("tech.scopes.automation.rows.frentes.label"), val: <Trans i18nKey="tech.scopes.automation.rows.frentes.value" components={richBr} /> },
+          { key: t("tech.scopes.automation.rows.integracoes.label"), val: t("tech.scopes.automation.rows.integracoes.value") },
+          { key: t("tech.scopes.automation.rows.aplicacoes.label"), val: t("tech.scopes.automation.rows.aplicacoes.value") },
+        ],
+        quote: t("tech.scopes.automation.quote"),
+      },
+      detail: <Trans i18nKey="tech.scopes.automation.detail" components={richStrong} />,
+      bullets: t("tech.scopes.automation.bullets", { returnObjects: true }) as string[],
+      tags: t("tech.scopes.automation.tags", { returnObjects: true }) as string[],
     },
-    detail: <>A atuação se divide em duas frentes. Em <strong>automação e agentes</strong>, integramos plataformas via <strong>APIs</strong>, executamos rotinas repetitivas de forma autônoma e fazemos a triagem de documentos, e-mails e planilhas com <strong>processamento de linguagem natural</strong>. Em <strong>chatbots e assistentes conversacionais</strong>, atendemos o cliente final e o suporte interno com consulta a <strong>bases de conhecimento próprias da empresa (RAG)</strong>, em canais como WhatsApp e site.</>,
-    bullets: [
-      "Integração entre plataformas via APIs",
-      "Execução autônoma de rotinas repetitivas",
-      "Triagem de documentos, e-mails e planilhas",
-      "Chatbots de atendimento e suporte interno",
-      "Consulta a bases de conhecimento (RAG)",
-      "Operação em canais como WhatsApp e site",
-    ],
-    tags: ["Agentes de IA", "Chatbots", "RAG", "NLP", "APIs", "n8n", "WhatsApp"],
-  },
-];
+  ];
+}
 
 // ── Page ────────────────────────────────────────────────────────────────────
 function Tech() {
-  const heroIntroRef = useRef<HTMLDivElement>(null);
-  const sharedCanvasRef = useRef<HTMLCanvasElement>(null);
-  const heroGlowRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
+  const SCOPES = buildScopes(t);
 
-  const heroRef = useRef<HTMLElement>(null);
+  const heroWrapperRef = useRef<HTMLDivElement>(null);
   const heroCanvasRef = useRef<HTMLCanvasElement>(null);
+  useParticles(heroWrapperRef, heroCanvasRef);
+
+  const [heroVisible, setHeroVisible] = useState(false);
+  useEffect(() => {
+    const timer = setTimeout(() => setHeroVisible(true), 80);
+    return () => clearTimeout(timer);
+  }, []);
 
   const integrationRef = useRef<HTMLElement>(null);
   const synergyCanvasRef = useRef<HTMLCanvasElement>(null);
   const integrationGlowRef = useRef<HTMLDivElement>(null);
-
-  // Wire up hero/intro shared canvas (visible behind the white intro section)
-  useParticleNetwork(sharedCanvasRef, heroIntroRef, {
-    count: 75,
-    maxDist: 120,
-    dotColor: "rgba(230,90,90,0.63)",
-    lineColor: (c: number) => `rgba(230,90,90,${0.252 * c})`,
-    deadZone: (W, H) => ({ x: W * 0.22, y: H * 0.18, w: W * 0.56, h: H * 0.64 }),
-  });
-
-  // Hero glow follows cursor (radial gradient that lights up on hover)
-  useEffect(() => {
-    const wrap = heroIntroRef.current;
-    const glow = heroGlowRef.current;
-    if (!wrap || !glow) return;
-    let raf = 0;
-    const onEnter = () => { glow.style.opacity = "1"; };
-    const onLeave = () => { glow.style.opacity = "0"; };
-    const onMove = (e: MouseEvent) => {
-      const rect = wrap.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      if (raf) cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        glow.style.left = `${x}px`;
-        glow.style.top = `${y}px`;
-      });
-    };
-    wrap.addEventListener("mouseenter", onEnter);
-    wrap.addEventListener("mouseleave", onLeave);
-    wrap.addEventListener("mousemove", onMove);
-    return () => {
-      wrap.removeEventListener("mouseenter", onEnter);
-      wrap.removeEventListener("mouseleave", onLeave);
-      wrap.removeEventListener("mousemove", onMove);
-      cancelAnimationFrame(raf);
-    };
-  }, []);
-
-  // Wire up hero canvas (visible on top of the dark hero background)
-  useParticleNetwork(heroCanvasRef, heroRef, {
-    count: 75,
-    maxDist: 120,
-    dotColor: "rgba(230,90,90,0.63)",
-    lineColor: (c: number) => `rgba(230,90,90,${0.252 * c})`,
-    deadZone: (W, H) => ({ x: W * 0.22, y: H * 0.18, w: W * 0.56, h: H * 0.64 }),
-  });
 
   // Wire up synergy canvas (integration band)
   useParticleNetwork(synergyCanvasRef, integrationRef, {
@@ -390,15 +340,9 @@ function Tech() {
     return () => io.disconnect();
   }, []);
 
-  const heroWords: { text: string; accent?: boolean; delay: string }[] = [
-    { text: "Tecnologia", delay: "0.55s" },
-    { text: "que",        delay: "0.7s" },
-    { text: "resolve",    accent: true, delay: "0.85s" },
-    { text: "problemas",  accent: true, delay: "1.0s" },
-    { text: "reais",      accent: true, delay: "1.15s" },
-    { text: "de",         delay: "1.3s" },
-    { text: "negócio.",   delay: "1.45s" },
-  ];
+  const heroWords = (
+    t("tech.hero.words", { returnObjects: true }) as { text: string; accent?: boolean }[]
+  ).map((w, i) => ({ ...w, delay: 0.55 + i * 0.15 }));
 
   return (
     <PageWrap>
@@ -406,47 +350,65 @@ function Tech() {
       <WppButton />
       <Header />
 
-      {/* Hero + Intro shared canvas */}
-      <HeroIntroWrap ref={heroIntroRef}>
-        <SharedCanvas ref={sharedCanvasRef} />
-        <HeroGlow ref={heroGlowRef} />
+      {/* Hero */}
+      <HeroOuter ref={heroWrapperRef}>
+        <PhotoBg />
+        <GradientOverlay />
+        <HeroVignette />
+        <Blueprint />
 
-        {/* Hero */}
-        <Hero ref={heroRef}>
-          <HeroCanvas ref={heroCanvasRef} />
-          <HeroVignette />
-          <HeroCenter>
-            <HeroEyebrow>Frente de Engenharia &amp; Tecnologia</HeroEyebrow>
-            <HeroTitle>
-              {heroWords.map((w, i) => (
-                <Word key={i} $accent={!!w.accent} style={{ animationDelay: w.delay }}>
-                  {w.text}
-                </Word>
-              ))}
-            </HeroTitle>
-            <HeroLine />
-            <HeroSub>
-              Unimos engenharia, dados, automação e desenvolvimento de software para criar soluções digitais sob medida — desde a estruturação de bancos de dados até agentes inteligentes integrados ao seu ecossistema.
-            </HeroSub>
-          </HeroCenter>
-          <HeroScroll>
-            <HeroScrollDot />
-            <HeroScrollLine />
-          </HeroScroll>
-        </Hero>
+        <canvas ref={heroCanvasRef} style={{
+          position: "absolute", inset: 0, width: "100%", height: "100%",
+          pointerEvents: "none", zIndex: 3,
+        }} />
 
-      </HeroIntroWrap>
+        <HeroGrid>
+          <HeroInner>
+            <HeroLeft>
+              <HeroEyebrow $v={heroVisible}>{t("tech.hero.eyebrow")}</HeroEyebrow>
+
+              <HeroTitle>
+                {heroWords.map((w, i) => (
+                  <Word key={i} $d={w.delay} $v={heroVisible} $accent={!!w.accent}>
+                    {w.text}
+                  </Word>
+                ))}
+              </HeroTitle>
+
+              <HeroLine $v={heroVisible} />
+
+              <HeroSub $v={heroVisible}>
+                {t("tech.hero.subtitle")}
+              </HeroSub>
+            </HeroLeft>
+          </HeroInner>
+        </HeroGrid>
+
+        <HeroScroll>
+          <HeroScrollDot />
+          <HeroScrollLine />
+        </HeroScroll>
+
+        {/* Wave para a seção seguinte */}
+        <div style={{ position: "absolute", left: 0, right: 0, bottom: -1, lineHeight: 0, zIndex: 5 }}>
+          <svg viewBox="0 0 1440 72" preserveAspectRatio="none"
+            xmlns="http://www.w3.org/2000/svg" style={{ display: "block", width: "100%" }}>
+            <path d="M0,72 L0,36 C240,72 480,0 720,36 C960,72 1200,0 1440,36 L1440,72 Z"
+              fill="#fff" />
+          </svg>
+        </div>
+      </HeroOuter>
 
       {/* Red animated bar above Nossos Escopos */}
       <RedBarWrap><RedBar /></RedBarWrap>
 
       {/* Section opening: Nossos Escopos */}
       <ScopesOpening>
-        <OpeningEyebrow>Frentes de atuação</OpeningEyebrow>
-        <OpeningTitle>Nossos Escopos</OpeningTitle>
+        <OpeningEyebrow>{t("tech.scopesOpening.eyebrow")}</OpeningEyebrow>
+        <OpeningTitle>{t("tech.scopesOpening.title")}</OpeningTitle>
         <OpeningDivider />
         <OpeningSubtitle>
-          Três frentes que operam de forma integrada — e podem ser combinadas para entregar soluções tecnológicas completas dentro de um mesmo ecossistema.
+          {t("tech.scopesOpening.subtitle")}
         </OpeningSubtitle>
 
         <OpeningIndex>
@@ -463,10 +425,10 @@ function Tech() {
                 }
               }}
             >
-              <IndexBadge>ESCOPO {s.num}</IndexBadge>
+              <IndexBadge>{t("tech.scopesOpening.badge", { num: s.num })}</IndexBadge>
               <IndexTitle>{s.tab}</IndexTitle>
               <IndexCTA>
-                <span>Explorar</span>
+                <span>{t("tech.scopesOpening.explore")}</span>
                 <IndexArrow aria-hidden="true">→</IndexArrow>
               </IndexCTA>
             </IndexCard>
@@ -480,12 +442,11 @@ function Tech() {
             <ScopePanel role="tabpanel">
               <ScopeHeader>
                 <ScopeCounter>
-                  <CounterNum>ESCOPO {s.num}</CounterNum>
+                  <CounterNum>{t("tech.scopesOpening.badge", { num: s.num })}</CounterNum>
                   <ScopeName>{s.tab}</ScopeName>
                 </ScopeCounter>
                 <PanelTags>
-                  <TagsLabel>Tecnologias</TagsLabel>
-                  {s.tags.map(t => <Tag key={t}>{t}</Tag>)}
+                  {s.tags.map(tag => <Tag key={tag}>{tag}</Tag>)}
                 </PanelTags>
               </ScopeHeader>
 
@@ -499,11 +460,11 @@ function Tech() {
 
                   <PanelBody>
                     <PanelCol>
-                      <ColLabel>Como atuamos</ColLabel>
+                      <ColLabel>{t("tech.scopesOpening.howWeWorkLabel", { defaultValue: "Como atuamos" })}</ColLabel>
                       <ScopeDetail>{s.detail}</ScopeDetail>
                     </PanelCol>
                     <PanelCol>
-                      <ColLabel>Principais aplicações</ColLabel>
+                      <ColLabel>{t("tech.scopesOpening.mainApplicationsLabel", { defaultValue: "Principais aplicações" })}</ColLabel>
                       <Bullets>
                         {s.bullets.map((b, j) => <li key={j}>{b}</li>)}
                       </Bullets>
@@ -536,29 +497,47 @@ function Tech() {
       {/* Cases de Destaque — overview com links para páginas dedicadas */}
       <HighlightCases>
         <SectionHeader>
-          <OpeningEyebrow>Projetos em destaque</OpeningEyebrow>
-          <SectionTitle>Cases de Destaque</SectionTitle>
+          <OpeningEyebrow>{t("tech.highlightCases.eyebrow")}</OpeningEyebrow>
+          <SectionTitle>{t("tech.highlightCases.title")}</SectionTitle>
           <OpeningDivider />
         </SectionHeader>
         <SectionSubtitle>
-          Conheça três projetos que exemplificam a forma como entregamos soluções tecnológicas — do desenvolvimento web a automações inteligentes.
+          {t("tech.highlightCases.subtitle")}
         </SectionSubtitle>
         <HighlightGrid>
-          <HighlightCard to="/tech/gamificacao" aria-label="Ver case Gamificação">
-            <HighlightCardTitle>Gamificação</HighlightCardTitle>
-            <HighlightCardImage src={gamifHighlight} alt="Aumento da Produtividade Através de Gamificação" />
-            <HighlightCardSubtitle>Escopo · Desenvolvimento Web</HighlightCardSubtitle>
-          </HighlightCard>
-          <HighlightCard to="/tech/medicina" aria-label="Ver case Medicina">
-            <HighlightCardTitle>Medicina</HighlightCardTitle>
-            <HighlightCardImage src={medHighlight} alt="Contexto do Projeto Medicina" />
-            <HighlightCardSubtitle>Escopo · Desenvolvimento Web</HighlightCardSubtitle>
-          </HighlightCard>
-          <HighlightCard to="/tech/wall-e" aria-label="Ver case Wall-E">
-            <HighlightCardTitle>Wall-E</HighlightCardTitle>
-            <HighlightCardImage src={walleHighlight} alt="Contexto do projeto Wall-E" />
-            <HighlightCardSubtitle>Escopo · Inteligência Artificial</HighlightCardSubtitle>
-          </HighlightCard>
+          <CaseShowcaseCard
+            to="/tech/gamificacao"
+            ariaLabel={t("tech.highlightCases.gamificacao.ariaLabel")}
+            coverSrc={gamifHighlight}
+            coverAlt={t("tech.highlightCases.gamificacao.imgAlt")}
+            badge={t("tech.highlightCases.badge")}
+            tag={t("tech.highlightCases.gamificacao.subtitle")}
+            title={t("tech.highlightCases.gamificacao.title")}
+            desc={t("tech.highlightCases.gamificacao.desc")}
+            ctaLabel={t("tech.highlightCases.viewCta")}
+          />
+          <CaseShowcaseCard
+            to="/tech/medicina"
+            ariaLabel={t("tech.highlightCases.medicina.ariaLabel")}
+            coverSrc={medHighlight}
+            coverAlt={t("tech.highlightCases.medicina.imgAlt")}
+            badge={t("tech.highlightCases.badge")}
+            tag={t("tech.highlightCases.medicina.subtitle")}
+            title={t("tech.highlightCases.medicina.title")}
+            desc={t("tech.highlightCases.medicina.desc")}
+            ctaLabel={t("tech.highlightCases.viewCta")}
+          />
+          <CaseShowcaseCard
+            to="/tech/wall-e"
+            ariaLabel={t("tech.highlightCases.walle.ariaLabel")}
+            coverSrc={walleHighlight}
+            coverAlt={t("tech.highlightCases.walle.imgAlt")}
+            badge={t("tech.highlightCases.badge")}
+            tag={t("tech.highlightCases.walle.subtitle")}
+            title={t("tech.highlightCases.walle.title")}
+            desc={t("tech.highlightCases.walle.desc")}
+            ctaLabel={t("tech.highlightCases.viewCta")}
+          />
         </HighlightGrid>
       </HighlightCases>
 
@@ -567,12 +546,12 @@ function Tech() {
         <SynergyCanvas ref={synergyCanvasRef} />
         <CursorGlow ref={integrationGlowRef} />
         <IntegrationInner>
-          <Kicker>Sinergia entre Escopos</Kicker>
+          <Kicker>{t("tech.integration.kicker")}</Kicker>
           <IntegrationTitle>
-            Soluções que <span>conversam entre si</span> em um mesmo ecossistema
+            <Trans i18nKey="tech.integration.title" components={{ span: <span /> }} />
           </IntegrationTitle>
           <IntegrationLede>
-            Não existe pacote padrão. Cada solução combina dashboards, bancos de dados, automações e agentes inteligentes nas proporções certas para o desafio do cliente — sempre construída sob medida.
+            {t("tech.integration.lede")}
           </IntegrationLede>
         </IntegrationInner>
       </Integration>
@@ -583,44 +562,44 @@ function Tech() {
       {/* Sobre a frente */}
       <Intro id="sobre-frente">
         <SectionHeader>
-          <OpeningEyebrow>Quem somos</OpeningEyebrow>
-          <SectionTitle>Sobre a frente</SectionTitle>
+          <OpeningEyebrow>{t("tech.about.eyebrow")}</OpeningEyebrow>
+          <SectionTitle>{t("tech.about.title")}</SectionTitle>
           <OpeningDivider />
         </SectionHeader>
 
         <FrenteLede>
-          Desde 2017, desenvolvemos soluções digitais e tecnológicas que unem engenharia, dados, automação e desenvolvimento de software para gerar impacto real em empresas e organizações. Nossa atuação evolui constantemente em tecnologias, metodologias e materiais internos — sempre buscando a melhor solução para cada projeto, sem se limitar a ferramentas ou padrões específicos.
+          {t("tech.about.lede")}
         </FrenteLede>
 
         <PillarsGrid>
           <Pillar>
-            <PillarNum>01 — Multidisciplinar</PillarNum>
-            <PillarTitle>Cinco cursos, uma frente</PillarTitle>
+            <PillarNum>{t("tech.about.pillars.multidisciplinar.num")}</PillarNum>
+            <PillarTitle>{t("tech.about.pillars.multidisciplinar.title")}</PillarTitle>
             <PillarText>
-              Reunimos alunos de <strong>Engenharia da Computação, Mecânica, Mecatrônica, Produção e Ciência da Computação</strong>, garantindo visão multidisciplinar e acesso a diferentes áreas do universo tech.
+              <Trans i18nKey="tech.about.pillars.multidisciplinar.text" components={{ strong: <strong /> }} />
             </PillarText>
           </Pillar>
           <Pillar>
-            <PillarNum>02 — Integrada</PillarNum>
-            <PillarTitle>Três escopos que conversam</PillarTitle>
+            <PillarNum>{t("tech.about.pillars.integrada.num")}</PillarNum>
+            <PillarTitle>{t("tech.about.pillars.integrada.title")}</PillarTitle>
             <PillarText>
-              A atuação se divide em <strong>Dados, Desenvolvimento Web e Inteligência Artificial</strong>. A divisão é apenas organizacional: os escopos funcionam de forma integrada dentro de uma mesma solução.
+              <Trans i18nKey="tech.about.pillars.integrada.text" components={{ strong: <strong /> }} />
             </PillarText>
           </Pillar>
           <Pillar>
-            <PillarNum>03 — Sob medida</PillarNum>
-            <PillarTitle>Soluções completas</PillarTitle>
+            <PillarNum>{t("tech.about.pillars.sobMedida.num")}</PillarNum>
+            <PillarTitle>{t("tech.about.pillars.sobMedida.title")}</PillarTitle>
             <PillarText>
-              Combinamos dashboards analíticos, bancos de dados, automações e agentes inteligentes em uma única plataforma — <strong>adaptada ao contexto e às necessidades de cada cliente</strong>.
+              <Trans i18nKey="tech.about.pillars.sobMedida.text" components={{ strong: <strong /> }} />
             </PillarText>
           </Pillar>
         </PillarsGrid>
 
         <StatsBar>
-          <Stat><StatValue>3+</StatValue><StatLabel>Escopos integrados</StatLabel></Stat>
-          <Stat><StatValue>5</StatValue><StatLabel>Cursos de Engenharia</StatLabel></Stat>
-          <Stat><StatValue>8+</StatValue><StatLabel>Anos de Atuação</StatLabel></Stat>
-          <Stat><StatValue>24+</StatValue><StatLabel>Anos de Insper Jr.</StatLabel></Stat>
+          <Stat><StatValue>{t("tech.about.stats.escopos.value")}</StatValue><StatLabel>{t("tech.about.stats.escopos.label")}</StatLabel></Stat>
+          <Stat><StatValue>{t("tech.about.stats.cursos.value")}</StatValue><StatLabel>{t("tech.about.stats.cursos.label")}</StatLabel></Stat>
+          <Stat><StatValue>{t("tech.about.stats.anosAtuacao.value")}</StatValue><StatLabel>{t("tech.about.stats.anosAtuacao.label")}</StatLabel></Stat>
+          <Stat><StatValue>{t("tech.about.stats.anosInsper.value")}</StatValue><StatLabel>{t("tech.about.stats.anosInsper.label")}</StatLabel></Stat>
         </StatsBar>
       </Intro>
 
@@ -630,31 +609,31 @@ function Tech() {
       {/* Diferenciais */}
       <Diferenciais>
         <SectionHeader>
-          <OpeningEyebrow>O que nos diferencia</OpeningEyebrow>
-          <SectionTitle>Diferenciais</SectionTitle>
+          <OpeningEyebrow>{t("tech.diferenciais.eyebrow")}</OpeningEyebrow>
+          <SectionTitle>{t("tech.diferenciais.title")}</SectionTitle>
           <OpeningDivider />
         </SectionHeader>
         <SectionSubtitle>
-          O que faz a frente de Tecnologia da Insper Jr. se destacar no mercado.
+          {t("tech.diferenciais.subtitle")}
         </SectionSubtitle>
         <DifGrid ref={difCardsRef}>
           <DifCard data-dif-card>
             <DifAccent />
-            <DifNum>01</DifNum>
-            <DifTitle>Multidisciplinaridade</DifTitle>
-            <DifText>Reunimos alunos de cinco cursos de Engenharia e Ciência da Computação, garantindo visão multidisciplinar e acesso a diferentes áreas do universo tech.</DifText>
+            <DifNum>{t("tech.diferenciais.cards.multidisciplinaridade.num")}</DifNum>
+            <DifTitle>{t("tech.diferenciais.cards.multidisciplinaridade.title")}</DifTitle>
+            <DifText>{t("tech.diferenciais.cards.multidisciplinaridade.text")}</DifText>
           </DifCard>
           <DifCard data-dif-card>
             <DifAccent />
-            <DifNum>02</DifNum>
-            <DifTitle>Adaptação tecnológica</DifTitle>
-            <DifText>Não nos limitamos a uma única stack ou metodologia. Cada solução é desenvolvida considerando o contexto, objetivo e necessidade do cliente — com flexibilidade e assertividade técnica.</DifText>
+            <DifNum>{t("tech.diferenciais.cards.adaptacao.num")}</DifNum>
+            <DifTitle>{t("tech.diferenciais.cards.adaptacao.title")}</DifTitle>
+            <DifText>{t("tech.diferenciais.cards.adaptacao.text")}</DifText>
           </DifCard>
           <DifCard data-dif-card>
             <DifAccent />
-            <DifNum>03</DifNum>
-            <DifTitle>Integração entre escopos</DifTitle>
-            <DifText>Dados, Desenvolvimento Web e Inteligência Artificial atuam em conjunto, possibilitando entregas completas em que diferentes soluções conversam dentro de um mesmo ecossistema.</DifText>
+            <DifNum>{t("tech.diferenciais.cards.integracao.num")}</DifNum>
+            <DifTitle>{t("tech.diferenciais.cards.integracao.title")}</DifTitle>
+            <DifText>{t("tech.diferenciais.cards.integracao.text")}</DifText>
           </DifCard>
         </DifGrid>
       </Diferenciais>
@@ -704,175 +683,142 @@ const PageWrap = styled.div`
 `;
 
 // ── Hero + Intro shared canvas wrapper ──
-const HeroIntroWrap = styled.div`
+const HeroOuter = styled.div`
   position: relative;
+  width: 100%;
+  height: 100vh;
   overflow: hidden;
-  background: #ffffff;
-`;
-
-const SharedCanvas = styled.canvas`
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-`;
-
-const HeroGlow = styled.div`
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(192,33,33,0.18) 0%, transparent 65%);
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.35s ease;
-  mix-blend-mode: screen;
-  z-index: 1;
-  will-change: left, top, opacity;
-`;
-
-// ── Hero ──
-const Hero = styled.section`
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  min-height: 100dvh;
-  background: ${COLORS.black};
   display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+  align-items: stretch;
+  isolation: isolate;
 `;
 
-const HeroCanvas = styled.canvas`
+/* Foto de fundo */
+const PhotoBg = styled.div`
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
   z-index: 0;
+  background: url(${TechImg}) center center / cover no-repeat;
+`;
+
+/* Gradiente esquerda → direita para legibilidade do texto */
+const GradientOverlay = styled.div`
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to right,
+    rgba(14, 4, 4, 0.97) 0%,
+    rgba(14, 4, 4, 0.85) 35%,
+    rgba(14, 4, 4, 0.45) 65%,
+    rgba(14, 4, 4, 0.15) 100%
+  );
 `;
 
 const HeroVignette = styled.div`
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at center, transparent 40%, rgba(14,4,4,0.85) 100%);
-  pointer-events: none;
-  z-index: 1;
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(14,4,4,0.35) 0%,
+    transparent 20%,
+    transparent 75%,
+    rgba(14,4,4,0.75) 100%
+  );
 `;
 
-const HeroCenter = styled.div`
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
+const Blueprint = styled.div`
+  position: absolute; inset: 0; z-index: 2; pointer-events: none; opacity: .25;
+  background-image:
+    linear-gradient(rgba(192,33,33,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(192,33,33,.06) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 25%, transparent 75%);
+          mask-image: radial-gradient(ellipse at center, #000 25%, transparent 75%);
+`;
+
+const HeroGrid = styled.div`
+  position: relative; z-index: 4; width: 100%;
+  display: flex; align-items: center;
+`;
+
+const HeroInner = styled.div`
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 56px;
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: 48px;
   align-items: center;
-  gap: 32px;
-  padding: 0 24px;
-  text-align: center;
-  max-width: 760px;
 
-  @media (max-width: 600px) { gap: 20px; padding: 0 20px; }
+  @media (max-width: 960px) { grid-template-columns: 1fr; padding: 0 28px; gap: 0; }
+  @media (max-width: 480px) { padding: 0 20px; }
 `;
 
-const HeroEyebrow = styled.span`
-  font-family: ${FONT_TITLE};
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: ${COLORS.redCTA};
-  opacity: 0;
-  animation: ${heroFadeIn} 0.6s cubic-bezier(0.16,1,0.3,1) 0.2s forwards;
+const HeroLeft = styled.div`
+  padding: 88px 0 48px 0;
+  max-width: 620px;
+  display: flex; flex-direction: column; justify-content: center;
+  @media (max-width: 960px) { padding: 100px 0 48px; }
+`;
+
+const HeroEyebrow = styled.span<{ $v: boolean }>`
+  font-family: ${FONT_TITLE}; font-size: 11px; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase; color: ${COLORS.redCTA};
+  margin-bottom: 28px; opacity: 0;
+  animation: ${p => p.$v ? heroFadeIn : "none"} .6s .15s cubic-bezier(0.16,1,0.3,1) forwards;
 `;
 
 const HeroTitle = styled.h1`
-  font-family: ${FONT_TITLE};
-  font-size: 56px;
-  font-weight: 700;
-  color: ${COLORS.cream};
-  letter-spacing: -0.03em;
-  line-height: 1.1;
-  margin: 0;
-
-  @media (max-width: 1300px) { font-size: 44px; }
-  @media (max-width: 600px) { font-size: 30px; }
+  font-family: ${FONT_TITLE}; font-size: 48px; font-weight: 700;
+  line-height: 1.05; letter-spacing: -0.03em; color: ${CREAM}; margin: 0 0 28px;
+  @media (max-width: 960px) { font-size: 42px; }
+  @media (max-width: 480px) { font-size: 32px; margin: 0 0 20px; }
 `;
 
-const Word = styled.span<{ $accent?: boolean }>`
-  display: inline-block;
-  margin-right: 0.22em;
-  opacity: 0;
-  transform: translateY(28px);
-  filter: blur(6px);
-  animation: ${heroWordIn} 0.85s cubic-bezier(0.16,1,0.3,1) forwards;
-  ${p => p.$accent && css`color: ${COLORS.redCTA};`}
+const Word = styled.span<{ $d: number; $v: boolean; $accent?: boolean }>`
+  display: inline-block; margin-right: .22em; opacity: 0;
+  animation: ${p => p.$v ? heroWordIn : "none"} .85s ${p => p.$d}s cubic-bezier(0.16,1,0.3,1) forwards;
+  ${p => p.$accent && css`color: ${COLORS.redCTA}; font-style: italic; font-weight: 400;`}
   &:last-child { margin-right: 0; }
 `;
 
-const HeroLine = styled.div`
-  width: 64px;
-  height: 3px;
-  background: ${COLORS.redCTA};
-  transform-origin: left center;
-  transform: scaleX(0);
-  animation: ${heroLineGrow} 0.7s cubic-bezier(0.16,1,0.3,1) 1.4s forwards;
+const HeroLine = styled.div<{ $v: boolean }>`
+  width: 48px; height: 3px; background: ${COLORS.redCTA};
+  transform-origin: left; margin-bottom: 28px; transform: scaleX(0);
+  animation: ${p => p.$v ? heroLineGrow : "none"} .7s 1.4s cubic-bezier(0.16,1,0.3,1) forwards;
 `;
 
-const HeroSub = styled.p`
-  font-family: ${FONT_BODY};
-  font-size: 16px;
-  font-weight: 400;
-  color: ${COLORS.cream};
-  line-height: 1.5;
-  max-width: 560px;
-  margin: 0;
-  opacity: 0;
-  animation: ${heroFadeIn} 0.75s cubic-bezier(0.16,1,0.3,1) 1.55s forwards;
-
-  @media (max-width: 600px) { font-size: 14px; }
+const HeroSub = styled.p<{ $v: boolean }>`
+  font-family: ${FONT_BODY}; font-size: 16px; line-height: 1.65;
+  color: rgba(250,242,234,.6); max-width: 480px; margin: 0 0 40px; opacity: 0;
+  animation: ${p => p.$v ? heroFadeIn : "none"} .75s 1.55s cubic-bezier(0.16,1,0.3,1) forwards;
 `;
 
 const HeroScroll = styled.div`
-  position: absolute;
-  bottom: 36px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  opacity: 0;
-  animation: ${heroFadeIn} 0.6s cubic-bezier(0.16,1,0.3,1) 2.1s forwards;
+  position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+  z-index: 4; display: flex; flex-direction: column; align-items: center; gap: 8px;
+  opacity: 0; animation: ${heroFadeIn} 0.6s cubic-bezier(0.16,1,0.3,1) 2.1s forwards;
 
   @media (max-width: 480px) { display: none; }
 `;
 
 const HeroScrollDot = styled.div`
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: ${COLORS.redCTA};
+  width: 5px; height: 5px; border-radius: 50%; background: ${COLORS.redCTA};
   animation: ${heroScrollBounce} 1.8s ease-in-out 2.5s infinite;
 `;
 
 const HeroScrollLine = styled.div`
-  width: 1px;
-  height: 40px;
-  background: linear-gradient(to bottom, rgba(105,18,18,0.45), transparent);
+  width: 1px; height: 40px;
+  background: linear-gradient(to bottom, ${RED_DIM}, transparent);
 `;
 
 // ── Intro / Sobre a frente ──
 const Intro = styled.section`
   padding: 0 2rem 4rem;
   width: 80%;
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
   position: relative;
 
@@ -905,7 +851,7 @@ const SectionTitle = styled.h2`
   font-family: ${FONT_TITLE};
   font-size: 32px;
   font-weight: 700;
-  color: #080F0F;
+  color: ${COLORS.ink};
   letter-spacing: -0.02em;
   line-height: 1.1;
   margin: 0;
@@ -921,7 +867,7 @@ const SectionSubtitle = styled.p`
   max-width: 700px;
   margin: 0 auto 3rem;
   text-align: center;
-  color: #444;
+  color: #7a746e;
   padding: 0 1rem;
 
   @media (max-width: 600px) { font-size: 14px; }
@@ -929,7 +875,7 @@ const SectionSubtitle = styled.p`
 
 // ── Scopes Opening (editorial chapter intro) ──
 const ScopesOpening = styled.section`
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 5rem auto 0;
   padding: 0 2rem 4rem;
   text-align: center;
@@ -954,7 +900,7 @@ const OpeningTitle = styled.h2`
   font-family: ${FONT_TITLE};
   font-size: 32px;
   font-weight: 700;
-  color: #080F0F;
+  color: ${COLORS.ink};
   letter-spacing: -0.02em;
   line-height: 1.1;
   margin: 0;
@@ -973,7 +919,7 @@ const OpeningSubtitle = styled.p`
   font-size: 16px;
   font-weight: 400;
   line-height: 1.5;
-  color: #444;
+  color: #7a746e;
   max-width: 700px;
   margin: 0 auto 3rem;
 
@@ -1040,9 +986,6 @@ const IndexBadge = styled.span`
   letter-spacing: 0.18em;
   color: ${COLORS.redTitle};
   text-transform: uppercase;
-  padding: 0.3rem 0.6rem;
-  border: 1px solid rgba(161,15,35,0.4);
-  border-radius: 2px;
 `;
 
 const IndexTitle = styled.span`
@@ -1233,7 +1176,7 @@ const ScopeSection = styled.section`
 `;
 
 const ScopesWrap = styled.div`
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0;
   width: 100%;
@@ -1251,13 +1194,14 @@ const ScopePanel = styled.div`
 `;
 
 const ScopeHeader = styled.div`
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 2rem;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1.55fr 1fr;
+  align-items: end;
+  gap: 2.5rem;
 
+  @media (max-width: 1024px) { gap: 1.75rem; }
   @media (max-width: 900px) {
+    grid-template-columns: 1fr;
     align-items: flex-start;
     gap: 1rem;
   }
@@ -1279,15 +1223,11 @@ const CounterNum = styled.span`
   font-weight: 600;
   letter-spacing: 0.18em;
   color: ${COLORS.redTitle};
-  opacity: 1;
-  padding: 0.3rem 0.6rem;
-  border: 1px solid rgba(161,15,35,0.4);
-  border-radius: 2px;
 `;
 
 const ScopeName = styled.span`
   font-family: ${FONT_TITLE};
-  font-size: 40px;
+  font-size: ${TYPE.sectionH2.size};
   font-weight: 800;
   letter-spacing: -0.035em;
   text-transform: none;
@@ -1307,9 +1247,9 @@ const ScopeName = styled.span`
     background: ${COLORS.redTitle};
   }
 
-  @media (max-width: 1100px) { font-size: 36px; }
-  @media (max-width: 700px) { font-size: 30px; }
-  @media (min-width: 901px) and (max-height: 700px) { font-size: 30px; padding-bottom: 0.35rem; }
+  @media (max-width: 1100px) { font-size: 28px; }
+  @media (max-width: 700px) { font-size: 24px; }
+  @media (min-width: 901px) and (max-height: 700px) { font-size: 28px; padding-bottom: 0.35rem; }
 `;
 
 const ScopeGrid = styled.div`
@@ -1341,7 +1281,7 @@ const ScopeIntro = styled.div`
 const ScopeTitleH3 = styled.h3`
   color: ${COLORS.ink};
   font-family: ${FONT_TITLE};
-  font-size: 34px;
+  font-size: ${TYPE.subTitle.size};
   font-weight: 700;
   margin: 0;
   letter-spacing: -0.02em;
@@ -1353,8 +1293,8 @@ const ScopeTitleH3 = styled.h3`
     color: ${COLORS.redTitle};
   }
 
-  @media (min-width: 901px) and (max-height: 700px) { font-size: 25px; }
-  @media (max-width: 900px) { font-size: 28px; }
+  @media (min-width: 901px) and (max-height: 700px) { font-size: 18px; }
+  @media (max-width: 900px) { font-size: 18px; }
 `;
 
 const Accent = styled.div`
@@ -1572,44 +1512,29 @@ const PanelTags = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.5rem;
-  justify-content: flex-end;
-  flex: 1;
+  justify-content: center;
   min-width: 0;
-
-  @media (max-width: 900px) {
-    flex: 0 1 auto;
-    justify-content: flex-start;
-  }
 `;
 
-const TagsLabel = styled.span`
-  font-family: ${FONT_TITLE};
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #7a746e;
-  margin-right: 0.3rem;
-`;
 
 const Tag = styled.span`
   font-family: ${FONT_MONO};
   font-size: 11.5px;
   font-weight: 500;
   color: ${COLORS.ink};
-  background: transparent;
-  border: 1px solid rgba(26,26,24,0.18);
-  padding: 0.4rem 0.75rem;
-  border-radius: 2px;
-  transition: border-color 0.2s ease, color 0.2s ease;
-  &:hover { border-color: ${COLORS.redTitle}; color: ${COLORS.redTitle}; }
+  transition: color 0.2s ease;
+  &:hover { color: ${COLORS.redTitle}; }
+  &:not(:last-child)::after {
+    content: "·";
+    margin: 0 0.5rem;
+    color: rgba(26,26,24,0.3);
+  }
 `;
 
 // ── Highlight Cases (overview cards) ──
 const HighlightCases = styled.section`
   padding: 0 2rem 5rem;
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
   width: 100%;
 
@@ -1630,103 +1555,6 @@ const HighlightGrid = styled.div`
   }
 `;
 
-const HighlightCard = styled(Link)`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  background: #fff;
-  border: 1px solid rgba(26,26,24,0.08);
-  border-top: 3px solid ${COLORS.redTitle};
-  border-radius: 4px;
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-
-  /* Garante que a imagem respeite o border-radius do card sem cortar o badge */
-  & > img {
-    border-radius: 0;
-  }
-
-  &::before {
-    content: "Clique aqui";
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    margin-bottom: 0.6rem;
-    background: ${COLORS.redTitle};
-    color: #fff;
-    font-family: ${FONT_TITLE};
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    padding: 0.45rem 0.85rem;
-    border-radius: 999px;
-    box-shadow: 0 6px 14px rgba(161, 15, 35, 0.32);
-    opacity: 0;
-    transform: translate(-50%, 8px);
-    transition: opacity 0.25s ease, transform 0.25s ease;
-    pointer-events: none;
-    z-index: 2;
-    white-space: nowrap;
-  }
-
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 14px 32px rgba(0,0,0,0.12);
-    border-color: rgba(161,15,35,0.35);
-
-    &::before {
-      opacity: 1;
-      transform: translate(-50%, 0);
-    }
-  }
-
-  &:focus-visible {
-    outline: 2px solid ${COLORS.redTitle};
-    outline-offset: 3px;
-
-    &::before {
-      opacity: 1;
-      transform: translate(-50%, 0);
-    }
-  }
-`;
-
-const HighlightCardTitle = styled.h3`
-  font-family: ${FONT_TITLE};
-  font-size: 22px;
-  font-weight: 700;
-  color: ${COLORS.ink};
-  margin: 0;
-  padding: 1.25rem 1.5rem 1rem;
-  letter-spacing: -0.01em;
-  line-height: 1.2;
-
-  @media (max-width: 900px) { font-size: 20px; padding: 1rem 1.25rem 0.85rem; }
-`;
-
-const HighlightCardImage = styled.img`
-  width: 100%;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-  display: block;
-  background: ${COLORS.lightCream};
-`;
-
-const HighlightCardSubtitle = styled.p`
-  font-family: ${FONT_MONO};
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: ${COLORS.redTitle};
-  margin: 0;
-  padding: 1rem 1.5rem 1.25rem;
-
-  @media (max-width: 900px) { padding: 0.85rem 1.25rem 1rem; }
-`;
 
 // ── Integration band ──
 const Integration = styled.section`
@@ -1784,14 +1612,15 @@ const Kicker = styled.div`
 
 const IntegrationTitle = styled.h2`
   font-family: ${FONT_TITLE};
-  font-size: 38px;
+  font-size: 32px;
   margin: 0 0 1rem;
-  line-height: 1.15;
-  color: #fff;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: ${COLORS.cream};
   font-weight: 700;
   span { color: ${COLORS.redCTA}; }
 
-  @media (max-width: 800px) { font-size: 28px; }
+  @media (max-width: 800px) { font-size: 26px; }
 `;
 
 const IntegrationLede = styled.p`
@@ -1848,7 +1677,7 @@ const IntCardText = styled.p`
 // ── Diferenciais ──
 const Diferenciais = styled.section`
   padding: 0 2rem 5rem;
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
 `;
 

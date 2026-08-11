@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import backgroundImage from "../assets/fale_conosco/fundo-contato.png";
 import { Link } from "react-router-dom";
+import { RED, RED_DARK, FONT_TITLE, FONT_BODY } from "../styles/tokens";
 
 const HeroComponent = () => {
   return (
@@ -60,7 +61,7 @@ const LeftContainer = styled.div`
 `;
 
 const LeftText = styled.h1`
-  font-family: "Montserrat", sans-serif;
+  font-family: ${FONT_TITLE};
   font-size: 50px;
   color: #fff;
   margin: 0;
@@ -95,11 +96,11 @@ const RightContainer = styled.div`
 `;
 
 const StyledButton = styled(Link)`
-  font-family: "Poppins", sans-serif;
+  font-family: ${FONT_BODY};
   font-size: 30px;
   padding: 16px 50px;
   border: none;
-  background-color: #a10f23;
+  background-color: ${RED};
   color: #fff;
   border-radius: 8px;
   cursor: pointer;
@@ -110,7 +111,7 @@ const StyledButton = styled(Link)`
   min-width: 200px;
 
   &:hover {
-    background-color: #87061b;
+    background-color: ${RED_DARK};
   }
 
   @media (max-width: 768px) {

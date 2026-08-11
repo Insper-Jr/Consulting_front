@@ -42,7 +42,7 @@ export function useParticles(
 
     function init() {
       resize();
-      particles = Array.from({ length: 70 }, makeParticle);
+      particles = Array.from({ length: 80 }, makeParticle);
     }
 
     function update(p: P) {
@@ -59,7 +59,7 @@ export function useParticles(
       const dx = p.x - mouse.x;
       const dy = p.y - mouse.y;
       const dist = Math.sqrt(dx * dx + dy * dy);
-      const repel = 90;
+      const repel = 100;
       if (dist < repel && dist > 0) {
         const force = ((repel - dist) / repel) * 1.2;
         p.vx += (dx / dist) * force * 0.3;
@@ -117,13 +117,13 @@ export function useParticles(
 
       applyWaveClip(); // <-- aplica o clip antes de desenhar
 
-      const maxDist = 130;
+      const maxDist = 140;
       for (let i = 0; i < particles.length; i++) {
         update(particles[i]);
 
         ctx.beginPath();
         ctx.arc(particles[i].x, particles[i].y, particles[i].r, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(105,18,18,0.35)";
+        ctx.fillStyle = "rgba(192,33,33,0.55)";
         ctx.fill();
 
         for (let j = i + 1; j < particles.length; j++) {
@@ -134,7 +134,7 @@ export function useParticles(
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(105,18,18,${0.12 * (1 - d / maxDist)})`;
+            ctx.strokeStyle = `rgba(192,33,33,${0.18 * (1 - d / maxDist)})`;
             ctx.lineWidth = 0.8;
             ctx.stroke();
           }

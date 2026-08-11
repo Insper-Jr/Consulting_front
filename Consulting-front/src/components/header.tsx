@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { MagnifyingGlass } from "phosphor-react";
 import styled, { css, keyframes } from "styled-components";
+import { RED, RED_DARK, FONT_TITLE, FONT_BODY } from "../styles/tokens";
 import { useTranslation } from "react-i18next";
 import LogoIJR from "./LogoIJR";
 
@@ -192,7 +193,7 @@ const Header = () => {
         <SidebarDivider />
 
         <SidebarBottom>
-          <SidebarTagline>Consultoria universitária de alto impacto</SidebarTagline>
+          <SidebarTagline>{t("nav.tagline")}</SidebarTagline>
           <SidebarCTA to="/contact" onClick={() => setSidebarOpen(false)}>
             {t("nav.cta")}
           </SidebarCTA>
@@ -357,6 +358,7 @@ const SidebarOverlay = styled.div`
   inset: 0;
   background: rgba(0, 0, 0, 0.45);
   z-index: 1099;
+  cursor: pointer;
   animation: ${fadeIn} 0.2s ease;
 `;
 
@@ -400,7 +402,7 @@ const SidebarNavLink = styled(Link)`
   gap: 14px;
   color: rgba(255, 255, 255, 0.65);
   text-decoration: none;
-  font-family: "Montserrat", sans-serif;
+  font-family: ${FONT_TITLE};
   font-size: 0.9rem;
   font-weight: 600;
   letter-spacing: 0.03em;
@@ -414,7 +416,7 @@ const SidebarArrow = styled.span`
   margin-left: auto;
   opacity: 0;
   font-size: 0.8rem;
-  color: #C02121;
+  color: ${RED};
   transition: opacity 0.2s, transform 0.2s;
   ${SidebarNavLink}:hover & { opacity: 1; transform: translateX(4px); }
 `;
@@ -424,7 +426,7 @@ const SidebarSolWrapper = styled.div`display: flex; flex-direction: column;`;
 const SidebarSolCaret = styled.span<{ isOpen: boolean }>`
   margin-left: auto;
   font-size: 0.85rem;
-  color: #C02121;
+  color: ${RED};
   opacity: 0.85;
   transition: transform 0.25s ease;
   transform: ${({ isOpen }) => (isOpen ? "rotate(180deg)" : "rotate(0deg)")};
@@ -442,13 +444,13 @@ const SidebarSubMenu = styled.div<{ isOpen: boolean }>`
 const SidebarSubLink = styled(Link)`
   color: rgba(255, 255, 255, 0.5);
   text-decoration: none;
-  font-family: "Montserrat", sans-serif;
+  font-family: ${FONT_TITLE};
   font-size: 0.82rem;
   font-weight: 500;
   padding: 0.6rem 2rem 0.6rem 2.75rem;
   border-left: 2px solid transparent;
   transition: color 0.15s, background 0.15s, border-color 0.15s;
-  &:hover { color: #fff; background: rgba(192, 33, 33, 0.08); border-left-color: #C02121; }
+  &:hover { color: #fff; background: rgba(192, 33, 33, 0.08); border-left-color: ${RED}; }
 `;
 
 const SidebarEngWrapper = styled.div`display: flex; flex-direction: column;`;
@@ -457,7 +459,7 @@ const SidebarSubLinkDiv = styled.div`
   display: flex;
   align-items: center;
   color: rgba(255, 255, 255, 0.5);
-  font-family: "Montserrat", sans-serif;
+  font-family: ${FONT_TITLE};
   font-size: 0.82rem;
   font-weight: 500;
   padding: 0.6rem 2rem 0.6rem 2.75rem;
@@ -479,13 +481,13 @@ const SidebarSubSubMenu = styled.div<{ isOpen: boolean }>`
 const SidebarSubSubLink = styled(Link)`
   color: rgba(255, 255, 255, 0.35);
   text-decoration: none;
-  font-family: "Montserrat", sans-serif;
+  font-family: ${FONT_TITLE};
   font-size: 0.78rem;
   font-weight: 500;
   padding: 0.5rem 2rem 0.5rem 3.5rem;
   border-left: 2px solid transparent;
   transition: color 0.15s, background 0.15s, border-color 0.15s;
-  &:hover { color: #fff; background: rgba(192, 33, 33, 0.08); border-left-color: #C02121; }
+  &:hover { color: #fff; background: rgba(192, 33, 33, 0.08); border-left-color: ${RED}; }
 `;
 
 const SidebarBottom = styled.div`
@@ -496,7 +498,7 @@ const SidebarBottom = styled.div`
 `;
 
 const SidebarTagline = styled.p`
-  font-family: "Inter", sans-serif;
+  font-family: ${FONT_BODY};
   font-size: 0.72rem;
   color: rgba(255, 255, 255, 0.25);
   line-height: 1.5;
@@ -507,9 +509,9 @@ const SidebarTagline = styled.p`
 const SidebarCTA = styled(Link)`
   display: block;
   text-align: center;
-  background: #C02121;
+  background: ${RED};
   color: #fff;
-  font-family: "Montserrat", sans-serif;
+  font-family: ${FONT_TITLE};
   font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -518,7 +520,7 @@ const SidebarCTA = styled(Link)`
   padding: 0.85rem 1.5rem;
   border-radius: 2px;
   transition: background 0.25s;
-  &:hover { background: #691212; }
+  &:hover { background: ${RED_DARK}; }
 `;
 
 const HeaderWrap = styled.header<{ isSolid: boolean }>`
@@ -534,7 +536,7 @@ const HeaderWrap = styled.header<{ isSolid: boolean }>`
   border-bottom: ${({ isSolid }) => isSolid ? "1px solid rgba(255,255,255,0.06)" : "none"};
   transition: background 0.3s ease, border-color 0.3s ease;
   z-index: 1000;
-  font-family: "Montserrat", sans-serif;
+  font-family: ${FONT_TITLE};
 `;
 
 const HeaderLeft = styled.div`
@@ -585,7 +587,7 @@ const NavItemWrapper = styled.div`
 
 const navItemBase = css`
   color: rgba(255, 255, 255, 0.85);
-  font-family: "Montserrat", sans-serif;
+  font-family: ${FONT_TITLE};
   font-size: 0.875rem;
   font-weight: 500;
   letter-spacing: 0.02em;
@@ -633,14 +635,14 @@ const SmallDropLink = styled(Link)`
   display: block;
   color: rgba(255, 255, 255, 0.72);
   text-decoration: none;
-  font-family: "Montserrat", sans-serif;
+  font-family: ${FONT_TITLE};
   font-size: 0.875rem;
   font-weight: 500;
   padding: 0.68rem 1.25rem;
   min-width: 180px;
   border-left: 2px solid transparent;
   transition: color 0.15s, background 0.15s, border-color 0.15s, padding-left 0.15s;
-  &:hover { color: #fff; background: rgba(192, 33, 33, 0.1); border-left-color: #C02121; padding-left: 1.5rem; }
+  &:hover { color: #fff; background: rgba(192, 33, 33, 0.1); border-left-color: ${RED}; padding-left: 1.5rem; }
   &:first-child { border-radius: 5px 5px 0 0; padding-top: 0.9rem; }
   &:last-child  { border-radius: 0 0 5px 5px; padding-bottom: 0.9rem; }
 `;
@@ -652,7 +654,7 @@ const EngDropRow = styled.div`
   align-items: center;
   justify-content: space-between;
   color: rgba(255, 255, 255, 0.72);
-  font-family: "Montserrat", sans-serif;
+  font-family: ${FONT_TITLE};
   font-size: 0.875rem;
   font-weight: 500;
   padding: 0.68rem 1.25rem;
@@ -660,12 +662,12 @@ const EngDropRow = styled.div`
   border-left: 2px solid transparent;
   cursor: pointer;
   transition: color 0.15s, background 0.15s, border-color 0.15s;
-  &:hover { color: #fff; background: rgba(192, 33, 33, 0.1); border-left-color: #C02121; }
+  &:hover { color: #fff; background: rgba(192, 33, 33, 0.1); border-left-color: ${RED}; }
 `;
 
 const EngCaret = styled.span<{ $open: boolean }>`
   font-size: 0.75rem;
-  color: #C02121;        // ← era opacity: 0.6 sem cor definida
+  color: ${RED};        // ← era opacity: 0.6 sem cor definida
   transition: transform 0.25s ease;
   transform: ${({ $open }) => ($open ? "rotate(180deg)" : "rotate(0)")};
 `;
@@ -696,7 +698,7 @@ const SearchInput = styled.input<{ isOpen: boolean }>`
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 4px; color: #fff;
-  font-family: "Montserrat", sans-serif;
+  font-family: ${FONT_TITLE};
   font-size: 0.8rem; padding: 0.35rem 0.6rem; outline: none;
   width: ${({ isOpen }) => (isOpen ? "160px" : "0")};
   opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
@@ -715,7 +717,7 @@ const LangWrap = styled.div`
 const LangCurrent = styled.div`
   display: flex; align-items: center; gap: 4px;
   color: rgba(255, 255, 255, 0.8);
-  font-family: "Montserrat", sans-serif;
+  font-family: ${FONT_TITLE};
   font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em;
   cursor: pointer; padding: 0.4rem 0.5rem; border-radius: 4px;
   transition: color 0.2s, background 0.2s;
@@ -747,7 +749,7 @@ const LangMenu = styled.div<{ isOpen: boolean }>`
 
 const LangOpt = styled.div<{ isActive: boolean }>`
   color: ${({ isActive }) => (isActive ? "#fff" : "rgba(255,255,255,0.6)")};
-  font-family: "Montserrat", sans-serif;
+  font-family: ${FONT_TITLE};
   font-size: 0.8rem;
   font-weight: ${({ isActive }) => (isActive ? "700" : "400")};
   padding: 0.55rem 1rem; cursor: pointer; text-align: center;
@@ -756,18 +758,18 @@ const LangOpt = styled.div<{ isActive: boolean }>`
 `;
 
 const HeaderCTA = styled(Link)`
-  background: #C02121; color: #fff;
-  font-family: "Montserrat", sans-serif;
+  background: ${RED}; color: #fff;
+  font-family: ${FONT_TITLE};
   font-size: 0.8rem; font-weight: 700; letter-spacing: 0.04em;
   text-decoration: none; padding: 0.55rem 1.1rem;
   border-radius: 4px; white-space: nowrap; transition: background 0.25s;
-  &:hover { background: #691212; }
+  &:hover { background: ${RED_DARK}; }
   @media (max-width: 900px) { display: none; }
 `;
 
 const Arrow = styled.span<{ isOpen: boolean }>`
   width: 20px; height: 20px; border-radius: 50%;
-  background: ${({ isOpen }) => isOpen ? "#C02121" : "rgba(192, 33, 33, 0.15)"};
+  background: ${({ isOpen }) => isOpen ? "${RED}" : "rgba(192, 33, 33, 0.15)"};
   display: flex; align-items: center; justify-content: center;
   transition: background 0.25s ease;
   svg {
@@ -790,7 +792,7 @@ const AccordionLink = styled(Link)`
   display: block;
   color: rgba(255, 255, 255, 0.45);
   text-decoration: none;
-  font-family: "Montserrat", sans-serif;
+  font-family: ${FONT_TITLE};
   font-size: 0.78rem;         // ← menor que o normal (0.875rem)
   font-weight: 500;
   padding: 0.55rem 1.25rem 0.55rem 2rem;  // ← recuado à esquerda
@@ -800,7 +802,7 @@ const AccordionLink = styled(Link)`
   &:hover {
     color: #fff;
     background: rgba(192, 33, 33, 0.08);
-    border-left-color: #C02121;
+    border-left-color: ${RED};
     padding-left: 2.25rem;
   }
 `;

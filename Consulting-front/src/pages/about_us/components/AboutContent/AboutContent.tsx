@@ -1,14 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
 import styled, { keyframes, css } from "styled-components";
+import { useTranslation } from "react-i18next";
 import { useInView } from "@/hooks/useInView";
-
-const RED        = "#C02121";
-const DARK       = "#1a1a18";
-const MUTED      = "#7a746e";
-const BG         = "#FAF2EA";
-const FONT_TITLE = `'Montserrat', Helvetica, sans-serif`;
-const FONT_BODY  = `'Inter', Helvetica, sans-serif`;
-const SPRING     = "cubic-bezier(0.16,1,0.3,1)";
+import { RED, DARK, MUTED, BG_CREAM as BG, FONT_TITLE, FONT_BODY, SPRING, TYPE, SPACING } from "@/styles/tokens";
 
 
 function useCountUp(target: number, duration: number, active: boolean) {
@@ -53,9 +47,9 @@ const Section = styled.section`
 `;
 
 const Inner = styled.div`
-  max-width: 1200px;
+  max-width: ${SPACING.innerMaxWidth};
   margin: 0 auto;
-  padding: 0 56px;
+  padding: 0 ${SPACING.innerPaddingX};
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -125,11 +119,11 @@ const Left = styled.div<{ $visible: boolean }>`
 
 const Title = styled.h2`
   font-family: ${FONT_TITLE};
-  font-size: 32px;
-  font-weight: 700;
+  font-size: ${TYPE.sectionH2.size};
+  font-weight: ${TYPE.sectionH2.weight};
   color: ${DARK};
-  letter-spacing: -0.02em;
-  line-height: 1.1;
+  letter-spacing: ${TYPE.sectionH2.ls};
+  line-height: ${TYPE.sectionH2.lh};
   margin: 0;
 
   i {
@@ -137,8 +131,8 @@ const Title = styled.h2`
     font-weight: 400;
   }
 
-  @media (max-width: 860px) { font-size: 40px; }
-  @media (max-width: 480px) { font-size: 30px; }
+  @media (max-width: 860px) { font-size: 28px; }
+  @media (max-width: 480px) { font-size: 24px; }
 `;
 
 const Accent = styled.div<{ $visible: boolean }>`
@@ -339,56 +333,54 @@ const MVText = styled.p`
 
 // ── Component ─────────────────────────────────────────────────────────────────
 export default function AboutContent() {
+  const { t } = useTranslation();
   const { ref: leftRef, visible: leftVisible } = useInView();
   const { ref: rightRef, visible: rightVisible } = useInView();
   const { ref: mvRef, visible: mvVisible } = useInView();
 
   const years = useCountUp(25, 1800, rightVisible);
 
+  const metrics: [string, string][] = [
+    ["+550", t("about.content.metric1")],
+    ["+1000", t("about.content.metric2")],
+    ["100%", t("about.content.metric3")],
+  ];
+
   return (
     <Section>
       <Inner>
         <IndexRow ref={leftRef} $visible={leftVisible}>
-          <Eyebrow>Quem somos</Eyebrow>
+          <Eyebrow>{t("about.content.eyebrow")}</Eyebrow>
         </IndexRow>
 
         <TopRow>
           <Left $visible={leftVisible}>
             <Title>
-              Consultoria <i>estratégica</i><br />
-              para negócios reais.
+              {t("about.content.titlePre")} <i>{t("about.content.titleItalic")}</i><br />
+              {t("about.content.titlePost")}
             </Title>
             <Accent $visible={leftVisible} />
             <Body>
-              Somos a empresa júnior de uma das instituições de ensino mais
-              reconhecidas do Brasil. Desde 2001, conectamos empresas reais a
-              soluções concretas e inovadoras nas áreas de Business, Engenharia,
-              Tecnologia e Direito.
+              {t("about.content.body1")}
             </Body>
             <Body>
-              Formada por alunos do Insper, com supervisão acadêmica. Sem fins
-              lucrativos, todos os ganhos são reinvestidos na capacitação dos
-              nossos membros.
+              {t("about.content.body2")}
             </Body>
-            <CtaLink href="/contact">Fale com a gente <span>→</span></CtaLink>
+            <CtaLink href="/contact">{t("about.content.ctaLink")} <span>→</span></CtaLink>
           </Left>
 
           <Right ref={rightRef} $visible={rightVisible}>
-            <BigSub>desde 2001</BigSub>
+            <BigSub>{t("about.content.bigSub")}</BigSub>
             <BigNumber>
               <span>{years}</span>
               <BigSuffix>+</BigSuffix>
             </BigNumber>
-            <BigLabel>anos transformando negócios</BigLabel>
+            <BigLabel>{t("about.content.bigLabel")}</BigLabel>
           </Right>
         </TopRow>
 
         <MetricsRow>
-          {[
-            ["+550", "projetos entregues"  ],
-            ["+1000",   "alumni formados"     ],
-            ["100%", "sem fins lucrativos" ],
-          ].map(([n, lbl], i) => (
+          {metrics.map(([n, lbl], i) => (
             <Metric key={i} $visible={rightVisible} $i={i}>
               <MetricNum>{n}</MetricNum>
               <MetricLabel>{lbl}</MetricLabel>
@@ -398,20 +390,18 @@ export default function AboutContent() {
 
         <MVRow ref={mvRef}>
           <MVBlock $visible={mvVisible} $i={0}>
-            <MVLabel>Nossa Missão</MVLabel>
+            <MVLabel>{t("about.content.missionLabel")}</MVLabel>
             <MVText>
-              Conectar conhecimento acadêmico à realidade do mercado, entregando
-              projetos de alto impacto que geram valor real para os nossos clientes.
+              {t("about.content.missionText")}
             </MVText>
           </MVBlock>
 
           <MVLine $visible={mvVisible} />
 
           <MVBlock $visible={mvVisible} $i={1}>
-            <MVLabel>Nossa Visão</MVLabel>
+            <MVLabel>{t("about.content.visionLabel")}</MVLabel>
             <MVText>
-              Ser a referência em consultoria júnior no Brasil, um ambiente onde
-              estudantes crescem e empresas evoluem juntos.
+              {t("about.content.visionText")}
             </MVText>
           </MVBlock>
         </MVRow>

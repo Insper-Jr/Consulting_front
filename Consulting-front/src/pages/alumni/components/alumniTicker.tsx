@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import { RED, FONT_TITLE, TYPE, SPRING } from "../../processos/components/tokens";
+import { RED, FONT_TITLE, TYPE, SPRING } from "../../../styles/tokens";
 
 const COMPANIES = [
   "McKinsey & Company",

@@ -1,15 +1,16 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import styled, { keyframes } from "styled-components";
+import { useTranslation } from "react-i18next";
+
+import { RED_TITLE, RED, RED_DARK, DARK, FONT_TITLE, FONT_BODY } from "../../../styles/tokens";
 
 const C = {
-  redTitle: "#A10F23",
-  redCTA: "#C02121",
-  redDark: "#691212",
-  ink: "#1a1a1a",
+  redTitle: RED_TITLE,
+  redCTA: RED,
+  redDark: RED_DARK,
+  ink: DARK,
 };
 
-const FONT_TITLE = `"Montserrat", Helvetica, sans-serif`;
-const FONT_BODY  = `"Inter", Helvetica, sans-serif`;
 const FONT_MONO  = `ui-monospace, "SF Mono", Menlo, monospace`;
 
 // ── Types ─────────────────────────────────────────────────────────────────
@@ -28,13 +29,16 @@ export type LawCaseProps = {
   id: string;
   badge: string;
   bigName: ReactNode;
-  sub: ReactNode;
+  /** May contain inline HTML markup (e.g. <strong>) — rendered via dangerouslySetInnerHTML. */
+  sub: string;
   intro: {
     eyebrow: string;
     headline: ReactNode;
-    paragraphs: ReactNode[];
+    /** Each entry may contain inline HTML markup (e.g. <strong>) — rendered via dangerouslySetInnerHTML. */
+    paragraphs: string[];
     subhead?: string;
-    list?: ReactNode[];
+    /** Each entry may contain inline HTML markup (e.g. <strong>) — rendered via dangerouslySetInnerHTML. */
+    list?: string[];
     closing?: string;
   };
   meta: LawCaseMeta[];
@@ -43,6 +47,7 @@ export type LawCaseProps = {
 
 // ── Component ──────────────────────────────────────────────────────────────
 export default function LawCase(props: LawCaseProps) {
+  const { t } = useTranslation();
   const { id, badge, bigName, sub, intro, meta, steps } = props;
   const [idx, setIdx] = useState(0);
   const deckRef = useRef<HTMLElement>(null);
@@ -81,25 +86,25 @@ export default function LawCase(props: LawCaseProps) {
           <CaseBigName>{bigName}<Dot>.</Dot></CaseBigName>
         </CaseCounter>
 
-        <CaseSub>{sub}</CaseSub>
+        <CaseSub dangerouslySetInnerHTML={{ __html: sub }} />
 
         <CaseSplit>
           <CaseText>
             <CtEye>{intro.eyebrow}</CtEye>
             <CtH>{intro.headline}</CtH>
-            {intro.paragraphs.map((p, i) => <CtP key={i}>{p}</CtP>)}
+            {intro.paragraphs.map((p, i) => <CtP key={i} dangerouslySetInnerHTML={{ __html: p }} />)}
 
             {intro.subhead && <CtSub>{intro.subhead}</CtSub>}
             {intro.list && (
               <CtList>
-                {intro.list.map((li, i) => <li key={i}>{li}</li>)}
+                {intro.list.map((li, i) => <li key={i} dangerouslySetInnerHTML={{ __html: li }} />)}
               </CtList>
             )}
 
             {intro.closing && <CtFinal>{intro.closing}</CtFinal>}
           </CaseText>
 
-          <CaseDeck ref={deckRef} aria-label={`Apresentação do projeto ${id}`}>
+          <CaseDeck ref={deckRef} aria-label={t("direito.caseCommon.deckAriaLabel", { id })}>
             <CdFrame>
               <CdStack>
                 {steps.map((s, i) => (
@@ -114,12 +119,12 @@ export default function LawCase(props: LawCaseProps) {
             </CdFrame>
 
             <CdControls>
-              <CdBtn onClick={goPrev} disabled={idx === 0} aria-label="Anterior">←</CdBtn>
+              <CdBtn onClick={goPrev} disabled={idx === 0} aria-label={t("direito.caseCommon.prevAria")}>←</CdBtn>
               <CdProgress>
                 <CdFill style={{ width: `${((idx + 1) / steps.length) * 100}%` }} />
               </CdProgress>
               <CdCounter>{pad(idx + 1)} / {pad(steps.length)}</CdCounter>
-              <CdBtn onClick={goNext} disabled={idx === steps.length - 1} aria-label="Próximo">→</CdBtn>
+              <CdBtn onClick={goNext} disabled={idx === steps.length - 1} aria-label={t("direito.caseCommon.nextAria")}>→</CdBtn>
             </CdControls>
 
             <MetaGrid>

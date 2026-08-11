@@ -1,5 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import styled, { keyframes } from "styled-components";
+import { useTranslation } from "react-i18next";
+import { RED, BG_CREAM, FONT_TITLE, TYPE, SPACING } from "../../../styles/tokens";
+import capacitacaoImg from "../../../assets/capacitation/aula.png";
+import { INSCRICAO_URL } from "../../../config/config";
 
 const useCountUp = (target: number, duration: number, trigger: boolean, delay = 0) => {
   const [count, setCount] = useState(0);
@@ -46,6 +50,7 @@ const dotPulse = keyframes`
 `;
 
 const InscricaoCTA = () => {
+  const { t } = useTranslation();
   const innerRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -68,20 +73,19 @@ const InscricaoCTA = () => {
       <Inner ref={innerRef} data-visible={String(visible)}>
         <Grid>
           <div>
-            <span className="eyebrow">04 · Inscrição</span>
-            <h2>Pronto para construir<br />algo <em>real</em>?</h2>
+            <span className="eyebrow">{t("join.inscricaoCta.eyebrow")}</span>
+            <h2>{t("join.inscricaoCta.titleLine1")}<br />{t("join.inscricaoCta.titleLine2Pre")}<em>{t("join.inscricaoCta.titleEm")}</em>?</h2>
             <p className="sub">
-              A inscrição leva menos de cinco minutos. Depois, é com a gente: você recebe
-              tudo o que precisa saber por e-mail.
+              {t("join.inscricaoCta.sub")}
             </p>
             <div className="actions">
-              <Cta href="#">Inscreva-se no Processo Seletivo <span className="arrow">→</span></Cta>
+              <Cta href="#">{t("join.inscricaoCta.cta")} <span className="arrow">→</span></Cta>
               <InsperNote>
                 <svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true">
                   <circle cx="10" cy="10" r="9" stroke="currentColor" strokeWidth="1.6"/>
                   <path d="M10 9v5M10 6.5v.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
                 </svg>
-                Exclusivo para <strong>alunos Insper</strong> — use seu e-mail institucional
+                {t("join.inscricaoCta.insperNotePre")}<strong>{t("join.inscricaoCta.insperNoteStrong")}</strong>{t("join.inscricaoCta.insperNoteMid")}
                 <span className="email">@al.insper.edu.br</span>
               </InsperNote>
             </div>
@@ -89,21 +93,21 @@ const InscricaoCTA = () => {
 
           <ImageBlock data-visible={String(visible)}>
             <img
-              src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80"
-              alt="Membros da Insper Jr colaborando"
+              src={capacitacaoImg}
+              alt={t("join.inscricaoCta.imgAlt")}
             />
             <div className="overlay" />
             <div className="live-tag">
-              <span className="dot" /> Processo aberto
+              <span className="dot" /> {t("join.inscricaoCta.liveTag")}
             </div>
             <div className="badge-row">
               <div className="badge">
                 <span className="num">{projetos}+</span>
-                <span className="lbl">Projetos entregues</span>
+                <span className="lbl">{t("join.inscricaoCta.badge1Label")}</span>
               </div>
               <div className="badge">
-                <span className="num">{anos} anos</span>
-                <span className="lbl">De experiência</span>
+                <span className="num">{anos} {t("join.inscricaoCta.yearsUnit")}</span>
+                <span className="lbl">{t("join.inscricaoCta.badge2Label")}</span>
               </div>
             </div>
           </ImageBlock>
@@ -116,7 +120,7 @@ const InscricaoCTA = () => {
 export default InscricaoCTA;
 
 const Section = styled.section`
-  background: #F8EBE0;
+  background: ${BG_CREAM};
   border-top: 1px solid rgba(8,15,15,0.10);
   border-bottom: 1px solid rgba(8,15,15,0.10);
   padding: 140px 0;
@@ -128,9 +132,9 @@ const Section = styled.section`
 
 const Inner = styled.div`
   position: relative;
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 32px;
+  padding: 0 ${SPACING.innerPaddingX};
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 0.5s ease-out, transform 0.5s ease-out;
@@ -147,26 +151,28 @@ const Grid = styled.div`
 
   .eyebrow {
     display: inline-block;
-    font-size: 12px; font-weight: 700; letter-spacing: 0.18em;
-    text-transform: uppercase; color: #691212; margin-bottom: 18px;
+    font-family: ${FONT_TITLE};
+    font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+    text-transform: uppercase; color: ${RED}; margin-bottom: 18px;
   }
 
   h2 {
+    font-family: ${FONT_TITLE};
     margin: 0;
-    font-size: clamp(36px, 4.4vw, 56px);
+    font-size: ${TYPE.closingTitle.size};
     line-height: 1.04; max-width: 14ch;
-    letter-spacing: -0.02em; font-weight: 800;
+    letter-spacing: -0.02em; font-weight: ${TYPE.closingTitle.weight};
   }
 
-  h2 em { font-style: normal; color: #C02121; }
+  h2 em { font-style: normal; color: ${RED}; }
 
   .sub {
     margin: 20px 0 0;
     position: relative;
     padding-left: 16px;
-    border-left: 2px solid #C02121;
+    border-left: 2px solid ${RED};
     color: rgba(8,15,15,0.62);
-    font-size: 18px; max-width: 46ch; line-height: 1.55;
+    font-size: ${TYPE.body.size}; max-width: 46ch; line-height: ${TYPE.body.lh};
   }
 
   .actions { margin-top: 36px; display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
@@ -174,7 +180,8 @@ const Grid = styled.div`
   @media (max-width: 980px) { grid-template-columns: 1fr; gap: 40px; }
   @media (max-width: 640px) {
     gap: 32px;
-    .sub { font-size: 16px; margin-top: 16px; }
+    h2 { font-size: 30px; }
+    .sub { margin-top: 16px; }
     .actions { margin-top: 28px; align-items: stretch; }
   }
 `;
@@ -182,7 +189,7 @@ const Grid = styled.div`
 const Cta = styled.a`
   display: inline-flex; align-items: center; gap: 10px;
   padding: 20px 32px; border-radius: 4px;
-  background: #C02121; color: #fff;
+  background: ${RED}; color: #fff;
   font-weight: 600; font-size: 17px; text-decoration: none; line-height: 1;
   animation: ${ctaPulse} 3s ease-in-out infinite;
   transition: background .2s, transform .2s;
@@ -265,7 +272,7 @@ const InsperNote = styled.p`
     font-family: ${MONO};
     font-size: 12px;
     background: rgba(192,33,33,0.08);
-    color: #C02121;
+    color: ${RED};
     padding: 1px 6px;
     border-radius: 3px;
     border: 1px solid rgba(192,33,33,0.18);

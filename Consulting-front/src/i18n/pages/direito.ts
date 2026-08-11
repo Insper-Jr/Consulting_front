@@ -1,0 +1,642 @@
+// Translations for the Direito (Law) section: main page (src/pages/direito/direito.tsx),
+// its CTA component, the shared LawCase/CaseLayout components, and the three dedicated
+// case-study pages (Pé Direito I, Society I, Print I).
+export const direitoTranslations = {
+  pt: {
+    direito: {
+      hero: {
+        eyebrow: "Frente de Direito",
+        words: {
+          word1: "Direito",
+          word2: "que",
+          word3: "traduz",
+          word4: "negócio",
+          word5: "em",
+          word6: "segurança",
+          word7: "jurídica.",
+        },
+        sub: "Atuação consultiva e contratual conduzida por alunos de Direito do Insper, com supervisão técnica de professores e escritórios parceiros, entregando pareceres fundamentados, contratos sob medida e análises estratégicas para empresas e organizações.",
+      },
+
+      scopesOpening: {
+        eyebrow: "Frentes de atuação",
+        title: "Nossos Escopos",
+        subtitle:
+          "Quatro escopos jurídicos delimitados (consultivos e contratuais) que se combinam à atuação das frentes de Business e Engenharia dentro da Insper Jr.",
+        explore: "Explorar",
+      },
+
+      scopes: {
+        badgeLabel: "ESCOPO",
+        fichaLabel: "Ficha do escopo",
+        howWeWork: "Como atuamos",
+        mainApplications: "Principais aplicações",
+        items: [
+          {
+            tab: "Elaboração e/ou Revisão Contratual",
+            title: "Contratos <i>sob medida</i>.",
+            lede:
+              "Nossa atuação contratual divide-se em duas frentes complementares: a <strong>elaboração do zero</strong>, estruturando cada instrumento a partir da realidade operacional do cliente (objeto, obrigações, prazos, garantias e término); e a <strong>revisão estratégica</strong>, em que auditamos contratos já em uso para mitigar riscos e propor melhorias. Em ambos os casos, entregamos soluções jurídicas sob medida, focadas nas dores do seu negócio e fundamentadas na legislação vigente.",
+            detail:
+              "Na <strong>elaboração do zero</strong>, mapeamos a operação, os riscos e os objetivos do cliente para definir a arquitetura do contrato — partes, objeto, obrigações, prazos, garantias e penalidades. Na <strong>revisão</strong>, partimos do contrato que o cliente já utiliza, identificamos cláusulas frágeis, lacunas e pontos desalinhados com a lei e com o negócio, e devolvemos o instrumento ajustado com um <strong>memorando explicativo</strong> que justifica cada alteração. Nos dois casos, o <strong>contrato finalizado</strong> vem com <strong>apresentação executiva</strong> dos pontos de atenção e supervisão de bancas com professores e escritórios parceiros.",
+            rows: [
+              { key: "Entregáveis", val: "<strong>Contrato finalizado</strong> + apresentação executiva (+ memorando explicativo, em revisões)" },
+              { key: "Aplicações", val: "Contratos redigidos sob medida, em diferentes áreas do Direito" },
+              { key: "Abordagem", val: "<strong>Elaboração do zero</strong> a partir da operação do cliente; também revisão de material existente" },
+              { key: "Sinergia", val: "Apoio direto a Business e Engenharia em demandas contratuais" },
+              { key: "Supervisão", val: "Banca técnica com professores e escritórios parceiros" },
+            ],
+            quote: "Cada contrato é escrito do zero para o cliente — não modelo de prateleira.",
+            bullets: [
+              "Contratos redigidos do zero, sob medida para a operação",
+              "Desenho completo — objeto, obrigações, garantias e rescisão",
+              "Cobertura ampla — diferentes áreas e ramos do Direito",
+              "Revisão estratégica de contratos já existentes",
+            ],
+            tags: ["Direito Civil", "Direito Empresarial", "Contratos"],
+          },
+          {
+            tab: "Planejamento Consultivo Societário",
+            title: "Estrutura <i>societária</i> sob análise.",
+            lede:
+              "Serviço de <strong>análise estratégica da estrutura societária</strong> do cliente, com identificação de riscos, oportunidades de melhoria e alternativas possíveis. Escopo consultivo, <strong>sem envolver emissão de documentos em cartório</strong> — entrega de <strong>parecer fundamentado</strong> e <strong>apresentação executiva</strong> com os caminhos recomendados.",
+            detail:
+              "Dois cenários: análise da <strong>estrutura societária atual</strong> do cliente ou avaliação de <strong>uma ideia ainda no papel</strong>. O escopo é entregue de forma independente e, quando faz sentido, pode vir <strong>acompanhado de outro escopo</strong> (uma viabilidade societária ao lado de uma análise operacional e/ou mercadológica, por exemplo). Em ambos os cenários, identificamos riscos e apresentamos <strong>alternativas viáveis</strong>, sem induzir a decisão do cliente.",
+            rows: [
+              { key: "Entregáveis", val: "<strong>Parecer consultivo</strong> + apresentação executiva com caminhos e recomendações" },
+              { key: "Natureza", val: "Consultivo — <strong>não envolve emissão de documentos em cartório</strong>; apresenta alternativas sem induzir decisões" },
+              { key: "Aplicações", val: "Análise societária, identificação de riscos, modelos jurídicos comparados" },
+              { key: "Limites", val: "Sem execução direta de procedimentos cartorários ou registrais" },
+              { key: "Supervisão", val: "Banca com professores especialistas em societário" },
+            ],
+            quote: "Recomendações fundamentadas — a decisão final é do cliente.",
+            bullets: [
+              "Análise da estrutura societária atual",
+              "Identificação de riscos e gargalos jurídicos",
+              "Comparativo entre modelos societários",
+              "Parecer fundamentado + apresentação executiva",
+            ],
+            tags: ["Direito Societário", "Parecer", "LTDA", "S.A."],
+          },
+          {
+            tab: "Planejamento Consultivo de Propriedade Industrial",
+            title: "<i>Pesquisa estratégica</i> de marcas, patentes e desenhos industriais.",
+            lede:
+              "Análise técnica e estratégica relacionada a <strong>registros de marca, patente ou desenho industrial</strong>, com foco na avaliação de viabilidade, alternativas e melhores caminhos perante o <strong>INPI</strong>.",
+            detail:
+              "O escopo orienta o cliente sobre <strong>viabilidade de registro</strong>, <strong>requisitos legais</strong> e <strong>implicações estratégicas</strong> perante o INPI. Além de <strong>mapear os caminhos possíveis</strong> (registro, oposição, manutenção, alternativas defensivas), fazemos <strong>análise de viabilidade, estratégia e custos</strong> de cada alternativa — entregando um parecer que orienta a decisão. Conta com supervisão técnica de bancas com professores especialistas em propriedade industrial.",
+            rows: [
+              { key: "Entregável", val: "<strong>Parecer consultivo</strong> sobre viabilidade e caminhos no INPI" },
+              { key: "Objetos", val: "Marca, patente, desenho industrial" },
+              { key: "Aplicações", val: "Análise de <strong>viabilidade, estratégia e custos</strong> das alternativas perante o INPI" },
+              { key: "Supervisão", val: "Banca técnica com professores especialistas em propriedade industrial" },
+              { key: "Limites", val: "Não inclui execução direta de procedimentos no INPI" },
+            ],
+            quote: "Análise técnica antes do registro — caminho certo, menos retrabalho.",
+            bullets: [
+              "Análise de viabilidade de registro de marca",
+              "Estudo de patenteabilidade",
+              "Avaliação de desenho industrial",
+              "Parecer estratégico sobre caminhos no INPI",
+            ],
+            tags: ["INPI", "Marca", "Patente", "Desenho Industrial", "Propriedade Intelectual"],
+          },
+          {
+            tab: "Planejamento e Análise Tributária",
+            title: "Tributos com <i>simulação</i> e parecer.",
+            lede:
+              "Estudo da <strong>situação tributária atual</strong> do cliente, com foco na <strong>comparação de regimes</strong>, impactos financeiros e possibilidades de adequação dentro da legislação vigente.",
+            detail:
+              "O escopo combina <strong>simulações em planilha</strong>, <strong>memorando jurídico</strong> e, quando pertinente, <strong>apresentação executiva</strong>. Analisamos a situação tributária atual, comparamos cenários alternativos dentro da legislação vigente e apoiamos o cliente em decisões que envolvam adequação fiscal, escolha de regime ou reestruturação — sempre considerando os <strong>impactos da reforma tributária em curso</strong>.",
+            rows: [
+              { key: "Entregáveis", val: "<strong>Simulações</strong> em planilha + memorando jurídico + apresentação executiva" },
+              { key: "Foco", val: "Comparativo de regimes tributários e impactos financeiros" },
+              { key: "Aplicações", val: "Adequação tributária dentro da legislação e reestruturações" },
+              { key: "Cenário legal", val: "Análise sob a legislação vigente + impactos da <strong>reforma tributária</strong> em curso" },
+              { key: "Supervisão", val: "Banca técnica com professores especialistas em tributário" },
+            ],
+            quote: "Decisões mais eficientes e juridicamente seguras.",
+            bullets: [
+              "Comparativo entre regimes tributários (Simples Nacional, Lucro Presumido, Lucro Real)",
+              "Simulações de impacto financeiro",
+              "Memorando jurídico fundamentado",
+              "Apresentação executiva para decisão",
+            ],
+            tags: ["Direito Tributário", "Simples Nacional", "Lucro Presumido", "Lucro Real", "Planejamento Fiscal"],
+          },
+        ],
+      },
+
+      cases: {
+        eyebrow: "Projetos em destaque",
+        title: "Cases de Destaque",
+        subtitle:
+          "Três projetos que exemplificam a forma como a frente de Direito atua — da elaboração contratual do zero à assessoria continuada e à atuação multi-escopo.",
+        badge: "Direito",
+        viewCta: "Ver case completo",
+        alicerce: {
+          title: "Alicerce I",
+          ariaLabel: "Ver case Alicerce I",
+          subtitle: "Escopo · Contratos",
+        },
+        carWash: {
+          title: "Car Wash I",
+          ariaLabel: "Ver case Car Wash I",
+          subtitle: "Escopo · Societário · Tributário",
+        },
+        print: {
+          title: "Print I",
+          ariaLabel: "Ver case Print I",
+          subtitle: "Escopo · Contratos · Tributário · PI",
+        },
+      },
+
+      integration: {
+        kicker: "Direito no contexto da Insper Jr.",
+        title: "Atuação jurídica <span>integrada às demais frentes</span> da empresa",
+        lede:
+          "A frente de Direito não opera isolada: trabalha em conjunto com Business e Engenharia, vende seus serviços pelo mesmo núcleo comercial e atua transversalmente em demandas institucionais, sempre com supervisão de professores e bancas técnicas especializadas em cada um dos escopos.",
+      },
+
+      about: {
+        eyebrow: "Quem somos",
+        title: "Sobre a frente",
+        lede:
+          "A frente de Direito da Insper Jr. nasceu da <strong>46ª gestão</strong>, com o objetivo de ampliar o papel da empresa como centro de desenvolvimento para todos os alunos do Insper. Estruturada ao longo de um ciclo de diagnóstico, mapeamento e estruturação, hoje atua de forma integrada com Business e Engenharia, oferecendo serviços jurídicos delimitados, supervisionados por professores e escritórios parceiros.",
+        pillars: [
+          {
+            num: "01 — Integrada",
+            title: "Conversa com Business e Engenharia",
+            text: "A venda dos serviços jurídicos é <strong>integrada ao núcleo comercial</strong> da Insper Jr., permitindo combinar Direito com projetos de outras frentes em um mesmo ecossistema de soluções.",
+          },
+          {
+            num: "02 — Estruturada",
+            title: "Escopos delimitados",
+            text: "Quatro escopos consultivos e contratuais — <strong>Contratos, Societário, Propriedade Industrial e Tributário</strong> — desenhados para respeitar os limites regulatórios da OAB e maximizar o valor entregue.",
+          },
+          {
+            num: "03 — Supervisionada",
+            title: "Professores e escritórios parceiros",
+            text: "Atuação validada por <strong>bancas técnicas</strong> com professores especialistas em cada um dos escopos jurídicos.",
+          },
+        ],
+        stats: [
+          { value: "4", label: "Escopos jurídicos" },
+          { value: "2+", label: "Escritórios parceiros" },
+          { value: "49ª", label: "Gestão atual" },
+          { value: "24+", label: "Anos de Insper Jr." },
+        ],
+      },
+
+      differentiators: {
+        eyebrow: "O que nos diferencia",
+        title: "Diferenciais",
+        subtitle:
+          "O que faz a frente de Direito da Insper Jr. se destacar no ecossistema de empresas juniores jurídicas.",
+        cards: [
+          {
+            num: "01",
+            title: "Escopos pensados para o cliente",
+            text: "Diferente de outras EJs jurídicas, organizamos os escopos a partir do objetivo do cliente, não da categoria jurídica. Cada serviço entrega clareza sobre o que será produzido e o porquê.",
+          },
+          {
+            num: "02",
+            title: "Supervisão técnica robusta",
+            text: "Trilhas de conhecimento estruturadas e bancas técnicas com professores especialistas garantem qualidade jurídica em cada entregável.",
+          },
+          {
+            num: "03",
+            title: "Integração com Business e Engenharia",
+            text: "O Direito conversa diretamente com as outras frentes da Insper Jr., permitindo entregas combinadas: de um contrato vinculado a um projeto de software a uma análise tributária dentro de uma reestruturação.",
+          },
+        ],
+      },
+
+      cta: {
+        eyebrow: "Próximo passo",
+        title: "Pronto para resolver sua<br />próxima demanda jurídica?",
+        sub:
+          "Entre em contato com a Insper Jr. e descubra como podemos apoiar o seu negócio com contratos sob medida, pareceres consultivos e análises tributárias supervisionadas por professores e escritórios parceiros.",
+        button: "Fazer diagnóstico gratuito",
+      },
+
+      caseCommon: {
+        back: "Voltar",
+        backAria: "Voltar para a página de Direito",
+        prevAria: "Anterior",
+        nextAria: "Próximo",
+        deckAriaLabel: "Apresentação do projeto {{id}}",
+        projectLabel: "O projeto",
+        strategyLabel: "Estratégia",
+      },
+
+      caseStudies: {
+        alicerce: {
+          badge: "CASE EM DESTAQUE",
+          bigName: "Alicerce I",
+          sub:
+            "O <strong>Alicerce I</strong> foi um projeto de <strong>elaboração contratual do zero</strong> conduzido pela frente de Direito da Insper Jr., que estruturou <strong>dois contratos completos</strong> — prestação de serviços e fornecimento — para uma empresa que operava com modelos genéricos e pouco aderentes à sua realidade.",
+          headline: "Por que Alicerce?",
+          paragraphs: [
+            "O cliente contrata <strong>fornecedores e prestadores de serviço de forma recorrente</strong> e dependia de uma estrutura contratual eficiente para dar organização, previsibilidade e segurança a essas relações. Na prática, porém, usava <strong>contratos genéricos, sem padronização</strong> e com <strong>mecanismos frágeis de cobrança e responsabilização</strong>.",
+            "O objetivo foi <strong>desenvolver contratos personalizados</strong> — de prestação de serviços e de fornecimento — capazes de trazer clareza às obrigações, fortalecer a responsabilização e melhorar a gestão dos fornecedores, sem depender de uma equipe jurídica interna a cada nova contratação.",
+          ],
+          list: [
+            "<strong>Análise dos documentos atuais</strong> — leitura dos contratos em uso e alinhamentos com a empresa para identificar lacunas, riscos e oportunidades de melhoria.",
+            "<strong>Contrato fixo + anexo variável</strong> — cláusulas gerais estáveis e uma <strong>Tabela de Especificações (Anexo I)</strong> preenchida a cada contratação, com a mesma validade jurídica do contrato principal.",
+            "<strong>Cláusulas de proteção</strong> — objeto, prazo, obrigações das partes, aceite, pagamento, multas, garantias, rescisão e regras de subcontratação.",
+            "<strong>Modelo replicável</strong> — estrutura desenhada para ser reaproveitada nas contratações seguintes, concentrando alterações apenas nas variáveis.",
+          ],
+          meta: [
+            { label: "Cliente", value: "Preservado por confidencialidade" },
+            { label: "Contexto", value: "Contratos genéricos e sem padronização" },
+            { label: "Escopo", value: "Contratos" },
+          ],
+          steps: [
+            { alt: "Alicerce I — elaboração contratual", cap: "01 · Capa" },
+            { alt: "Contexto: contratos genéricos e sem padronização", cap: "02 · Contexto" },
+            { alt: "O anexo do contrato: escopo, prazos e entregas", cap: "03 · Anexo" },
+            { alt: "Tabela de especificações do contrato de prestação de serviços", cap: "04 · Tabela" },
+            { alt: "Conclusão: entregas e importância dos contratos", cap: "05 · Conclusão" },
+          ],
+        },
+        carWash: {
+          badge: "CASE EM DESTAQUE",
+          bigName: "Car Wash I",
+          sub:
+            "O <strong>Car Wash I</strong> foi um projeto consultivo que mapeou o caminho jurídico para o cliente <strong>transformar sua operação em uma franquia</strong> — dos documentos obrigatórios do franqueador aos modelos de distribuição de insumos e à estrutura societária mais adequada para abrigar a nova atividade.",
+          headline: "Como se tornar franqueador?",
+          paragraphs: [
+            "O cliente queria <strong>expandir a operação pelo modelo de franquia</strong> e precisava entender, antes de qualquer decisão, o que a legislação exige de um franqueador: <strong>titularidade da marca</strong>, adequação das atividades no CNPJ, <strong>Circular de Oferta de Franquia (COF)</strong> nos termos da Lei nº 13.966/2019 e um <strong>contrato de franquia</strong> coerente com o que a COF promete.",
+            "Em paralelo, o projeto avaliou <strong>como os insumos chegariam aos franqueados</strong> — revenda pelo próprio franqueador ou intermediação com comissão — e <strong>onde alojar a nova atividade</strong>: em um novo CNPJ ou por alteração do CNPJ existente. Cada caminho foi analisado sob os efeitos societários, tributários (Simples Nacional) e de risco, terminando em uma <strong>recomendação fundamentada</strong>.",
+          ],
+          list: [
+            "<strong>Requisitos do franqueador</strong> — marca, atividades no CNPJ e os documentos obrigatórios da relação de franquia.",
+            "<strong>COF e contrato de franquia</strong> — o que a lei exige informar e como isso se traduz nas cláusulas do contrato.",
+            "<strong>Distribuição de insumos</strong> — comparação entre revenda e intermediação: faturamento, tributação, logística, controle de preço e risco de venda casada.",
+            "<strong>Estrutura societária</strong> — novo CNPJ x alteração da atividade, comparados por governança, proteção patrimonial, custo e atratividade para investidores.",
+          ],
+          meta: [
+            { label: "Cliente", value: "Preservado por confidencialidade" },
+            { label: "Demanda", value: "Estruturação de franquia" },
+            { label: "Escopo", value: "Societário · Tributário" },
+          ],
+          steps: [
+            { alt: "Car Wash I — capa do projeto", cap: "01 · Capa" },
+            { alt: "Como ser um franqueador", cap: "02 · Franqueador" },
+            { alt: "Circular de Oferta de Franquia: o que é e para que serve", cap: "03 · COF" },
+            { alt: "Comparação entre revenda e intermediação de insumos", cap: "04 · Modelos" },
+            { alt: "Comparação e recomendação: novo CNPJ x alteração da atividade", cap: "05 · Recomendação" },
+          ],
+        },
+        print: {
+          badge: "CASE EM ANDAMENTO",
+          bigName: "Print I",
+          sub:
+            "O <strong>Print I</strong> é um projeto <strong>multi-escopo em andamento</strong> que combina <strong>três frentes de atuação</strong> da área de Direito (<strong>Contratos, Tributário e Propriedade Industrial</strong>) para um cliente com <strong>dois CNPJs</strong> que prestam o mesmo serviço sob regimes tributários distintos. Demonstra a capacidade da frente em entregar valor combinado, não escopo isolado.",
+          headline: "Por que Print?",
+          paragraphs: [
+            "O cliente possui <strong>dois CNPJs</strong> que prestam o mesmo tipo de serviço, porém com <strong>regimes tributários diferentes</strong>. A configuração gera uma operação fragmentada (com impactos sobre contratos, fiscalização e estrutura societária) que exige análise jurídica articulada sobre as três frentes simultaneamente.",
+            "O projeto está em <strong>execução com três frentes paralelas</strong> de atuação, sendo um marco interno da Insper Jr.: a primeira entrega que combina <strong>Contratos + Tributário + Propriedade Industrial</strong> em um mesmo cliente.",
+          ],
+          list: [
+            "<strong>Análise tributária integrada</strong>: comparar a operação sob os dois regimes e mapear caminhos de adequação.",
+            "<strong>Revisão contratual coordenada</strong>: assegurar que os instrumentos refletem a divisão entre os CNPJs.",
+            "<strong>Frente de propriedade industrial</strong>: apoiar o cliente em registros que protegem a operação.",
+            "<strong>Coordenação multi-escopo</strong>: uma única banca técnica acompanha as três frentes para garantir coerência.",
+          ],
+          meta: [
+            { label: "Cliente", value: "2 CNPJs · mesmo serviço" },
+            { label: "Frentes", value: "3 paralelas" },
+            { label: "Escopos", value: "Contratos · Tributário · PI" },
+          ],
+          steps: [
+            { alt: "Print I (escopos: contratos, tributário e propriedade industrial)", cap: "01 · Capa" },
+            { alt: "Contexto: cliente com dois CNPJs e regimes distintos", cap: "02 · Contexto" },
+            { alt: "Desafios do projeto Print I", cap: "03 · Desafios" },
+            { alt: "Status / entregáveis do projeto Print I", cap: "04 · Status" },
+          ],
+        },
+      },
+    },
+  },
+
+  en: {
+    direito: {
+      hero: {
+        eyebrow: "Law Practice Group",
+        words: {
+          word1: "Law",
+          word2: "that",
+          word3: "turns",
+          word4: "business",
+          word5: "into",
+          word6: "legal",
+          word7: "certainty.",
+        },
+        sub: "Consultative and contract-focused work carried out by Insper Law students, with technical supervision from professors and partner law firms, delivering well-founded legal opinions, tailor-made contracts, and strategic analyses for companies and organizations.",
+      },
+
+      scopesOpening: {
+        eyebrow: "Areas of Practice",
+        title: "Our Practice Areas",
+        subtitle:
+          "Four clearly defined legal practice areas (consultative and contractual) that combine with the work of the Business and Engineering fronts within Insper Jr.",
+        explore: "Explore",
+      },
+
+      scopes: {
+        badgeLabel: "SCOPE",
+        fichaLabel: "Scope Overview",
+        howWeWork: "How We Work",
+        mainApplications: "Key Applications",
+        items: [
+          {
+            tab: "Contract Drafting and/or Review",
+            title: "Tailor-made <i>contracts</i>.",
+            lede:
+              "A practice area focused on <strong>drafting contracts from scratch</strong> or the <strong>strategic review of existing contracts</strong>. In a review, we start from an instrument the client already uses and propose <strong>changes and adjustments</strong> that address the client's pain points without losing sight of applicable law, ultimately delivering legally consistent material aligned with the business's needs.",
+            detail:
+              "We handle <strong>drafting contracts from the ground up</strong> and the <strong>strategic review</strong> of existing instruments. In review cases, we deliver an <strong>explanatory memorandum</strong> justifying each change made and an <strong>executive presentation</strong> summarizing the critical points for decision-making. Our work combines a technical analysis of the client's needs, applicable legal parameters, and review by panels of professors and partner law firms.",
+            rows: [
+              { key: "Deliverables", val: "<strong>Finalized contract</strong> + explanatory memorandum (for reviews) + executive presentation" },
+              { key: "Applications", val: "Customized contracts based on the client's needs, spanning different areas of law" },
+              { key: "Approach", val: "Drafting from scratch <strong>or</strong> reviewing the client's existing material, always targeting the business's pain point + applicable law" },
+              { key: "Synergy", val: "Direct support to Business and Engineering on contractual matters" },
+              { key: "Supervision", val: "Technical panel with professors and partner law firms" },
+            ],
+            quote: "Every contract is designed for the client, never an off-the-shelf template.",
+            bullets: [
+              "Contracts customized to the client's needs",
+              "Broad coverage: different areas and branches of law",
+              "Drafting from scratch or strategic review of instruments",
+              "Memorandum + executive presentation (for reviews)",
+            ],
+            tags: ["Civil Law", "Business Law", "Contracts"],
+          },
+          {
+            tab: "Corporate Advisory Planning",
+            title: "<i>Corporate</i> structure under review.",
+            lede:
+              "A service focused on the <strong>strategic analysis of the client's corporate structure</strong>, identifying risks, opportunities for improvement, and possible alternatives. A consultative practice area, <strong>not involving the issuance of notarized documents</strong>, delivering a <strong>well-founded legal opinion</strong> and an <strong>executive presentation</strong> with recommended paths forward.",
+            detail:
+              "Two scenarios: analyzing the client's <strong>current corporate structure</strong> or evaluating <strong>an idea that's still on paper</strong>, in the latter case, the analysis is usually <strong>embedded within another scope</strong> (a corporate feasibility study within a market analysis, for example). In both cases, we identify risks and present <strong>viable alternatives</strong> without steering the client's decision.",
+            rows: [
+              { key: "Deliverables", val: "<strong>Advisory legal opinion</strong> + executive presentation with recommended paths" },
+              { key: "Nature", val: "Consultative: <strong>does not involve issuing notarized documents</strong>; presents alternatives without steering decisions" },
+              { key: "Applications", val: "Corporate structure analysis, risk identification, comparative legal models" },
+              { key: "Limits", val: "No direct execution of notarial or registry procedures" },
+              { key: "Supervision", val: "Panel with professors specializing in corporate law" },
+            ],
+            quote: "Well-founded recommendations. The final decision is the client's.",
+            bullets: [
+              "Analysis of the current corporate structure",
+              "Identification of legal risks and bottlenecks",
+              "Comparison between corporate structure models",
+              "Well-founded legal opinion + executive presentation",
+            ],
+            tags: ["Corporate Law", "Legal Opinion", "LTDA", "S.A."],
+          },
+          {
+            tab: "Industrial Property Advisory Planning",
+            title: "<i>Strategic research</i> for trademarks, patents, and industrial designs.",
+            lede:
+              "Technical and strategic analysis related to <strong>trademark, patent, or industrial design registrations</strong>, focused on assessing feasibility, alternatives, and the best paths forward with <strong>INPI</strong> (Brazil's National Institute of Industrial Property).",
+            detail:
+              "This practice area guides the client on <strong>registration feasibility</strong>, <strong>legal requirements</strong>, and <strong>strategic implications</strong> before INPI. Besides <strong>mapping out the possible paths</strong> (filing, opposition, maintenance, defensive alternatives), we perform a <strong>feasibility, strategy, and cost analysis</strong> for each alternative, delivering a legal opinion that guides the decision. Backed by technical supervision from panels of professors specializing in industrial property.",
+            rows: [
+              { key: "Deliverable", val: "<strong>Advisory legal opinion</strong> on feasibility and paths forward with INPI" },
+              { key: "Subject Matter", val: "Trademark, patent, industrial design" },
+              { key: "Applications", val: "Analysis of the <strong>feasibility, strategy, and costs</strong> of alternatives before INPI" },
+              { key: "Supervision", val: "Technical panel with professors specializing in industrial property" },
+              { key: "Limits", val: "Does not include direct execution of procedures with INPI" },
+            ],
+            quote: "Technical analysis before filing: the right path, less rework.",
+            bullets: [
+              "Trademark registration feasibility analysis",
+              "Patentability study",
+              "Industrial design assessment",
+              "Strategic opinion on paths forward with INPI",
+            ],
+            tags: ["INPI", "Trademark", "Patent", "Industrial Design", "Intellectual Property"],
+          },
+          {
+            tab: "Tax Planning and Analysis",
+            title: "Taxes with <i>simulation</i> and legal opinion.",
+            lede:
+              "A study of the client's <strong>current tax situation</strong>, focused on <strong>comparing tax regimes</strong>, financial impacts, and options for compliance within current legislation.",
+            detail:
+              "This practice area combines <strong>spreadsheet simulations</strong>, a <strong>legal memorandum</strong> and, when relevant, an <strong>executive presentation</strong>. We analyze the current tax situation, compare alternative scenarios within current legislation, and support the client in decisions involving tax compliance, regime selection, or restructuring, always factoring in the <strong>impacts of the ongoing tax reform</strong>.",
+            rows: [
+              { key: "Deliverables", val: "<strong>Spreadsheet simulations</strong> + legal memorandum + executive presentation" },
+              { key: "Focus", val: "Comparison of tax regimes and financial impacts" },
+              { key: "Applications", val: "Tax compliance within the law and restructuring" },
+              { key: "Legal Landscape", val: "Analysis under current legislation + impacts of the ongoing <strong>tax reform</strong>" },
+              { key: "Supervision", val: "Technical panel with professors specializing in tax law" },
+            ],
+            quote: "More efficient, legally sound decisions.",
+            bullets: [
+              "Comparison between tax regimes (Simples, Presumido, Real)",
+              "Financial impact simulations",
+              "Well-founded legal memorandum",
+              "Executive presentation for decision-making",
+            ],
+            tags: ["Tax Law", "Simples Nacional", "Lucro Presumido", "Lucro Real", "Tax Planning"],
+          },
+        ],
+      },
+
+      cases: {
+        eyebrow: "Featured Projects",
+        title: "Featured Cases",
+        subtitle:
+          "Three projects that showcase how the Law practice area operates, from ground-up contract drafting to ongoing advisory work and multi-scope engagements.",
+        badge: "Law",
+        viewCta: "View full case",
+        alicerce: {
+          title: "Alicerce I",
+          ariaLabel: "View the Alicerce I case study",
+          subtitle: "Scope · Contracts",
+        },
+        carWash: {
+          title: "Car Wash I",
+          ariaLabel: "View the Car Wash I case study",
+          subtitle: "Scope · Corporate · Tax",
+        },
+        print: {
+          title: "Print I",
+          ariaLabel: "View the Print I case study",
+          subtitle: "Scope · Contracts · Tax · IP",
+        },
+      },
+
+      integration: {
+        kicker: "Law within Insper Jr.",
+        title: "Legal work <span>integrated with the company's other practice areas</span>",
+        lede:
+          "The Law practice area doesn't operate in isolation: it works together with Business and Engineering, sells its services through the same commercial hub, and operates across institutional demands, always with supervision from professors and technical panels specialized in each practice area.",
+      },
+
+      about: {
+        eyebrow: "Who We Are",
+        title: "About the Practice Area",
+        lede:
+          "Insper Jr.'s Law practice area was born out of the <strong>46th management term</strong>, with the goal of expanding the company's role as a development hub for all Insper students. Built through a cycle of diagnosis, mapping, and structuring, it now operates in full integration with Business and Engineering, offering clearly defined legal services supervised by professors and partner law firms.",
+        pillars: [
+          {
+            num: "01. Structured",
+            title: "Clearly Defined Practice Areas",
+            text: "Four consultative and contractual practice areas (<strong>Contracts, Corporate, Industrial Property, and Tax</strong>) designed to respect OAB (Brazilian Bar Association) regulatory limits while maximizing delivered value.",
+          },
+          {
+            num: "02. Supervised",
+            title: "Professors and Partner Law Firms",
+            text: "Work validated by <strong>technical panels</strong> of professors specializing in each legal practice area.",
+          },
+          {
+            num: "03. Integrated",
+            title: "Works Hand-in-Hand with Business and Engineering",
+            text: "The sale of legal services is <strong>integrated into Insper Jr.'s commercial hub</strong>, making it possible to combine Law with projects from other practice areas within the same solutions ecosystem.",
+          },
+        ],
+        stats: [
+          { value: "4", label: "Legal Practice Areas" },
+          { value: "2+", label: "Partner Law Firms" },
+          { value: "49ª", label: "Current Management Term" },
+          { value: "24+", label: "Years of Insper Jr." },
+        ],
+      },
+
+      differentiators: {
+        eyebrow: "What Sets Us Apart",
+        title: "Differentiators",
+        subtitle:
+          "What makes Insper Jr.'s Law practice area stand out in the legal junior enterprise ecosystem.",
+        cards: [
+          {
+            num: "01",
+            title: "Practice Areas Designed for the Client",
+            text: "Unlike other legal junior enterprises, we organize our practice areas around the client's goal, not the legal category. Every service delivers clarity on what will be produced and why.",
+          },
+          {
+            num: "02",
+            title: "Robust Technical Supervision",
+            text: "Structured knowledge tracks and technical panels of specialist professors ensure legal quality in every deliverable.",
+          },
+          {
+            num: "03",
+            title: "Integration with Business and Engineering",
+            text: "Law connects directly with Insper Jr.'s other practice areas, enabling combined deliverables: from a contract tied to a software project to a tax analysis within a restructuring.",
+          },
+        ],
+      },
+
+      cta: {
+        eyebrow: "Next Step",
+        title: "Ready to resolve your<br />next legal matter?",
+        sub:
+          "Get in touch with Insper Jr. and find out how we can support your business with tailor-made contracts, advisory legal opinions, and tax analyses supervised by professors and partner law firms.",
+        button: "Get a Free Diagnosis",
+      },
+
+      caseCommon: {
+        back: "Back",
+        backAria: "Back to the Law page",
+        prevAria: "Previous",
+        nextAria: "Next",
+        deckAriaLabel: "{{id}} project showcase",
+        projectLabel: "The Project",
+        strategyLabel: "Strategy",
+      },
+
+      caseStudies: {
+        alicerce: {
+          badge: "FEATURED CASE",
+          bigName: "Alicerce I",
+          sub:
+            "<strong>Alicerce I</strong> was a <strong>ground-up contract drafting project</strong> carried out by the Law practice area at Insper Jr., which structured <strong>two complete contracts</strong> (service provision and supply) for a company that operated with generic templates poorly suited to its reality.",
+          headline: "Why Alicerce?",
+          paragraphs: [
+            "The client <strong>hires suppliers and service providers on a recurring basis</strong> and needed an efficient contractual structure to bring organization, predictability, and security to these relationships. In practice, it used <strong>generic, non-standardized contracts</strong> with <strong>weak collection and accountability mechanisms</strong>.",
+            "The goal was to <strong>develop customized contracts</strong>, for service provision and supply, capable of clarifying obligations, strengthening accountability, and improving supplier management, without depending on an in-house legal team for every new engagement.",
+          ],
+          list: [
+            "<strong>Review of current documents</strong>: reading the contracts in use and aligning with the company to identify gaps, risks, and improvement opportunities.",
+            "<strong>Fixed contract + variable annex</strong>: stable general clauses plus a <strong>Specifications Table (Annex I)</strong> filled out for each engagement, with the same legal force as the main contract.",
+            "<strong>Protective clauses</strong>: subject matter, term, obligations, acceptance, payment, penalties, guarantees, termination, and subcontracting rules.",
+            "<strong>Replicable model</strong>: a structure designed to be reused in future engagements, concentrating changes only in the variable fields.",
+          ],
+          meta: [
+            { label: "Client", value: "Preserved for confidentiality" },
+            { label: "Context", value: "Generic, non-standardized contracts" },
+            { label: "Scope", value: "Contracts" },
+          ],
+          steps: [
+            { alt: "Alicerce I: contract drafting", cap: "01 · Cover" },
+            { alt: "Context: generic, non-standardized contracts", cap: "02 · Context" },
+            { alt: "The contract annex: scope, timelines, and deliverables", cap: "03 · Annex" },
+            { alt: "Specifications table for the service agreement", cap: "04 · Table" },
+            { alt: "Conclusion: deliverables and the value of the contracts", cap: "05 · Conclusion" },
+          ],
+        },
+        carWash: {
+          badge: "FEATURED CASE",
+          bigName: "Car Wash I",
+          sub:
+            "<strong>Car Wash I</strong> was an advisory project that mapped the legal path for the client to <strong>turn its operation into a franchise</strong>, from the franchisor's mandatory documents to supply distribution models and the corporate structure best suited to house the new activity.",
+          headline: "How to become a franchisor?",
+          paragraphs: [
+            "The client wanted to <strong>expand through a franchise model</strong> and needed to understand, before any decision, what the law requires of a franchisor: <strong>trademark ownership</strong>, activities registered under the CNPJ, a <strong>Franchise Disclosure Circular (COF)</strong> under Law 13,966/2019, and a <strong>franchise agreement</strong> consistent with what the COF discloses.",
+            "In parallel, the project assessed <strong>how supplies would reach franchisees</strong> (resale by the franchisor itself or brokered with a commission) and <strong>where to house the new activity</strong>: a new CNPJ or a change to the existing one. Each path was analyzed for its corporate, tax (Simples Nacional), and risk implications, ending in a <strong>well-founded recommendation</strong>.",
+          ],
+          list: [
+            "<strong>Franchisor requirements</strong>: trademark, CNPJ activities, and the mandatory documents of the franchise relationship.",
+            "<strong>COF and franchise agreement</strong>: what the law requires disclosing and how that translates into contract clauses.",
+            "<strong>Supply distribution</strong>: comparing resale and brokerage, covering revenue, taxation, logistics, price control, and tied-sale risk.",
+            "<strong>Corporate structure</strong>: new CNPJ vs. changing the existing activity, compared on governance, asset protection, cost, and investor appeal.",
+          ],
+          meta: [
+            { label: "Client", value: "Preserved for confidentiality" },
+            { label: "Request", value: "Franchise structuring" },
+            { label: "Scope", value: "Corporate · Tax" },
+          ],
+          steps: [
+            { alt: "Car Wash I: project cover", cap: "01 · Cover" },
+            { alt: "How to become a franchisor", cap: "02 · Franchisor" },
+            { alt: "Franchise Disclosure Circular: what it is and what it's for", cap: "03 · COF" },
+            { alt: "Comparing resale and supply brokerage", cap: "04 · Models" },
+            { alt: "Comparison and recommendation: new CNPJ vs. activity change", cap: "05 · Recommendation" },
+          ],
+        },
+        print: {
+          badge: "ONGOING CASE",
+          bigName: "Print I",
+          sub:
+            "<strong>Print I</strong> is an <strong>ongoing multi-scope project</strong> that combines <strong>three practice areas</strong> within Law (<strong>Contracts, Tax, and Industrial Property</strong>) for a client with <strong>two CNPJs (company registration numbers)</strong> that provide the same service under different tax regimes. It demonstrates the practice area's ability to deliver combined value, not an isolated scope.",
+          headline: "Why Print?",
+          paragraphs: [
+            "The client has <strong>two CNPJs</strong> that provide the same type of service, but under <strong>different tax regimes</strong>. This setup creates a fragmented operation (with impacts on contracts, oversight, and corporate structure) that requires a coordinated legal analysis across all three practice areas at once.",
+            "The project is <strong>underway with three parallel practice areas</strong> working simultaneously, marking an internal milestone for Insper Jr.: the first deliverable that combines <strong>Contracts + Tax + Industrial Property</strong> for a single client.",
+          ],
+          list: [
+            "<strong>Integrated tax analysis</strong>: comparing the operation under both regimes and mapping paths to compliance.",
+            "<strong>Coordinated contract review</strong>: ensuring the instruments reflect the split between the two CNPJs.",
+            "<strong>Industrial property practice</strong>: supporting the client with registrations that protect the operation.",
+            "<strong>Multi-scope coordination</strong>: a single technical panel oversees all three practice areas to ensure consistency.",
+          ],
+          meta: [
+            { label: "Client", value: "2 CNPJs · same service" },
+            { label: "Practice Areas", value: "3 parallel" },
+            { label: "Scopes", value: "Contracts · Tax · IP" },
+          ],
+          steps: [
+            { alt: "Print I (scopes: contracts, tax, and industrial property)", cap: "01 · Cover" },
+            { alt: "Context: client with two CNPJs and different tax regimes", cap: "02 · Context" },
+            { alt: "Challenges of the Print I project", cap: "03 · Challenges" },
+            { alt: "Status / deliverables of the Print I project", cap: "04 · Status" },
+          ],
+        },
+      },
+    },
+  },
+};

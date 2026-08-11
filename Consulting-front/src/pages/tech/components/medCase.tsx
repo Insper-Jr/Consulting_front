@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import { useTranslation, Trans } from "react-i18next";
+import type { TFunction } from "i18next";
 
 import slideContexto from "../../../assets/medicina/slides/04-contexto.jpg";
 import slideDesafios from "../../../assets/medicina/slides/07-desafios.jpg";
@@ -9,24 +11,26 @@ import shotElab      from "../../../assets/medicina/slides/14-elaboracao.jpg";
 import shotAdmin     from "../../../assets/medicina/slides/15-admin.jpg";
 
 // ── Tokens (mirrors parent page) ──────────────────────────────────────────
+import { RED_TITLE, RED, RED_DARK, DARK, FONT_TITLE, FONT_BODY } from "../../../styles/tokens";
+
 const C = {
-  redTitle: "#A10F23",
-  redCTA: "#C02121",
-  redDark: "#691212",
-  ink: "#1a1a1a",
+  redTitle: RED_TITLE,
+  redCTA: RED,
+  redDark: RED_DARK,
+  ink: DARK,
 };
 
-const FONT_TITLE = `"Montserrat", Helvetica, sans-serif`;
-const FONT_BODY  = `"Inter", Helvetica, sans-serif`;
 const FONT_MONO  = `ui-monospace, "SF Mono", Menlo, monospace`;
 
 // ── Slide deck data ─────────────────────────────────────────────────────────
 // Slots sem `img` renderizam placeholder até receber a imagem.
-const SLIDES: Array<{ id: string; img?: string; alt: string; cap: string }> = [
-  { id: "contexto", img: slideContexto, alt: "Contexto do projeto — gestão documental e notificação de ocorrências", cap: "01 · Contexto" },
-  { id: "desafios", img: slideDesafios, alt: "Trajetória de desafios — base de dados, versionamento e UX",            cap: "02 · Desafios" },
-];
-const TOTAL_SLIDES = SLIDES.length;
+function buildSlides(t: TFunction): Array<{ id: string; img?: string; alt: string; cap: string }> {
+  return [
+    { id: "contexto", img: slideContexto, alt: t("tech.cases.medicina.slides.contexto.alt"), cap: t("tech.cases.medicina.slides.contexto.cap") },
+    { id: "desafios", img: slideDesafios, alt: t("tech.cases.medicina.slides.desafios.alt"), cap: t("tech.cases.medicina.slides.desafios.cap") },
+  ];
+}
+const TOTAL_SLIDES = 2;
 
 // ── Blurs sobre dados sensíveis da Página inicial ─────────────────────────
 // Posições em % do frame 16:9 (1334x750). width/height opcionais sobrescrevem
@@ -87,16 +91,25 @@ const ADMIN_BLURS: Array<{ top: string; left: string; width?: string; height?: s
 ];
 
 // ── Shots data (telas reais — adicionar posteriormente) ───────────────────
-const SHOTS: Array<{ id: string; label: string; bar: string; img?: string; alt: string; capH: string; capT: string }> = [
-  { id: "home",       label: "Home",      bar: "plataforma · pagina-inicial",        img: shotHome, alt: "Plataforma — Página inicial",            capH: "Página inicial",        capT: "dashboard de documentos e logs" },
-  { id: "listagem",   label: "Listagem",  bar: "plataforma · listagem-documentos",   img: shotListagem, alt: "Plataforma — Listagem de documentos",    capH: "Listagem de documentos", capT: "visualizar, baixar e pré-visualizar" },
-  { id: "elaboracao", label: "Cadastro",  bar: "plataforma · elaboracao-documento",  img: shotElab, alt: "Plataforma — Elaboração de documento",   capH: "Elaboração",            capT: "cadastrar um novo documento" },
-  { id: "admin",      label: "Admin",     bar: "plataforma · administracao",         img: shotAdmin, alt: "Plataforma — Administração",             capH: "Administração",         capT: "usuários, áreas, unidades e tipos" },
-];
-const TOTAL_SHOTS = SHOTS.length;
+function buildShots(t: TFunction): Array<{ id: string; label: string; bar: string; img?: string; alt: string; capH: string; capT: string }> {
+  const imgs: Record<string, string> = { home: shotHome, listagem: shotListagem, elaboracao: shotElab, admin: shotAdmin };
+  return ["home", "listagem", "elaboracao", "admin"].map((id) => ({
+    id,
+    label: t(`tech.cases.medicina.shots.${id}.label`),
+    bar: t(`tech.cases.medicina.shots.${id}.bar`),
+    img: imgs[id],
+    alt: t(`tech.cases.medicina.shots.${id}.alt`),
+    capH: t(`tech.cases.medicina.shots.${id}.capH`),
+    capT: t(`tech.cases.medicina.shots.${id}.capT`),
+  }));
+}
+const TOTAL_SHOTS = 4;
 
 // ── Component ──────────────────────────────────────────────────────────────
 export default function MedCase() {
+  const { t } = useTranslation();
+  const SLIDES = buildSlides(t);
+  const SHOTS = buildShots(t);
   const [idx, setIdx] = useState(0);
   const [sIdx, setSIdx] = useState(0);
   const deckRef = useRef<HTMLElement>(null);
@@ -151,42 +164,41 @@ export default function MedCase() {
     <CaseSection id="case-medicina">
       <CaseInner>
         <CaseCounter>
-          <CaseBadge>CASE EM DESTAQUE</CaseBadge>
-          <CaseBigName>Medicina<Dot>.</Dot></CaseBigName>
+          <CaseBadge>{t("tech.cases.common.badge")}</CaseBadge>
+          <CaseBigName>{t("tech.cases.medicina.name")}<Dot>.</Dot></CaseBigName>
         </CaseCounter>
 
         <CaseSub>
-          Outro projeto que reforça nossa atuação em <strong>Desenvolvimento Web</strong>: o <strong>Medicina I</strong> — uma plataforma fullstack de <strong>gestão documental e notificação de ocorrências</strong> que centraliza documentos, prazos e responsáveis em um único sistema, com versionamento em nuvem e fluxo digital padronizado para registrar e acompanhar ocorrências.
+          <Trans i18nKey="tech.cases.medicina.sub" components={{ strong: <strong /> }} />
         </CaseSub>
 
         <CaseSplit>
           <CaseText>
-            <CtEye>O projeto</CtEye>
-            <CtH>Por que Medicina I?</CtH>
+            <CtEye>{t("tech.cases.common.project")}</CtEye>
+            <CtH>{t("tech.cases.medicina.why")}</CtH>
             <CtP>
-              O cliente, da área de <strong>saúde</strong>, tinha sua operação documental espalhada em <strong>planilhas extensas</strong> — sem padronização, rastreabilidade ou controle de versões — e dependia de processos manuais para registrar e acompanhar <strong>ocorrências</strong> do dia a dia.
+              <Trans i18nKey="tech.cases.medicina.p1" components={{ strong: <strong /> }} />
             </CtP>
 
-            <CtSub>Como foi feito</CtSub>
+            <CtSub>{t("tech.cases.common.howMade")}</CtSub>
             <CtP>
-              Construímos uma <strong>plataforma fullstack</strong> que centraliza documentos, prazos e responsáveis em um único sistema. O mesmo ambiente unifica a <strong>gestão documental</strong> e a <strong>notificação de ocorrências</strong>, com versionamento, controle de acesso e rastreabilidade ponta a ponta.
+              <Trans i18nKey="tech.cases.medicina.p2" components={{ strong: <strong /> }} />
             </CtP>
             <CtP>
-              Para o versionamento, integramos um <strong>bucket na AWS</strong> garantindo armazenamento seguro e controle adequado de cada versão dos documentos. A base de dados foi modelada para suportar <strong>múltiplas entidades e relações complexas</strong> sem comprometer performance.
+              <Trans i18nKey="tech.cases.medicina.p3" components={{ strong: <strong /> }} />
             </CtP>
 
-            <CtSub>Estratégia</CtSub>
+            <CtSub>{t("tech.cases.common.strategy")}</CtSub>
             <CtList>
-              <li><strong>Operação documental unificada</strong> — documentos, prazos e responsáveis em um só lugar, com padronização e rastreabilidade.</li>
-              <li><strong>Versionamento em nuvem</strong> — bucket AWS com histórico, integridade e recuperação de cada versão.</li>
-              <li><strong>Notificação de ocorrências</strong> — fluxo digital padronizado para registrar, acompanhar e resolver eventos com agilidade.</li>
-              <li><strong>UX clara e intuitiva</strong> — interface desenhada para uso diário sem necessidade de treinamento extenso.</li>
+              {(t("tech.cases.medicina.list", { returnObjects: true }) as string[]).map((_item, i) => (
+                <li key={i}><Trans i18nKey={`tech.cases.medicina.list.${i}`} components={{ strong: <strong /> }} /></li>
+              ))}
             </CtList>
 
-            <CtFinal>Documentos · ocorrências · versionamento — a operação inteira em uma só plataforma.</CtFinal>
+            <CtFinal>{t("tech.cases.medicina.final")}</CtFinal>
           </CaseText>
 
-          <CaseDeck ref={deckRef} aria-label="Apresentação do projeto Medicina I">
+          <CaseDeck ref={deckRef} aria-label={t("tech.cases.medicina.deckAriaLabel")}>
             <CdFrame>
               <CdStack>
                 {SLIDES.map((s, i) => (
@@ -196,7 +208,7 @@ export default function MedCase() {
                     ) : (
                       <SlidePlaceholder aria-label={s.alt}>
                         <PhTag>{s.cap}</PhTag>
-                        <PhHint>imagem em breve</PhHint>
+                        <PhHint>{t("tech.cases.medicina.slidePlaceholderHint")}</PhHint>
                       </SlidePlaceholder>
                     )}
                     <CdiCaption>{s.cap}</CdiCaption>
@@ -206,18 +218,18 @@ export default function MedCase() {
             </CdFrame>
 
             <CdControls>
-              <CdBtn onClick={goPrev} disabled={idx === 0} aria-label="Anterior">←</CdBtn>
+              <CdBtn onClick={goPrev} disabled={idx === 0} aria-label={t("tech.cases.common.prev")}>←</CdBtn>
               <CdProgress>
                 <CdFill style={{ width: `${((idx + 1) / TOTAL_SLIDES) * 100}%` }} />
               </CdProgress>
               <CdCounter>{pad(idx + 1)} / {pad(TOTAL_SLIDES)}</CdCounter>
-              <CdBtn onClick={goNext} disabled={idx === TOTAL_SLIDES - 1} aria-label="Próximo">→</CdBtn>
+              <CdBtn onClick={goNext} disabled={idx === TOTAL_SLIDES - 1} aria-label={t("tech.cases.common.next")}>→</CdBtn>
             </CdControls>
 
             {/* Mini deck · telas reais */}
-            <ShotsMini ref={shotsRef} aria-label="Telas reais da plataforma Medicina I">
+            <ShotsMini ref={shotsRef} aria-label={t("tech.cases.medicina.shotsAriaLabel")}>
               <ShotsMiniHead>
-                <ShotsMiniH>Como aparece <em>no dia a dia.</em></ShotsMiniH>
+                <ShotsMiniH><Trans i18nKey="tech.cases.medicina.shotsHeading" components={{ em: <em /> }} /></ShotsMiniH>
               </ShotsMiniHead>
               <ShotsMiniFrame>
                 <ShotsMiniStack>
@@ -232,7 +244,7 @@ export default function MedCase() {
                         ) : (
                           <ShotPlaceholder aria-label={s.alt}>
                             <PhTagSm>{s.capH}</PhTagSm>
-                            <PhHintSm>imagem em breve</PhHintSm>
+                            <PhHintSm>{t("tech.cases.medicina.slidePlaceholderHint")}</PhHintSm>
                           </ShotPlaceholder>
                         )}
                         {s.id === "home" && (
@@ -270,21 +282,21 @@ export default function MedCase() {
                 </ShotsMiniStack>
               </ShotsMiniFrame>
               <ShotsMiniControls>
-                <CdBtn onClick={sPrev} disabled={sIdx === 0} aria-label="Anterior">←</CdBtn>
+                <CdBtn onClick={sPrev} disabled={sIdx === 0} aria-label={t("tech.cases.common.prev")}>←</CdBtn>
                 <ShotsMiniDots>
                   {SHOTS.map((s, i) => (
                     <ShotsMiniDot
                       key={s.id}
                       $active={sIdx === i}
                       onClick={() => setSIdx(i)}
-                      aria-label={`Tela ${i + 1}`}
+                      aria-label={t("tech.cases.common.screenAriaLabel", { n: i + 1 })}
                     >
                       {s.label}
                     </ShotsMiniDot>
                   ))}
                 </ShotsMiniDots>
                 <CdCounter>{pad(sIdx + 1)} / {pad(TOTAL_SHOTS)}</CdCounter>
-                <CdBtn onClick={sNext} disabled={sIdx === TOTAL_SHOTS - 1} aria-label="Próximo">→</CdBtn>
+                <CdBtn onClick={sNext} disabled={sIdx === TOTAL_SHOTS - 1} aria-label={t("tech.cases.common.next")}>→</CdBtn>
               </ShotsMiniControls>
             </ShotsMini>
           </CaseDeck>
@@ -673,7 +685,7 @@ const ShotsMiniH = styled.h4`
   font-family: ${FONT_TITLE};
   font-size: 18px;
   font-weight: 700;
-  color: #1a1a1a;
+  color: #1a1a18;
   letter-spacing: -0.02em;
   line-height: 1.18;
   margin: 0;
@@ -688,7 +700,7 @@ const ShotsMiniFrame = styled.div`
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
-  background: #1a1a1a;
+  background: #1a1a18;
   border-radius: 6px;
   overflow: hidden;
   box-shadow: 0 14px 36px -16px rgba(0,0,0,0.28), 0 0 0 1px rgba(0,0,0,0.07);
@@ -831,8 +843,8 @@ const ShotsMiniDots = styled.div`
 
 const ShotsMiniDot = styled.button<{ $active: boolean }>`
   appearance: none;
-  background: ${p => p.$active ? "#1a1a1a" : "transparent"};
-  border: 1px solid ${p => p.$active ? "#1a1a1a" : "rgba(0,0,0,0.14)"};
+  background: ${p => p.$active ? "#1a1a18" : "transparent"};
+  border: 1px solid ${p => p.$active ? "#1a1a18" : "rgba(0,0,0,0.14)"};
   border-radius: 999px;
   padding: 0.3rem 0.65rem;
   font-family: ${FONT_MONO};
@@ -843,7 +855,7 @@ const ShotsMiniDot = styled.button<{ $active: boolean }>`
   cursor: pointer;
   transition: all 0.25s ease;
   &:hover {
-    border-color: ${p => p.$active ? "#1a1a1a" : "rgba(0,0,0,0.32)"};
-    color: ${p => p.$active ? "#fff" : "#1a1a1a"};
+    border-color: ${p => p.$active ? "#1a1a18" : "rgba(0,0,0,0.32)"};
+    color: ${p => p.$active ? "#fff" : "#1a1a18"};
   }
 `;

@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import toast from "react-hot-toast";
+import { FONT_BODY } from "../styles/tokens";
+import { useTranslation } from "react-i18next";
 import whatsIcon from "../assets/whatsappIcon.png";
 import bg from "../assets/backgrounds/wpp-background.png";
 
@@ -12,6 +14,7 @@ declare global {
 }
 
 const WhatsAppWidget = () => {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({ name: "", message: ""});
 
@@ -21,7 +24,7 @@ const WhatsAppWidget = () => {
 
   const handleStartChat = () => {
     if (!formData.name || !formData.message) {
-      toast.error("Por favor, preencha todos os campos obrigatórios.");
+      toast.error(t("shared.wppButton.requiredFieldsError"));
       return;
     }
     window.dataLayer = window.dataLayer || [];
@@ -32,8 +35,8 @@ const WhatsAppWidget = () => {
       label: "whatsapp_button"
     });
 
-    const message = `Olá, me chamo ${formData.name}.\n Gostaria de saber se vocês podem me ajudar com: ${formData.message}`;
-    
+    const message = t("shared.wppButton.prefilledMessage", { name: formData.name, message: formData.message });
+
     const whatsappURL = `https://api.whatsapp.com/send?phone=5511998983364&text=${encodeURIComponent(message)}`;
     window.open(whatsappURL, "_blank");
     setIsOpen(!isOpen);
@@ -46,23 +49,23 @@ const WhatsAppWidget = () => {
         <FormContainer>
           <FormBody>
             <Greeting>
-              Olá! Interessado em alavancar seu negócio? <br />
-              Mande sua mensagem abaixo que um vendedor entrará em contato para sugerir as melhores soluções!
+              {t("shared.wppButton.greeting.line1")} <br />
+              {t("shared.wppButton.greeting.line2")}
             </Greeting>
             <Input
               name="name"
-              placeholder="Nome *"
+              placeholder={t("shared.wppButton.namePlaceholder")}
               value={formData.name}
               onChange={handleChange}
             />
             <InputMessage
               name="message"
-              placeholder="Como podemos ajudar? *"
+              placeholder={t("shared.wppButton.messagePlaceholder")}
               maxLength={100}
               value={formData.message}
               onChange={handleChange}
             />
-            <SendButton onClick={handleStartChat}>Iniciar conversa</SendButton>
+            <SendButton onClick={handleStartChat}>{t("shared.wppButton.startChatButton")}</SendButton>
           </FormBody>
         </FormContainer>
       )}
@@ -123,7 +126,7 @@ const Greeting = styled.div`
   font-size: 14px;
   border-radius: 8px;
   margin-bottom: 1rem;
-  font-family: "Inter", sans-serif;
+  font-family: ${FONT_BODY};
 `;
 
 const Input = styled.input`
@@ -132,7 +135,7 @@ const Input = styled.input`
   padding: 10px;
   border-radius: 6px;
   margin-bottom: 10px;
-  font-family: "Inter", sans-serif;
+  font-family: ${FONT_BODY};
 `;
 
 const InputMessage = styled.textarea`
@@ -141,7 +144,7 @@ const InputMessage = styled.textarea`
   padding: 10px;
   border-radius: 6px;
   margin-bottom: 10px;
-  font-family: "Inter", sans-serif;
+  font-family: ${FONT_BODY};
   height: 60px;
   resize: none;
 `;
@@ -154,7 +157,7 @@ const SendButton = styled.button`
   font-weight: bold;
   border-radius: 6px;
   cursor: pointer;
-  font-family: "Inter", sans-serif;
+  font-family: ${FONT_BODY};
 
   &:hover {
     background-color: #064c44;

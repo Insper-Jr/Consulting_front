@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { FONT_TITLE } from '../../../styles/tokens';
 import img from '../../../assets/capacitation/aula.png';
 import PartnerCarousel from './carroselPartners';
 
@@ -81,7 +82,7 @@ const LeftSection = styled.div`
 // Título "Capacitação".
 const Title = styled.h1`
   font-size: 50px;
-  font-family: "Montserrat", sans-serif;
+  font-family: ${FONT_TITLE};
   font-weight: 700;
   margin-bottom: 1rem;
   color: white;
@@ -114,7 +115,7 @@ const RedLine = styled.div`
 // Texto descritivo.
 const Description = styled.p`
   font-size: 20px;
-  font-family: "Montserrat", sans-serif;
+  font-family: ${FONT_TITLE};
   line-height: 1.5;
   max-width: 800px;
   margin-top: 50px;

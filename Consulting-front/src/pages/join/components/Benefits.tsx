@@ -1,5 +1,7 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Fragment } from "react";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
+import { RED, FONT_TITLE, TYPE, SPACING } from "../../../styles/tokens";
 
 const FONT = `'Inter', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif`;
 const MONO = `'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace`;
@@ -38,46 +40,23 @@ const IconRede = () => (
   </svg>
 );
 
-const TABS = [
-  {
-    num: "01",
-    title: "Projetos com clientes reais",
-    category: "Experiência",
-    Icon: IconProjetos,
-    description: "Desde o primeiro dia, você está dentro de um projeto real — com cliente, prazo e entrega que importam de verdade. Sem simulação. Sem case fictício. Só trabalho de verdade.",
-    bullets: [
-      "4 frentes de atuação em consultoria",
-      "Entrega com impacto mensurável no cliente",
-      "Experiência de mercado ainda na faculdade",
-    ],
-  },
-  {
-    num: "02",
-    title: "Capacitação contínua",
-    category: "Formação",
-    Icon: IconCapacitacao,
-    description: "Mais de 50 aulas por ano em estratégia, finanças, dados e gestão — mais um trainee de 3 meses com mentoria de quem já passou por isso. Você cresce enquanto entrega.",
-    bullets: [
-      "50+ aulas de capacitação por ano",
-      "3 meses de programa trainee estruturado",
-      "Mentoria com profissionais de mercado",
-    ],
-  },
-  {
-    num: "03",
-    title: "Rede no ecossistema Insper",
-    category: "Networking",
-    Icon: IconRede,
-    description: "Entrar na Insper Jr é entrar numa rede que levaria anos para construir sozinho. Alumni nas maiores empresas do país, professores engajados e ex-membros que abrem portas.",
-    bullets: [
-      "Alumni nas maiores empresas do Brasil",
-      "Acesso direto a professores e mentores",
-      "Comunidade ativa de ex-membros",
-    ],
-  },
+const TAB_META = [
+  { num: "01", Icon: IconProjetos },
+  { num: "02", Icon: IconCapacitacao },
+  { num: "03", Icon: IconRede },
 ];
 
+type TabT = { title: string; category: string; description: string; bullets: string[] };
+
 const Benefits = () => {
+  const { t } = useTranslation();
+  const TABS = (t("join.benefits.tabs", { returnObjects: true }) as TabT[]).map((tab, i) => ({
+    ...tab,
+    num: TAB_META[i].num,
+    Icon: TAB_META[i].Icon,
+  }));
+  const statsT = t("join.benefits.stats", { returnObjects: true }) as { value: string; label: string }[];
+
   const [active, setActive] = useState(0);
   const [fading, setFading] = useState(false);
   const innerRef = useRef<HTMLDivElement>(null);
@@ -107,12 +86,11 @@ const Benefits = () => {
       <Inner ref={innerRef} data-visible={String(visible)}>
         <Head>
           <div className="left">
-            <span className="eyebrow">02 · Por que fazer parte?</span>
-            <h2>Três coisas que você<br />não aprende em sala.</h2>
+            <span className="eyebrow">{t("join.benefits.eyebrow")}</span>
+            <h2>{t("join.benefits.titleLine1")}<br />{t("join.benefits.titleLine2")}</h2>
           </div>
           <p className="lead">
-            A Insper Jr é onde a teoria vira prática antes do diploma. Você sai daqui
-            com portfólio, formação e uma rede que a maioria só constrói anos depois de formado.
+            {t("join.benefits.lead")}
           </p>
         </Head>
 
@@ -138,7 +116,7 @@ const Benefits = () => {
               <PanelDesc>{b.description}</PanelDesc>
               <BulletList>
                 {b.bullets.map((bullet, i) => (
-                  <BulletItem key={i}><span className="dash" aria-hidden="true">—</span>{bullet}</BulletItem>
+                  <BulletItem key={i}><span className="dash" aria-hidden="true">•</span>{bullet}</BulletItem>
                 ))}
               </BulletList>
             </PanelRight>
@@ -146,20 +124,15 @@ const Benefits = () => {
         </TabsWrapper>
 
         <StatsRow>
-          <Stat $idx={0}>
-            <span className="val">50+</span>
-            <span className="lbl">aulas de capacitação por ano</span>
-          </Stat>
-          <StatDivider />
-          <Stat $idx={1}>
-            <span className="val">3 meses</span>
-            <span className="lbl">de programa trainee</span>
-          </Stat>
-          <StatDivider />
-          <Stat $idx={2}>
-            <span className="val">4 frentes</span>
-            <span className="lbl">de atuação em consultoria</span>
-          </Stat>
+          {statsT.map((s, i) => (
+            <Fragment key={s.label}>
+              <Stat $idx={i}>
+                <span className="val">{s.value}</span>
+                <span className="lbl">{s.label}</span>
+              </Stat>
+              {i < statsT.length - 1 && <StatDivider />}
+            </Fragment>
+          ))}
         </StatsRow>
       </Inner>
     </Section>
@@ -180,9 +153,9 @@ const Section = styled.section`
 
 const Inner = styled.div`
   position: relative;
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 32px;
+  padding: 0 ${SPACING.innerPaddingX};
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 0.5s ease-out, transform 0.5s ease-out;
@@ -202,23 +175,25 @@ const Head = styled.div`
   .left { display: flex; flex-direction: column; gap: 20px; }
 
   .eyebrow {
-    font-size: 11px; font-weight: 600; letter-spacing: 0.22em;
-    text-transform: uppercase; color: #691212 ;
+    font-family: ${FONT_TITLE};
+    font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+    text-transform: uppercase; color: ${RED};
   }
 
   h2 {
+    font-family: ${FONT_TITLE};
     margin: 0;
-    font-size: clamp(28px, 3.2vw, 40px);
-    line-height: 1.1; letter-spacing: -0.02em; font-weight: 800;
+    font-size: ${TYPE.sectionH2.size};
+    line-height: 1.1; letter-spacing: -0.02em; font-weight: ${TYPE.sectionH2.weight};
   }
 
   .lead {
     margin: 0;
     position: relative;
     padding-left: 16px;
-    border-left: 2px solid #C02121;
+    border-left: 2px solid ${RED};
     color: rgba(8,15,15,0.62);
-    font-size: 15px; line-height: 1.65; max-width: 42ch;
+    font-size: ${TYPE.body.size}; line-height: 1.65; max-width: 42ch;
   }
 
   @media (max-width: 980px) { grid-template-columns: 1fr; gap: 16px; margin-bottom: 40px; }
@@ -254,7 +229,7 @@ const TabBtn = styled.button<{ $active: boolean }>`
     content: "";
     position: absolute;
     left: 0; top: 0; bottom: 0; width: 3px;
-    background: #C02121;
+    background: ${RED};
     transform: scaleY(${({ $active }) => ($active ? 1 : 0)});
     transform-origin: center;
     transition: transform 0.25s ease;
@@ -262,7 +237,7 @@ const TabBtn = styled.button<{ $active: boolean }>`
 
   &:last-child { border-right: none; }
   &:hover { background: ${({ $active }) => ($active ? "#fff" : "rgba(8,15,15,0.025)")}; }
-  &:focus-visible { outline: 2px solid #C02121; outline-offset: -2px; }
+  &:focus-visible { outline: 2px solid ${RED}; outline-offset: -2px; }
 
   @media (max-width: 640px) {
     border-right: none;
@@ -274,7 +249,7 @@ const TabBtn = styled.button<{ $active: boolean }>`
 
 const TabNum = styled.span<{ $active: boolean }>`
   font-size: 10px; font-weight: 700; letter-spacing: 0.16em; line-height: 1;
-  color: ${({ $active }) => ($active ? "#C02121" : "rgba(8,15,15,0.28)")};
+  color: ${({ $active }) => ($active ? "${RED}" : "rgba(8,15,15,0.28)")};
   transition: color 0.2s;
 `;
 
@@ -326,8 +301,9 @@ const PanelIconBox = styled.div`
 `;
 
 const PanelTitle = styled.h4`
+  font-family: ${FONT_TITLE};
   position: relative; z-index: 1; margin: 0;
-  font-size: clamp(20px, 2.2vw, 28px); font-weight: 800;
+  font-size: ${TYPE.subTitle.size}; font-weight: 800;
   color: #fff; line-height: 1.18; letter-spacing: -0.02em;
 `;
 
@@ -360,7 +336,7 @@ const BulletList = styled.ul`
 const BulletItem = styled.li`
   display: flex; align-items: baseline; gap: 12px;
   font-size: 14px; font-weight: 500; color: rgba(8,15,15,0.68); line-height: 1.4;
-  .dash { color: #C02121; font-weight: 700; flex-shrink: 0; }
+  .dash { color: ${RED}; font-weight: 700; flex-shrink: 0; }
 `;
 
 const StatsRow = styled.div`
@@ -379,7 +355,7 @@ const Stat = styled.div<{ $idx: number }>`
   .val {
     font-family: ${MONO};
     font-size: clamp(22px, 2.4vw, 30px); font-weight: 700;
-    color: #C02121; letter-spacing: -0.02em; line-height: 1;
+    color: ${RED}; letter-spacing: -0.02em; line-height: 1;
   }
   .lbl { font-size: 13px; color: rgba(8,15,15,0.52); letter-spacing: 0.01em; }
 `;

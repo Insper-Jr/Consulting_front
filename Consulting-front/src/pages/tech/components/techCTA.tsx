@@ -1,12 +1,8 @@
 import styled, { keyframes, css } from "styled-components";
+import { useTranslation, Trans } from "react-i18next";
 import { useInView } from "../../../hooks/useInView";
 
-const RED        = "#C02121";
-const DARK       = "#1a1a18";
-const BG         = "#FAF2EA";
-const FONT_TITLE = `'Montserrat', Helvetica, sans-serif`;
-const FONT_BODY  = `'Inter', Helvetica, sans-serif`;
-const SPRING     = "cubic-bezier(0.16,1,0.3,1)";
+import { RED, DARK, BG_CREAM as BG, FONT_TITLE, FONT_BODY, SPRING } from "../../../styles/tokens";
 
 const fadeUp = keyframes`
   from { opacity: 0; transform: translateY(16px); }
@@ -39,7 +35,7 @@ const Inner = styled.div<{ $visible: boolean }>`
 
 const Eyebrow = styled.span`
   font-family: ${FONT_TITLE};
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -85,20 +81,18 @@ const BtnPrimary = styled.a`
 `;
 
 export default function TechCTA() {
+  const { t } = useTranslation();
   const { ref, visible } = useInView();
 
   return (
     <Section>
       <Inner ref={ref} $visible={!!visible}>
-        <Eyebrow>Próximo passo</Eyebrow>
-        <Title>Pronto para construir sua<br />
-          próxima solução tecnológica?</Title>
+        <Eyebrow>{t("tech.cta.eyebrow")}</Eyebrow>
+        <Title><Trans i18nKey="tech.cta.title" components={{ br: <br /> }} /></Title>
         <Sub>
-          Entre em contato com a Insper Jr. e descubra como podemos unir
-          dados, desenvolvimento web e automação em uma solução sob medida
-          para o seu negócio.
+          {t("tech.cta.subtitle")}
         </Sub>
-        <BtnPrimary href="/contact">Fazer diagnóstico gratuito</BtnPrimary>
+        <BtnPrimary href="/contact">{t("tech.cta.button")}</BtnPrimary>
       </Inner>
     </Section>
   );

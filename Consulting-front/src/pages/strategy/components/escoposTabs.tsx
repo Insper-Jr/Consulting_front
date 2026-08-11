@@ -4,29 +4,16 @@ import img2 from "@/assets/strategy/contract-img2.png";
 import img3 from "@/assets/strategy/tax-img1.png";
 import img4 from "@/assets/strategy/tax-img2.png";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
-const options = [
-  {
-    title: "Contratos",
-    imageBack: img1,
-    imageFront: img2,
-    content: [
-      "Contratos bem elaborados são fundamentais para <strong>estabelecer acordos seguros e evitar riscos legais.</strong>",
-      "Atuamos na criação, revisão e adequação de diversos tipos de contratos, sempre alinhando os documentos aos objetivos do negócio e à legislação vigente.",
-      "<strong>Acordo de Sócios, Contrato de Prestação de Serviços, Termo de Voluntariado, Ata de Assembleia e outros</strong> são alguns exemplos que compõem nossas entregas.",
-      "Quer garantir clareza e proteção nas suas relações jurídicas? <strong>Solicite um diagnóstico gratuito e estruture contratos com segurança e eficiência!</strong>"
-    ]
-  },
-  {
-    title: "Planejamento Tributário",
-    imageBack: img3,
-    imageFront: img4,
-    content: [
-      "A gestão tributária estratégica <strong>permite reduzir custos e evitar riscos legais.</strong>",
-      "Estudamos os regimes fiscais disponíveis e avaliamos a aplicação de imunidades e isenções para construir um plano tributário adequado ao porte e à atividade da sua empresa. <strong>Nossa entrega assegura previsibilidade financeira, regularidade fiscal e sustentabilidade jurídica para o negócio.</strong>",
-      "Quer tomar decisões fiscais mais inteligentes e seguras? <strong>Peça um diagnóstico gratuito e otimize a carga tributária da sua empresa com apoio especializado!</strong>"
-    ]
-  },
+interface OptionText {
+  title: string;
+  content: string[];
+}
+
+const imageData = [
+  { imageBack: img1, imageFront: img2 },
+  { imageBack: img3, imageFront: img4 },
 ];
 
 interface EscoposTabsProps {
@@ -35,6 +22,17 @@ interface EscoposTabsProps {
 }
 
 export const EscoposTabs = ({ selectedTab, setSelectedTab }: EscoposTabsProps) => {
+  const { t } = useTranslation();
+  const optionsText = t("strategy.escoposTabs.options", { returnObjects: true }) as OptionText[];
+  const altBack = t("strategy.escoposTabs.altBack");
+  const altFront = t("strategy.escoposTabs.altFront");
+
+  const options = optionsText.map((opt, index) => ({
+    ...opt,
+    imageBack: imageData[index].imageBack,
+    imageFront: imageData[index].imageFront,
+  }));
+
   const [prevSelected, setPrevSelected] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [direction, setDirection] = useState<"left" | "right">("right");
@@ -74,8 +72,8 @@ export const EscoposTabs = ({ selectedTab, setSelectedTab }: EscoposTabsProps) =
               ))}
             </TextBox>
             <ImagesBox>
-              <ImageBack src={options[prevSelected].imageBack} alt="Imagem de fundo" />
-              <ImageFront src={options[prevSelected].imageFront} alt="Imagem sobreposta" />
+              <ImageBack src={options[prevSelected].imageBack} alt={altBack} />
+              <ImageFront src={options[prevSelected].imageFront} alt={altFront} />
             </ImagesBox>
           </ContentSlider>
         )}
@@ -88,8 +86,8 @@ export const EscoposTabs = ({ selectedTab, setSelectedTab }: EscoposTabsProps) =
             ))}
           </TextBox>
           <ImagesBox>
-            <ImageBack src={options[selectedTab].imageBack} alt="Imagem de fundo" />
-            <ImageFront src={options[selectedTab].imageFront} alt="Imagem sobreposta" />
+            <ImageBack src={options[selectedTab].imageBack} alt={altBack} />
+            <ImageFront src={options[selectedTab].imageFront} alt={altFront} />
           </ImagesBox>
         </ContentSlider>
       </ContentWrapper>
@@ -140,7 +138,7 @@ const TabButton = styled.button<{ active: boolean }>`
   font-family: "Inter", sans-serif;
   font-size: 25px;
   font-weight: 600;
-  color: ${({ active }) => (active ? "#A10F23" : "#1d1d1d")};
+  color: ${({ active }) => (active ? "#C02121" : "#1d1d1d")};
   position: relative;
   cursor: pointer;
   padding-bottom: 0.5rem;
@@ -150,27 +148,27 @@ const TabButton = styled.button<{ active: boolean }>`
     content: "";
     display: block;
     height: 2px;
-    background-color: ${({ active }) => (active ? "#A10F23" : "transparent")};
+    background-color: ${({ active }) => (active ? "#C02121" : "transparent")};
     transition: all 0.3s ease;
     width: 100%;
   }
 
   @media (max-width: 768px) {
-    background-color: ${({ active }) => (active ? "#A10F23" : "#f8f9fa")};
+    background-color: ${({ active }) => (active ? "#C02121" : "#f8f9fa")};
     color: ${({ active }) => (active ? "white" : "#1d1d1d")};
     padding: 1rem;
     margin-bottom: 0.5rem;
     border-radius: 8px;
     font-size: 16px;
     text-align: left;
-    border: 1px solid ${({ active }) => (active ? "#A10F23" : "#e9ecef")};
+    border: 1px solid ${({ active }) => (active ? "#C02121" : "#e9ecef")};
 
     &::after {
       display: none;
     }
 
     &:hover {
-      background-color: ${({ active }) => (active ? "#A10F23" : "#e9ecef")};
+      background-color: ${({ active }) => (active ? "#C02121" : "#e9ecef")};
     }
 
     &:last-child {
@@ -238,7 +236,7 @@ const TextBox = styled.div`
 `;
 
 const Title = styled.h2`
-  color: #A10F23;
+  color: #C02121;
   font-family: "Montserrat", sans-serif;
   font-size: 36px;
   margin-bottom: 1rem;
@@ -317,7 +315,7 @@ const Dots = styled.div`
 const Dot = styled.div<{ active: boolean }>`
   width: 10px;
   height: 10px;
-  background-color: ${({ active }) => (active ? "#A10F23" : "#ccc")};
+  background-color: ${({ active }) => (active ? "#C02121" : "#ccc")};
   border-radius: 50%;
   cursor: pointer;
 

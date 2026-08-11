@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import styled, { keyframes } from "styled-components";
+import { useTranslation } from "react-i18next";
 import { useParticles } from "../../../hooks/useParticleBackground";
 import {
   RED, RED_DIM, BG_DARK, CREAM,
   FONT_TITLE, FONT_BODY, SPRING,
   TYPE, SPACING,
-} from "../../processos/components/tokens";
+} from "../../../styles/tokens";
 
 // ── Animations ────────────────────────────────────────────────────────────
 
@@ -31,12 +32,14 @@ const bounce = keyframes`
 
 // ── Word splits ───────────────────────────────────────────────────────────
 
-const WORDS  = ["Ex-membros"];
 const DELAYS = [0.55];
 
 // ── Component ─────────────────────────────────────────────────────────────
 
 export default function AlumniHero() {
+  const { t } = useTranslation();
+  const WORDS = [t("alumni.hero.titleWord")];
+
   const wrapperRef = useRef<HTMLDivElement>(null);
   const canvasRef  = useRef<HTMLCanvasElement>(null);
   useParticles(wrapperRef, canvasRef);
@@ -95,24 +98,22 @@ export default function AlumniHero() {
 
       {/* Conteúdo centralizado */}
       <Center>
-        <Eyebrow>Ex-membros</Eyebrow>
+        <Eyebrow>{t("alumni.hero.eyebrow")}</Eyebrow>
 
         <Title>
           {WORDS.map((word, i) => (
             <Word key={word} $delay={DELAYS[i]}>{word}</Word>
           ))}
           {" "}
-          <Word $delay={0.78}>da</Word>
+          <Word $delay={0.78}>{t("alumni.hero.titleConnector")}</Word>
           {" "}
-          <Word $delay={1.02}>Insper Jr</Word>
+          <Word $delay={1.02}>{t("alumni.hero.titleBrand")}</Word>
         </Title>
 
         <AccentLine />
 
         <Subtitle>
-          Nossa maior conquista são as trajetórias que ajudamos a construir.
-          Conheça os profissionais que passaram pela Insper Jr e seguiram
-          transformando o mercado.
+          {t("alumni.hero.subtitle")}
         </Subtitle>
       </Center>
 
@@ -164,7 +165,7 @@ const Center = styled.div`
 
 const Inner = styled.div`
   width: 100%;
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 ${SPACING.innerPaddingX};
   display: flex;

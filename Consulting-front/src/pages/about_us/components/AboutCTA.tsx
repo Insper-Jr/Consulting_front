@@ -1,13 +1,8 @@
 import React from "react";
 import styled, { keyframes, css } from "styled-components";
+import { useTranslation } from "react-i18next";
 import { useInView } from "../../../hooks/useInView";
-
-const RED        = "#C02121";
-const DARK       = "#1a1a18";
-const BG         = "#FAF2EA";
-const FONT_TITLE = `'Montserrat', Helvetica, sans-serif`;
-const FONT_BODY  = `'Inter', Helvetica, sans-serif`;
-const SPRING     = "cubic-bezier(0.16,1,0.3,1)";
+import { RED, DARK, BG_CREAM as BG, FONT_TITLE, FONT_BODY, SPRING, TYPE } from "../../../styles/tokens";
 
 const fadeUp = keyframes`
   from { opacity: 0; transform: translateY(16px); }
@@ -50,13 +45,15 @@ const Eyebrow = styled.span`
 
 const Title = styled.h2`
   font-family: ${FONT_TITLE};
-  font-size: clamp(26px, 3.5vw, 38px);
-  font-weight: 700;
+  font-size: ${TYPE.closingTitle.size};
+  font-weight: ${TYPE.closingTitle.weight};
   color: ${DARK};
-  letter-spacing: -0.03em;
-  line-height: 1.1;
+  letter-spacing: ${TYPE.closingTitle.ls};
+  line-height: ${TYPE.closingTitle.lh};
   margin: 0;
   max-width: 620px;
+
+  @media (max-width: 480px) { font-size: 28px; }
 `;
 
 const Sub = styled.p`
@@ -90,17 +87,18 @@ const BtnPrimary = styled.a`
 `;
 
 export default function AboutCTA() {
+  const { t } = useTranslation();
   const { ref, visible } = useInView();
 
   return (
     <Section>
       <Inner ref={ref} $visible={!!visible}>
-        <Eyebrow>Próximo passo</Eyebrow>
-        <Title>Seu negócio tem desafios. Nós temos soluções.</Title>
+        <Eyebrow>{t("about.cta.eyebrow")}</Eyebrow>
+        <Title>{t("about.cta.title")}</Title>
         <Sub>
-          Faça um diagnóstico gratuito com a nossa equipe e descubra como a Insper Jr. pode ajudar a resolver os desafios do seu negócio.
+          {t("about.cta.sub")}
         </Sub>
-        <BtnPrimary href="/contact">Fazer diagnóstico gratuito</BtnPrimary>
+        <BtnPrimary href="/contact">{t("about.cta.button")}</BtnPrimary>
       </Inner>
     </Section>
   )}

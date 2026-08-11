@@ -7,6 +7,7 @@ const en = {
     join:      "Join Us",
     contact:   "Contact",
     cta:       "Get in Touch",
+    tagline:   "High-impact university consulting",
   },
 
   // ── Frentes (Solutions dropdown) ──
@@ -87,7 +88,7 @@ const en = {
   intro: {
     eyebrow:  "Who we are",
     title:    "Insper Jr.",
-    body:     "We are the junior enterprise of Insper, one of the most recognized educational institutions in Brazil. Since 2000, we have connected real companies to high-impact solutions in Business, Engineering & Technology, and Law, combining academic rigor with the practical perspective of those immersed in the market.",
+    body:     "We are the junior enterprise of Insper, one of the most recognized educational institutions in Brazil. Since 2001, we have connected real companies to high-impact solutions in Business, Engineering & Technology, and Law, combining academic rigor with the practical perspective of those immersed in the market.",
     cta:      "Learn more",
     mapLabel: "Clients and projects across Brazil",
     awards:   "Recognition",
@@ -162,15 +163,8 @@ const en = {
 
   // ── SectionContact ──
   sectionContact: {
-    title:             "Get in touch with our team",
-    button:            "Contact",
-    newsletterLabel:   "Newsletter",
-    newsletterHeading: "Stay up to date with our news",
-    newsletterSub:     "Receive insights and updates in your inbox. No spam.",
-    emailPlaceholder:  "your@email.com",
-    submitBtn:         "Subscribe",
-    submitting:        "Sending…",
-    success:           "✓ Thank you! You will receive our updates soon.",
+    title:  "Get in touch with our team",
+    button: "Contact",
   },
 
   // ── SectionMap ──
@@ -218,6 +212,7 @@ const en = {
 
     // ── Scopes and case cards (BusinessCases) ──
     scopes: {
+      badge:       "Business",
       titlePrefix: "Project",
       howLabel:    "How we work",
       deliverLabel: "What we deliver",

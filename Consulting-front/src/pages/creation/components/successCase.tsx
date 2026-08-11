@@ -1,21 +1,23 @@
 import styled from "styled-components";
 import pedireito from "../../../assets/creation/pe-direito.png";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const SuccessCase = () => {
   const [hovered, setHovered] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <Wrapper>
-    <Intro>CASE DE SUCESSO</Intro>
+    <Intro>{t("creation.successCase.label")}</Intro>
     <Container hovered={hovered} onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
-      <Image src={pedireito} alt="Consultoria estratégica" />
+      <Image src={pedireito} alt={t("creation.successCase.imageAlt")} />
       <TextContent>
         <Title>
-        PÉ DIREITO I
+        {t("creation.successCase.title")}
         </Title>
         <Description>
-        O projeto tinha como objetivo reforçar a segurança jurídica e padronizar documentos essenciais para as operações de uma organização do terceiro setor. Foram entregues três instrumentos estratégicos: um Contrato de Parceria claro e objetivo, que facilita a formalização de novos acordos; um Termo de Voluntariado revisado conforme o Marco Legal, trazendo mais segurança às relações institucionais; e um Termo de Uso de Imagem adequado à LGPD, garantindo transparência na comunicação. Uma entrega completa para quem busca crescer com solidez e conformidade.
+        {t("creation.successCase.description")}
         </Description>
       </TextContent>
     </Container>
@@ -46,9 +48,9 @@ const Container = styled.div<{ hovered: boolean }>`
   height: 350px;
   display: flex;
   flex-direction: row;
-  border-top: ${({ hovered }) => (hovered ? "2px solid #A10F23" : "2px solid #929090")};
-  border-bottom: ${({ hovered }) => (hovered ? "2px solid #A10F23" : "2px solid #929090")};
-  border-right: ${({ hovered }) => (hovered ? "2px solid #A10F23" : "0px solid #A10F23")};
+  border-top: ${({ hovered }) => (hovered ? "2px solid #C02121" : "2px solid #929090")};
+  border-bottom: ${({ hovered }) => (hovered ? "2px solid #C02121" : "2px solid #929090")};
+  border-right: ${({ hovered }) => (hovered ? "2px solid #C02121" : "0px solid #C02121")};
   transition: border 0.3s ease, transform 0.3s ease;
 
   &:hover {
@@ -67,7 +69,7 @@ const Container = styled.div<{ hovered: boolean }>`
     gap: 1rem;
   }
   @media (max-width: 500px) {
-      border-right: 0px solid #A10F23;
+      border-right: 0px solid #C02121;
   }
 `;
 
@@ -101,7 +103,7 @@ const Title = styled.h3`
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 1rem;
-  color:#A10F23;
+  color:#C02121;
 
   @media (max-width: 800px) {
     font-size: 20px;

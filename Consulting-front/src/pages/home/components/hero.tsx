@@ -36,7 +36,7 @@ const Hero = () => {
       title: t("hero.business.title"),
       subtitle: t("hero.business.subtitle"),
       ctaLabel: t("hero.business.cta"),
-      ctaTo: "/overview",
+      ctaTo: "/business",
       gradient: "linear-gradient(135deg, #0e0404 0%, #230606 55%, #691212 100%)",
       image: BussinesImg,
       overlayOpacity: 0.4,
@@ -47,7 +47,7 @@ const Hero = () => {
       title: t("hero.law.title"),
       subtitle: t("hero.law.subtitle"),
       ctaLabel: t("hero.law.cta"),
-      ctaTo: "/overview",
+      ctaTo: "/direito",
       gradient: "linear-gradient(135deg, #230606 0%, #691212 55%, #C02121 100%)",
       image: LawImg,
       overlayOpacity: 0.4,
@@ -58,7 +58,7 @@ const Hero = () => {
       title: t("hero.tech.title"),
       subtitle: t("hero.tech.subtitle"),
       ctaLabel: t("hero.tech.cta"),
-      ctaTo: "/overview",
+      ctaTo: "/tech",
       gradient: "linear-gradient(135deg, #0e0404 0%, #0d1520 55%, #152035 100%)",
       image: TechImg,
       overlayOpacity: 0.4,
@@ -116,7 +116,11 @@ const Hero = () => {
 
       <SlideIndicators>
         {SLIDES.map((s, i) => (
-          <SlideIndicator key={s.id} onClick={() => goToSlide(i)}>
+          <SlideIndicator
+            key={s.id}
+            $minWidth={s.id === "processos" ? 210 : s.id === "tech" ? 140 : undefined}
+            onClick={() => goToSlide(i)}
+          >
             <ProgressTrack>
               <ProgressFill
                 key={`${i}-${animKey}`}
@@ -288,7 +292,7 @@ const SlideIndicators = styled.div`
   }
 `;
 
-const SlideIndicator = styled.button`
+const SlideIndicator = styled.button<{ $minWidth?: number }>`
   background: none;
   border: none;
   cursor: pointer;
@@ -297,7 +301,7 @@ const SlideIndicator = styled.button`
   flex-direction: column;
   align-items: center;
   gap: 0.45rem;
-  min-width: 90px;
+  min-width: ${({ $minWidth }) => $minWidth ?? 90}px;
   flex: 1;
 
   @media (max-width: 600px) { min-width: 0; }
@@ -333,8 +337,8 @@ const SlideLabel = styled.span<{ isActive: boolean }>`
   letter-spacing: 0.08em;
   text-transform: uppercase;
   transition: color 0.3s;
-  white-space: nowrap;
   text-align: center;
+  white-space: nowrap;
 
   @media (max-width: 600px) {
     font-size: 10px;

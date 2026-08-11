@@ -1,35 +1,38 @@
-import React, { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
 import styled, { createGlobalStyle, keyframes, css } from "styled-components";
+import { useTranslation } from "react-i18next";
 import Header from "../../components/header";
 import Footer from "../../components/footerNovo";
 import WppButton from "../../components/wppButton";
 import ContactSection from "../../components/sectionContact";
 import DireitoCTA from "./components/direitoCTA";
+import CaseShowcaseCard from "../../components/caseShowcaseCard";
+import Rich from "../../i18n/rich";
 
-import capaPeDireito from "../../assets/direito/pe-direito/slide-03.png";
-import capaSociety   from "../../assets/direito/society/slide-07.png";
+import capaAlicerce from "../../assets/direito/alicerce/slide-01-capa.png";
+import capaCarWash   from "../../assets/direito/car-wash/slide-01-capa.jpg";
 import capaPrint     from "../../assets/direito/print/slide-15.png";
+import LawImg        from "../../assets/hero/law2.png";
+import { useParticles } from "../../hooks/useParticleBackground";
 
 // ── Color tokens (mirror tech) ─────────────────────────────────────────────
+import { RED_TITLE, RED, RED_DARK, RED_DIM, BG_DARK, DARK, BG_CREAM, CREAM, FONT_TITLE, FONT_BODY, SPRING, TYPE } from "../../styles/tokens";
+
 const COLORS = {
-  redTitle: "#A10F23",
-  redCTA:   "#C02121",
-  redDark:  "#691212",
-  black:    "#0e0404",
-  ink:      "#1a1a1a",
+  redTitle: RED_TITLE,
+  redCTA:   RED,
+  redDark:  RED_DARK,
+  black:    BG_DARK,
+  ink:      DARK,
   bg:       "#ffffff",
-  cream:    "#FAF2EA",
-  lightCream: "#faf6f1",
+  cream:    BG_CREAM,
+  lightCream: BG_CREAM,
 };
 
-const FONT_TITLE = `"Montserrat", Helvetica, sans-serif`;
-const FONT_BODY  = `"Inter", Helvetica, sans-serif`;
 const FONT_MONO  = `ui-monospace, "SF Mono", Menlo, monospace`;
 
 // ── Global Style: import fonts ─────────────────────────────────────────────
 const DireitoGlobal = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap');
   html { scroll-behavior: smooth; }
 `;
 
@@ -182,173 +185,35 @@ function useParticleNetwork(
 type Scope = {
   num: string;
   tab: string;
-  title: React.ReactNode;
-  lede: React.ReactNode;
-  side: { eyebrow: string; rows: { key: string; val: React.ReactNode }[]; quote: string };
-  detail: React.ReactNode;
+  title: string;
+  lede: string;
+  detail: string;
+  rows: { key: string; val: string }[];
+  quote: string;
   bullets: string[];
   tags: string[];
 };
 
-const SCOPES: Scope[] = [
-  {
-    num: "01",
-    tab: "Elaboração e/ou Revisão Contratual",
-    title: <>Contratos <i>sob medida</i>.</>,
-    lede: <>Escopo voltado à <strong>elaboração do zero</strong> ou à <strong>revisão estratégica de contratos já existentes</strong>. Na revisão, partimos de um instrumento que o cliente já utiliza e propomos <strong>mudanças e adequações</strong> que enderecem a dor do cliente sem perder de vista a lei aplicável — entregando, ao fim, um material juridicamente consistente e alinhado às necessidades do negócio.</>,
-    side: {
-      eyebrow: "Ficha do escopo",
-      rows: [
-        { key: "Entregáveis", val: <><strong>Contrato finalizado</strong> + memorando explicativo (em revisões) + apresentação executiva</> },
-        { key: "Aplicações", val: <>Contratos personalizados conforme a necessidade do cliente, envolvendo diferentes áreas do Direito</> },
-        { key: "Abordagem", val: <>Elaboração do zero <strong>ou</strong> revisão de material existente do cliente — sempre mirando a dor do negócio + a lei aplicável</> },
-        { key: "Sinergia", val: <>Apoio direto a Business e Engenharia em demandas contratuais</> },
-        { key: "Supervisão", val: <>Banca técnica com professores e escritórios parceiros</> },
-      ],
-      quote: "Cada contrato é desenhado para o cliente — não modelo de prateleira.",
-    },
-    detail: <>Trabalhamos com <strong>elaboração de contratos do zero</strong> e <strong>revisão estratégica</strong> de instrumentos existentes. Em casos de revisão, entregamos um <strong>memorando explicativo</strong> que justifica cada alteração realizada e uma <strong>apresentação executiva</strong> que sintetiza os pontos críticos da revisão para a tomada de decisão. A atuação combina análise técnica das necessidades do cliente, parâmetros legais aplicáveis e revisão por bancas com professores e escritórios parceiros.</>,
-    bullets: [
-      "Contratos personalizados conforme a necessidade do cliente",
-      "Cobertura ampla — diferentes áreas e ramos do Direito",
-      "Elaboração do zero ou revisão estratégica de instrumentos",
-      "Memorando + apresentação executiva (em revisões)",
-    ],
-    tags: ["Direito Civil", "Direito Empresarial", "Contratos"],
-  },
-  {
-    num: "02",
-    tab: "Planejamento Consultivo Societário",
-    title: <>Estrutura <i>societária</i> sob análise.</>,
-    lede: <>Serviço de <strong>análise estratégica da estrutura societária</strong> do cliente, com identificação de riscos, oportunidades de melhoria e alternativas possíveis. Escopo consultivo, <strong>sem envolver emissão de documentos em cartório</strong> — entrega de <strong>parecer fundamentado</strong> e <strong>apresentação executiva</strong> com os caminhos recomendados.</>,
-    side: {
-      eyebrow: "Ficha do escopo",
-      rows: [
-        { key: "Entregáveis", val: <><strong>Parecer consultivo</strong> + apresentação executiva com caminhos e recomendações</> },
-        { key: "Natureza", val: <>Consultivo — <strong>não envolve emissão de documentos em cartório</strong>; apresenta alternativas sem induzir decisões</> },
-        { key: "Aplicações", val: <>Análise societária, identificação de riscos, modelos jurídicos comparados</> },
-        { key: "Limites", val: <>Sem execução direta de procedimentos cartorários ou registrais</> },
-        { key: "Supervisão", val: <>Banca com professores especialistas em societário</> },
-      ],
-      quote: "Recomendações fundamentadas — a decisão final é do cliente.",
-    },
-    detail: <>Dois cenários: análise da <strong>estrutura societária atual</strong> do cliente ou avaliação de <strong>uma ideia ainda no papel</strong> — neste segundo, na maioria das vezes a análise vem <strong>embarcada em outro escopo</strong> (uma viabilidade societária dentro de uma análise mercadológica, por exemplo). Em ambos, identificamos riscos e apresentamos <strong>alternativas viáveis</strong>, sem induzir a decisão do cliente.</>,
-    bullets: [
-      "Análise da estrutura societária atual",
-      "Identificação de riscos e gargalos jurídicos",
-      "Comparativo entre modelos societários",
-      "Parecer fundamentado + apresentação executiva",
-    ],
-    tags: ["Direito Societário", "Parecer", "LTDA", "S.A."],
-  },
-  {
-    num: "03",
-    tab: "Planejamento Consultivo de Propriedade Industrial",
-    title: <><i>Pesquisa estratégica</i> de marcas, patentes e desenhos industriais.</>,
-    lede: <>Análise técnica e estratégica relacionada a <strong>registros de marca, patente ou desenho industrial</strong>, com foco na avaliação de viabilidade, alternativas e melhores caminhos perante o <strong>INPI</strong>.</>,
-    side: {
-      eyebrow: "Ficha do escopo",
-      rows: [
-        { key: "Entregável", val: <><strong>Parecer consultivo</strong> sobre viabilidade e caminhos no INPI</> },
-        { key: "Objetos", val: <>Marca, patente, desenho industrial</> },
-        { key: "Aplicações", val: <>Análise de <strong>viabilidade, estratégia e custos</strong> das alternativas perante o INPI</> },
-        { key: "Supervisão", val: <>Banca técnica com professores especialistas em propriedade industrial</> },
-        { key: "Limites", val: <>Não inclui execução direta de procedimentos no INPI</> },
-      ],
-      quote: "Análise técnica antes do registro — caminho certo, menos retrabalho.",
-    },
-    detail: <>O escopo orienta o cliente sobre <strong>viabilidade de registro</strong>, <strong>requisitos legais</strong> e <strong>implicações estratégicas</strong> perante o INPI. Além de <strong>mapear os caminhos possíveis</strong> (registro, oposição, manutenção, alternativas defensivas), fazemos <strong>análise de viabilidade, estratégia e custos</strong> de cada alternativa — entregando um parecer que orienta a decisão. Conta com supervisão técnica de bancas com professores especialistas em propriedade industrial.</>,
-    bullets: [
-      "Análise de viabilidade de registro de marca",
-      "Estudo de patenteabilidade",
-      "Avaliação de desenho industrial",
-      "Parecer estratégico sobre caminhos no INPI",
-    ],
-    tags: ["INPI", "Marca", "Patente", "Desenho Industrial", "Propriedade Intelectual"],
-  },
-  {
-    num: "04",
-    tab: "Planejamento e Análise Tributária",
-    title: <>Tributos com <i>simulação</i> e parecer.</>,
-    lede: <>Estudo da <strong>situação tributária atual</strong> do cliente, com foco na <strong>comparação de regimes</strong>, impactos financeiros e possibilidades de adequação dentro da legislação vigente.</>,
-    side: {
-      eyebrow: "Ficha do escopo",
-      rows: [
-        { key: "Entregáveis", val: <><strong>Simulações</strong> em planilha + memorando jurídico + apresentação executiva</> },
-        { key: "Foco", val: <>Comparativo de regimes tributários e impactos financeiros</> },
-        { key: "Aplicações", val: <>Adequação tributária dentro da legislação e reestruturações</> },
-        { key: "Cenário legal", val: <>Análise sob a legislação vigente + impactos da <strong>reforma tributária</strong> em curso</> },
-        { key: "Supervisão", val: <>Banca técnica com professores especialistas em tributário</> },
-      ],
-      quote: "Decisões mais eficientes e juridicamente seguras.",
-    },
-    detail: <>O escopo combina <strong>simulações em planilha</strong>, <strong>memorando jurídico</strong> e, quando pertinente, <strong>apresentação executiva</strong>. Analisamos a situação tributária atual, comparamos cenários alternativos dentro da legislação vigente e apoiamos o cliente em decisões que envolvam adequação fiscal, escolha de regime ou reestruturação — sempre considerando os <strong>impactos da reforma tributária em curso</strong>.</>,
-    bullets: [
-      "Comparativo entre regimes tributários (Simples, Presumido, Real)",
-      "Simulações de impacto financeiro",
-      "Memorando jurídico fundamentado",
-      "Apresentação executiva para decisão",
-    ],
-    tags: ["Direito Tributário", "Simples Nacional", "Lucro Presumido", "Lucro Real", "Planejamento Fiscal"],
-  },
-];
-
 // ── Page ────────────────────────────────────────────────────────────────────
 function Direito() {
-  const heroIntroRef = useRef<HTMLDivElement>(null);
-  const sharedCanvasRef = useRef<HTMLCanvasElement>(null);
-  const heroGlowRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
 
-  const heroRef = useRef<HTMLElement>(null);
+  const scopeItems = t("direito.scopes.items", { returnObjects: true }) as Omit<Scope, "num">[];
+  const SCOPES: Scope[] = scopeItems.map((s, i) => ({ ...s, num: String(i + 1).padStart(2, "0") }));
+
+  const heroWrapperRef = useRef<HTMLDivElement>(null);
   const heroCanvasRef = useRef<HTMLCanvasElement>(null);
+  useParticles(heroWrapperRef, heroCanvasRef);
+
+  const [heroVisible, setHeroVisible] = useState(false);
+  useEffect(() => {
+    const timer = setTimeout(() => setHeroVisible(true), 80);
+    return () => clearTimeout(timer);
+  }, []);
 
   const integrationRef = useRef<HTMLElement>(null);
   const synergyCanvasRef = useRef<HTMLCanvasElement>(null);
   const integrationGlowRef = useRef<HTMLDivElement>(null);
-
-  useParticleNetwork(sharedCanvasRef, heroIntroRef, {
-    count: 75,
-    maxDist: 120,
-    dotColor: "rgba(230,90,90,0.63)",
-    lineColor: (c: number) => `rgba(230,90,90,${0.252 * c})`,
-    deadZone: (W, H) => ({ x: W * 0.22, y: H * 0.18, w: W * 0.56, h: H * 0.64 }),
-  });
-
-  useEffect(() => {
-    const wrap = heroIntroRef.current;
-    const glow = heroGlowRef.current;
-    if (!wrap || !glow) return;
-    let raf = 0;
-    const onEnter = () => { glow.style.opacity = "1"; };
-    const onLeave = () => { glow.style.opacity = "0"; };
-    const onMove = (e: MouseEvent) => {
-      const rect = wrap.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      if (raf) cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        glow.style.left = `${x}px`;
-        glow.style.top = `${y}px`;
-      });
-    };
-    wrap.addEventListener("mouseenter", onEnter);
-    wrap.addEventListener("mouseleave", onLeave);
-    wrap.addEventListener("mousemove", onMove);
-    return () => {
-      wrap.removeEventListener("mouseenter", onEnter);
-      wrap.removeEventListener("mouseleave", onLeave);
-      wrap.removeEventListener("mousemove", onMove);
-      cancelAnimationFrame(raf);
-    };
-  }, []);
-
-  useParticleNetwork(heroCanvasRef, heroRef, {
-    count: 75,
-    maxDist: 120,
-    dotColor: "rgba(230,90,90,0.63)",
-    lineColor: (c: number) => `rgba(230,90,90,${0.252 * c})`,
-    deadZone: (W, H) => ({ x: W * 0.22, y: H * 0.18, w: W * 0.56, h: H * 0.64 }),
-  });
 
   useParticleNetwork(synergyCanvasRef, integrationRef, {
     count: 60,
@@ -408,14 +273,14 @@ function Direito() {
     return () => io.disconnect();
   }, []);
 
-  const heroWords: { text: string; accent?: boolean; delay: string }[] = [
-    { text: "Direito", delay: "0.55s" },
-    { text: "que",     delay: "0.7s" },
-    { text: "traduz",  accent: true, delay: "0.85s" },
-    { text: "negócio", accent: true, delay: "1.0s" },
-    { text: "em",      delay: "1.15s" },
-    { text: "segurança", accent: true, delay: "1.3s" },
-    { text: "jurídica.", accent: true, delay: "1.45s" },
+  const heroWords: { text: string; accent?: boolean; delay: number }[] = [
+    { text: t("direito.hero.words.word1"), delay: 0.55 },
+    { text: t("direito.hero.words.word2"), delay: 0.7 },
+    { text: t("direito.hero.words.word3"), accent: true, delay: 0.85 },
+    { text: t("direito.hero.words.word4"), accent: true, delay: 1.0 },
+    { text: t("direito.hero.words.word5"), delay: 1.15 },
+    { text: t("direito.hero.words.word6"), accent: true, delay: 1.3 },
+    { text: t("direito.hero.words.word7"), accent: true, delay: 1.45 },
   ];
 
   return (
@@ -424,47 +289,65 @@ function Direito() {
       <WppButton />
       <Header />
 
-      {/* Hero + Intro shared canvas */}
-      <HeroIntroWrap ref={heroIntroRef}>
-        <SharedCanvas ref={sharedCanvasRef} />
-        <HeroGlow ref={heroGlowRef} />
+      {/* Hero */}
+      <HeroOuter ref={heroWrapperRef}>
+        <PhotoBg />
+        <GradientOverlay />
+        <HeroVignette />
+        <Blueprint />
 
-        {/* Hero */}
-        <Hero ref={heroRef}>
-          <HeroCanvas ref={heroCanvasRef} />
-          <HeroVignette />
-          <HeroCenter>
-            <HeroEyebrow>Frente de Direito</HeroEyebrow>
-            <HeroTitle>
-              {heroWords.map((w, i) => (
-                <Word key={i} $accent={!!w.accent} style={{ animationDelay: w.delay }}>
-                  {w.text}
-                </Word>
-              ))}
-            </HeroTitle>
-            <HeroLine />
-            <HeroSub>
-              Atuação consultiva e contratual conduzida por alunos de Direito do Insper, com supervisão técnica de professores e escritórios parceiros — entregando pareceres fundamentados, contratos sob medida e análises estratégicas para empresas e organizações.
-            </HeroSub>
-          </HeroCenter>
-          <HeroScroll>
-            <HeroScrollDot />
-            <HeroScrollLine />
-          </HeroScroll>
-        </Hero>
+        <canvas ref={heroCanvasRef} style={{
+          position: "absolute", inset: 0, width: "100%", height: "100%",
+          pointerEvents: "none", zIndex: 3,
+        }} />
 
-      </HeroIntroWrap>
+        <HeroGrid>
+          <HeroInner>
+            <HeroLeft>
+              <HeroEyebrow $v={heroVisible}>{t("direito.hero.eyebrow")}</HeroEyebrow>
+
+              <HeroTitle>
+                {heroWords.map((w, i) => (
+                  <Word key={i} $d={w.delay} $v={heroVisible} $accent={!!w.accent}>
+                    {w.text}
+                  </Word>
+                ))}
+              </HeroTitle>
+
+              <HeroLine $v={heroVisible} />
+
+              <HeroSub $v={heroVisible}>
+                {t("direito.hero.sub")}
+              </HeroSub>
+            </HeroLeft>
+          </HeroInner>
+        </HeroGrid>
+
+        <HeroScroll>
+          <HeroScrollDot />
+          <HeroScrollLine />
+        </HeroScroll>
+
+        {/* Wave para a seção seguinte */}
+        <div style={{ position: "absolute", left: 0, right: 0, bottom: -1, lineHeight: 0, zIndex: 5 }}>
+          <svg viewBox="0 0 1440 72" preserveAspectRatio="none"
+            xmlns="http://www.w3.org/2000/svg" style={{ display: "block", width: "100%" }}>
+            <path d="M0,72 L0,36 C240,72 480,0 720,36 C960,72 1200,0 1440,36 L1440,72 Z"
+              fill="#fff" />
+          </svg>
+        </div>
+      </HeroOuter>
 
       {/* Red animated bar above Nossos Escopos */}
       <RedBarWrap><RedBar /></RedBarWrap>
 
       {/* Section opening: Nossos Escopos */}
       <ScopesOpening>
-        <OpeningEyebrow>Frentes de atuação</OpeningEyebrow>
-        <OpeningTitle>Nossos Escopos</OpeningTitle>
+        <OpeningEyebrow>{t("direito.scopesOpening.eyebrow")}</OpeningEyebrow>
+        <OpeningTitle>{t("direito.scopesOpening.title")}</OpeningTitle>
         <OpeningDivider />
         <OpeningSubtitle>
-          Quatro escopos jurídicos delimitados — consultivos e contratuais — que se combinam à atuação das frentes de Business e Engenharia dentro da Insper Jr.
+          {t("direito.scopesOpening.subtitle")}
         </OpeningSubtitle>
 
         <OpeningIndex>
@@ -481,10 +364,10 @@ function Direito() {
                 }
               }}
             >
-              <IndexBadge>ESCOPO {s.num}</IndexBadge>
+              <IndexBadge>{t("direito.scopes.badgeLabel")} {s.num}</IndexBadge>
               <IndexTitle>{s.tab}</IndexTitle>
               <IndexCTA>
-                <span>Explorar</span>
+                <span>{t("direito.scopesOpening.explore")}</span>
                 <IndexArrow aria-hidden="true">→</IndexArrow>
               </IndexCTA>
             </IndexCard>
@@ -498,30 +381,29 @@ function Direito() {
             <ScopePanel role="tabpanel">
               <ScopeHeader>
                 <ScopeCounter>
-                  <CounterNum>ESCOPO {s.num}</CounterNum>
+                  <CounterNum>{t("direito.scopes.badgeLabel")} {s.num}</CounterNum>
                   <ScopeName>{s.tab}</ScopeName>
                 </ScopeCounter>
                 <PanelTags>
-                  <TagsLabel>Temas</TagsLabel>
-                  {s.tags.map(t => <Tag key={t}>{t}</Tag>)}
+                  {s.tags.map(tag => <Tag key={tag}>{tag}</Tag>)}
                 </PanelTags>
               </ScopeHeader>
 
               <ScopeGrid>
                 <ScopeMain>
                   <ScopeIntro>
-                    <ScopeTitleH3>{s.title}</ScopeTitleH3>
+                    <ScopeTitleH3 dangerouslySetInnerHTML={{ __html: s.title }} />
                     <Accent />
-                    <ScopeLede>{s.lede}</ScopeLede>
+                    <ScopeLede dangerouslySetInnerHTML={{ __html: s.lede }} />
                   </ScopeIntro>
 
                   <PanelBody>
                     <PanelCol>
-                      <ColLabel>Como atuamos</ColLabel>
-                      <ScopeDetail>{s.detail}</ScopeDetail>
+                      <ColLabel>{t("direito.scopes.howWeWork")}</ColLabel>
+                      <ScopeDetail dangerouslySetInnerHTML={{ __html: s.detail }} />
                     </PanelCol>
                     <PanelCol>
-                      <ColLabel>Principais aplicações</ColLabel>
+                      <ColLabel>{t("direito.scopes.mainApplications")}</ColLabel>
                       <Bullets>
                         {s.bullets.map((b, j) => <li key={j}>{b}</li>)}
                       </Bullets>
@@ -531,16 +413,16 @@ function Direito() {
 
                 <PanelSide>
                   <SideCorner />
-                  <SideEyebrow>{s.side.eyebrow}</SideEyebrow>
+                  <SideEyebrow>{t("direito.scopes.fichaLabel")}</SideEyebrow>
                   <SideRows>
-                    {s.side.rows.map((r, j) => (
+                    {s.rows.map((r, j) => (
                       <SideRow key={j}>
                         <SideKey>{r.key}</SideKey>
-                        <SideVal>{r.val}</SideVal>
+                        <SideVal dangerouslySetInnerHTML={{ __html: r.val }} />
                       </SideRow>
                     ))}
                   </SideRows>
-                  <SideQuote>{s.side.quote}</SideQuote>
+                  <SideQuote>{s.quote}</SideQuote>
                 </PanelSide>
               </ScopeGrid>
             </ScopePanel>
@@ -554,29 +436,47 @@ function Direito() {
       {/* Cases de Destaque — overview com links para páginas dedicadas */}
       <HighlightCases>
         <SectionHeader>
-          <OpeningEyebrow>Projetos em destaque</OpeningEyebrow>
-          <SectionTitle>Cases de Destaque</SectionTitle>
+          <OpeningEyebrow>{t("direito.cases.eyebrow")}</OpeningEyebrow>
+          <SectionTitle>{t("direito.cases.title")}</SectionTitle>
           <OpeningDivider />
         </SectionHeader>
         <SectionSubtitle>
-          Três projetos que exemplificam a forma como a frente de Direito atua — do primeiro contrato firmado à assessoria continuada e à atuação multi-escopo.
+          {t("direito.cases.subtitle")}
         </SectionSubtitle>
         <HighlightGrid>
-          <HighlightCard to="/direito/pe-direito" aria-label="Ver case Pé Direito I">
-            <HighlightCardTitle>Pé Direito I</HighlightCardTitle>
-            <HighlightCardImage src={capaPeDireito} alt="Capa do case Pé Direito I" loading="lazy" />
-            <HighlightCardSubtitle>Escopo · Contratos</HighlightCardSubtitle>
-          </HighlightCard>
-          <HighlightCard to="/direito/society" aria-label="Ver case Society I">
-            <HighlightCardTitle>Society I</HighlightCardTitle>
-            <HighlightCardImage src={capaSociety} alt="Capa do case Society I" loading="lazy" />
-            <HighlightCardSubtitle>Escopo · Societário</HighlightCardSubtitle>
-          </HighlightCard>
-          <HighlightCard to="/direito/print" aria-label="Ver case Print I">
-            <HighlightCardTitle>Print I</HighlightCardTitle>
-            <HighlightCardImage src={capaPrint} alt="Capa do case Print I" loading="lazy" />
-            <HighlightCardSubtitle>Escopo · Contratos · Tributário · PI</HighlightCardSubtitle>
-          </HighlightCard>
+          <CaseShowcaseCard
+            to="/direito/alicerce"
+            ariaLabel={t("direito.cases.alicerce.ariaLabel")}
+            coverSrc={capaAlicerce}
+            coverAlt={t("direito.cases.alicerce.title")}
+            badge={t("direito.cases.badge")}
+            tag={t("direito.cases.alicerce.subtitle")}
+            title={t("direito.cases.alicerce.title")}
+            desc={<Rich k="direito.caseStudies.alicerce.sub" />}
+            ctaLabel={t("direito.cases.viewCta")}
+          />
+          <CaseShowcaseCard
+            to="/direito/car-wash"
+            ariaLabel={t("direito.cases.carWash.ariaLabel")}
+            coverSrc={capaCarWash}
+            coverAlt={t("direito.cases.carWash.title")}
+            badge={t("direito.cases.badge")}
+            tag={t("direito.cases.carWash.subtitle")}
+            title={t("direito.cases.carWash.title")}
+            desc={<Rich k="direito.caseStudies.carWash.sub" />}
+            ctaLabel={t("direito.cases.viewCta")}
+          />
+          <CaseShowcaseCard
+            to="/direito/print"
+            ariaLabel={t("direito.cases.print.ariaLabel")}
+            coverSrc={capaPrint}
+            coverAlt={t("direito.cases.print.title")}
+            badge={t("direito.cases.badge")}
+            tag={t("direito.cases.print.subtitle")}
+            title={t("direito.cases.print.title")}
+            desc={<Rich k="direito.caseStudies.print.sub" />}
+            ctaLabel={t("direito.cases.viewCta")}
+          />
         </HighlightGrid>
       </HighlightCases>
 
@@ -585,12 +485,10 @@ function Direito() {
         <SynergyCanvas ref={synergyCanvasRef} />
         <CursorGlow ref={integrationGlowRef} />
         <IntegrationInner>
-          <Kicker>Direito no contexto da Insper Jr.</Kicker>
-          <IntegrationTitle>
-            Atuação jurídica <span>integrada às demais frentes</span> da empresa
-          </IntegrationTitle>
+          <Kicker>{t("direito.integration.kicker")}</Kicker>
+          <IntegrationTitle dangerouslySetInnerHTML={{ __html: t("direito.integration.title") }} />
           <IntegrationLede>
-            A frente de Direito não opera isolada: trabalha em conjunto com Business e Engenharia, vende seus serviços pelo mesmo núcleo comercial e atua transversalmente em demandas institucionais — sempre com supervisão de professores e bancas técnicas especializadas em cada um dos escopos.
+            {t("direito.integration.lede")}
           </IntegrationLede>
         </IntegrationInner>
       </Integration>
@@ -601,44 +499,27 @@ function Direito() {
       {/* Sobre a frente */}
       <Intro id="sobre-frente">
         <SectionHeader>
-          <OpeningEyebrow>Quem somos</OpeningEyebrow>
-          <SectionTitle>Sobre a frente</SectionTitle>
+          <OpeningEyebrow>{t("direito.about.eyebrow")}</OpeningEyebrow>
+          <SectionTitle>{t("direito.about.title")}</SectionTitle>
           <OpeningDivider />
         </SectionHeader>
 
-        <FrenteLede>
-          A frente de Direito da Insper Jr. nasceu da <strong>46ª gestão</strong>, com o objetivo de ampliar o papel da empresa como centro de desenvolvimento para todos os alunos do Insper. Estruturada ao longo de um ciclo de diagnóstico, mapeamento e estruturação, hoje atua de forma integrada com Business e Engenharia, oferecendo serviços jurídicos delimitados, supervisionados por professores e escritórios parceiros.
-        </FrenteLede>
+        <FrenteLede dangerouslySetInnerHTML={{ __html: t("direito.about.lede") }} />
 
         <PillarsGrid>
-          <Pillar>
-            <PillarNum>01 — Estruturada</PillarNum>
-            <PillarTitle>Escopos delimitados</PillarTitle>
-            <PillarText>
-              Quatro escopos consultivos e contratuais — <strong>Contratos, Societário, Propriedade Industrial e Tributário</strong> — desenhados para respeitar os limites regulatórios da OAB e maximizar o valor entregue.
-            </PillarText>
-          </Pillar>
-          <Pillar>
-            <PillarNum>02 — Supervisionada</PillarNum>
-            <PillarTitle>Professores e escritórios parceiros</PillarTitle>
-            <PillarText>
-              Atuação validada por <strong>bancas técnicas</strong> com professores especialistas em cada um dos escopos jurídicos.
-            </PillarText>
-          </Pillar>
-          <Pillar>
-            <PillarNum>03 — Integrada</PillarNum>
-            <PillarTitle>Conversa com Business e Engenharia</PillarTitle>
-            <PillarText>
-              A venda dos serviços jurídicos é <strong>integrada ao núcleo comercial</strong> da Insper Jr., permitindo combinar Direito com projetos de outras frentes em um mesmo ecossistema de soluções.
-            </PillarText>
-          </Pillar>
+          {(t("direito.about.pillars", { returnObjects: true }) as { num: string; title: string; text: string }[]).map((p, i) => (
+            <Pillar key={i}>
+              <PillarNum>{p.num}</PillarNum>
+              <PillarTitle>{p.title}</PillarTitle>
+              <PillarText dangerouslySetInnerHTML={{ __html: p.text }} />
+            </Pillar>
+          ))}
         </PillarsGrid>
 
         <StatsBar>
-          <Stat><StatValue>4</StatValue><StatLabel>Escopos jurídicos</StatLabel></Stat>
-          <Stat><StatValue>2+</StatValue><StatLabel>Escritórios parceiros</StatLabel></Stat>
-          <Stat><StatValue>49ª</StatValue><StatLabel>Gestão atual</StatLabel></Stat>
-          <Stat><StatValue>24+</StatValue><StatLabel>Anos de Insper Jr.</StatLabel></Stat>
+          {(t("direito.about.stats", { returnObjects: true }) as { value: string; label: string }[]).map((s, i) => (
+            <Stat key={i}><StatValue>{s.value}</StatValue><StatLabel>{s.label}</StatLabel></Stat>
+          ))}
         </StatsBar>
       </Intro>
 
@@ -648,32 +529,22 @@ function Direito() {
       {/* Diferenciais */}
       <Diferenciais>
         <SectionHeader>
-          <OpeningEyebrow>O que nos diferencia</OpeningEyebrow>
-          <SectionTitle>Diferenciais</SectionTitle>
+          <OpeningEyebrow>{t("direito.differentiators.eyebrow")}</OpeningEyebrow>
+          <SectionTitle>{t("direito.differentiators.title")}</SectionTitle>
           <OpeningDivider />
         </SectionHeader>
         <SectionSubtitle>
-          O que faz a frente de Direito da Insper Jr. se destacar no ecossistema de empresas juniores jurídicas.
+          {t("direito.differentiators.subtitle")}
         </SectionSubtitle>
         <DifGrid ref={difCardsRef}>
-          <DifCard data-dif-card>
-            <DifAccent />
-            <DifNum>01</DifNum>
-            <DifTitle>Escopos pensados para o cliente</DifTitle>
-            <DifText>Diferente de outras EJs jurídicas, organizamos os escopos a partir do objetivo do cliente — não da categoria jurídica. Cada serviço entrega clareza sobre o que será produzido e o porquê.</DifText>
-          </DifCard>
-          <DifCard data-dif-card>
-            <DifAccent />
-            <DifNum>02</DifNum>
-            <DifTitle>Supervisão técnica robusta</DifTitle>
-            <DifText>Trilhas de conhecimento estruturadas e bancas técnicas com professores especialistas garantem qualidade jurídica em cada entregável.</DifText>
-          </DifCard>
-          <DifCard data-dif-card>
-            <DifAccent />
-            <DifNum>03</DifNum>
-            <DifTitle>Integração com Business e Engenharia</DifTitle>
-            <DifText>O Direito conversa diretamente com as outras frentes da Insper Jr., permitindo entregas combinadas — de um contrato vinculado a um projeto de software a uma análise tributária dentro de uma reestruturação.</DifText>
-          </DifCard>
+          {(t("direito.differentiators.cards", { returnObjects: true }) as { num: string; title: string; text: string }[]).map((c, i) => (
+            <DifCard data-dif-card key={i}>
+              <DifAccent />
+              <DifNum>{c.num}</DifNum>
+              <DifTitle>{c.title}</DifTitle>
+              <DifText>{c.text}</DifText>
+            </DifCard>
+          ))}
         </DifGrid>
       </Diferenciais>
 
@@ -721,168 +592,139 @@ const PageWrap = styled.div`
   overflow-x: hidden;
 `;
 
-const HeroIntroWrap = styled.div`
+const HeroOuter = styled.div`
   position: relative;
+  width: 100%;
+  height: 100vh;
   overflow: hidden;
-  background: #ffffff;
-`;
-
-const SharedCanvas = styled.canvas`
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-`;
-
-const HeroGlow = styled.div`
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(192,33,33,0.18) 0%, transparent 65%);
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.35s ease;
-  mix-blend-mode: screen;
-  z-index: 1;
-  will-change: left, top, opacity;
-`;
-
-const Hero = styled.section`
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  background: ${COLORS.black};
   display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+  align-items: stretch;
+  isolation: isolate;
 `;
 
-const HeroCanvas = styled.canvas`
+/* Foto de fundo */
+const PhotoBg = styled.div`
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
   z-index: 0;
+  background: url(${LawImg}) center center / cover no-repeat;
+`;
+
+/* Gradiente esquerda → direita para legibilidade do texto */
+const GradientOverlay = styled.div`
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to right,
+    rgba(14, 4, 4, 0.97) 0%,
+    rgba(14, 4, 4, 0.85) 35%,
+    rgba(14, 4, 4, 0.45) 65%,
+    rgba(14, 4, 4, 0.15) 100%
+  );
 `;
 
 const HeroVignette = styled.div`
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at center, transparent 40%, rgba(14,4,4,0.85) 100%);
-  pointer-events: none;
-  z-index: 1;
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(14,4,4,0.35) 0%,
+    transparent 20%,
+    transparent 75%,
+    rgba(14,4,4,0.75) 100%
+  );
 `;
 
-const HeroCenter = styled.div`
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
+const Blueprint = styled.div`
+  position: absolute; inset: 0; z-index: 2; pointer-events: none; opacity: .25;
+  background-image:
+    linear-gradient(rgba(192,33,33,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(192,33,33,.06) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 25%, transparent 75%);
+          mask-image: radial-gradient(ellipse at center, #000 25%, transparent 75%);
+`;
+
+const HeroGrid = styled.div`
+  position: relative; z-index: 4; width: 100%;
+  display: flex; align-items: center;
+`;
+
+const HeroInner = styled.div`
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 56px;
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: 48px;
   align-items: center;
-  gap: 32px;
-  padding: 0 24px;
-  text-align: center;
-  max-width: 760px;
+
+  @media (max-width: 960px) { grid-template-columns: 1fr; padding: 0 28px; gap: 0; }
+  @media (max-width: 480px) { padding: 0 20px; }
 `;
 
-const HeroEyebrow = styled.span`
-  font-family: ${FONT_TITLE};
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: ${COLORS.redCTA};
-  opacity: 0;
-  animation: ${heroFadeIn} 0.6s cubic-bezier(0.16,1,0.3,1) 0.2s forwards;
+const HeroLeft = styled.div`
+  padding: 88px 0 48px 0;
+  max-width: 620px;
+  display: flex; flex-direction: column; justify-content: center;
+  @media (max-width: 960px) { padding: 100px 0 48px; }
+`;
+
+const HeroEyebrow = styled.span<{ $v: boolean }>`
+  font-family: ${FONT_TITLE}; font-size: 11px; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase; color: ${COLORS.redCTA};
+  margin-bottom: 28px; opacity: 0;
+  animation: ${p => p.$v ? heroFadeIn : "none"} .6s .15s cubic-bezier(0.16,1,0.3,1) forwards;
 `;
 
 const HeroTitle = styled.h1`
-  font-family: ${FONT_TITLE};
-  font-size: 56px;
-  font-weight: 700;
-  color: ${COLORS.cream};
-  letter-spacing: -0.03em;
-  line-height: 1.1;
-  margin: 0;
-
-  @media (max-width: 1300px) { font-size: 44px; }
-  @media (max-width: 600px) { font-size: 30px; }
+  font-family: ${FONT_TITLE}; font-size: 48px; font-weight: 700;
+  line-height: 1.05; letter-spacing: -0.03em; color: ${CREAM}; margin: 0 0 28px;
+  @media (max-width: 960px) { font-size: 42px; }
+  @media (max-width: 480px) { font-size: 32px; margin: 0 0 20px; }
 `;
 
-const Word = styled.span<{ $accent?: boolean }>`
-  display: inline-block;
-  margin-right: 0.22em;
-  opacity: 0;
-  transform: translateY(28px);
-  filter: blur(6px);
-  animation: ${heroWordIn} 0.85s cubic-bezier(0.16,1,0.3,1) forwards;
-  ${p => p.$accent && css`color: ${COLORS.redCTA};`}
+const Word = styled.span<{ $d: number; $v: boolean; $accent?: boolean }>`
+  display: inline-block; margin-right: .22em; opacity: 0;
+  animation: ${p => p.$v ? heroWordIn : "none"} .85s ${p => p.$d}s cubic-bezier(0.16,1,0.3,1) forwards;
+  ${p => p.$accent && css`color: ${COLORS.redCTA}; font-style: italic; font-weight: 400;`}
   &:last-child { margin-right: 0; }
 `;
 
-const HeroLine = styled.div`
-  width: 64px;
-  height: 3px;
-  background: ${COLORS.redCTA};
-  transform-origin: left center;
-  transform: scaleX(0);
-  animation: ${heroLineGrow} 0.7s cubic-bezier(0.16,1,0.3,1) 1.4s forwards;
+const HeroLine = styled.div<{ $v: boolean }>`
+  width: 48px; height: 3px; background: ${COLORS.redCTA};
+  transform-origin: left; margin-bottom: 28px; transform: scaleX(0);
+  animation: ${p => p.$v ? heroLineGrow : "none"} .7s 1.4s cubic-bezier(0.16,1,0.3,1) forwards;
 `;
 
-const HeroSub = styled.p`
-  font-family: ${FONT_BODY};
-  font-size: 16px;
-  font-weight: 400;
-  color: ${COLORS.cream};
-  line-height: 1.5;
-  max-width: 560px;
-  margin: 0;
-  opacity: 0;
-  animation: ${heroFadeIn} 0.75s cubic-bezier(0.16,1,0.3,1) 1.55s forwards;
-
-  @media (max-width: 600px) { font-size: 14px; }
+const HeroSub = styled.p<{ $v: boolean }>`
+  font-family: ${FONT_BODY}; font-size: 16px; line-height: 1.65;
+  color: rgba(250,242,234,.6); max-width: 480px; margin: 0 0 40px; opacity: 0;
+  animation: ${p => p.$v ? heroFadeIn : "none"} .75s 1.55s cubic-bezier(0.16,1,0.3,1) forwards;
 `;
 
 const HeroScroll = styled.div`
-  position: absolute;
-  bottom: 36px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  opacity: 0;
-  animation: ${heroFadeIn} 0.6s cubic-bezier(0.16,1,0.3,1) 2.1s forwards;
+  position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+  z-index: 4; display: flex; flex-direction: column; align-items: center; gap: 8px;
+  opacity: 0; animation: ${heroFadeIn} 0.6s cubic-bezier(0.16,1,0.3,1) 2.1s forwards;
 `;
 
 const HeroScrollDot = styled.div`
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: ${COLORS.redCTA};
+  width: 5px; height: 5px; border-radius: 50%; background: ${COLORS.redCTA};
   animation: ${heroScrollBounce} 1.8s ease-in-out 2.5s infinite;
 `;
 
 const HeroScrollLine = styled.div`
-  width: 1px;
-  height: 40px;
-  background: linear-gradient(to bottom, rgba(105,18,18,0.45), transparent);
+  width: 1px; height: 40px;
+  background: linear-gradient(to bottom, ${RED_DIM}, transparent);
 `;
 
 const Intro = styled.section`
   padding: 0 2rem 4rem;
   width: 80%;
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
   position: relative;
 
@@ -907,7 +749,7 @@ const SectionTitle = styled.h2`
   font-family: ${FONT_TITLE};
   font-size: 32px;
   font-weight: 700;
-  color: #080F0F;
+  color: ${COLORS.ink};
   letter-spacing: -0.02em;
   line-height: 1.1;
   margin: 0;
@@ -923,14 +765,14 @@ const SectionSubtitle = styled.p`
   max-width: 700px;
   margin: 0 auto 3rem;
   text-align: center;
-  color: #444;
+  color: #7a746e;
   padding: 0 1rem;
 
   @media (max-width: 600px) { font-size: 14px; }
 `;
 
 const ScopesOpening = styled.section`
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 5rem auto 0;
   padding: 0 2rem;
   text-align: center;
@@ -955,7 +797,7 @@ const OpeningTitle = styled.h2`
   font-family: ${FONT_TITLE};
   font-size: 32px;
   font-weight: 700;
-  color: #080F0F;
+  color: ${COLORS.ink};
   letter-spacing: -0.02em;
   line-height: 1.1;
   margin: 0;
@@ -974,7 +816,7 @@ const OpeningSubtitle = styled.p`
   font-size: 16px;
   font-weight: 400;
   line-height: 1.5;
-  color: #444;
+  color: #7a746e;
   max-width: 700px;
   margin: 0 auto 3rem;
 
@@ -1044,12 +886,13 @@ const IndexBadge = styled.span`
   letter-spacing: 0.18em;
   color: ${COLORS.redTitle};
   text-transform: uppercase;
-  padding: 0.3rem 0.6rem;
-  border: 1px solid rgba(161,15,35,0.4);
-  border-radius: 2px;
 `;
 
 const IndexTitle = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(1.2em * 3 + 0.6rem);
   font-family: ${FONT_TITLE};
   font-size: 19px;
   font-weight: 700;
@@ -1139,7 +982,7 @@ const PillarTitle = styled.h4`
   font-family: ${FONT_TITLE};
   font-size: 19px;
   font-weight: 700;
-  color: #111;
+  color: ${COLORS.ink};
   margin: 0 0 0.6rem;
   line-height: 1.25;
 `;
@@ -1148,7 +991,7 @@ const PillarText = styled.p`
   font-family: ${FONT_BODY};
   font-size: 15px;
   line-height: 1.55;
-  color: #4a4a4a;
+  color: #7a746e;
   margin: 0;
   strong { font-weight: 600; color: ${COLORS.ink}; }
 `;
@@ -1173,7 +1016,7 @@ const StatValue = styled.div`
   font-family: ${FONT_TITLE};
   font-size: 32px;
   font-weight: 700;
-  color: #000;
+  color: ${COLORS.ink};
 
   @media (max-width: 600px) { font-size: 24px; }
 `;
@@ -1182,7 +1025,7 @@ const StatLabel = styled.div`
   font-family: ${FONT_BODY};
   font-size: 16px;
   text-align: center;
-  color: #555;
+  color: #7a746e;
 
   @media (max-width: 600px) { font-size: 13px; }
 `;
@@ -1212,14 +1055,19 @@ const RedBar = styled.div`
 
 const ScopeSection = styled.section`
   min-height: 100vh;
-  padding: 2rem;
-  scroll-margin-top: 80px;
+  /* topo reservado para o header fixo, para o conteúdo caber em uma tela */
+  padding: calc(72px + 1rem) 2rem 1.5rem;
+  scroll-margin-top: 72px;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   background: #ffffff;
   border-top: 1px solid rgba(26,26,24,0.06);
 
   &:nth-of-type(even) { background: ${COLORS.lightCream}; }
+
+  @media (min-width: 901px) and (max-height: 700px) {
+    padding: calc(72px + 0.5rem) 2rem 1rem;
+  }
 
   @media (max-width: 900px) {
     min-height: auto;
@@ -1228,26 +1076,32 @@ const ScopeSection = styled.section`
 `;
 
 const ScopesWrap = styled.div`
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0;
   width: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 const ScopePanel = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  flex: 1;
+  gap: 1.1rem;
+
+  @media (min-width: 901px) and (max-height: 700px) { gap: 0.6rem; }
 `;
 
 const ScopeHeader = styled.div`
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 2rem;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1.55fr 1fr;
+  align-items: end;
+  gap: 2.5rem;
 
+  @media (max-width: 1024px) { gap: 1.75rem; }
   @media (max-width: 900px) {
+    grid-template-columns: 1fr;
     align-items: flex-start;
     gap: 1rem;
   }
@@ -1269,20 +1123,16 @@ const CounterNum = styled.span`
   font-weight: 600;
   letter-spacing: 0.18em;
   color: ${COLORS.redTitle};
-  opacity: 1;
-  padding: 0.3rem 0.6rem;
-  border: 1px solid rgba(161,15,35,0.4);
-  border-radius: 2px;
 `;
 
 const ScopeName = styled.span`
   font-family: ${FONT_TITLE};
-  font-size: 40px;
+  font-size: ${TYPE.sectionH2.size};
   font-weight: 800;
   letter-spacing: -0.035em;
   text-transform: none;
   color: ${COLORS.ink};
-  line-height: 1.05;
+  line-height: 1;
   position: relative;
   padding-bottom: 0.5rem;
   display: inline-block;
@@ -1298,8 +1148,7 @@ const ScopeName = styled.span`
     background: ${COLORS.redTitle};
   }
 
-  @media (max-width: 1100px) { font-size: 32px; }
-  @media (max-width: 700px) { font-size: 26px; }
+  @media (max-width: 700px) { font-size: 24px; }
 `;
 
 const ScopeGrid = styled.div`
@@ -1307,6 +1156,7 @@ const ScopeGrid = styled.div`
   grid-template-columns: 1.55fr 1fr;
   gap: 2.5rem;
   align-items: stretch;
+  flex: 1;
 
   @media (max-width: 1024px) { gap: 1.75rem; }
   @media (max-width: 900px) { grid-template-columns: 1fr; gap: 1.5rem; }
@@ -1315,9 +1165,11 @@ const ScopeGrid = styled.div`
 const ScopeMain = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 2.25rem;
+  gap: 1.35rem;
   min-width: 0;
   height: 100%;
+
+  @media (min-width: 901px) and (max-height: 700px) { gap: 0.75rem; }
 `;
 
 const ScopeIntro = styled.div`
@@ -1328,7 +1180,7 @@ const ScopeIntro = styled.div`
 const ScopeTitleH3 = styled.h3`
   color: ${COLORS.ink};
   font-family: ${FONT_TITLE};
-  font-size: 40px;
+  font-size: ${TYPE.subTitle.size};
   font-weight: 700;
   margin: 0;
   letter-spacing: -0.02em;
@@ -1340,27 +1192,30 @@ const ScopeTitleH3 = styled.h3`
     color: ${COLORS.redTitle};
   }
 
-  @media (max-width: 900px) { font-size: 28px; }
+  @media (max-width: 900px) { font-size: 18px; }
 `;
 
 const Accent = styled.div`
   width: 56px;
   height: 3px;
   background: ${COLORS.redTitle};
-  margin: 0.9rem 0 1.2rem;
+  margin: 0.7rem 0 0.85rem;
   transform-origin: left center;
   transform: scaleX(0);
   animation: ${accentGrow} 0.9s cubic-bezier(0.16,1,0.3,1) 0.3s forwards;
+
+  @media (min-width: 901px) and (max-height: 700px) { margin: 0.45rem 0 0.55rem; }
 `;
 
 const ScopeLede = styled.p`
   font-family: ${FONT_BODY};
   font-size: 16.5px;
   line-height: 1.6;
-  color: #5a5550;
+  color: #7a746e;
   margin: 0;
   strong { color: ${COLORS.ink}; font-weight: 600; }
 
+  @media (min-width: 901px) and (max-height: 700px) { font-size: 14.5px; line-height: 1.5; }
   @media (max-width: 600px) { font-size: 14px; }
 `;
 
@@ -1370,8 +1225,10 @@ const PanelSide = styled.aside`
   background: rgba(161, 15, 35, 0.035);
   border: 1px solid rgba(26,26,24,0.08);
   border-left: 3px solid ${COLORS.redTitle};
-  padding: 1.5rem 1.75rem 1.4rem;
+  padding: 1.15rem 1.4rem 1.1rem;
   position: relative;
+
+  @media (min-width: 901px) and (max-height: 700px) { padding: 0.85rem 1.2rem 0.8rem; }
 `;
 
 const SideCorner = styled.div`
@@ -1392,7 +1249,7 @@ const SideEyebrow = styled.p`
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: ${COLORS.redTitle};
-  margin: 0 0 0.85rem;
+  margin: 0 0 0.6rem;
 `;
 
 const SideRows = styled.div`
@@ -1405,11 +1262,11 @@ const SideRows = styled.div`
 const SideRow = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0.25rem;
-  padding: 0.75rem 0;
+  gap: 0.2rem;
+  padding: 0.55rem 0;
   border-bottom: 1px solid rgba(26,26,24,0.08);
-  &:first-of-type { padding-top: 0.35rem; }
-  &:last-of-type { border-bottom: none; padding-bottom: 0.35rem; }
+  &:first-of-type { padding-top: 0.25rem; }
+  &:last-of-type { border-bottom: none; padding-bottom: 0.25rem; }
 `;
 
 const SideKey = styled.span`
@@ -1430,13 +1287,13 @@ const SideVal = styled.span`
 `;
 
 const SideQuote = styled.p`
-  margin: 1.1rem 0 0;
-  padding-top: 1rem;
+  margin: 0.85rem 0 0;
+  padding-top: 0.8rem;
   border-top: 1px solid rgba(26,26,24,0.08);
   font-family: ${FONT_BODY};
   font-size: 13.5px;
   line-height: 1.55;
-  color: #5a5550;
+  color: #7a746e;
   font-style: italic;
   &::before {
     content: "\\201C";
@@ -1456,7 +1313,7 @@ const PanelBody = styled.div`
   border-top: 1px solid rgba(26,26,24,0.12);
   border-bottom: 1px solid rgba(26,26,24,0.12);
   flex: 1;
-  align-content: center;
+  align-items: stretch;
 
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
@@ -1465,10 +1322,17 @@ const PanelBody = styled.div`
 `;
 
 const PanelCol = styled.div`
-  padding: 1.5rem 2rem 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  padding: 1.15rem 2rem 1.15rem 0;
   & + & {
-    padding: 1.5rem 0 1.5rem 2.25rem;
+    padding: 1.15rem 0 1.15rem 2.25rem;
     border-left: 1px solid rgba(26,26,24,0.12);
+  }
+
+  @media (min-width: 901px) and (max-height: 700px) {
+    padding: 0.75rem 1.35rem 0.75rem 0;
+    & + & { padding: 0.75rem 0 0.75rem 1.6rem; }
   }
 
   @media (max-width: 900px) {
@@ -1488,16 +1352,20 @@ const ColLabel = styled.p`
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: ${COLORS.redTitle};
-  margin: 0 0 0.85rem;
+  margin: 0 0 0.65rem;
+
+  @media (min-width: 901px) and (max-height: 700px) { margin: 0 0 0.45rem; }
 `;
 
 const ScopeDetail = styled.p`
   font-family: ${FONT_BODY};
   font-size: 15px;
   line-height: 1.65;
-  color: #3a3530;
+  color: #7a746e;
   margin: 0;
   strong { color: ${COLORS.ink}; font-weight: 600; }
+
+  @media (min-width: 901px) and (max-height: 700px) { font-size: 13.5px; line-height: 1.45; }
 `;
 
 const Bullets = styled.ul`
@@ -1506,13 +1374,15 @@ const Bullets = styled.ul`
   margin: 0;
   display: grid;
   grid-template-columns: 1fr;
+  align-content: space-between;
+  flex: 1;
   counter-reset: entrega;
 
   li {
     font-family: ${FONT_BODY};
-    font-size: 14.5px;
+    font-size: 14px;
     line-height: 1.4;
-    padding: 0.6rem 0 0.6rem 2rem;
+    padding: 0.45rem 0 0.45rem 2rem;
     position: relative;
     color: ${COLORS.ink};
     border-bottom: 1px solid rgba(26,26,24,0.07);
@@ -1530,49 +1400,38 @@ const Bullets = styled.ul`
       letter-spacing: 0.05em;
     }
   }
+
+  @media (min-width: 901px) and (max-height: 700px) {
+    li { padding: 0.32rem 0 0.32rem 1.6rem; font-size: 13px; line-height: 1.35; }
+  }
 `;
 
 const PanelTags = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.5rem;
-  justify-content: flex-end;
-  flex: 1;
+  justify-content: center;
   min-width: 0;
-
-  @media (max-width: 900px) {
-    flex: 0 1 auto;
-    justify-content: flex-start;
-  }
 `;
 
-const TagsLabel = styled.span`
-  font-family: ${FONT_TITLE};
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #7a746e;
-  margin-right: 0.3rem;
-`;
 
 const Tag = styled.span`
   font-family: ${FONT_MONO};
   font-size: 11.5px;
   font-weight: 500;
   color: ${COLORS.ink};
-  background: transparent;
-  border: 1px solid rgba(26,26,24,0.18);
-  padding: 0.4rem 0.75rem;
-  border-radius: 2px;
-  transition: border-color 0.2s ease, color 0.2s ease;
-  &:hover { border-color: ${COLORS.redTitle}; color: ${COLORS.redTitle}; }
+  transition: color 0.2s ease;
+  &:hover { color: ${COLORS.redTitle}; }
+  &:not(:last-child)::after {
+    content: "·";
+    margin: 0 0.5rem;
+    color: rgba(26,26,24,0.3);
+  }
 `;
 
 const HighlightCases = styled.section`
   padding: 0 2rem 5rem;
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
   width: 100%;
 
@@ -1593,103 +1452,6 @@ const HighlightGrid = styled.div`
   }
 `;
 
-const HighlightCard = styled(Link)`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  background: #fff;
-  border: 1px solid rgba(26,26,24,0.08);
-  border-top: 3px solid ${COLORS.redTitle};
-  border-radius: 4px;
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-
-  & > img {
-    border-radius: 0;
-  }
-
-  &::before {
-    content: "Clique aqui";
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    margin-bottom: 0.6rem;
-    background: ${COLORS.redTitle};
-    color: #fff;
-    font-family: ${FONT_TITLE};
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    padding: 0.45rem 0.85rem;
-    border-radius: 999px;
-    box-shadow: 0 6px 14px rgba(161, 15, 35, 0.32);
-    opacity: 0;
-    transform: translate(-50%, 8px);
-    transition: opacity 0.25s ease, transform 0.25s ease;
-    pointer-events: none;
-    z-index: 2;
-    white-space: nowrap;
-  }
-
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 14px 32px rgba(0,0,0,0.12);
-    border-color: rgba(161,15,35,0.35);
-
-    &::before {
-      opacity: 1;
-      transform: translate(-50%, 0);
-    }
-  }
-
-  &:focus-visible {
-    outline: 2px solid ${COLORS.redTitle};
-    outline-offset: 3px;
-
-    &::before {
-      opacity: 1;
-      transform: translate(-50%, 0);
-    }
-  }
-`;
-
-const HighlightCardTitle = styled.h3`
-  font-family: ${FONT_TITLE};
-  font-size: 22px;
-  font-weight: 700;
-  color: ${COLORS.ink};
-  margin: 0;
-  padding: 1.25rem 1.5rem 1rem;
-  letter-spacing: -0.01em;
-  line-height: 1.2;
-
-  @media (max-width: 900px) { font-size: 20px; padding: 1rem 1.25rem 0.85rem; }
-`;
-
-const HighlightCardImage = styled.img`
-  width: 100%;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-  display: block;
-  border-top: 1px solid rgba(26,26,24,0.06);
-  border-bottom: 1px solid rgba(26,26,24,0.06);
-`;
-
-const HighlightCardSubtitle = styled.p`
-  font-family: ${FONT_MONO};
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: ${COLORS.redTitle};
-  margin: 0;
-  padding: 1rem 1.5rem 1.25rem;
-
-  @media (max-width: 900px) { padding: 0.85rem 1.25rem 1rem; }
-`;
 
 const Integration = styled.section`
   margin-top: 4rem;
@@ -1746,28 +1508,29 @@ const Kicker = styled.div`
 
 const IntegrationTitle = styled.h2`
   font-family: ${FONT_TITLE};
-  font-size: 38px;
+  font-size: 32px;
   margin: 0 0 1rem;
-  line-height: 1.15;
-  color: #fff;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: ${COLORS.cream};
   font-weight: 700;
   span { color: ${COLORS.redCTA}; }
 
-  @media (max-width: 800px) { font-size: 28px; }
+  @media (max-width: 800px) { font-size: 26px; }
 `;
 
 const IntegrationLede = styled.p`
   font-family: ${FONT_BODY};
   font-size: 18px;
   line-height: 1.7;
-  color: rgba(255,255,255,0.78);
+  color: rgba(250,242,234,0.85);
   max-width: 820px;
   margin: 0 auto 2.5rem;
 `;
 
 const Diferenciais = styled.section`
   padding: 0 2rem 5rem;
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
 `;
 

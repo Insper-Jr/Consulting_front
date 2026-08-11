@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import styled, { keyframes } from "styled-components";
+import { useTranslation } from "react-i18next";
+import { RED, BG_CREAM, FONT_TITLE, TYPE, SPACING } from "../../../styles/tokens";
 
 const FONT = `'Inter', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif`;
 
@@ -39,16 +41,18 @@ const IconInconformismo = () => (
   </svg>
 );
 
-const VALORES = [
-  { title: "Inconformismo",   desc: 'Nunca aceitamos o "está bom assim". Existe sempre uma forma melhor de fazer, e ela é nossa responsabilidade.', Icon: IconInconformismo },
-  { title: "Excelência",      desc: "Entregamos com rigor e profundidade. Qualidade não é o que mostramos: é o padrão silencioso por trás de cada decisão.", Icon: IconExcelencia },
-  { title: "Colaboração",     desc: "Crescemos juntos. O resultado individual não vale se a equipe não chegou junto, e ninguém aprende sozinho.", Icon: IconColaboracao },
-  { title: "Comprometimento", desc: "Assumimos o que entregamos. Quando dizemos sim, vamos até o fim, e o cliente sente isso desde o primeiro contato.", Icon: IconComprometimento },
-];
+const VALOR_ICONS = [IconInconformismo, IconExcelencia, IconColaboracao, IconComprometimento];
+
+type ValorItemT = { title: string; desc: string };
 
 const drawIn = keyframes`to { stroke-dashoffset: 0; }`;
 
 const Valores = () => {
+  const { t } = useTranslation();
+  const VALORES = (t("join.valores.items", { returnObjects: true }) as ValorItemT[]).map(
+    (v, i) => ({ ...v, Icon: VALOR_ICONS[i] })
+  );
+
   const innerRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -68,12 +72,12 @@ const Valores = () => {
       <Inner ref={innerRef} data-visible={String(visible)}>
         <Head>
           <div className="left">
-            <span className="eyebrow">01 · Nossos valores</span>
-            <h2>O que nos<br />move por dentro.</h2>
+            <span className="eyebrow">{t("join.valores.eyebrow")}</span>
+            <h2>{t("join.valores.titleLine1")}<br />{t("join.valores.titleLine2")}</h2>
           </div>
           <div className="lead-block">
             <p className="lead-sub">
-              Princípios que guiam como decidimos, como entregamos e como crescemos todos os dias.
+              {t("join.valores.leadSub")}
             </p>
           </div>
         </Head>
@@ -99,7 +103,7 @@ const Valores = () => {
 export default Valores;
 
 const Section = styled.section`
-  background: #FAF4F0;
+  background: ${BG_CREAM};
   padding: 120px 0;
   font-family: ${FONT};
   color: #080F0F;
@@ -109,9 +113,9 @@ const Section = styled.section`
 
 const Inner = styled.div`
   position: relative;
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 32px;
+  padding: 0 ${SPACING.innerPaddingX};
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 0.5s ease-out, transform 0.5s ease-out;
@@ -125,10 +129,10 @@ const Head = styled.div`
   gap: 60px; align-items: end; margin-bottom: 64px;
 
   .left { display: flex; flex-direction: column; gap: 18px; }
-  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #691212; }
-  h2 { margin: 0; font-size: clamp(28px, 3.2vw, 40px); line-height: 1.1; letter-spacing: -0.02em; font-weight: 800; }
-  .lead-block { position: relative; padding-left: 16px; border-left: 2px solid #C02121; }
-  .lead-sub { margin: 0; color: rgba(8,15,15,0.52); font-size: 15px; line-height: 1.65; max-width: 38ch; }
+  .eyebrow { font-family: ${FONT_TITLE}; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: ${RED}; }
+  h2 { font-family: ${FONT_TITLE}; margin: 0; font-size: ${TYPE.sectionH2.size}; line-height: 1.1; letter-spacing: -0.02em; font-weight: ${TYPE.sectionH2.weight}; }
+  .lead-block { position: relative; padding-left: 16px; border-left: 2px solid ${RED}; }
+  .lead-sub { margin: 0; color: rgba(8,15,15,0.52); font-size: ${TYPE.body.size}; line-height: 1.65; max-width: 38ch; }
 
   @media (max-width: 980px) { grid-template-columns: 1fr; gap: 16px; margin-bottom: 40px; }
   @media (max-width: 640px) { margin-bottom: 28px; }
@@ -143,7 +147,7 @@ const Grid = styled.div`
 `;
 
 const IconWrap = styled.div<{ $idx: number }>`
-  margin-bottom: 28px; color: #C02121;
+  margin-bottom: 28px; color: ${RED};
   svg { display: block; transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
   svg path, svg circle { stroke-dasharray: 300; stroke-dashoffset: 300; }
   [data-visible="true"] & svg path,
@@ -156,16 +160,17 @@ const IconWrap = styled.div<{ $idx: number }>`
 const TitleWrap = styled.div`
   margin-bottom: 10px;
   h4 {
+    font-family: ${FONT_TITLE};
     margin: 0; display: inline-block; position: relative;
-    font-size: 22px; font-weight: 700; letter-spacing: -0.02em; color: #080F0F;
+    font-size: ${TYPE.subTitle.size}; font-weight: 700; letter-spacing: -0.02em; color: #080F0F;
     transition: color 0.2s ease;
     &::after {
       content: ''; position: absolute; left: 0; bottom: -3px;
-      height: 1.5px; width: 0; background: #C02121;
+      height: 1.5px; width: 0; background: ${RED};
       transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
     }
   }
-  @media (max-width: 640px) { h4 { font-size: 19px; } }
+  @media (max-width: 640px) { h4 { font-size: 18px; } }
 `;
 
 const Card = styled.div<{ $idx: number }>`
@@ -181,7 +186,7 @@ const Card = styled.div<{ $idx: number }>`
   [data-visible="true"] & { opacity: 1; transform: none; }
 
   &:hover ${IconWrap} svg { transform: translateY(-5px); }
-  &:hover ${TitleWrap} h4 { color: #C02121; }
+  &:hover ${TitleWrap} h4 { color: ${RED}; }
   &:hover ${TitleWrap} h4::after { width: 100%; }
 
   p { margin: 0; color: rgba(8,15,15,0.62); font-size: 13px; line-height: 1.6; }

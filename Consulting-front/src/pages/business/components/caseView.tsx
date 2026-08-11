@@ -3,15 +3,15 @@ import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
 // ── Tokens (mirrors parent page) ──────────────────────────────────────────
+import { RED_TITLE, RED, RED_DARK, DARK, FONT_TITLE, FONT_BODY } from "../../../styles/tokens";
+
 const C = {
-  redTitle: "#A10F23",
-  redCTA: "#C02121",
-  redDark: "#691212",
-  ink: "#1a1a1a",
+  redTitle: RED_TITLE,
+  redCTA: RED,
+  redDark: RED_DARK,
+  ink: DARK,
 };
 
-const FONT_TITLE = `"Montserrat", Helvetica, sans-serif`;
-const FONT_BODY  = `"Inter", Helvetica, sans-serif`;
 const FONT_MONO  = `ui-monospace, "SF Mono", Menlo, monospace`;
 
 // ── Tipos ─────────────────────────────────────────────────────────────────
@@ -243,7 +243,7 @@ const CaseBadge = styled.span`
 
 const CaseBigName = styled.span`
   font-family: ${FONT_TITLE};
-  font-size: 72px;
+  font-size: 88px;
   font-weight: 800;
   letter-spacing: -0.045em;
   color: ${C.ink};
@@ -260,9 +260,8 @@ const CaseBigName = styled.span`
     height: 4px;
     background: ${C.redTitle};
   }
-  @media (max-width: 1100px) { font-size: 56px; }
-  @media (max-width: 700px)  { font-size: 40px; }
-  @media (max-width: 400px)  { font-size: 32px; }
+  @media (max-width: 1100px) { font-size: 64px; }
+  @media (max-width: 700px)  { font-size: 48px; }
 `;
 
 const Dot = styled.span`

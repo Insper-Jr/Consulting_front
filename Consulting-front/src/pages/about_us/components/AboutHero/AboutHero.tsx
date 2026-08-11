@@ -1,16 +1,8 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import styled, { keyframes, css } from "styled-components";
+import { useTranslation } from "react-i18next";
 import { useParticles } from "../../../../hooks/useParticleBackground";
-
-// Tokens
-const DARK_BG  = "#0e0404";   // quase preto quente
-const RED = "#C02121";
-const RED_DIM  = "rgba(105,18,18,0.45)";
-const CREAM    = "#FAF2EA";
-const MUTED    = "rgba(250,242,234,0.48)";
-const FONT_TITLE = `'Montserrat',Helvetica,sans-serif`;
-const FONT_BODY  = `'Inter',Helvetica,sans-serif`;
-const SPRING   = "cubic-bezier(0.16,1,0.3,1)";
+import { BG_DARK, RED, RED_DIM, CREAM, FONT_TITLE, FONT_BODY, SPRING, TYPE } from "../../../../styles/tokens";
 
 // Animations
 const wordIn = keyframes`
@@ -39,9 +31,9 @@ const HeroOuter = styled.div`
   width: 100%;
   min-height: 100vh;
   min-height: 100dvh;
-  background: ${DARK_BG};
+  background: ${BG_DARK};
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   overflow: hidden;
 `;
@@ -53,18 +45,18 @@ const Center = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 32px;
-  padding: 0 24px;
+  padding: 220px 24px 0;
   text-align: center;
 
-  @media (max-width: 640px) { gap: 20px; padding: 0 20px; }
+  @media (max-width: 640px) { gap: 20px; padding: 160px 20px 0; }
 `;
 
 // Eyebrow
 const Eyebrow = styled.span`
   font-family: ${FONT_TITLE};
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
+  font-size: ${TYPE.eyebrow.size};
+  font-weight: ${TYPE.eyebrow.weight};
+  letter-spacing: ${TYPE.eyebrow.ls};
   text-transform: uppercase;
   color: ${RED};
   opacity: 0;
@@ -74,11 +66,11 @@ const Eyebrow = styled.span`
 // Main title — H1: Montserrat Bold 48px
 const Title = styled.h1`
   font-family: ${FONT_TITLE};
-  font-size: 48px;
-  font-weight: 700;
+  font-size: ${TYPE.hero.size};
+  font-weight: ${TYPE.hero.weight};
   color: ${CREAM};
-  letter-spacing: -0.03em;
-  line-height: 1.1;
+  letter-spacing: ${TYPE.hero.ls};
+  line-height: ${TYPE.hero.lh};
   margin: 0;
 
   @media (max-width: 640px) { font-size: 36px; }
@@ -107,10 +99,10 @@ const AccentLine = styled.div`
 // Subtitle — Body: Inter Regular 16px
 const Subtitle = styled.p`
   font-family: ${FONT_BODY};
-  font-size: 16px;
-  font-weight: 400;
+  font-size: ${TYPE.body.size};
+  font-weight: ${TYPE.body.weight};
   color: ${CREAM};
-  line-height: 1.5;
+  line-height: ${TYPE.body.lh};
   max-width: 560px;
   margin: 0;
   opacity: 0;
@@ -169,11 +161,12 @@ const WaveBottom = styled.div`
 `;
 
 // Component
-const TITLE_WORDS = ["A", "Insper", "Jr."];
 // Delay escalonado para cada palavra
 const WORD_DELAYS = [0.55, 0.78, 1.02];
 
 export default function AboutHero() {
+  const { t } = useTranslation();
+  const titleWords = t("about.hero.titleWords", { returnObjects: true }) as string[];
   const wrapperRef = useRef<HTMLDivElement>(null);
   const canvasRef  = useRef<HTMLCanvasElement>(null);
 
@@ -248,10 +241,10 @@ export default function AboutHero() {
 
       {/* Conteúdo centralizado */}
       <Center>
-        <Eyebrow>Quem somos</Eyebrow>
+        <Eyebrow>{t("about.hero.eyebrow")}</Eyebrow>
 
         <Title>
-          {TITLE_WORDS.map((word, i) => (
+          {titleWords.map((word, i) => (
             <Word key={word} $delay={WORD_DELAYS[i]}>
               {word}
             </Word>
@@ -261,9 +254,7 @@ export default function AboutHero() {
         <AccentLine />
 
         <Subtitle>
-          Empresa júnior do Insper, formada por estudantes que entregam
-          soluções reais para negócios reais, com rigor acadêmico,
-          comprometimento e impacto mensurável.
+          {t("about.hero.subtitle")}
         </Subtitle>
       </Center>
 

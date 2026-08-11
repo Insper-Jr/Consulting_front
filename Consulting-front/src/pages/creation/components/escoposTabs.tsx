@@ -6,38 +6,17 @@ import img4 from "@/assets/creation/cnpj-img2.png";
 import img5 from "@/assets/creation/document-img1.png";
 import img6 from "@/assets/creation/document-img2.png";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
-const options = [
-  {
-    title: "Planejamento Societário",
-    imageBack: img1,
-    imageFront: img2,
-    content: [
-      "<strong>A estrutura societária é o alicerce jurídico da sua empresa</strong>. Por isso, é essencial escolher o formato que melhor se adequa ao perfil dos sócios, ao modelo de negócio e aos objetivos de crescimento.",
-      "Analisamos os riscos, responsabilidades e particularidades do setor para <strong>propor a estrutura mais eficiente e segura</strong>. Com isso, prevenimos conflitos futuros e construímos uma base sólida para o desenvolvimento da organização.",
-      "Quer começar seu negócio com a estrutura certa? <strong>Peça um diagnóstico gratuito e construa uma empresa preparada para crescer com segurança!</strong>"
-    ]
-  },
-  {
-    title: "Emissão de CNPJ",
-    imageBack: img3,
-    imageFront: img4,
-    content: [
-      "Formalizar sua empresa é um passo essencial para <strong>operar legalmente e acessar benefícios fiscais e bancários.</strong>",
-      "Atuamos na definição da natureza jurídica ideal, na organização dos documentos e no acompanhamento completo do processo junto à Receita Federal. <strong>Com agilidade e atenção aos detalhes, garantimos que sua empresa obtenha o CNPJ de forma segura e regular.</strong>",
-      "Precisa formalizar sua empresa com eficiência? <strong>Solicite um diagnóstico gratuito e conte com a gente para emitir seu CNPJ com tranquilidade!</strong>"
-    ]
-  },
-  {
-    title: "Documentos Constitutivos",
-    imageBack: img5,
-    imageFront: img6,
-    content: [
-      "<strong>A constituição formal de uma organização depende de documentos bem redigidos</strong>, que reflitam sua missão, estrutura e operação.",
-      "Elaboramos Estatuto Social, Regimento Interno e Termo de Voluntariado de forma personalizada, assegurando clareza organizacional, segurança jurídica e total conformidade com a legislação vigente. <strong>Nossa entrega garante uma fundação sólida para sua atuação.</strong>",
-      "Quer garantir documentos jurídicos claros e bem estruturados? <strong>Peça um diagnóstico gratuito e tenha segurança desde o primeiro passo!</strong>",
-    ]
-  },
+interface OptionText {
+  title: string;
+  content: string[];
+}
+
+const imageData = [
+  { imageBack: img1, imageFront: img2 },
+  { imageBack: img3, imageFront: img4 },
+  { imageBack: img5, imageFront: img6 },
 ];
 
 interface EscoposTabsProps {
@@ -46,6 +25,17 @@ interface EscoposTabsProps {
 }
 
 export const EscoposTabs = ({ selectedTab, setSelectedTab }: EscoposTabsProps) => {
+  const { t } = useTranslation();
+  const optionsText = t("creation.escoposTabs.options", { returnObjects: true }) as OptionText[];
+  const altBack = t("creation.escoposTabs.altBack");
+  const altFront = t("creation.escoposTabs.altFront");
+
+  const options = optionsText.map((opt, index) => ({
+    ...opt,
+    imageBack: imageData[index].imageBack,
+    imageFront: imageData[index].imageFront,
+  }));
+
   const [prevSelected, setPrevSelected] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [direction, setDirection] = useState<"left" | "right">("right");
@@ -85,8 +75,8 @@ export const EscoposTabs = ({ selectedTab, setSelectedTab }: EscoposTabsProps) =
               ))}
             </TextBox>
             <ImagesBox>
-              <ImageBack src={options[prevSelected].imageBack} alt="Imagem de fundo" />
-              <ImageFront src={options[prevSelected].imageFront} alt="Imagem sobreposta" />
+              <ImageBack src={options[prevSelected].imageBack} alt={altBack} />
+              <ImageFront src={options[prevSelected].imageFront} alt={altFront} />
             </ImagesBox>
           </ContentSlider>
         )}
@@ -99,8 +89,8 @@ export const EscoposTabs = ({ selectedTab, setSelectedTab }: EscoposTabsProps) =
             ))}
           </TextBox>
           <ImagesBox>
-            <ImageBack src={options[selectedTab].imageBack} alt="Imagem de fundo" />
-            <ImageFront src={options[selectedTab].imageFront} alt="Imagem sobreposta" />
+            <ImageBack src={options[selectedTab].imageBack} alt={altBack} />
+            <ImageFront src={options[selectedTab].imageFront} alt={altFront} />
           </ImagesBox>
         </ContentSlider>
       </ContentWrapper>
@@ -151,7 +141,7 @@ const TabButton = styled.button<{ active: boolean }>`
   font-family: "Inter", sans-serif;
   font-size: 25px;
   font-weight: 600;
-  color: ${({ active }) => (active ? "#A10F23" : "#1d1d1d")};
+  color: ${({ active }) => (active ? "#C02121" : "#1d1d1d")};
   position: relative;
   cursor: pointer;
   padding-bottom: 0.5rem;
@@ -161,27 +151,27 @@ const TabButton = styled.button<{ active: boolean }>`
     content: "";
     display: block;
     height: 2px;
-    background-color: ${({ active }) => (active ? "#A10F23" : "transparent")};
+    background-color: ${({ active }) => (active ? "#C02121" : "transparent")};
     transition: all 0.3s ease;
     width: 100%;
   }
 
   @media (max-width: 768px) {
-    background-color: ${({ active }) => (active ? "#A10F23" : "#f8f9fa")};
+    background-color: ${({ active }) => (active ? "#C02121" : "#f8f9fa")};
     color: ${({ active }) => (active ? "white" : "#1d1d1d")};
     padding: 1rem;
     margin-bottom: 0.5rem;
     border-radius: 8px;
     font-size: 16px;
     text-align: left;
-    border: 1px solid ${({ active }) => (active ? "#A10F23" : "#e9ecef")};
+    border: 1px solid ${({ active }) => (active ? "#C02121" : "#e9ecef")};
 
     &::after {
       display: none;
     }
 
     &:hover {
-      background-color: ${({ active }) => (active ? "#A10F23" : "#e9ecef")};
+      background-color: ${({ active }) => (active ? "#C02121" : "#e9ecef")};
     }
 
     &:last-child {
@@ -249,7 +239,7 @@ const TextBox = styled.div`
 `;
 
 const Title = styled.h2`
-  color: #A10F23;
+  color: #C02121;
   font-family: "Montserrat", sans-serif;
   font-size: 36px;
   margin-bottom: 1rem;
@@ -328,7 +318,7 @@ const Dots = styled.div`
 const Dot = styled.div<{ active: boolean }>`
   width: 10px;
   height: 10px;
-  background-color: ${({ active }) => (active ? "#A10F23" : "#ccc")};
+  background-color: ${({ active }) => (active ? "#C02121" : "#ccc")};
   border-radius: 50%;
   cursor: pointer;
 

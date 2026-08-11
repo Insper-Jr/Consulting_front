@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import { useTranslation, Trans } from "react-i18next";
+import type { TFunction } from "i18next";
 
 import slide01 from "../../../assets/walle/slide-01.png";
 import slide02 from "../../../assets/walle/slide-02.png";
@@ -12,33 +14,39 @@ import slide08 from "../../../assets/walle/slide-08.png";
 import slide09 from "../../../assets/walle/slide-09.png";
 
 // ── Tokens (mirrors parent page) ──────────────────────────────────────────
+import { RED_TITLE, RED, RED_DARK, DARK } from "../../../styles/tokens";
+
 const C = {
-  redTitle: "#A10F23",
-  redCTA: "#C02121",
-  redDark: "#691212",
-  ink: "#1a1a1a",
+  redTitle: RED_TITLE,
+  redCTA: RED,
+  redDark: RED_DARK,
+  ink: DARK,
 };
 
 const FONT_TITLE = `"Montserrat", Helvetica, sans-serif`;
 const FONT_BODY  = `"Inter", Helvetica, sans-serif`;
 const FONT_MONO  = `ui-monospace, "SF Mono", Menlo, monospace`;
 
-const SLIDES: { src: string; label: string; portrait?: boolean }[] = [
-  { src: slide01, label: "Contexto do projeto — escopo, problema do cliente e objetivo" },
-  { src: slide02, label: "Desenvolvimento da solução — organização dos caminhos de atendimento" },
-  { src: slide03, label: "Desenvolvimento da solução — IA central com base de conhecimento (RAG)" },
-  { src: slide04, label: "Desenvolvimento da solução — modelagem dos fluxos de IA no n8n" },
-  { src: slide05, label: "Desenvolvimento da solução — fluxo de ingestão de SAC" },
-  { src: slide06, label: "Desenvolvimento da solução — fluxo de ingestão de Vendas" },
-  { src: slide07, label: "Desenvolvimento da solução — Agente de Atendimento integrado ao WhatsApp" },
-  { src: slide08, label: "Resultados do projeto — processo manual transformado em fluxo automatizado" },
-  { src: slide09, label: "Resultados do projeto — atendimento por IA no WhatsApp", portrait: true },
-];
-
-const TOTAL_SLIDES = SLIDES.length;
+// ── Slide deck data ─────────────────────────────────────────────────────────
+function buildSlides(t: TFunction): { src: string; label: string; portrait?: boolean }[] {
+  return [
+    { src: slide01, label: t("tech.cases.walle.slides.shots.shot01.alt") },
+    { src: slide02, label: t("tech.cases.walle.slides.shots.shot02.alt") },
+    { src: slide03, label: t("tech.cases.walle.slides.shots.shot03.alt") },
+    { src: slide04, label: t("tech.cases.walle.slides.shots.shot04.alt") },
+    { src: slide05, label: t("tech.cases.walle.slides.shots.shot05.alt") },
+    { src: slide06, label: t("tech.cases.walle.slides.shots.shot06.alt") },
+    { src: slide07, label: t("tech.cases.walle.slides.shots.shot07.alt") },
+    { src: slide08, label: t("tech.cases.walle.slides.shots.shot08.alt") },
+    { src: slide09, label: t("tech.cases.walle.slides.shots.shot09.alt"), portrait: true },
+  ];
+}
+const TOTAL_SLIDES = 9;
 
 // ── Component ──────────────────────────────────────────────────────────────
 export default function WalleCase() {
+  const { t } = useTranslation();
+  const SLIDES = buildSlides(t);
   const [idx, setIdx] = useState(0);
   const deckRef = useRef<HTMLElement>(null);
   const inViewRef = useRef(false);
@@ -72,42 +80,41 @@ export default function WalleCase() {
     <CaseSection id="case-walle">
       <CaseInner>
         <CaseCounter>
-          <CaseBadge>CASE EM DESTAQUE</CaseBadge>
-          <CaseBigName>Wall-E<Dot>.</Dot></CaseBigName>
+          <CaseBadge>{t("tech.cases.common.badge")}</CaseBadge>
+          <CaseBigName>{t("tech.cases.walle.name")}<Dot>.</Dot></CaseBigName>
         </CaseCounter>
 
         <CaseSub>
-          O <strong>Wall-E</strong> nasceu de uma <strong>atuação integrada entre frentes</strong>: antes da camada tecnológica, conduzimos um <strong>estudo operacional dos fluxos de venda e SAC</strong> do cliente para assegurar a experiência ponta a ponta. Só com a jornada mapeada e refinada, o escopo de <strong>Inteligência Artificial</strong> construiu o <strong>ecossistema multi-agente</strong> — quatro IAs especialistas, coordenadas por um classificador inteligente, que cobrem todo o atendimento de um cliente do setor de saúde.
+          <Trans i18nKey="tech.cases.walle.sub" components={{ strong: <strong /> }} />
         </CaseSub>
 
         <CaseSplit>
           <CaseText>
-            <CtEye>O projeto</CtEye>
-            <CtH>Por que Wall-E?</CtH>
+            <CtEye>{t("tech.cases.common.project")}</CtEye>
+            <CtH>{t("tech.cases.walle.why")}</CtH>
             <CtP>
-              O cliente, do setor de saúde B2B, atendia em um único canal de WhatsApp três públicos completamente diferentes — <strong>leads em prospecção</strong>, <strong>clientes ativos com dúvidas operacionais</strong> e <strong>clientes aguardando entrega</strong>. Com um time enxuto, o atendimento era reativo, leads esfriavam e dúvidas simples consumiam horas.
+              <Trans i18nKey="tech.cases.walle.p1" components={{ strong: <strong /> }} />
             </CtP>
 
-            <CtSub>Como foi feito</CtSub>
+            <CtSub>{t("tech.cases.common.howMade")}</CtSub>
             <CtP>
-              A solução foi um <strong>ecossistema de quatro IAs especialistas</strong>, cada uma com prompt, base de conhecimento e escopo próprios — coordenadas por um classificador interno que observa cada mensagem, identifica a intenção e direciona para o agente certo, em tempo real.
+              <Trans i18nKey="tech.cases.walle.p2" components={{ strong: <strong /> }} />
             </CtP>
             <CtP>
-              Construído inteiramente sobre <strong>n8n</strong>, integrando <strong>LLMs</strong> e APIs internas do cliente, sem dependência de plataformas SaaS de chatbot. Cada agente atua só dentro da própria especialidade — fora dela, transfere para humano.
+              <Trans i18nKey="tech.cases.walle.p3" components={{ strong: <strong /> }} />
             </CtP>
 
-            <CtSub>Estratégia</CtSub>
+            <CtSub>{t("tech.cases.common.strategy")}</CtSub>
             <CtList>
-              <li><strong>Especialização por agente</strong> — separar prompt, base e escopo reduz alucinação e mantém cada conversa coerente.</li>
-              <li><strong>Roteamento contínuo</strong> — a IA de Classificação re-avalia a cada turno, inclusive quando o assunto muda.</li>
-              <li><strong>Humano no momento certo</strong> — premissa: em dúvida, transfere. Sem suposição.</li>
-              <li><strong>Quatro camadas de barreira</strong> — anti-prompt injection, escopo estrito, controle de alucinação e compliance do setor saúde.</li>
+              {(t("tech.cases.walle.list", { returnObjects: true }) as string[]).map((_item, i) => (
+                <li key={i}><Trans i18nKey={`tech.cases.walle.list.${i}`} components={{ strong: <strong /> }} /></li>
+              ))}
             </CtList>
 
-            <CtFinal>Quatro IAs · três jornadas cobertas · 24/7 · um canal único.</CtFinal>
+            <CtFinal>{t("tech.cases.walle.final")}</CtFinal>
           </CaseText>
 
-          <CaseDeck ref={deckRef} aria-label="Apresentação do projeto Wall-E">
+          <CaseDeck ref={deckRef} aria-label={t("tech.cases.walle.deckAriaLabel")}>
             <CdFrame>
               <CdStack>
                 {SLIDES.map((s, i) => (
@@ -124,12 +131,12 @@ export default function WalleCase() {
             </CdFrame>
 
             <CdControls>
-              <CdBtn onClick={goPrev} disabled={idx === 0} aria-label="Anterior">←</CdBtn>
+              <CdBtn onClick={goPrev} disabled={idx === 0} aria-label={t("tech.cases.common.prev")}>←</CdBtn>
               <CdProgress>
                 <CdFill style={{ width: `${((idx + 1) / TOTAL_SLIDES) * 100}%` }} />
               </CdProgress>
               <CdCounter>{pad(idx + 1)} / {pad(TOTAL_SLIDES)}</CdCounter>
-              <CdBtn onClick={goNext} disabled={idx === TOTAL_SLIDES - 1} aria-label="Próximo">→</CdBtn>
+              <CdBtn onClick={goNext} disabled={idx === TOTAL_SLIDES - 1} aria-label={t("tech.cases.common.next")}>→</CdBtn>
             </CdControls>
           </CaseDeck>
         </CaseSplit>

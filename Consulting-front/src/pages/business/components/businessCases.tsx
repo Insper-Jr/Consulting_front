@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import styled, { keyframes } from "styled-components";
 import Rich from "../../../i18n/rich";
@@ -9,14 +8,8 @@ import capaCommunity   from "../../../assets/business/community/03-posicionament
 import capaCaramelo  from "../../../assets/business/caramelo/04-capex.jpg";
 import capaQuimica from "../../../assets/business/quimica/02-macroetapas.jpg";
 
-const RED        = "#A10F23";
-const RED_CTA    = "#C02121";
-const INK        = "#1a1a1a";
-const BG_DARK    = "#0e0404";
-const LIGHT_CREAM = "#faf6f1";
-const FONT_TITLE  = `"Montserrat", Helvetica, sans-serif`;
-const FONT_BODY   = `"Inter", Helvetica, sans-serif`;
-const SPRING      = "cubic-bezier(0.16,1,0.3,1)";
+import { RED, RED as RED_CTA, DARK as INK, BG_CREAM as LIGHT_CREAM, FONT_TITLE, FONT_BODY, SPRING, TYPE } from "../../../styles/tokens";
+import CaseShowcaseCard from "../../../components/caseShowcaseCard";
 
 const accentGrow = keyframes`to { transform: scaleX(1); }`;
 const redbarGrow = keyframes`to { transform: scaleX(1); }`;
@@ -72,13 +65,12 @@ const ScopeSection = styled.section`
   display: flex;
   align-items: center;
   background: #ffffff;
-  border-top: 1px solid rgba(26,26,24,0.06);
   &:nth-of-type(even) { background: ${LIGHT_CREAM}; }
   @media (max-width: 900px) { min-height: auto; padding: 3rem 1rem; }
 `;
 
 const ScopesWrap = styled.div`
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
   width: 100%;
 `;
@@ -110,7 +102,7 @@ const ScopeCounter = styled.p`
 
 const ScopeName = styled.span`
   font-family: ${FONT_TITLE};
-  font-size: 44px;
+  font-size: ${TYPE.sectionH2.size};
   font-weight: 800;
   letter-spacing: -0.035em;
   color: ${INK};
@@ -127,8 +119,8 @@ const ScopeName = styled.span`
     height: 3px;
     background: ${RED};
   }
-  @media (max-width: 1100px) { font-size: 36px; }
-  @media (max-width: 700px) { font-size: 28px; }
+  @media (max-width: 1100px) { font-size: 28px; }
+  @media (max-width: 700px) { font-size: 24px; }
 `;
 
 const ScopeGrid = styled.div`
@@ -156,13 +148,13 @@ const ScopeIntro = styled.div`
 const ScopeTitleH3 = styled.h3`
   color: ${INK};
   font-family: ${FONT_TITLE};
-  font-size: 38px;
+  font-size: ${TYPE.subTitle.size};
   font-weight: 700;
   margin: 0;
   letter-spacing: -0.02em;
   line-height: 1.1;
   i { font-style: italic; font-weight: 400; color: ${RED}; }
-  @media (max-width: 900px) { font-size: 28px; }
+  @media (max-width: 900px) { font-size: 18px; }
 `;
 
 const ScopeAccent = styled.div`
@@ -255,139 +247,6 @@ const Bullets = styled.ul`
   }
 `;
 
-const CaseCardLink = styled(Link)`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  background: #fff;
-  border: 1px solid rgba(26,26,24,0.08);
-  border-top: 3px solid ${RED};
-  border-radius: 4px;
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
-  overflow: hidden;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-  min-height: 320px;
-
-  &::before {
-    /* Texto vem do data-hint para poder ser traduzido (business.scopes.clickHint) */
-    content: attr(data-hint);
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    margin-bottom: 0.6rem;
-    background: ${RED};
-    color: #fff;
-    font-family: ${FONT_TITLE};
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    padding: 0.45rem 0.85rem;
-    border-radius: 999px;
-    box-shadow: 0 6px 14px rgba(161,15,35,0.32);
-    opacity: 0;
-    transform: translate(-50%, 8px);
-    transition: opacity 0.25s ease, transform 0.25s ease;
-    pointer-events: none;
-    z-index: 2;
-    white-space: nowrap;
-  }
-
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 14px 32px rgba(0,0,0,0.12);
-    border-color: rgba(161,15,35,0.35);
-    &::before { opacity: 1; transform: translate(-50%, 0); }
-    img { transform: scale(1.04); }
-  }
-
-  &:focus-visible {
-    outline: 2px solid ${RED};
-    outline-offset: 3px;
-    &::before { opacity: 1; transform: translate(-50%, 0); }
-  }
-`;
-
-const CaseCardHeader = styled.div`
-  position: relative;
-  height: 180px;
-  background: ${BG_DARK};
-  overflow: hidden;
-  flex-shrink: 0;
-`;
-
-/* Slide de abertura do case. As imagens já saem do deck com os dados
-   sensíveis removidos: nome do cliente, valores e dados internos. */
-const CaseCardImage = styled.img`
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
-  display: block;
-  transition: transform 0.4s ${SPRING};
-`;
-
-const CaseCardNum = styled.span`
-  position: absolute;
-  right: 16px;
-  bottom: -10px;
-  font-family: ${FONT_TITLE};
-  font-size: 88px;
-  font-weight: 800;
-  color: rgba(255,255,255,0.9);
-  text-shadow: 0 2px 12px rgba(0,0,0,0.45);
-  line-height: 1;
-  user-select: none;
-  pointer-events: none;
-  z-index: 1;
-`;
-
-const CaseCardBody = styled.div`
-  padding: 1.25rem 1.5rem 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  flex: 1;
-`;
-
-const CaseCardScope = styled.p`
-  font-family: ${FONT_TITLE};
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: ${RED};
-  margin: 0;
-`;
-
-const CaseCardTitle = styled.h4`
-  font-family: ${FONT_TITLE};
-  font-size: 22px;
-  font-weight: 700;
-  color: ${INK};
-  margin: 0;
-  letter-spacing: -0.01em;
-  line-height: 1.2;
-  i { font-style: italic; font-weight: 400; color: ${RED}; }
-`;
-
-const CaseCardCTA = styled.span`
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-family: ${FONT_BODY};
-  font-size: 13px;
-  font-weight: 700;
-  color: ${RED};
-  margin-top: auto;
-  padding-top: 0.5rem;
-  border-top: 1px solid rgba(26,26,24,0.08);
-`;
-
 /* ── Component ── */
 
 export default function BusinessCases() {
@@ -436,23 +295,16 @@ export default function BusinessCases() {
                     </PanelBody>
                   </ScopeMain>
 
-                  <CaseCardLink to={`/business/${s.caseSlug}`} data-hint={t("business.scopes.clickHint")}>
-                    <CaseCardHeader>
-                      <CaseCardImage src={s.capa} alt={t(`${base}.capaAlt`)} loading="lazy" />
-                      <CaseCardNum>{s.num}</CaseCardNum>
-                    </CaseCardHeader>
-                    <CaseCardBody>
-                      <CaseCardScope>{t("business.scopes.scopeLabel")} · {tab}</CaseCardScope>
-                      <CaseCardTitle>{title}</CaseCardTitle>
-                      <CaseCardCTA>
-                        {t("business.scopes.seeCase")}
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                          <line x1="5" y1="12" x2="19" y2="12"/>
-                          <polyline points="12 5 19 12 12 19"/>
-                        </svg>
-                      </CaseCardCTA>
-                    </CaseCardBody>
-                  </CaseCardLink>
+                  <CaseShowcaseCard
+                    to={`/business/${s.caseSlug}`}
+                    coverSrc={s.capa}
+                    coverAlt={t(`${base}.capaAlt`)}
+                    badge={t("business.scopes.badge")}
+                    tag={`${t("business.scopes.scopeLabel")} · ${tab}`}
+                    title={title}
+                    desc={t(`${base}.lede`)}
+                    ctaLabel={t("business.scopes.seeCase")}
+                  />
                 </ScopeGrid>
               </ScopePanel>
             </ScopesWrap>
