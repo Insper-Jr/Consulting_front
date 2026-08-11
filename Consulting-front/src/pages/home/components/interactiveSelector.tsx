@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
 import styled, { keyframes, css } from "styled-components";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import { useParticles } from "../../../hooks/useParticleBackground";
 
 const RED = "#691212", BG = "#FAF2EA", FONT = `'Inter',Helvetica,sans-serif`;
@@ -9,36 +10,66 @@ const SPRING = "0.72s cubic-bezier(0.34,1.08,0.64,1)";
 const SMOOTH = "0.55s cubic-bezier(0.4,0,0.2,1)";
 
 const IMAGES: Record<string, string> = {
-  finance:        "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=900&q=85",
-  health:         "https://images.unsplash.com/photo-1527613426441-4da17471b66d?w=900&q=85",
-  retail:         "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=900&q=85",
-  energy:         "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=900&q=85",
-  manufacturing:  "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=900&q=85",
+  // Frentes
+  business:       "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=900&q=85",
+  tech:           "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=900&q=85",
+  direito:        "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=900&q=85",
+  processos:      "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=900&q=85",
+  // Escopos — Business
+  market:         "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=85",
   marketing:      "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=900&q=85",
-  marketAnalysis: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=85",
-  operational:    "https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?w=900&q=85",
   financial:      "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=900&q=85",
-  data:           "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&q=85",
-  product:        "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=900&q=85",
+  operational:    "https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?w=900&q=85",
+  // Escopos — Tech
   web:            "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=900&q=85",
-  creation:       "https://images.unsplash.com/photo-1495364141860-b0d03eccd065?w=900&q=85",
-  corporate:      "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=900&q=85",
-  cnpj:           "https://images.unsplash.com/photo-1664575602554-2087b04935a5?w=900&q=85",
-  docs:           "https://images.unsplash.com/photo-1553484771-371a605b060b?w=900&q=85",
-  operations:     "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=900&q=85",
-  contracts:      "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=900&q=85",
-  tax:            "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=900&q=85",
-  protection:     "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=900&q=85",
+  data:           "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&q=85",
+  ai:             "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=900&q=85",
+  // Escopos — Direito
+  contracts:      "https://images.unsplash.com/photo-1553484771-371a605b060b?w=900&q=85",
+  corporate:      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=900&q=85",
   ip:             "https://images.unsplash.com/photo-1562654501-a0ccc0fc3fb1?w=900&q=85",
-  lgpd:           "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=900&q=85",
+  tax:            "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=900&q=85",
+  // Escopos — Processos
+  mapping:        "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=900&q=85",
+  simulation:     "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=900&q=85",
+  optimization:   "https://images.unsplash.com/photo-1495364141860-b0d03eccd065?w=900&q=85",
 };
 
-const INDUSTRY_IDS    = ["finance","health","retail","energy","manufacturing"] as const;
-const CAPABILITY_IDS  = [
-  "marketing","marketAnalysis","operational","financial","data",
-  "product","web","creation","corporate","cnpj","docs","operations",
-  "contracts","tax","protection","ip","lgpd",
-] as const;
+const FRENTE_IDS = ["business","tech","direito","processos"] as const;
+type FrenteId = typeof FRENTE_IDS[number];
+
+/* Cada frente e os escopos que ela oferece — a mesma lista das páginas
+   /business, /tech, /direito e /processos. */
+const ESCOPOS_BY_FRENTE: Record<FrenteId, readonly string[]> = {
+  business:  ["market","marketing","financial","operational"],
+  tech:      ["web","data","ai"],
+  direito:   ["contracts","corporate","ip","tax"],
+  processos: ["mapping","simulation","optimization"],
+};
+
+const FRENTE_PATHS: Record<FrenteId, string> = {
+  business:  "/business",
+  tech:      "/tech",
+  direito:   "/direito",
+  processos: "/processos",
+};
+
+const ALL_ESCOPO_IDS = FRENTE_IDS.flatMap(f => ESCOPOS_BY_FRENTE[f]);
+
+/* Cada página de frente renderiza seus escopos com id="escopo-01", "escopo-02"…
+   na mesma ordem de ESCOPOS_BY_FRENTE, então a âncora sai do índice. Se a ordem
+   dos escopos mudar em uma dessas páginas, ajustar a lista acima junto. */
+const ESCOPO_ANCHOR: Record<string, string> = Object.fromEntries(
+  FRENTE_IDS.flatMap(f =>
+    ESCOPOS_BY_FRENTE[f].map((e, i) => [e, `escopo-${String(i + 1).padStart(2, "0")}`] as const)
+  )
+);
+
+/* Escopo → frente a que pertence, para o link "Saiba mais" e para
+   sincronizar os dois dropdowns. */
+const ESCOPO_FRENTE: Record<string, FrenteId> = Object.fromEntries(
+  FRENTE_IDS.flatMap(f => ESCOPOS_BY_FRENTE[f].map(e => [e, f] as const))
+);
 
 // ─── Keyframes ─────────────────────────────────────────────────────────────────
 const imgEnter  = keyframes`from{opacity:0;transform:translateX(40px)} to{opacity:1;transform:translateX(0)}`;
@@ -116,7 +147,7 @@ const Overlay = styled.div`position:absolute;inset:0;background:linear-gradient(
 const Caption = styled.div`position:absolute;bottom:0;left:0;right:0;padding:28px 26px 26px;z-index:4;display:flex;flex-direction:column;gap:10px;`;
 const CapTag  = styled.span`font-family:${FONT};font-size:11px;font-weight:700;color:rgba(255,255,255,.48);text-transform:uppercase;letter-spacing:0.09em;animation:${slideUp} .42s .18s ease both;`;
 const CapText = styled.p`font-family:${FONT};font-size:14px;color:rgba(255,255,255,.88);line-height:1.6;margin:0;animation:${slideUp} .42s .26s ease both;`;
-const CapLink = styled.a`font-family:${FONT};font-size:13px;font-weight:700;color:#fff;text-decoration:none;align-self:flex-start;opacity:.88;animation:${slideUp} .42s .34s ease both;`;
+const CapLink = styled(Link)`font-family:${FONT};font-size:13px;font-weight:700;color:#fff;text-decoration:none;align-self:flex-start;opacity:.88;animation:${slideUp} .42s .34s ease both;`;
 
 // Dropdown
 const DropWrap  = styled.div`position:relative;min-width:190px;`;
@@ -141,10 +172,15 @@ function ImageCrossfade({ activeKey }: { activeKey: string }) {
     const timer = setTimeout(() => setImgs(s => ({ ...s, prev: null })), 600);
     return () => clearTimeout(timer);
   }, [activeKey]);
-  const isIndustry = (INDUSTRY_IDS as readonly string[]).includes(activeKey);
-  const labelKey   = isIndustry
-    ? `interactiveSelector.industries.${activeKey}`
-    : `interactiveSelector.capabilities.${activeKey}`;
+  const isFrente = (FRENTE_IDS as readonly string[]).includes(activeKey);
+  const labelKey = isFrente
+    ? `interactiveSelector.frentes.${activeKey}`
+    : `interactiveSelector.escopos.${activeKey}`;
+  /* Frente e escopo levam para a mesma URL, a da página da frente. No caso do
+     escopo, o alvo do scroll viaja no state da rota e o ScrollToTop posiciona a
+     página na altura dele, sem sujar a URL com hash. */
+  const to = FRENTE_PATHS[isFrente ? (activeKey as FrenteId) : ESCOPO_FRENTE[activeKey]];
+  const scrollTo = isFrente ? undefined : ESCOPO_ANCHOR[activeKey];
   return (
     <ImgWrap>
       {imgs.prev && <Img key={`x-${imgs.prev}`} src={imgs.prev} alt="" $exit />}
@@ -153,7 +189,7 @@ function ImageCrossfade({ activeKey }: { activeKey: string }) {
       <Caption key={activeKey}>
         <CapTag>{t(labelKey)}</CapTag>
         <CapText>{t(`interactiveSelector.descriptions.${activeKey}`)}</CapText>
-        <CapLink href="/">{t("interactiveSelector.learnMore")}</CapLink>
+        <CapLink to={to} state={scrollTo ? { scrollTo } : undefined}>{t("interactiveSelector.learnMore")}</CapLink>
       </Caption>
     </ImgWrap>
   );
@@ -232,16 +268,31 @@ function Dropdown({ placeholder, options, value, onChange }: { placeholder:strin
 // ─── Main ──────────────────────────────────────────────────────────────────────
 export default function InteractiveSelector() {
   const { t } = useTranslation();
-  const [sel, setSel] = useState({ industry: "", capability: "" });
-  const activeKey = sel.capability || sel.industry;
+  const [sel, setSel] = useState({ frente: "", escopo: "" });
+  const activeKey = sel.escopo || sel.frente;
   const isActive  = activeKey !== "";
-  const handle    = useCallback((f: "industry"|"capability") => (v: string) => setSel({ capability:"", industry:"", [f]: v }), []);
+
+  // Trocar de frente descarta o escopo, a menos que ele pertença à nova frente.
+  const handleFrente = useCallback((v: string) => {
+    setSel(s => ({
+      frente: v,
+      escopo: v && ESCOPO_FRENTE[s.escopo] === v ? s.escopo : "",
+    }));
+  }, []);
+
+  // Escolher um escopo já posiciona a frente correspondente; limpá-lo mantém a frente.
+  const handleEscopo = useCallback((v: string) => {
+    setSel(s => (v ? { frente: ESCOPO_FRENTE[v], escopo: v } : { ...s, escopo: "" }));
+  }, []);
+
   const wrapperRef = useRef<HTMLDivElement>(null);
   const canvasRef  = useRef<HTMLCanvasElement>(null);
   useParticles(wrapperRef, canvasRef);
 
-  const industriesList   = INDUSTRY_IDS.map(id => ({ id, label: t(`interactiveSelector.industries.${id}`) }));
-  const capabilitiesList = CAPABILITY_IDS.map(id => ({ id, label: t(`interactiveSelector.capabilities.${id}`) }));
+  const frentesList = FRENTE_IDS.map(id => ({ id, label: t(`interactiveSelector.frentes.${id}`) }));
+  // Sem frente escolhida, o dropdown lista todos os escopos das quatro frentes.
+  const escoposList = (sel.frente ? ESCOPOS_BY_FRENTE[sel.frente as FrenteId] : ALL_ESCOPO_IDS)
+    .map(id => ({ id, label: t(`interactiveSelector.escopos.${id}`) }));
 
   return (
     <Wrapper ref={wrapperRef}>
@@ -251,8 +302,8 @@ export default function InteractiveSelector() {
           <Title>{t("interactiveSelector.titleLine1")}<br />{t("interactiveSelector.titleLine2")}</Title>
           <Subtitle $active={isActive}>{t("interactiveSelector.subtitle")}</Subtitle>
           <Controls>
-            <Dropdown placeholder={t("interactiveSelector.industriesLabel")}   options={industriesList}   value={sel.industry}   onChange={handle("industry")} />
-            <Dropdown placeholder={t("interactiveSelector.capabilitiesLabel")} options={capabilitiesList} value={sel.capability} onChange={handle("capability")} />
+            <Dropdown placeholder={t("interactiveSelector.frentesLabel")} options={frentesList} value={sel.frente} onChange={handleFrente} />
+            <Dropdown placeholder={t("interactiveSelector.escoposLabel")} options={escoposList} value={sel.escopo} onChange={handleEscopo} />
           </Controls>
         </Left>
       </Section>

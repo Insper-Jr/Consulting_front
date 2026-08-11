@@ -200,7 +200,7 @@ export default function ProcessosScope() {
             {SCOPES.map((s, i) => {
               const isActive = active === i;
               return (
-                <Stage key={s.title} $active={isActive}>
+                <Stage key={s.title} id={`escopo-0${i + 1}`} $active={isActive}>
                   <StageNode $active={isActive} onClick={() => toggle(i)}>
                     {s.icon}
                   </StageNode>
