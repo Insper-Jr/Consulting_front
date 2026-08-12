@@ -66,7 +66,7 @@ function fibonacciSphere(n: number): Point[] {
   return pts;
 }
 
-const R = 229;
+const R_MAX = 229;
 const INITIAL_TILT = -18;
 const RETURN_DELAY = 10000;
 const RETURN_DURATION = 1500;
@@ -74,8 +74,35 @@ const AUTO_ROT_SPEED = 12;
 const FLING_DECAY_RATE = 1.6;
 const FLING_SETTLE_THRESHOLD = 0.4;
 
+/* O raio do globo era fixo em 229px (458px de largura), então em telas estreitas
+   ele estourava a viewport e era cortado pelo overflow:hidden da Section.
+   Acima de 1100px o layout é de duas colunas e o tamanho original já cabe, então
+   só encolhemos abaixo disso. O divisor 2.4, em vez de 2, reserva a folga que os
+   logos ocupam ao se projetarem para fora do raio da esfera. */
+const useGlobeRadius = () => {
+  const compute = () => {
+    if (typeof window === "undefined") return R_MAX;
+    const vw = window.innerWidth;
+    if (vw >= 1100) return R_MAX;
+    return Math.max(96, Math.min(R_MAX, (vw - 80) / 2.4));
+  };
+
+  const [radius, setRadius] = useState(compute);
+
+  useEffect(() => {
+    const onResize = () => setRadius(compute());
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  return radius;
+};
+
 const PartnersRows = () => {
   const { t } = useTranslation();
+  const R = useGlobeRadius();
+  // Logos acompanham a escala do globo para não ficarem gigantes na esfera menor.
+  const logoScale = R / R_MAX;
   const TESTIMONIALS = t("home.partnersRows.testimonials", { returnObjects: true }) as Testimonial[];
 
   const [angle, setAngle] = useState(0);
@@ -493,6 +520,8 @@ const PartnersRows = () => {
                   style={{
                     opacity: curOpacity,
                     transform: `translate(-50%, -50%) scale(${curBoost})`,
+                    maxWidth: 96 * logoScale,
+                    maxHeight: 48 * logoScale,
                   }}
                 />
                 {transitioning && nxt && (
@@ -502,6 +531,8 @@ const PartnersRows = () => {
                     style={{
                       opacity: nxtOpacity,
                       transform: `translate(-50%, -50%) scale(${nxtBoost})`,
+                      maxWidth: 96 * logoScale,
+                      maxHeight: 48 * logoScale,
                     }}
                   />
                 )}
@@ -604,7 +635,7 @@ const RedLine = styled.div`
   border-radius: 2px;
 `;
 
-const COL_MIN_HEIGHT = `${R * 2 + 220}px`;
+const COL_MIN_HEIGHT = `${R_MAX * 2 + 220}px`;
 
 const Layout = styled.div`
   display: grid;

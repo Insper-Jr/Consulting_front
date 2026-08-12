@@ -286,9 +286,20 @@ const SlideIndicators = styled.div`
   align-items: flex-start;
   max-width: calc(100% - 32px);
 
-  @media (max-width: 600px) {
+  /* Os min-width de 140px (tech) e 210px (processos) somam ~650px com os gaps,
+     então o tratamento compacto precisa entrar antes de o container estourar. */
+  @media (max-width: 768px) {
     gap: 0.75rem;
     bottom: 1.5rem;
+  }
+
+  /* width fixo em vez de max-width: com max-width o container é shrink-to-fit e a
+     largura das colunas passa a depender do texto. Fixando a largura, as quatro
+     colunas viram (largura - gaps) / 4 e ficam previsíveis. */
+  @media (max-width: 480px) {
+    gap: 0.4rem;
+    width: calc(100% - 20px);
+    max-width: none;
   }
 `;
 
@@ -304,7 +315,7 @@ const SlideIndicator = styled.button<{ $minWidth?: number }>`
   min-width: ${({ $minWidth }) => $minWidth ?? 90}px;
   flex: 1;
 
-  @media (max-width: 600px) { min-width: 0; }
+  @media (max-width: 768px) { min-width: 0; }
 `;
 
 const ProgressTrack = styled.div`
@@ -340,7 +351,22 @@ const SlideLabel = styled.span<{ isActive: boolean }>`
   text-align: center;
   white-space: nowrap;
 
-  @media (max-width: 600px) {
-    font-size: 10px;
+  /* Com as colunas estreitas, "Engenharia de Processos" e "Engenharia Tech" não
+     cabem em uma linha. Sem permitir quebra, o texto centralizado transborda a
+     coluna para os dois lados e se sobrepõe ao label vizinho.
+     A palavra mais longa, "ENGENHARIA", é indivisível e define o piso: em caixa
+     alta com 10px e 0.08em ela mede ~80px, o mesmo que a coluna tem num aparelho
+     de 390px. Daí a redução de corpo e de tracking, para sobrar folga. */
+  @media (max-width: 768px) {
+    font-size: 9px;
+    letter-spacing: 0.03em;
+    line-height: 1.3;
+    /* O item flex tem min-width: 0 e encolhe, mas isso sozinho não segura o
+       texto: sem poder quebrar, ele transborda a coluna e invade a vizinha.
+       max-width prende o label à coluna e break-word quebra "ENGENHARIA", que
+       não tem espaço para quebrar naturalmente, se ela ainda não couber. */
+    white-space: normal;
+    max-width: 100%;
+    overflow-wrap: break-word;
   }
 `;

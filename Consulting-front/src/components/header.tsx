@@ -124,25 +124,30 @@ const Header = () => {
         <SidebarLinks>
           {NAV_ITEMS.map((item) =>
             item.key === "solucoes" ? (
-              <SidebarSolWrapper
-                key={item.label}
-                onMouseEnter={() => setSidebarSolOpen(true)}
-                onMouseLeave={() => setSidebarSolOpen(false)}
-              >
-                <SidebarNavLink to="/overview" onClick={() => setSidebarOpen(false)}>
+              <SidebarSolWrapper key={item.label}>
+                {/* Botão, não link: assim como no desktop, "Nossas Soluções" só
+                    abre o submenu. Alterna no clique porque hover não existe em
+                    touch, que é justamente onde a sidebar aparece. */}
+                <SidebarNavBtn
+                  type="button"
+                  aria-expanded={sidebarSolOpen}
+                  onClick={() => setSidebarSolOpen((open) => !open)}
+                >
                   <span>{item.label}</span>
                   <SidebarSolCaret isOpen={sidebarSolOpen}>▾</SidebarSolCaret>
-                </SidebarNavLink>
+                </SidebarNavBtn>
 
                 <SidebarSubMenu isOpen={sidebarSolOpen}>
                   {FRENTES.map((f) =>
                     f.sub ? (
-                      <SidebarEngWrapper
-                        key={f.label}
-                        onMouseEnter={() => setSidebarEngOpen(true)}
-                        onMouseLeave={() => setSidebarEngOpen(false)}
-                      >
-                        <SidebarSubLinkDiv>
+                      <SidebarEngWrapper key={f.label}>
+                        {/* Mesma troca de hover por clique do nível acima. */}
+                        <SidebarSubLinkDiv
+                          role="button"
+                          tabIndex={0}
+                          aria-expanded={sidebarEngOpen}
+                          onClick={() => setSidebarEngOpen((open) => !open)}
+                        >
                           <span>{f.label}</span>
                           <SidebarSolCaret isOpen={sidebarEngOpen}>▾</SidebarSolCaret>
                         </SidebarSubLinkDiv>
@@ -422,6 +427,28 @@ const SidebarArrow = styled.span`
 `;
 
 const SidebarSolWrapper = styled.div`display: flex; flex-direction: column;`;
+
+/* Mesma aparência do SidebarNavLink, mas como <button>: a linha de "Nossas
+   Soluções" abre o submenu em vez de navegar. */
+const SidebarNavBtn = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.65);
+  font-family: ${FONT_TITLE};
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 0.85rem 2rem;
+  transition: color 0.2s, background 0.2s, padding-left 0.2s;
+  animation: ${slideIn} 0.3s ease both;
+  &:hover { color: #fff; background: rgba(192, 33, 33, 0.08); padding-left: 2.3rem; }
+`;
 
 const SidebarSolCaret = styled.span<{ isOpen: boolean }>`
   margin-left: auto;
