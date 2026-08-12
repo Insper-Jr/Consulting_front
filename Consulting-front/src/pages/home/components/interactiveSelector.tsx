@@ -90,7 +90,9 @@ const Section    = styled.section<{$active:boolean}>`
 
   @media (max-width: 768px) {
     flex-direction: column;
-    padding: 60px 0 40px;
+    /* Sem padding embaixo: o respiro até a imagem vem do padding do Left,
+       senão os dois se somam e sobra espaço demais. */
+    padding: 60px 0 0;
     min-height: auto;
   }
 `;
@@ -158,7 +160,35 @@ const Arrow     = styled.span<{$open:boolean}>`font-size:9px;opacity:.55;display
 const Menu      = styled.div<{$top:number;$left:number;$width:number}>`position:fixed;top:${p=>p.$top}px;left:${p=>p.$left}px;width:${p=>p.$width}px;background:#fff;border:1.5px solid #1a1a18;border-radius:16px;overflow:hidden;z-index:9999;box-shadow:0 8px 32px rgba(0,0,0,.12);animation:${menuOpen} .22s ease both;`;
 const MenuScroll= styled.div<{$maxH:number}>`max-height:${p=>p.$maxH}px;overflow-y:auto;padding:3px 0;`;
 const MenuItem  = styled.div<{$sel:boolean;$idx:number}>`padding:7px 16px;font-family:${FONT};font-size:13px;cursor:pointer;font-weight:${p=>p.$sel?700:400};color:${p=>p.$sel?RED:"#1a1a18"};background:${p=>p.$sel?BG:"transparent"};animation:${itemSlide} .2s ${p=>p.$idx*.03}s ease both;&:hover{background:${p=>p.$sel?"#f0ddd0":"#F5EBE2"};}`;
-const WaveSvg   = styled.div`width:100%;overflow:hidden;line-height:0;background:${BG};`;
+/* Faixa que fecha a seção. O branco do path cobre só a direita, então o resto da
+   faixa é o creme do fundo. No desktop o ImagePanel, que é absoluto, cobre esse
+   pedaço e a curva fecha certo. No mobile o painel entra no fluxo e sobraria uma
+   tira de creme embaixo da imagem, parecendo que a seção recomeça. */
+const WaveSvg   = styled.div`
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  background: ${BG};
+
+  @media (max-width: 768px) { display: none; }
+`;
+
+/* Metade direita da onda que fecha a seção. No desktop o ImagePanel é absoluto e
+   cobre a metade direita da WaveSvg, então esta aqui completa a curva. No mobile o
+   painel entra no fluxo e a WaveSvg aparece inteira, então esta viraria uma segunda
+   onda no pé da imagem, no meio da seção. Por isso some abaixo de 768px. */
+const PanelWave = styled.svg`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100vw / 16);
+  display: block;
+  pointer-events: none;
+  z-index: 10;
+
+  @media (max-width: 768px) { display: none; }
+`;
 
 // ─── ImageCrossfade ────────────────────────────────────────────────────────────
 function ImageCrossfade({ activeKey }: { activeKey: string }) {
@@ -309,13 +339,9 @@ export default function InteractiveSelector() {
       </Section>
       <ImagePanel $active={isActive}>
         {isActive && <ImageCrossfade activeKey={activeKey} />}
-        <svg
-          style={{ position:"absolute", bottom:0, left:0, width:"100%", height:"calc(100vw / 16)", display:"block", pointerEvents:"none", zIndex:10 }}
-          viewBox="0 0 720 90"
-          preserveAspectRatio="none"
-        >
+        <PanelWave viewBox="0 0 720 90" preserveAspectRatio="none">
           <path d="M0,90 L280,90 C380,90 430,40 530,40 L720,40 L720,90 Z" fill="#ffffff" />
-        </svg>
+        </PanelWave>
       </ImagePanel>
       <WaveSvg>
         <svg viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style={{ display:"block",width:"100%" }}>
