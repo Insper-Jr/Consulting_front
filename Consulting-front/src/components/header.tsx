@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { MagnifyingGlass } from "phosphor-react";
 import styled, { css, keyframes } from "styled-components";
 import { RED, RED_DARK, FONT_TITLE, FONT_BODY } from "../styles/tokens";
 import { useTranslation } from "react-i18next";
@@ -39,7 +38,6 @@ const Header = () => {
   const [isScrolled,     setIsScrolled]     = useState(false);
   const [sidebarOpen,    setSidebarOpen]    = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<DropdownKey>(null);
-  const [searchOpen,     setSearchOpen]     = useState(false);
   const [langOpen,       setLangOpen]       = useState(false);
   const [sidebarSolOpen, setSidebarSolOpen] = useState(false);
   const [sidebarEngOpen, setSidebarEngOpen] = useState(false);
@@ -301,19 +299,6 @@ const Header = () => {
           </CenterNav>
 
           <HeaderRight>
-            <SearchWrap>
-              <SearchIconBtn onClick={() => setSearchOpen((v) => !v)} aria-label="Buscar">
-                <MagnifyingGlass size={19} color="white" weight="regular" />
-              </SearchIconBtn>
-              <SearchInput
-                isOpen={searchOpen}
-                type="text"
-                placeholder={t("search")}
-                autoFocus={searchOpen}
-                onBlur={() => setSearchOpen(false)}
-              />
-            </SearchWrap>
-
             <LangWrap onMouseEnter={openLang} onMouseLeave={scheduleLangClose}>
               <LangCurrent>
                 {lang}
@@ -711,29 +696,6 @@ const HeaderRight = styled.div`
   align-items: center;
   gap: 0.75rem;
   @media (max-width: 900px) { gap: 0.5rem; }
-`;
-
-const SearchWrap = styled.div`display: flex; align-items: center; gap: 0.4rem;`;
-
-const SearchIconBtn = styled.button`
-  background: none; border: none; cursor: pointer;
-  padding: 0.35rem; line-height: 0; opacity: 0.8; transition: opacity 0.2s;
-  &:hover { opacity: 1; }
-`;
-
-const SearchInput = styled.input<{ isOpen: boolean }>`
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 4px; color: #fff;
-  font-family: ${FONT_TITLE};
-  font-size: 0.8rem; padding: 0.35rem 0.6rem; outline: none;
-  width: ${({ isOpen }) => (isOpen ? "160px" : "0")};
-  opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
-  overflow: hidden;
-  transition: width 0.3s ease, opacity 0.3s ease;
-  pointer-events: ${({ isOpen }) => (isOpen ? "auto" : "none")};
-  &::placeholder { color: rgba(255, 255, 255, 0.4); }
-  @media (max-width: 900px) { display: none; }
 `;
 
 const LangWrap = styled.div`

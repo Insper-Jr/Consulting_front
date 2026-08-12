@@ -54,7 +54,6 @@ const en = {
     },
   },
 
-  search: "Search...",
 
   // ── Hero ──
   hero: {
