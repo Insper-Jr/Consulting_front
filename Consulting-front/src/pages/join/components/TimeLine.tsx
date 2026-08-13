@@ -11,11 +11,11 @@ type FrenteT = { id: FrenteId; label: string; steps: StepT[] };
 const FONT = `'Inter', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif`;
 const MONO = `'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace`;
 
-const EDITAL_URLS: Record<FrenteId, string> = {
-  business: "#edital-business",
-  tech: "#edital-tech",
-  direito: "#edital-direito",
-  processos: "#edital-processos",
+const PS_ABERTO: Record<FrenteId, boolean> = {
+  business: true,
+  tech: true,
+  direito: true,
+  processos: false,
 };
 
 const STEP_NUMS = ["01", "02", "03", "04"];
@@ -33,12 +33,11 @@ const GlobalAnim = createGlobalStyle`
 
 const TimeLine = () => {
   const { t } = useTranslation();
-  const FRENTES: { id: FrenteId; label: string; editalUrl: string; steps: Step[] }[] = (
+  const FRENTES: { id: FrenteId; label: string; steps: Step[] }[] = (
     t("join.timeline.frentes", { returnObjects: true }) as FrenteT[]
   ).map(f => ({
     id: f.id,
     label: f.label,
-    editalUrl: EDITAL_URLS[f.id],
     steps: f.steps.map((s, i) => ({ num: STEP_NUMS[i], label: s.label, desc: s.desc })),
   }));
 
@@ -97,16 +96,13 @@ const TimeLine = () => {
             <span className="eyebrow">{t("join.timeline.eyebrow")}</span>
             <h2>{t("join.timeline.title")}</h2>
           </div>
-          <EditalBlock>
-            <EditalMeta><span className="dot" /><span>{t("join.timeline.editalMeta")}</span></EditalMeta>
-            <EditalFrente key={current.id}>{t("join.timeline.editalFrentePre")}<strong>{current.label}</strong>{t("join.timeline.editalFrenteSuffix")}</EditalFrente>
-            <EditalCta href={current.editalUrl} target="_blank" rel="noopener noreferrer">
-              {t("join.timeline.editalCta")}
-              <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden>
-                <path d="M2 11 L11 2M11 2 H5M11 2 V8" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </EditalCta>
-          </EditalBlock>
+          <StatusBlock>
+            <StatusMeta $open={PS_ABERTO[current.id]}>
+              <span className="dot" />
+              <span>{t(PS_ABERTO[current.id] ? "join.timeline.statusOpen" : "join.timeline.statusClosed")}</span>
+            </StatusMeta>
+            <StatusFrente key={current.id}>{t("join.timeline.frentePre")}<strong>{current.label}</strong>{t("join.timeline.frenteSuffix")}</StatusFrente>
+          </StatusBlock>
         </Head>
 
         <Pills role="tablist" aria-label={t("join.timeline.pillsAriaLabel")}>
@@ -170,30 +166,24 @@ const Head = styled.div`
   @media (max-width: 980px) { grid-template-columns: 1fr; gap: 24px; margin-bottom: 32px; }
 `;
 
-const EditalBlock = styled.div`
+const StatusBlock = styled.div`
   display: flex; flex-direction: column; gap: 10px;
   padding-left: 16px; border-left: 2px solid ${RED};
 `;
 
-const EditalMeta = styled.div`
+const StatusMeta = styled.div<{ $open: boolean }>`
   display: flex; align-items: center; gap: 8px;
   font-family: ${MONO}; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
   color: rgba(8,15,15,0.45);
-  .dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; flex-shrink: 0; }
+  .dot {
+    width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+    background: ${({ $open }) => $open ? "#22c55e" : "rgba(8,15,15,0.28)"};
+  }
 `;
 
-const EditalFrente = styled.p`
+const StatusFrente = styled.p`
   margin: 0; font-size: 15px; color: rgba(8,15,15,0.65); line-height: 1.4;
   strong { color: #080F0F; font-weight: 700; }
-`;
-
-const EditalCta = styled.a`
-  display: inline-flex; align-items: center; gap: 7px; align-self: flex-start;
-  padding: 9px 16px; background: ${RED}; color: #fff;
-  font-size: 13px; font-weight: 700; letter-spacing: 0.02em; text-decoration: none;
-  transition: background 0.2s, gap 0.2s;
-  &:hover { background: #a01a1a; gap: 10px; }
-  @media (max-width: 640px) { padding: 12px 18px; font-size: 14px; }
 `;
 
 const Pills = styled.div`

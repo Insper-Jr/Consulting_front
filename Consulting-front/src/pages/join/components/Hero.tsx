@@ -320,7 +320,7 @@ export default function AboutHero() {
         </Subtitle>
 
 
-        <HeroBtn href="#inscricao">
+        <HeroBtn href={INSCRICAO_URL} target="_blank" rel="noopener noreferrer">
           {t("join.hero.button")} <span className="arrow">→</span>
         </HeroBtn>
 

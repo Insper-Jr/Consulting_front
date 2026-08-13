@@ -323,10 +323,10 @@ export const aboutJoinTranslations = {
       timeline: {
         eyebrow: "Etapas do Processo Seletivo",
         title: "O processo de cada frente.",
-        editalMeta: "Processo seletivo aberto",
-        editalFrentePre: "Frente ",
-        editalFrenteSuffix: "",
-        editalCta: "Acessar edital",
+        statusOpen: "Processo seletivo aberto",
+        statusClosed: "Inscrições encerradas",
+        frentePre: "Frente ",
+        frenteSuffix: "",
         pillsAriaLabel: "Selecione uma frente",
         frentes: [
           {
@@ -359,19 +359,19 @@ export const aboutJoinTranslations = {
             label: "Tech",
             steps: [
               {
-                label: "Dinâmica em grupo",
+                label: "Prova online",
                 desc:
-                  "Desafio colaborativo avaliando lógica, comunicação e resolução de problemas técnicos.",
+                  "Prova exclusiva da frente: dez questões de lógica no estilo GMAT e três dissertativas de tecnologia, sobre boas práticas, início de projeto, IA, GitHub, back e front.",
               },
               {
                 label: "Case e entrevista",
                 desc:
-                  "Desenvolvimento de case em Dev Web ou Análise de Dados, seguido de entrevista técnica.",
+                  "Desenvolvimento de uma plataforma completa, incluindo um agente automatizado em n8n, seguido de entrevista técnica.",
               },
               {
                 label: "Trainee",
                 desc:
-                  "Projeto real em Dev Web ou Análise de Dados com entregas incrementais ao longo do semestre.",
+                  "Projeto real em Dev Web, Análise de Dados ou IA, com entregas incrementais ao longo do semestre.",
               },
             ],
           },
@@ -768,10 +768,10 @@ export const aboutJoinTranslations = {
       timeline: {
         eyebrow: "Selection Process Steps",
         title: "The process for each area.",
-        editalMeta: "Selection process open",
-        editalFrentePre: "",
-        editalFrenteSuffix: " Track",
-        editalCta: "View official notice",
+        statusOpen: "Selection process open",
+        statusClosed: "Applications closed",
+        frentePre: "",
+        frenteSuffix: " Track",
         pillsAriaLabel: "Select an area",
         frentes: [
           {
@@ -804,19 +804,19 @@ export const aboutJoinTranslations = {
             label: "Tech",
             steps: [
               {
-                label: "Group dynamic",
+                label: "Online test",
                 desc:
-                  "A collaborative challenge assessing logic, communication, and technical problem-solving.",
+                  "A test exclusive to this track: ten GMAT-style logic questions and three written tech questions on best practices, starting a project, AI, GitHub, back end, and front end.",
               },
               {
                 label: "Case and interview",
                 desc:
-                  "Development of a case in Web Dev or Data Analysis, followed by a technical interview.",
+                  "Development of a complete platform, including an automated agent built in n8n, followed by a technical interview.",
               },
               {
                 label: "Trainee",
                 desc:
-                  "A real project in Web Dev or Data Analysis with incremental deliveries throughout the semester.",
+                  "A real project in Web Dev, Data Analysis, or AI, with incremental deliveries throughout the semester.",
               },
             ],
           },

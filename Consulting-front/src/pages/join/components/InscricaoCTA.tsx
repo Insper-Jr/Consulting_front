@@ -79,7 +79,7 @@ const InscricaoCTA = () => {
               {t("join.inscricaoCta.sub")}
             </p>
             <div className="actions">
-              <Cta href="#">{t("join.inscricaoCta.cta")} <span className="arrow">→</span></Cta>
+              <Cta href={INSCRICAO_URL} target="_blank" rel="noopener noreferrer">{t("join.inscricaoCta.cta")} <span className="arrow">→</span></Cta>
               <InsperNote>
                 <svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true">
                   <circle cx="10" cy="10" r="9" stroke="currentColor" strokeWidth="1.6"/>
