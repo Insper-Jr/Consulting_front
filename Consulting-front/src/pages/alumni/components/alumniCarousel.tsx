@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, useCallback } from "react";
+import { useRef, useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 import { useTranslation } from "react-i18next";
 import {
@@ -6,21 +6,10 @@ import {
   FONT_TITLE, FONT_BODY, TYPE, SPACING, SPRING,
   MUTED, DARK, BORDER_LIGHT,
 } from "../../../styles/tokens";
-import GiovannaFava from "../../../assets/alumni/GiovannaFava.png";
-import FernandoMauad from "../../../assets/alumni/FernandoMauad.png";
-import MateusMarinheiro from "../../../assets/alumni/MateusMarinheiro.png";
-import GuilhermeKaidei from "../../../assets/alumni/GuilhermeKaidei.png";
-import GabrielDebiagi from "../../../assets/alumni/GabrielDebiagi.png";
-import CharlizeSuarez from "../../../assets/alumni/CharlizeSuarez.png";
-import LeonardoElias from "../../../assets/alumni/LeonardoElias.png";
-import MariaFernandaMelo from "../../../assets/alumni/MariaFernandaMelo.png";
-import TomasMiele from "../../../assets/alumni/TomasMiele.png";
-import JoaoFaraco from "../../../assets/alumni/JoaoFaraco.png";
-import HenriqueManequini from "../../../assets/alumni/HenriqueManequini.png"
-import FernandoThome from "../../../assets/alumni/FernandoThome.png"
-import GuilhermeLMazer from "../../../assets/alumni/GuilhermeLMazer.png"
-import ViniciusGrecco from "../../../assets/alumni/ViniciusGrecco.jpeg"
+import { useAlumniMembers } from "../../../features/alumni/useAlumniMembers";
+import { CAROUSEL_LIMIT, type Member } from "../../../features/alumni/types";
 
+export type { Member };
 
 // ── Constants ──────────────────────────────────────────────────────────────
 
@@ -32,185 +21,19 @@ const AVATAR_SIZE  = 108;
 const STRIP_HEIGHT = 72;
 const AVATAR_BLEED = 54;
 
-const CAROUSEL_LIMIT = 8;
-
-// ── Types ──────────────────────────────────────────────────────────────────
-
-export interface Member {
-  id:        number;
-  name:      string;
-  role:      string;
-  area?:     string;
-  company?:  string;
-  photo?:    string;
-  initials?: string;
-  quote:     string;
-  linkedin?: string;
-}
-
 // ── Data ───────────────────────────────────────────────────────────────────
-// Para reordenar: basta alterar os ids em sequência (1, 2, 3...)
-// O carousel segue a ordem do array.
-// Campos traduzíveis (role, area, quote e, quando necessário, company) vêm
-// de alumni.carousel.members.<slug> em src/i18n/pages/contactAlumni.ts.
-
-type MemberBase = Omit<Member, "role" | "quote" | "company"> & {
-  slug: string;
-  company: string;
-  translatedArea?: boolean;
-  translatedCompany?: boolean;
-};
-
-/* Ordenado por relevância de cargo + empresa: fundador/diretoria primeiro,
-   depois consultores/analistas em empresas de maior prestígio, estagiários
-   por último. Os 8 primeiros aparecem no carrossel; o restante só no
-   modal "Ver todos". */
-const MEMBERS_BASE: MemberBase[] = [
-  {
-    id: 1,
-    slug:     "giovannaFava",
-    name:     "Giovanna Fava Steinberg",
-    company:  "PROTS Snacks",
-    photo:    GiovannaFava,
-    linkedin: "https://www.linkedin.com/in/giovanna-fava-steinberg",
-  },
-  {
-    id: 2,
-    slug:     "fernandoMauad",
-    name:     "Fernando Mauad",
-    area:     "Investment Banking",
-    company:  "UBS",
-    photo:    FernandoMauad,
-    linkedin: "https://www.linkedin.com/in/fernando-saad-mauad-8a4479164/",
-  },
-  {
-    id: 3,
-    slug:     "gabrielDebiagi",
-    name:     "Gabriel Debiagi",
-    company:  "Empreendedorismo",
-    translatedCompany: true,
-    photo:    GabrielDebiagi,
-    linkedin: "https://www.linkedin.com/in/gabriel-debiagi-698321153/",
-  },
-  {
-    id: 4,
-    slug:     "mariaFernandaMelo",
-    name:     "Maria Fernanda Melo",
-    company:  "Bain & Company",
-    photo:    MariaFernandaMelo,
-    linkedin: "https://www.linkedin.com/in/maria-fernanda-melo-8b6bba248/",
-  },
-  {
-    id: 5,
-    slug:     "guilhermeMazer",
-    name:     "Guilherme Mazer",
-    area: "Cartão de Crédito",
-    translatedArea: true,
-    company:  "EY-Parthenon",
-    photo:    GuilhermeLMazer,
-    linkedin: "https://www.linkedin.com/in/guilherme-l-mazer-2b6843250/",
-  },
-  {
-    id: 6,
-    slug:     "leonardoElias",
-    name:     "Leonardo Fernandes Farah Elias",
-    company:  "XP Inc.",
-    photo:    LeonardoElias,
-    linkedin: "https://www.linkedin.com/in/leonardo-fernandes-farah-elias-24a5041aa/",
-  },
-  {
-    id: 7,
-    slug:     "fernandoThome",
-    name:     "Fernando Thomé",
-    area: "Cartão de Crédito",
-    translatedArea: true,
-    company:  "McKinsey & Company",
-    photo:    FernandoThome,
-    linkedin: "https://www.linkedin.com/in/fernando-ferreira-thome/",
-  },
-  {
-    id: 8,
-    slug:     "henriqueManequini",
-    name:     "Henrique Manequini",
-    area: "Investment banking",
-    company:  "G5 Partners",
-    photo:    HenriqueManequini,
-    linkedin: "https://www.linkedin.com/in/henrique-manequini-rocha-pinto-7a16b223a/",
-  },
-  {
-    id: 9,
-    slug:     "guilhermeKaidei",
-    name:     "Guilherme Katayama Kaidei",
-    company:  "McKinsey & Company",
-    photo:    GuilhermeKaidei,
-    linkedin: "https://www.linkedin.com/in/guilherme-kaidei/",
-  },
-  {
-    id: 10,
-    slug:     "viniciusGrecco",
-    name:     "Vinicius Grecco",
-    company:  "BCGX (Boston Consulting Group)",
-    photo:    ViniciusGrecco,
-  },
-  {
-    id: 11,
-    slug:     "joaoFaraco",
-    name:     "João Gabriel Faraco",
-    area: "Cartão de Crédito",
-    translatedArea: true,
-    company:  "Galapagos Capital",
-    photo:    JoaoFaraco,
-    linkedin: "https://www.linkedin.com/in/jo%C3%A3o-gabriel-faraco-871a8628a/",
-  },
-  {
-    id: 12,
-    slug:     "mateusMarinheiro",
-    name:     "Mateus Marinheiro",
-    company:  "Galápagos Capital",
-    photo:    MateusMarinheiro,
-    linkedin: "https://www.linkedin.com/in/mateus-marinheiro-4a19b0324/",
-  },
-  {
-    id: 13,
-    slug:     "tomasMiele",
-    name:     "Tomas Miele",
-    company:  "LTS Investments",
-    photo:    TomasMiele,
-    linkedin: "https://www.linkedin.com/in/tomas-miele/",
-  },
-  // {
-  //   id: 6,
-  //   name:     "Charlize Suarez",
-  //   role:     "Estagiária de IB - M&A",
-  //   company:  "Galapagos Capital",
-  //   photo:    CharlizeSuarez,
-  //   linkedin: "https://www.linkedin.com/in/charlize-suarez-325581265/",
-  //   quote:    "",
-  // },
-  // {
-  //   id: 12,
-  //   initials: "EG",
-  //   name:     "Enzo Gargiulo",
-  //   role:     "Investor relations",
-  //   company:  "SPX Capital",
-  //   linkedin: "https://www.linkedin.com/in/enzogargiulo/",
-  //   quote:    "",
-  // },
-
-];
+// Os ex-membros vêm do ATLAS (rota pública /publico/ex-membros), geridos pela
+// diretoria na aba Institucional. Ordem = definida lá; só publicados chegam.
+// Os CAROUSEL_LIMIT primeiros ficam no carrossel; o restante no modal "Ver todos".
+//
+// Se a chamada falhar (ou vier vazia), a lista estática em
+// src/features/alumni/fallback.ts é usada — ver useAlumniMembers.
 
 // ── Component ──────────────────────────────────────────────────────────────
 
 const AlumniCarousel = () => {
   const { t } = useTranslation();
-
-  const MEMBERS: Member[] = MEMBERS_BASE.map(({ slug, translatedArea, translatedCompany, area, company, ...base }) => ({
-    ...base,
-    role:    t(`alumni.carousel.members.${slug}.role`),
-    quote:   t(`alumni.carousel.members.${slug}.quote`),
-    area:    translatedArea ? t(`alumni.carousel.members.${slug}.area`) : area,
-    company: translatedCompany ? t(`alumni.carousel.members.${slug}.company`) : company,
-  }));
+  const { members: MEMBERS } = useAlumniMembers();
 
   const carouselMembers = MEMBERS.slice(0, CAROUSEL_LIMIT);
   const remainingCount  = MEMBERS.length - carouselMembers.length;
@@ -314,7 +137,7 @@ const AlumniCarousel = () => {
                   </CardStrip>
 
                   <CardBody>
-                    <QuoteMark aria-hidden="true">"</QuoteMark>
+                    {m.quote && <QuoteMark aria-hidden="true">"</QuoteMark>}
                     <Quote>{m.quote}</Quote>
                     <CardDivider />
                     <MemberMeta>
@@ -323,7 +146,7 @@ const AlumniCarousel = () => {
                     </MemberMeta>
                     <CardFooter>
                       <CompanyTag title={m.company}>{m.company}</CompanyTag>
-                      <ReadMore>{t("alumni.carousel.readMore")}</ReadMore>
+                      {m.quote && <ReadMore>{t("alumni.carousel.readMore")}</ReadMore>}
                     </CardFooter>
                   </CardBody>
                 </Card>
@@ -371,11 +194,14 @@ const AlumniCarousel = () => {
             <SplitRight>
               <SplitCloseBtn onClick={() => setSelectedMember(null)} aria-label={t("alumni.carousel.close")}>✕</SplitCloseBtn>
 
-              <SplitEyebrow>{t("alumni.carousel.modalSplit.eyebrow")}</SplitEyebrow>
-              <SplitQuoteMark aria-hidden="true">"</SplitQuoteMark>
-              <SplitQuote>{selectedMember.quote}</SplitQuote>
-
-              <SplitDivider />
+              {selectedMember.quote && (
+                <>
+                  <SplitEyebrow>{t("alumni.carousel.modalSplit.eyebrow")}</SplitEyebrow>
+                  <SplitQuoteMark aria-hidden="true">"</SplitQuoteMark>
+                  <SplitQuote>{selectedMember.quote}</SplitQuote>
+                  <SplitDivider />
+                </>
+              )}
 
               <SplitMeta>
                 <SplitName>{selectedMember.name}</SplitName>
@@ -653,6 +479,8 @@ const Quote = styled.blockquote`
   font-style: italic;
   margin: 0 0 14px;
   flex: 1;
+  /* 3 linhas sempre, mesmo sem depoimento: cards do carrossel com a mesma altura. */
+  min-height: calc(13.5px * 1.7 * 3);
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 3;
