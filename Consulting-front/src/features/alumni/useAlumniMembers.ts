@@ -10,9 +10,9 @@ type Source = "atlas" | "fallback";
  * Lista de ex-membros para a página pública.
  *
  * Busca os publicados na API pública do ATLAS (ordem = definida pela
- * diretoria na aba Institucional). Enquanto carrega, se a chamada falhar
- * ou se a lista vier vazia, mostra a lista estática (fallback.ts) para a
- * seção nunca aparecer vazia.
+ * diretoria na aba Institucional). Enquanto carrega, não mostra nada; se a
+ * chamada falhar ou a lista vier vazia, mostra a lista estática (fallback.ts)
+ * para a seção nunca ficar em branco.
  *
  * A resolução de idioma é feita no cliente, então trocar PT/EN não refaz a busca.
  */
@@ -33,11 +33,14 @@ export function useAlumniMembers(): { members: Member[]; source: Source; loading
   }, []);
 
   const members = useMemo<Member[]>(() => {
+    // Enquanto a API não responde, lista vazia: mostrar a estática aqui fazia
+    // a ordem antiga piscar por uma fração de segundo antes da ordem do ATLAS.
+    if (loading) return [];
     if (rows && rows.length > 0) {
       return rows.map((m) => apiToMember(m, lang, photoUrl(m)));
     }
     return fallbackMembers(lang);
-  }, [rows, lang]);
+  }, [rows, lang, loading]);
 
   return { members, source: rows && rows.length > 0 ? "atlas" : "fallback", loading };
 }
