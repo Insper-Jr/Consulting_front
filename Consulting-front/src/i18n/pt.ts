@@ -274,9 +274,9 @@ const pt = {
 
     integration: {
       kicker:     "Sinergia entre frentes",
-      titleMain:  "Estratégia, tecnologia e direito",
+      titleMain:  "Estratégia, processos, tecnologia e direito",
       titleAccent: "no mesmo projeto",
-      lede:       "Business não atua sozinho. Quando o projeto exige, trabalhamos lado a lado com as frentes de Tech e Direito combinando análise estratégica, desenvolvimento tecnológico e suporte jurídico para entregar uma solução completa ao cliente.",
+      lede:       "Business não atua sozinho. Quando o projeto exige, trabalhamos lado a lado com as frentes de Processos, Tech e Direito, combinando análise estratégica, eficiência operacional, desenvolvimento tecnológico e suporte jurídico para entregar uma solução completa ao cliente.",
     },
 
     about: {

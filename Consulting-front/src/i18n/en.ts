@@ -274,9 +274,9 @@ const en = {
 
     integration: {
       kicker:     "Synergy across areas",
-      titleMain:  "Strategy, technology and law",
+      titleMain:  "Strategy, processes, technology and law",
       titleAccent: "in the same project",
-      lede:       "Business does not work alone. When the project calls for it, we work side by side with our Tech and Law areas, combining strategic analysis, technology development and legal support to deliver a complete solution to the client.",
+      lede:       "Business does not work alone. When the project calls for it, we work side by side with our Processes, Tech and Law areas, combining strategic analysis, operational efficiency, technology development and legal support to deliver a complete solution to the client.",
     },
 
     about: {
